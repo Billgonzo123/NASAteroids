@@ -3,10 +3,8 @@ import React, { useState, useEffect } from 'react';
 
 
 const Player = () => {
-  const [playerPosition, setPlayerPosition] = useState({ x: 0, y: 0, dir: 90 });
-  const [playerMovement, setPlayerMovement] = useState({ speed: 3, currentSpeed: 0, topSpeed: 10, slowDown: 2 });
-  let { x, y, dir } = playerPosition;
-  let { speed, currentSpeed, topSpeed, slowDown } = playerMovement;
+  const [playerPosition, setPlayerPosition] = useState({ x: 0, y: 0, dir: 90, speed: .1, currentSpeed: 0, topSpeed: 10, slowDown: .05 });
+  let { x, y, dir, speed, currentSpeed, topSpeed, slowDown } = playerPosition;
   let keysPressed = [];
 
   function loop() {
@@ -15,8 +13,17 @@ const Player = () => {
       (currentSpeed < topSpeed) ? currentSpeed += speed : currentSpeed = topSpeed;
       x -= currentSpeed * Math.cos(dir * Math.PI / 180);
       y -= currentSpeed * Math.sin(dir * Math.PI / 180);
-  
-    
+
+    }
+
+    if (!keysPressed.includes('w')) {
+      if (currentSpeed > 0) {
+        currentSpeed -= slowDown 
+      x -= currentSpeed * Math.cos(dir * Math.PI / 180);
+      y -= currentSpeed * Math.sin(dir * Math.PI / 180);
+    }else {
+       currentSpeed = 0;
+    }
 
     }
 
@@ -34,8 +41,7 @@ const Player = () => {
 
     console.log('POSITION: ', playerPosition);
     console.log('CURR: ', keysPressed);
-    setPlayerPosition({ ...playerPosition, x: x, y: y, dir: dir });
-    setPlayerMovement({ ...playerMovement, currentSpeed: currentSpeed });
+    setPlayerPosition({ ...playerPosition, x: x, y: y, dir: dir, currentSpeed: currentSpeed });
 
     setTimeout(() => {
       loop()
@@ -49,6 +55,7 @@ const Player = () => {
   }, [])
 
   function logKeyDown(e) {
+    e.preventDefault()
     if (!keysPressed.includes(e.key)) {
       keysPressed = [...keysPressed, e.key];
       console.log('Pressed: ', keysPressed);
@@ -56,9 +63,11 @@ const Player = () => {
   }
 
   function logKeyUp(e) {
+    e.preventDefault()
     const newKeys = keysPressed.filter(key => key !== e.key);
     if (newKeys !== keysPressed) keysPressed = newKeys;
     console.log('Released: ', keysPressed);
+
   }
   document.addEventListener('keyup', logKeyUp);
   document.addEventListener('keydown', logKeyDown);
