@@ -1,14 +1,32 @@
 import React, { useState, useEffect } from 'react';
 
 
+const Player = ({gameSpeed}) => {
 
-const Player = () => {
-  const [playerPosition, setPlayerPosition] = useState({ x: 0, y: 0, dir: 90, speed: .1, currentSpeed: 0, topSpeed: 10, slowDown: .05 });
-  let { x, y, dir, speed, currentSpeed, topSpeed, slowDown } = playerPosition;
+  /* 
+  This is the players state. In the actual build we need to make these states global so that every element can have access to them for collision detection
+  Every user will have a Level that dictates what the inital state should be
+  Description of all states:
+  - x & y: These are the x and y cordinates. (0,0) is the TOP LEFT corner of the screen. I set the to 500x500 so they dont start in the corner
+  - dir: this is the direction in degrees of the players ship
+  - speed: This dictates acceleration speed
+  - currentSpeed: This is exactley what it says it is.
+  - topSpeed: This is also just what it says. Its the top speed the player can move
+  - slowDown: This dictates the speed at which the player deaccelerates, could also be called friction.
+  - turnSpeed: the rate in pixles the player can turn
+
+  NOTE: x and y account for the TOP LEFT corner of the player image. We can compensate for this by adding half the width and half the height of the image to these values
+  */
+  const [playerPosition, setPlayerPosition] = useState({ x: 500, y: 500, dir: 90, speed: .1, currentSpeed: 0, topSpeed: 10, slowDown: .05, turnSpeed: 3 });
+
+
+
+
+  let { x, y, dir, speed, currentSpeed, topSpeed, slowDown, turnSpeed } = playerPosition;
   let keysPressed = [];
 
+  //main loop for updating player position
   function loop() {
-
     if (keysPressed.includes('w')) {
       (currentSpeed < topSpeed) ? currentSpeed += speed : currentSpeed = topSpeed;
       x -= currentSpeed * Math.cos(dir * Math.PI / 180);
@@ -29,30 +47,26 @@ const Player = () => {
 
 
     if (keysPressed.includes('d')) {
-      (dir < 360) ? dir += 2 : dir = 0;
+      (dir < 360) ? dir += turnSpeed : dir = 0;
      
 
     }
     if (keysPressed.includes('a')) {
-      (dir <= 0) ? dir = 360 : dir -= 2;
+      (dir <= 0) ? dir = 360 : dir -= turnSpeed;
   
     }
 
 
-    console.log('POSITION: ', playerPosition);
-    console.log('CURR: ', keysPressed);
     setPlayerPosition({ ...playerPosition, x: x, y: y, dir: dir, currentSpeed: currentSpeed });
 
     setTimeout(() => {
       loop()
-    }, 16.67)
+    }, gameSpeed)
   }
 
 
 
-  useEffect(() => {
-    loop();
-  }, [])
+//keyboard key event handlers. Keeps an array of all currently pressed keys
 
   function logKeyDown(e) {
     e.preventDefault()
@@ -69,13 +83,21 @@ const Player = () => {
     console.log('Released: ', keysPressed);
 
   }
-  document.addEventListener('keyup', logKeyUp);
-  document.addEventListener('keydown', logKeyDown);
 
 
+//when the component is mounted, we initiate event listeners for keyup and keydown and start the loop
+  useEffect(() => {
+    document.addEventListener('keyup', logKeyUp);
+    document.addEventListener('keydown', logKeyDown);
+    loop();
+  }, [])
 
-
-
+/*
+  NOTES ABOUT ROTATION:
+  math.cos and Math.sin consider a RIGHT to be 0 deg, where  "transform: rotate()" in CSS considers UP to be 0 degrees
+  We have to compensate for this by subtracting 90 from the players direction.
+  This works because "transform: rotate()" will acept negative numbers where sin and cos cannot take negative numbers
+*/
   return (
     <img
       id='player-object'

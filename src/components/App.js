@@ -3,43 +3,22 @@ import '../App.css';
 import Player from './Player';
 
 function App() {
-
-  // const [keysPressed, setKeyPressed] = useState([]);
-  const [keysPressed, setKeysPressed] = useState([]);
-
-
-    function logKeyDown(e) {
-
-      if (!keysPressed.includes(e.key)) {
-        setKeysPressed([...keysPressed, e.key]);
-        console.log('Pressed: ', keysPressed);
-      }
-  
-
-    }
-
-
-    function logKeyUp(e) {
-      const newKeys = keysPressed.filter(key => key !== e.key);
-      if (newKeys !== keysPressed) setKeysPressed(newKeys);
-      console.log('Pressed: ', keysPressed);
-    }
-
-
-
-  console.log('Pressed: ', keysPressed);
-
+const [gameSpeed, setGameSpeed] = useState(8); 
+///the LOWER you set gameSpeed, the faster the game runs. 
+///16.667 is the largest this number should ever be (1000ms/60 ie, 60 frames per second) 
+///8 is best for a base speed because it updates inputs twice per frame
+//we can make each level harder by increasing this slightly
   return (
-    <div id='main-window'
-      tabIndex={-1}
-      // onKeyUp={logKeyUp}
-      // onKeyDown={logKeyDown}
-
-      keclassName="App">
-      <h1>Press W: Up A:Left D:Right</h1>
-      <Player keysPressed={keysPressed} />
+    <>
+     <h1>Press W: Up | A:Left | D:Right | GameSpeed: {gameSpeed}</h1>
+     <div id='main-window'
+      className="App">
+     
+      <Player gameSpeed={gameSpeed}/>
 
     </div>
+    </>
+
   );
 }
 

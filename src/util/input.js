@@ -1,5 +1,5 @@
 
-    
+    let keysPressed=[];
 
     function logKeyDown(e) {
 
@@ -24,4 +24,4 @@
 
 
 
-  module.exports = {handleInput, keysPressed};  
+  module.exports = {logKeyDown, logKeyUp, keysPressed};  
