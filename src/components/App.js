@@ -32,8 +32,8 @@ function App() {
   return (
     <div id='main-window'
       tabIndex={-1}
-      onKeyUp={logKeyUp}
-      onKeyDown={logKeyDown}
+      // onKeyUp={logKeyUp}
+      // onKeyDown={logKeyDown}
 
       keclassName="App">
       <h1>Press W: Up A:Left D:Right</h1>
