@@ -97,7 +97,7 @@ const Player = ({ gameSpeed }) => {
       alt='player-sprite'
 
       src={require('../../assets/player_sprt.png')}
-      svyle={{ "top": `${playerPosition.y}px`, "left": `${playerPosition.x}px`, "transform": `rotate(${playerPosition.dir - 90}deg) ` }}
+      style={{ "top": `${playerPosition.y}px`, "left": `${playerPosition.x}px`, "transform": `rotate(${playerPosition.dir - 90}deg)`}}
     />
   )
 }
