@@ -35,6 +35,12 @@ const Player = ({ gameSpeed }) => {
     x += tx;
     y += ty;
 
+    //this loops the player around the screen. These numbers represent the actual image height and width in pixels
+    if (y > window.innerHeight) y=-62;
+    if (y < -62) y= window.innerHeight;
+    if (x > window.innerWidth) x=-54;
+    if (x < -54) x= window.innerWidth;
+
     //Rotate ship whe A or D pressed
     if (keysPressed.includes('d')) {
       (dir < 360) ? dir += turnSpeed : dir = 0;
