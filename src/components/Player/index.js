@@ -43,8 +43,8 @@ const Player = ({ gameSpeed }) => {
       (dir <= 0) ? dir = 360 : dir -= turnSpeed;
     }
 
-//update state
-    setPlayerPosition({ ...playerPosition, x: x, y: y, dir: dir });
+     //update state
+    setPlayerPosition({ ...playerPosition, x: x, y: y,tx: tx, ty: ty, dir: dir });
 
     //loop the code every <gameSpeed>ms
     setTimeout(() => {
