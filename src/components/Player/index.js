@@ -10,16 +10,16 @@ const Player = ({ gameSpeed }) => {
   - x & y: These are the x and y cordinates. (0,0) is the TOP LEFT corner of the screen. I set the to 500x500 so they dont start in the corner
   - dir: this is the direction in degrees of the players ship
   - force: This dictates acceleration in a direction
-  - tx and ty: thrust magintueds for x and y
+  - vx and vy: Change in velocity for x and y
   - turnSpeed: the rate in pixles the player can turn
 
   NOTE: x and y account for the TOP LEFT corner of the player image. We can compensate for this by adding half the width and half the height of the image to these values
 
   */
-  const [playerPosition, setPlayerPosition] = useState({ x: 500, y: 500, dir: 90, thrust: .05, tx: 0, ty: 0, turnSpeed: 2 });
+  const [playerPosition, setPlayerPosition] = useState({ x: 500, y: 500, dir: 90, thrust: .05, vx: 0, vy: 0, turnSpeed: 2 });
 
   //pull out those states
-  let { x, y, dir, thrust, tx, ty, turnSpeed } = playerPosition;
+  let { x, y, dir, thrust, vx, vy, turnSpeed } = playerPosition;
 
   //this will hold the currently pressed keys
   let keysPressed = [];
@@ -27,15 +27,16 @@ const Player = ({ gameSpeed }) => {
   //main loop for updating player position
   function loop() {
     if (keysPressed.includes('w')) {
-      tx -= thrust * Math.cos((dir) * Math.PI / 180);
-      ty -= thrust * Math.sin((dir) * Math.PI / 180);
+      vx -= thrust * Math.cos((dir) * Math.PI / 180);
+      vy -= thrust * Math.sin((dir) * Math.PI / 180);
     }
 
     //constatley update momentum
-    x += tx;
-    y += ty;
+    x += vx;
+    y += vy;
 
-    //this loops the player around the screen. These numbers represent the actual image height and width in pixels
+    //this loops the player around the screen. 
+    //These numbers represent the actual image height and width in pixels
     if (y > window.innerHeight) y=-62;
     if (y < -62) y= window.innerHeight;
     if (x > window.innerWidth) x=-54;
@@ -50,7 +51,7 @@ const Player = ({ gameSpeed }) => {
     }
 
      //update state
-    setPlayerPosition({ ...playerPosition, x: x, y: y,tx: tx, ty: ty, dir: dir });
+    setPlayerPosition({ ...playerPosition, x: x, y: y,vx: vx, vy: vy, dir: dir });
 
     //loop the code every <gameSpeed>ms
     setTimeout(() => {
@@ -96,7 +97,7 @@ const Player = ({ gameSpeed }) => {
       alt='player-sprite'
 
       src={require('../../assets/player_sprt.png')}
-      style={{ "top": `${playerPosition.y}px`, "left": `${playerPosition.x}px`, "transform": `rotate(${playerPosition.dir - 90}deg)` }}
+      svyle={{ "top": `${playerPosition.y}px`, "left": `${playerPosition.x}px`, "transform": `rotate(${playerPosition.dir - 90}deg) ` }}
     />
   )
 }
