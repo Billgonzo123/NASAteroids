@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
+import motion from '../../util/motion';
 
-const Player = ({ gameSpeed }) => {
+let screenWidth = window.innerWidth;
+
+const Player = ({ gameSpeed, setScreenScale}) => {
 
   /* 
   This is the players state. In the actual build we need to make these states global so that every element can have access to them for collision detection
@@ -12,7 +15,6 @@ const Player = ({ gameSpeed }) => {
   - force: This dictates acceleration in a direction
   - vx and vy: Change in velocity for x and y
   - turnSpeed: the rate in pixles the player can turn
-
   NOTE: x and y account for the TOP LEFT corner of the player image. We can compensate for this by adding half the width and half the height of the image to these values
 
   */
@@ -26,6 +28,7 @@ const Player = ({ gameSpeed }) => {
 
   //main loop for updating player position
   function loop() {
+    
     if (keysPressed.includes('w')) {
       vx -= thrust * Math.cos((dir) * Math.PI / 180);
       vy -= thrust * Math.sin((dir) * Math.PI / 180);
@@ -37,10 +40,10 @@ const Player = ({ gameSpeed }) => {
 
     //this loops the player around the screen. 
     //These numbers represent the actual image height and width in pixels
-    if (y > window.innerHeight) y=-62;
-    if (y < -62) y= window.innerHeight;
-    if (x > window.innerWidth) x=-54;
-    if (x < -54) x= window.innerWidth;
+    if (y > 1080) y=-62;
+    if (y < -62) y= 1080;
+    if (x > 1920) x=-54;
+    if (x < -54) x= 1920;
 
     //Rotate ship whe A or D pressed
     if (keysPressed.includes('d')) {
@@ -52,6 +55,12 @@ const Player = ({ gameSpeed }) => {
 
      //update state
     setPlayerPosition({ ...playerPosition, x: x, y: y,vx: vx, vy: vy, dir: dir });
+
+    //check for a change in screen size and change scale if change
+    if (screenWidth !== window.innerWidth) {
+      screenWidth = window.innerWidth;
+      setScreenScale((screenWidth*.9)/1920);
+    }
 
     //loop the code every <gameSpeed>ms
     setTimeout(() => {
@@ -97,7 +106,7 @@ const Player = ({ gameSpeed }) => {
       alt='player-sprite'
 
       src={require('../../assets/player_sprt.png')}
-      style={{ "top": `${playerPosition.y}px`, "left": `${playerPosition.x}px`, "transform": `rotate(${playerPosition.dir - 90}deg)`}}
+      style={motion(playerPosition.x, playerPosition.y,playerPosition.dir)}
     />
   )
 }
