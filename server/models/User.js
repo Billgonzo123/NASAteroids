@@ -1,6 +1,5 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
-const highscoreSchema = require('./Leaderboard');
 
 const userSchema = new Schema(
   {
@@ -19,8 +18,8 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    // set highscores to be an array of numbers
-    highscores: [Number],
+    // set highscores to be an array
+    highscores: [Number]
   },
   // set this to use virtual below
   {

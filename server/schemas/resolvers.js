@@ -33,24 +33,27 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    addUserHighscore: async (parent, { highscore }, context) => {
+    addUserHighscore: async (parent, { highscores }, context) => {
       if (context.user) {
-        const updatedUser = await User.findOneAndUpdate(
+        console.log("user", context.user);
+        console.log("highscore", highscores);
+
+        const user = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $addToSet: { highscores: highscore } },
+          { $push: { highscores: highscores } },
           { new: true, runValidators: true }
         );
-        return updatedUser;
+        return user;
       }
     },
     addLeaderboardHighscore: async (parent, { highscore }, context) => {
-      // if (context.user) {
-      const leaderboard = await Leaderboard.update(
+      if (context.user) {
+      const leaderboard = await Leaderboard.updateOne(
         { $push: { highscores: { user: context.user, highscore: highscore } } },
         { new: true, runValidators: true }
       );
       return leaderboard;
-      // }
+      }
     },
   },
 };

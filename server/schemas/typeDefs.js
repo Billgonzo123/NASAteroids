@@ -6,11 +6,6 @@ const typeDefs = gql`
     user: User
   }
 
-  input Highscore {
-    user: String
-    highscore: Int
-  }
-
   type User {
     _id: ID!
     username: String
@@ -22,8 +17,13 @@ const typeDefs = gql`
   }
 
   type Leaderboard {
-    highscores: [Int]
+    highscores: [String]
   }
+
+  # input highscoreData {
+  #   user: String,
+  #   score: Int
+  # }
 
   type Query {
     me: User
@@ -32,9 +32,9 @@ const typeDefs = gql`
 
   type Mutation {
     login(email: String!, password: String!): Auth
-    addUser(username: String!, email: String!, password: String!): Auth
-    addUserHighscore(highscores: Highscore): User
-    addLeaderboardHighscore(highscores: Highscore!): Leaderboard
+    addUser(username: String!, email: String!, password: String!, highscores: [String]): Auth
+    addUserHighscore(highscores: [Int!]): User
+    addLeaderboardHighscore(highscores: [String]): Leaderboard
   }
 `;
 
