@@ -25,7 +25,7 @@ const userSchema = new Schema(
       required: false,
     },
     level: {
-      type: Int,
+      type: Number,
     },
   },
   // set this to use virtual below
