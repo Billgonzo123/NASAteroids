@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Player from '../Player';
 
-const MainWindow = ({ globalPlayer, setGlobalPlayer, asteroids, setAsteroids, bullets, setBullets, gameState, setGameState, screenScale, gameSpeed }) => {
+const MainWindow = ({ globalPlayer, setGlobalPlayer, asteroids, setAsteroids, bullets, setBullets, gameState, setGameState, screenScale,setScreenScale, gameSpeed, setGameSpeed }) => {
     ///main game loop here
 
 
@@ -11,6 +11,7 @@ const MainWindow = ({ globalPlayer, setGlobalPlayer, asteroids, setAsteroids, bu
     // //this will hold the currently pressed keys
     let keysPressed = [];
     let { x, y, xB, yB, dir, thrust, vx, vy, turnSpeed, spriteDim, alive} = globalPlayer;
+    let screenWidth = window.innerWidth;
     // //main loop for updating player position
     function loop() {
     
@@ -45,14 +46,15 @@ const MainWindow = ({ globalPlayer, setGlobalPlayer, asteroids, setAsteroids, bu
       }
 
        //update state
-      setGlobalPlayer({ ...globalPlayer, x: x, y: y, xB: xB, yB: yB, vx: vx, vy: vy, dir: dir, alive: alive });
+   
            //check for a change in screen size and change scale if change
-    //   if (screenWidth !== window.innerWidth) {
-    //     screenWidth = window.innerWidth;
-    //     setScreenScale((screenWidth*.9)/1920);
-    //     // 
-    //   }
-
+      if (screenWidth !== window.innerWidth) {
+        screenWidth = window.innerWidth;
+        console.log('Window Width: ', screenWidth)
+        //setScreenScale((screenWidth)/1920);
+      }
+           ////update all states at the end
+      setGlobalPlayer({ ...globalPlayer, x: x, y: y, xB: xB, yB: yB, vx: vx, vy: vy, dir: dir, alive: alive });
       //loop the code every <gameSpeed>ms
       setTimeout(() => {
         loop()
