@@ -31,7 +31,6 @@ const MainWindow = ({ globalPlayer, setGlobalPlayer, asteroids, setAsteroids, bu
       //setScreenScale((screenWidth)/1920);-----currently disabled-----
     }
     ////update all states at the end
-    const newEnd = asteroids.end +1; 
     setAsteroids({ ...asteroids, ...updatedAsteroids});
     setGlobalPlayer({ ...updatedPlayer });
     
@@ -74,7 +73,7 @@ const MainWindow = ({ globalPlayer, setGlobalPlayer, asteroids, setAsteroids, bu
     //generate initial asteroids
     for (let i = 1; i <= gameState.curLevel+2; i++) {
       updatedAsteroids[i] = {id: i}
-      setStartAsteroids(oldArray => [...oldArray,(<Asteroid key={i} id={i} className='asteroid-object' asteroids={asteroids} setAsteroids={setAsteroids} />)])
+      setStartAsteroids(oldArray => [...oldArray,(<Asteroid key={i} id={i} className='asteroid-object' asteroids={asteroids} setAsteroids={setAsteroids}  />)])
     }
 
     loop();

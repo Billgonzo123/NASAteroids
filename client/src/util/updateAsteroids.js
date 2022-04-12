@@ -23,7 +23,7 @@ function updateAsteroids(asteroids) {
             if (center.x < 0) x = 1920 - (spriteDim.w / 2);
             updatedAsteroids[key] = { x, y, xB, yB, dir, vx, vy, thrust, spriteDim };
         } else {
-            updatedAsteroids[key] = { x:0, y:0, xB:0, yB:0, dir:0, vx:0, vy:0, thrust:.05, spriteDim: {h: 10, w: 10} }
+            updatedAsteroids[key] = { }
         }
     };
 
