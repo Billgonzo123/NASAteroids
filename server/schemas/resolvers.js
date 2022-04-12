@@ -1,5 +1,6 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Leaderboard } = require('../models');
+const highscoreSchema = require('../models/Highscore');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
@@ -49,31 +50,26 @@ const resolvers = {
         return user;
       }
     },
-    addLeaderboardHighscore: async (parent, { data }, context) => {
+    addLeaderboardHighscore: async (parent, { score }, context) => {
       //query all leaderboards
       const all = await Leaderboard.findOne();
-      console.log('all', all);
+
+      // construct highscore object
+      let highscore = { user: context.user.username, score: score };
+      console.log('highscore object', highscore);
 
       // If a leaderboard doesn't already exist and logged in, create leaderboard
-      const doc = await Leaderboard.findOne();
-      if (doc instanceof Leaderboard == false && context.user) {
-        const newBoard = new Leaderboard({});
-        console.log('Leaderboard created:', newBoard);
-        console.log('leaderboard id', newBoard._id);
-
-        console.log("data", data);
-
-        // construct highscore object
-        let highscore = { user: context.user.username, score: data };
-        console.log('highscore object', highscore);
-
-        //apply changes to leaderboard
+      if (all instanceof Leaderboard == false && context.user) {
+        //create new board with highscore object info
+        const newBoard = Leaderboard.create(highscore);
+        return newBoard;
+      }
+      //else update existing board
+      else {
         const updatedLeaderboard = await Leaderboard.findOneAndUpdate(
-          { _id: newBoard._id },
-          { $push: { highscores: highscore } },
-          { new: true, runValidators: true }
+          { _id: all._id },
+          { $push: { highscores: highscore } }
         );
-
         return updatedLeaderboard;
       }
     },
