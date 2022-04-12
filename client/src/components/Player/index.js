@@ -14,11 +14,11 @@ const Player = ({globalPlayer, setGlobalPlayer}) => {
  useEffect(() => {
   //set global player to initial state on mount
  setGlobalPlayer({...globalPlayer, ...playerVars});
+ console.log('PLAYER STATE INITIATED!')
    },[])
 
    
 playerVars = {...playerVars,  ...globalPlayer};
-
 
 
   return (

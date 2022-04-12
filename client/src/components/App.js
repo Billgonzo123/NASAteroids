@@ -12,8 +12,8 @@ function App() {
   //we can make each level harder by increasing this slightly
   const [screenScale, setScreenScale] = useState(.75);//useState(window.innerWidth / 1920);
   const [globalPlayer, setGlobalPlayer] = useState({ x: 500, y: 500, xB: 500, yB: 500, dir: 90, thrust: .05, vx: 0, vy: 0, turnSpeed: 2, spriteDim: {w: 54,h: 62}, alive: true});
-  const [asteroids, setAsteroids]= useState([]);
-  const [bullets, setBullets] = useState([]);
+  const [asteroids, setAsteroids]= useState({});
+  const [bullets, setBullets] = useState({});
   const [gameState, setGameState]= useState({curLevel: 1, score: 0, exp: 0, playerLevel: 0, numberOfAsteroids: 0 });
 
 
