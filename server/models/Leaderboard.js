@@ -2,14 +2,14 @@ const { Schema, model } = require('mongoose');
 
 const leaderboardSchema = new Schema(
   {
-    username: {
+    user: {
       type: String,
       required: true,
       unique: true,
     },
 
-    highscore: {
-      type: String,
+    score: {
+      type: Number,
       required: true,
     },
   },

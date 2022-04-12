@@ -13,6 +13,9 @@ const resolvers = {
       }
       throw new AuthenticationError('🛸 Not logged in');
     },
+    leaderboard: async () => {
+      return Leaderboard.find();
+    },
   },
 
   Mutation: {
@@ -35,8 +38,8 @@ const resolvers = {
     },
     addUserHighscore: async (parent, { highscores }, context) => {
       if (context.user) {
-        console.log("user", context.user);
-        console.log("highscore", highscores);
+        console.log('user', context.user);
+        console.log('highscore', highscores);
 
         const user = await User.findOneAndUpdate(
           { _id: context.user._id },
@@ -46,13 +49,20 @@ const resolvers = {
         return user;
       }
     },
-    addLeaderboardHighscore: async (parent, { highscore }, context) => {
+    addLeaderboardHighscore: async (parent, { score }, context) => {
       if (context.user) {
-      const leaderboard = await Leaderboard.updateOne(
-        { $push: { highscores: { user: context.user, highscore: highscore } } },
-        { new: true, runValidators: true }
-      );
-      return leaderboard;
+        console.log(score);
+        console.log('context.user.username', context.user.username);
+
+        const leaderboard = await Leaderboard.updateOne(
+          {
+            $push: {
+              highscores: { user: context.user.username, score: score },
+            },
+          },
+          { new: true, runValidators: true }
+        );
+        return leaderboard;
       }
     },
   },
