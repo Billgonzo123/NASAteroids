@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import motion from '../../utils/motion';
+import motion from '../../util/motion';
 
 // let screenWidth = window.innerWidth;
 
