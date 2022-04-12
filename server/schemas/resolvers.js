@@ -1,6 +1,5 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Leaderboard } = require('../models');
-const highscoreSchema = require('../models/Highscore');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
@@ -65,7 +64,7 @@ const resolvers = {
         return newBoard;
       }
       //else update existing board
-      else {
+      else if (context.user) {
         const updatedLeaderboard = await Leaderboard.findOneAndUpdate(
           { _id: all._id },
           { $push: { highscores: highscore } }

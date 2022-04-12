@@ -20,11 +20,6 @@ const typeDefs = gql`
     highscores: [highscore]
   }
 
-  input highscoreData {
-    user: String,
-    score: Int
-  }
-
   type highscore {
     user: String,
     score: Int
