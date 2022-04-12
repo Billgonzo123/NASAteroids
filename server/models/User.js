@@ -19,7 +19,14 @@ const userSchema = new Schema(
       required: true,
     },
     // set highscores to be an array
-    highscores: [Number]
+    highscores: [Number],
+    avatar: {
+      type: String,
+      required: false,
+    },
+    level: {
+      type: Int,
+    },
   },
   // set this to use virtual below
   {

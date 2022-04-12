@@ -49,21 +49,22 @@ const resolvers = {
         return user;
       }
     },
-    addLeaderboardHighscore: async (parent, { score }, context) => {
-      if (context.user) {
-        console.log(score);
-        console.log('context.user.username', context.user.username);
+    addLeaderboardHighscore: async (parent, { data }, context) => {
+      // If a leaderboard doesn't already exist, create one
+      // Leaderboard.update({ _id: 0 }, {}, { upsert: true });
+      
+      console.log(data)
+      // // construct highscore object
+      // let highscore = { user: context.user.username, score: data };
+      // console.log('highscore object', highscore);
 
-        const leaderboard = await Leaderboard.updateOne(
-          {
-            $push: {
-              highscores: { user: context.user.username, score: score },
-            },
-          },
-          { new: true, runValidators: true }
-        );
-        return leaderboard;
-      }
+      // if (context.user) {
+      //   const leaderboard = await Leaderboard.updateOne(
+      //     { $push: { highscores: highscore } },
+      //     { new: true, runValidators: true }
+      //   );
+      //   return leaderboard;
+      // }
     },
   },
 };
