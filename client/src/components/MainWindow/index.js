@@ -111,8 +111,7 @@ const MainWindow = () => {
 
   // console.log(asteroids)
 
-  return (
-
+  return ( 
     <div id='game-window'
 
 
