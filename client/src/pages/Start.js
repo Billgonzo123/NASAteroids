@@ -1,6 +1,7 @@
 import React from "react";
 import Footer from "../components/Footer";
-import { Button, Box, Container, Grid } from "@mui/material";
+import { Button, Box, Grid } from "@mui/material";
+import { color, fontFamily } from "@mui/system";
 
 const Start = () => {
   return (
