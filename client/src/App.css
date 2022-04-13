@@ -1,39 +1,29 @@
-*{
+* {
   padding: 0;
   margin: 0;
 }
 
-
 h1 {
-  
-  top:0;
+  top: 0;
   left: 0;
   z-index: 100;
   border: 2px solid black;
   background-color: antiquewhite;
 }
 
-
 #main-window {
-
   z-index: -100;
   border: 2px solid black;
-  background-image: url("./assets/space.gif");
-  background-repeat:repeat;
-  position:relative;
+  background-image: url('./assets/space.gif');
+  background-repeat: repeat;
+  position: relative;
   /* the width and height must be fixed! Use transform: scale() on the body to change size of all elements */
-  top:0;
+  top: 0;
   left: 0;
   width: 1920px;
   height: 1080px;
 }
 
-#player-object{
+#player-object {
   position: absolute;
-
 }
-
-
-
-
-

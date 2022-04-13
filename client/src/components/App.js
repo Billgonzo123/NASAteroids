@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../App.css';
 import MainWindow from './MainWindow';
+import Profile from './Profile';
 
 
 
@@ -23,7 +24,7 @@ function App() {
   return (
     <>
       <h1>Press W: Up | A:Left | D:Right | GameSpeed: {gameSpeed}</h1>
-    
+    <Profile />
       <MainWindow 
         globalPlayer={globalPlayer}
         setGlobalPlayer= {setGlobalPlayer}
