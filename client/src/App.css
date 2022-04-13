@@ -53,7 +53,6 @@ table {
     flex-direction: column;
   }
 
-
 #player-object {
   position: absolute;
 }
@@ -65,8 +64,3 @@ table {
 .upperCase {
   text-transform: uppercase;
 }
-
-
-
-
-

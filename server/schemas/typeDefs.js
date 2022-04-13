@@ -10,10 +10,10 @@ const typeDefs = gql`
     _id: ID!
     username: String
     email: String
-    XP: Int
     highscores: [Int]
     avatar: String
     level: Int
+    XP: Int
   }
 
   type Leaderboard {

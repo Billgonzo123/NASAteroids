@@ -22,10 +22,10 @@ NASAteroids (NASA + Aesteroids), is a recreation of the 1979 Atari game built in
 ## Usage
 
 ## Contribution
-- Chris Kurz
-- Emily Dokken
-- Chris Angalet
-- Katie Churchwell
+- [Chris Kurz](https://github.com/ChrisKurz098)
+- [Emily Dokken](https://github.com/emdok)
+- [Chris Angalet](https://github.com/cangalet)
+- [Katie Churchwell](https://github.com/katiechurchwell)
   
 ---
   ![](https://img.shields.io/badge/license-MIT-blue)
