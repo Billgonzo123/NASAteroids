@@ -3,6 +3,7 @@ import '../App.css';
 import MainWindow from './MainWindow';
 import Profile from './Profile';
 
+import Button from './Button';
 
 
 function App() {
@@ -23,8 +24,13 @@ function App() {
 
   return (
     <>
-      <h1>Press W: Up | A:Left | D:Right | GameSpeed: {gameSpeed}</h1>
-    <Profile />
+      
+      <div className="nes-container with-title is-centered">
+        <p className="title">Controls</p>
+        <h1>Press W: Up | A:Left | D:Right | GameSpeed: {gameSpeed}</h1>
+      </div>
+      <Button />
+    
       <MainWindow 
         globalPlayer={globalPlayer}
         setGlobalPlayer= {setGlobalPlayer}
