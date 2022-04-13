@@ -31,17 +31,17 @@ h1 {
 
 
 #game-window {
-
-  z-index: -100;
-  border: 20px solid white;
+  position: absolute;
+  z-index: 1;
+  border: 20px solid rgb(255, 255, 255);
   background-image: url("./assets/space.gif");
   background-repeat:repeat;
-  position:relative;
+  position:absolute;
   /* the width and height must be fixed! Use transform: scale() on the body to change size of all elements */
-  
   width: 1920px;
   height: 1080px;
 }
+
 
 #player-object {
   position: absolute;

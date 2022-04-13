@@ -13,7 +13,7 @@ const MainWindow = () => {
   //we can make each level harder by increasing this slightly if we want
   const [screenScale, setScreenScale] = useState(.75);//useState(window.innerWidth / 1920);
   const [globalPlayer, setGlobalPlayer] = useState({ x: 960, y: 540, xB: 500, yB: 500, dir: 90, thrust: .05, vx: 0, vy: 0, turnSpeed: 2, spriteDim: { w: 54, h: 62 }, alive: true });
-  const [asteroids, setAsteroids] = useState({ });
+  const [asteroids, setAsteroids] = useState({});
   const [bullets, setBullets] = useState({});
   const [gameState, setGameState] = useState({ curLevel: 1, score: 0, exp: 0, playerLevel: 0, numberOfAsteroids: 0 });
   const [timer, setTimer] = useState(0);
@@ -28,31 +28,32 @@ const MainWindow = () => {
   let screenWidth = window.innerWidth;
 
   // -------------------------------------------------------Game Loop----------------------------------------------//
-  const  loop = () => {
+  const loop = () => {
     setTimeout(() => {
-    //update player 
-    updatedPlayer = updatePlayer(updatedPlayer, keysPressed);
-    
-    //update asteroids
-     setAsteroids(oldOpsitions => {
-      return updateAsteroids(oldOpsitions);
-     })
+      //update player 
+      updatedPlayer = updatePlayer(updatedPlayer, keysPressed);
 
-    //  console.log(updatedAsteroids)
-    //check for a change in screen size and change scale if change
-    if (screenWidth !== window.innerWidth) {
-      screenWidth = window.innerWidth;
-      console.log('Window Width: ', screenWidth)
-      // setScreenScale((screenWidth)/1920);
-    }
-    ////update all states at the end
-    setGlobalPlayer({ ...updatedPlayer });
+      //update asteroids
+      setAsteroids(oldOpsitions => {
+        return updateAsteroids(oldOpsitions);
+      })
 
-    //check how many asteroid-object there are
-    const numOfAst = document.querySelectorAll('#asteroid-object').length;
-    setGameState({ ...gameState, numberOfAsteroids: numOfAst });
+      //  console.log(updatedAsteroids)
+      //check for a change in screen size and change scale if change
+      if (screenWidth !== window.innerWidth) {
+        screenWidth = window.innerWidth;
+        console.log('Window Width: ', screenWidth)
+        console.log("Game scale: ", (window.innerWidth)/1920)
+         setScreenScale((window.innerWidth)/1920);
+      }
+      ////update all states at the end
+      setGlobalPlayer({ ...updatedPlayer });
 
-    setTimer(old => old + 1);
+      //check how many asteroid-object there are
+      const numOfAst = document.querySelectorAll('#asteroid-object').length;
+      setGameState({ ...gameState, numberOfAsteroids: numOfAst });
+
+      setTimer(old => old + 1);
       loop()
     }, gameSpeed);
   }
@@ -82,23 +83,26 @@ const MainWindow = () => {
     document.addEventListener('keydown', logKeyDown);
     //generate initial asteroids
     for (let i = 1; i <= gameState.curLevel + 3; i++) {
-     setAsteroids(old => ({...old,[i]:{     
-      id: i,
-      x: Math.floor(Math.random() * 1920),
-      y: Math.floor(Math.random() * 1080),
-      xB: 0,
-      yB: 0,
-      dir: Math.floor(Math.random() * 100) + Math.floor(Math.random() * (i*40)),
-      thrust: .8,
-      vx: 0,
-      vy: 0,
-      turnSpeed: 2,
-      spriteDim: { w: 248, h: 248 },
-      alive: true}}))
+      setAsteroids(old => ({
+        ...old, [i]: {
+          id: i,
+          x: Math.floor(Math.random() * 1920),
+          y: Math.floor(Math.random() * 1080),
+          xB: 0,
+          yB: 0,
+          dir: Math.floor(Math.random() * 100) + Math.floor(Math.random() * (i * 40)),
+          thrust: .8,
+          vx: 0,
+          vy: 0,
+          turnSpeed: 2,
+          spriteDim: { w: 248, h: 248 },
+          alive: true
+        }
+      }))
     }
 
     loop();
-//ignore below error
+    //ignore below error
   }, [])
 
 
@@ -107,12 +111,13 @@ const MainWindow = () => {
   // console.log(asteroids)
 
   return (
+
     <div id='game-window'
 
-  
+
       className="App"
-      style={{ left: (window.innerWidth-(1920))/2, "transform": `scale(${screenScale})` }}>
-     <div className="nes-container with-title is-centered">
+      style={{ left: (window.innerWidth - (1920)) / 2, "transform": `scale(${screenScale})` }}>
+      <div className="nes-container with-title is-centered">
         <p className="title">Controls</p>
         <h1>Press W: Up | A:Left | D:Right |</h1>
       </div>
@@ -125,11 +130,11 @@ const MainWindow = () => {
         const pos = asteroids[posId];
         return pos ? (
           <img
-          key={posId}
-          id='asteroid-object'
-          alt='asteroid-sprite'
-          src={require('../../assets/asteroid_large_sprt.png')}
-          style={motion(pos.x, pos.y, pos.dir)}
+            key={posId}
+            id='asteroid-object'
+            alt='asteroid-sprite'
+            src={require('../../assets/asteroid_large_sprt.png')}
+            style={motion(pos.x, pos.y, pos.dir)}
           ></img>
         ) : (
           ""
@@ -137,6 +142,7 @@ const MainWindow = () => {
       })}
 
     </div>
+
   )
 
 }
