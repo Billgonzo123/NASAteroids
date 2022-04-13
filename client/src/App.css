@@ -41,18 +41,6 @@ table {
 }
 
 #game-window {
-  position: absolute;
-  z-index: 1;
-  border: 20px solid rgb(255, 255, 255);
-}
-  tr {
-    display: flex;
-    flex-direction: column;
-  }
-
-#main-window {
-  z-index: -100;
-  border: 2px solid black;
   background-image: url("./assets/space.gif");
   background-repeat:repeat;
   position:absolute;
@@ -60,6 +48,10 @@ table {
   width: 1920px;
   height: 1080px;
 }
+  tr {
+    display: flex;
+    flex-direction: column;
+  }
 
 #player-object {
   position: absolute;
