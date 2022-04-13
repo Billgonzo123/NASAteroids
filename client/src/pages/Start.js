@@ -4,8 +4,10 @@ import { Button, Box, Container, Grid } from "@mui/material";
 
 const Start = () => {
   return (
+    <Box>
       <Grid
         container
+        columnSpacing={{ md: 1 }}
         direction="column"
         justifyContent="center"
         alignItems="center"
@@ -46,6 +48,7 @@ const Start = () => {
         </div>
         <Footer />
       </Grid>
+    </Box>
   );
 };
 
