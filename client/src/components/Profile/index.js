@@ -1,42 +1,45 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 import { useQuery, useMutation } from '@apollo/client';
-import { GET_ME, GET_LEADERBOARD } from '../../util/queries';
-import { ADD_USER, LOGIN_USER } from '../utils/mutations';
-
-import Auth from '../../util/auth';
+import { GET_ME } from '../../util/queries';
 
 const Profile = () => {
-  const [login] = useMutation(LOGIN_USER);
   const { loading, data } = useQuery(GET_ME);
-  console.log(data);
+  console.log('logged in user data', data);
 
   return (
-    <div class="nes-container is-dark with-title">
-      {/* username title */}
-      <p class="title">${data.me.username}</p>
+    <div>
+      {/* username title: ${data.me.username} */}
+      <p className="title" style={{textAlign:"center", textTransform: "uppercase"}}>username</p>
       {/* avatar input */}
       <div
-        style="background-color:#212529; padding: 1rem;"
-        class="nes-field is-inline"
+        // style={{`background-color`: `#212529`, padding: `1rem` }}
+        className="nes-field is-inline"
       >
-        <label for="dark_field" style="color:#fff;">
+        <label style={{ color:`#fff` }}>
           Avatar:
         </label>
         <input
           type="text"
           id="dark_field"
-          class="nes-input is-dark"
+          className="nes-input is-dark"
           placeholder="Image url for avatar"
         />
       </div>
-      {/* XP */}
+      {/* XP: ${data.me.XP} */}
       <div>
-        <p>XP: ${data.me.XP}</p>
+        <p>XP: 10,000</p>
       </div>
       {/* user scores */}
-      <div>
-        <p>Highscores:</p>
+      <div className="lists">
+      <ul className="nes-list is-circle">
+          SCORES:
+            {/* {data.me.highscores.map((score) => {
+              return <li>${score}</li>;
+            })} */}
+            <li>100</li>
+            <li>200</li>
+          </ul>
       </div>
     </div>
   );

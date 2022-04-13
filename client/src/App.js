@@ -38,7 +38,6 @@ function App() {
     <ApolloProvider client={client}>
       <Button />
       <MainWindow/>
-    <Profile />
     </ApolloProvider>
 
   );
