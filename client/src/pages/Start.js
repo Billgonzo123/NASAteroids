@@ -2,10 +2,12 @@ import React from "react";
 import Footer from "../components/Footer";
 import { Button, Box, Grid } from "@mui/material";
 import { color, fontFamily } from "@mui/system";
+import Profile from '../components/Profile';
 
 const Start = () => {
   return (
     <Box>
+         <Profile/>
       <Grid
         container
         columnSpacing={{ md: 1 }}

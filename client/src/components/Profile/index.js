@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
 import { useQuery, useMutation } from '@apollo/client';
-import { GET_ME, GET_LEADERBOARD } from '../util/queries';
+import { GET_ME, GET_LEADERBOARD } from '../../util/queries';
 
-import Auth from '../util/auth';
+import Auth from '../../util/auth';
 
 const Profile = () => {
 
