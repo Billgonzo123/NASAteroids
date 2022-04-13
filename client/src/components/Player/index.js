@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import Asteroid from '../Asteroid';
+import React, {useEffect } from 'react';
 
 import motion from '../../util/motion';
 

@@ -1,29 +1,44 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Player from '../Player';
-import Asteroid from '../Asteroid';
+import motion from '../../util/motion';
 import updateAsteroids from '../../util/updateAsteroids';
 import updatePlayer from '../../util/updatePlayer';
 
-const MainWindow = ({ globalPlayer, setGlobalPlayer, asteroids, setAsteroids, bullets, setBullets, gameState, setGameState, screenScale, setScreenScale, gameSpeed, setGameSpeed }) => {
+const MainWindow = () => {
 
+  const [gameSpeed, setGameSpeed] = useState(8);
+  ///the LOWER you set gameSpeed, the faster the game runs. 
+  ///16.667 is the largest this number should ever be (1000ms/60 ie, 60 frames per second) 
+  ///8 is best for a base speed because it updates inputs twice per frame. very responsive
+  //we can make each level harder by increasing this slightly if we want
+  const [screenScale, setScreenScale] = useState(.75);//useState(window.innerWidth / 1920);
+  const [globalPlayer, setGlobalPlayer] = useState({ x: 500, y: 500, xB: 500, yB: 500, dir: 90, thrust: .05, vx: 0, vy: 0, turnSpeed: 2, spriteDim: { w: 54, h: 62 }, alive: true });
+  const [asteroids, setAsteroids] = useState({ });
+  const [bullets, setBullets] = useState({});
+  const [gameState, setGameState] = useState({ curLevel: 1, score: 0, exp: 0, playerLevel: 0, numberOfAsteroids: 0 });
+  const [timer, setTimer] = useState(0);
+  //-------------------------------------------------------------------END STATES---------------------------------------------------------------//
 
+  //----------------------------------------------------------- Cnsturctor Scope Variables------------------------------------------------------//
   // //this will hold the currently pressed keys
   let keysPressed = [];
   //these are variable outside the loop that hold current states for all constructors
   let updatedPlayer = globalPlayer;
-  let updatedAsteroids = asteroids;
   //generate multiple asteroids based on game level
-  const [startAsteroids, setStartAsteroids] = useState([]);
-
   let screenWidth = window.innerWidth;
 
-  // -------------------------------------------------------main loop for updating player position----------------------------------------------//
-  function loop() {
+  // -------------------------------------------------------Game Loop----------------------------------------------//
+  const  loop = () => {
+    setTimeout(() => {
     //update player 
     updatedPlayer = updatePlayer(updatedPlayer, keysPressed);
+    
     //update asteroids
-   updatedAsteroids = updateAsteroids(updatedAsteroids, setAsteroids);
+     setAsteroids(oldOpsitions => {
+      return updateAsteroids(oldOpsitions);
+     })
 
+    //  console.log(updatedAsteroids)
     //check for a change in screen size and change scale if change
     if (screenWidth !== window.innerWidth) {
       screenWidth = window.innerWidth;
@@ -33,26 +48,19 @@ const MainWindow = ({ globalPlayer, setGlobalPlayer, asteroids, setAsteroids, bu
     ////update all states at the end
     setGlobalPlayer({ ...updatedPlayer });
 
-    setAsteroids({...updatedAsteroids});
-    
     //check how many asteroid-object there are
     const numOfAst = document.querySelectorAll('#asteroid-object').length;
-    setGameState({...gameState, numberOfAsteroids: numOfAst});
+    setGameState({ ...gameState, numberOfAsteroids: numOfAst });
 
-    //loop the code every <gameSpeed>ms
-    setTimeout(() => {
+    setTimer(old => old + 1);
       loop()
-    }, gameSpeed)
+    }, gameSpeed);
   }
 
-  // console.log(asteroids);
-
-
-
-  //-------------------------------------Key Input--------------------------------------------------------------//
+  //-------------------------------------Key Input-----------------------------------//
 
   //keyboard key event handlers. Keeps an array of all currently pressed keys
-  function logKeyDown(e) {
+  const logKeyDown = (e) => {
     e.preventDefault()
     if (!keysPressed.includes(e.key)) {
       keysPressed = [...keysPressed, e.key];
@@ -60,7 +68,7 @@ const MainWindow = ({ globalPlayer, setGlobalPlayer, asteroids, setAsteroids, bu
     }
   }
 
-  function logKeyUp(e) {
+  const logKeyUp = (e) => {
     e.preventDefault()
     const newKeys = keysPressed.filter(key => key !== e.key);
     if (newKeys !== keysPressed) keysPressed = newKeys;
@@ -68,25 +76,38 @@ const MainWindow = ({ globalPlayer, setGlobalPlayer, asteroids, setAsteroids, bu
   }
 
 
-
-  //when the component is mounted, we initiate event listeners for keyup and keydown and start the loop--------
+  //...........................................USE EFFECT------------------------------//
   useEffect(() => {
     document.addEventListener('keyup', logKeyUp);
     document.addEventListener('keydown', logKeyDown);
     //generate initial asteroids
-    for (let i = 1; i <= gameState.curLevel+2; i++) {
-      
-      setStartAsteroids(oldArray => [...oldArray,(<Asteroid key={i} id={i} className='asteroid-object' asteroids={asteroids} setAsteroids={setAsteroids}  />)])
+    for (let i = 1; i <= gameState.curLevel + 2; i++) {
+     setAsteroids(old => ({...old,[i]:{     
+      id: i,
+      x: 0,
+      y: 0,
+      xB: 0,
+      yB: 0,
+      dir: Math.floor(Math.random() * 359),
+      thrust: .8,
+      vx: 0,
+      vy: 0,
+      turnSpeed: 2,
+      spriteDim: { w: 248, h: 248 },
+      alive: true}}))
     }
 
     loop();
+
   }, [])
 
 
 
 
+  // console.log(asteroids)
+
   return (
-    <div id='main-window'
+    <div id='game-window'
       className="App"
       style={{ "transform": `scale(${screenScale})` }}>
 
@@ -94,8 +115,21 @@ const MainWindow = ({ globalPlayer, setGlobalPlayer, asteroids, setAsteroids, bu
         globalPlayer={globalPlayer}
         setGlobalPlayer={setGlobalPlayer}
       />
-    
-      {startAsteroids.map( (roid) => (roid))}
+
+      {Object.keys(asteroids).map(posId => {
+        const pos = asteroids[posId];
+        return pos ? (
+          <img
+          key={posId}
+          id='asteroid-object'
+          alt='asteroid-sprite'
+          src={require('../../assets/asteroid_large_sprt.png')}
+          style={motion(pos.x, pos.y, pos.dir)}
+          ></img>
+        ) : (
+          ""
+        );
+      })}
 
     </div>
   )

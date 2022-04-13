@@ -14,7 +14,7 @@ h1 {
 }
 
 
-#main-window {
+#game-window {
 
   z-index: -100;
   border: 2px solid black;
@@ -28,7 +28,12 @@ h1 {
   height: 1080px;
 }
 
-#player-object{
+#player-object {
+  position: absolute;
+
+}
+
+#asteroid-object{
   position: absolute;
 
 }
