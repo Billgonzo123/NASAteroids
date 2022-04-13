@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import Asteroid from '../Asteroid';
 
 import motion from '../../util/motion';
 
 // let screenWidth = window.innerWidth;
-
 
 
 const Player = ({globalPlayer, setGlobalPlayer}) => {

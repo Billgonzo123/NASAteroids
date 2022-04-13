@@ -1,5 +1,5 @@
 
-function updateAsteroids(asteroids) {
+function updateAsteroids(asteroids,setAsteroids) {
 
     let updatedAsteroids = { ...asteroids };
     for (let [key, value] of Object.entries(updatedAsteroids)) {
@@ -21,7 +21,8 @@ function updateAsteroids(asteroids) {
             if (center.y < 0) y = 1080 - (spriteDim.h / 2);
             if (center.x > 1920) x = 0;
             if (center.x < 0) x = 1920 - (spriteDim.w / 2);
-            updatedAsteroids[key] = { x, y, xB, yB, dir, vx, vy, thrust, spriteDim };
+            updatedAsteroids[key] = {...value, x, y, xB, yB, dir, vx, vy, thrust, spriteDim };
+            setAsteroids(old => ({...old, 'new': 'object' }) )
         } else {
             updatedAsteroids[key] = { }
         }

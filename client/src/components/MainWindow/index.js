@@ -22,7 +22,7 @@ const MainWindow = ({ globalPlayer, setGlobalPlayer, asteroids, setAsteroids, bu
     //update player 
     updatedPlayer = updatePlayer(updatedPlayer, keysPressed);
     //update asteroids
-    updatedAsteroids = updateAsteroids(updatedAsteroids);
+   updatedAsteroids = updateAsteroids(updatedAsteroids, setAsteroids);
 
     //check for a change in screen size and change scale if change
     if (screenWidth !== window.innerWidth) {
@@ -31,8 +31,9 @@ const MainWindow = ({ globalPlayer, setGlobalPlayer, asteroids, setAsteroids, bu
       //setScreenScale((screenWidth)/1920);-----currently disabled-----
     }
     ////update all states at the end
-    setAsteroids({ ...asteroids, ...updatedAsteroids});
     setGlobalPlayer({ ...updatedPlayer });
+
+    setAsteroids({...updatedAsteroids});
     
     //check how many asteroid-object there are
     const numOfAst = document.querySelectorAll('#asteroid-object').length;
@@ -43,6 +44,8 @@ const MainWindow = ({ globalPlayer, setGlobalPlayer, asteroids, setAsteroids, bu
       loop()
     }, gameSpeed)
   }
+
+  // console.log(asteroids);
 
 
 
@@ -72,7 +75,7 @@ const MainWindow = ({ globalPlayer, setGlobalPlayer, asteroids, setAsteroids, bu
     document.addEventListener('keydown', logKeyDown);
     //generate initial asteroids
     for (let i = 1; i <= gameState.curLevel+2; i++) {
-      updatedAsteroids[i] = {id: i}
+      
       setStartAsteroids(oldArray => [...oldArray,(<Asteroid key={i} id={i} className='asteroid-object' asteroids={asteroids} setAsteroids={setAsteroids}  />)])
     }
 
