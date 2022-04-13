@@ -3,7 +3,7 @@
 
 *{
   padding: 0;
-  margin: 20px;
+  margin: 0;
 }
 
 :root {
@@ -22,26 +22,15 @@ body {
   color: var(--font-color);
 }
 
-main {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
 .logo h1 {
   font-family: var(--headings-font);
   font-size: var(--headings-font-size);
   color: #FFFE3D;
   -webkit-text-stroke: 1px #FF0000;
-  text-align: center;
 }
 
 p {
   font-family: var(--secondary-font);
-}
-
-.leaderboard {
-  text-align: center;
 }
 
 table {
@@ -70,13 +59,6 @@ tr {
 
 #player-object{
   position: absolute;
-}
-
-footer {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  min-height: 100vh;
 }
 
 /* Button Component */
