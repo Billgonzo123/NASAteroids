@@ -1,17 +1,22 @@
 import React from "react";
 import Footer from "../components/Footer";
-import { Button, Box, Container } from "@mui/material";
+import { Button, Box, Container, Grid } from "@mui/material";
 
 const Start = () => {
   return (
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "columm",
-          minHeight: "100vh",
-        }}
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "columm",
+        minHeight: "100vh",
+      }}
+    >
+      <Grid
+        container
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
       >
-       <Container component="main" maxWidth="sm">
         <div className="logo">
           <h1>ASTEROIDS</h1>
         </div>
@@ -45,9 +50,9 @@ const Start = () => {
           <Button variant="text">LOGIN</Button>
           <Button variant="text">SIGNUP</Button>
         </div>
-        </Container>
         <Footer />
-      </Box>
+      </Grid>
+    </Box>
   );
 };
 
