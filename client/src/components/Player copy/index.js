@@ -1,8 +1,9 @@
-import React, {useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 import motion from '../../util/motion';
 
 // let screenWidth = window.innerWidth;
+
 
 
 const Player = ({globalPlayer, setGlobalPlayer}) => {
@@ -13,12 +14,12 @@ const Player = ({globalPlayer, setGlobalPlayer}) => {
  useEffect(() => {
   //set global player to initial state on mount
  setGlobalPlayer({...globalPlayer, ...playerVars});
- console.log('PLAYER STATE INITIATED!')
  //eslint-disable-next-line react-hooks/exhaustive-deps
    },[])
 
    
 playerVars = {...playerVars,  ...globalPlayer};
+
 
 
   return (
