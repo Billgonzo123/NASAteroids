@@ -4,18 +4,12 @@ import { Button, Box, Container, Grid } from "@mui/material";
 
 const Start = () => {
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "columm",
-        minHeight: "100vh",
-      }}
-    >
       <Grid
         container
         direction="column"
         justifyContent="center"
         alignItems="center"
+        height="100vh"
       >
         <div className="logo">
           <h1>ASTEROIDS</h1>
@@ -52,7 +46,6 @@ const Start = () => {
         </div>
         <Footer />
       </Grid>
-    </Box>
   );
 };
 
