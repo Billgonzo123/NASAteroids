@@ -18,6 +18,7 @@ html {
 }
 
 body {
+  overflow: hidden;
   background-color: rgba(0, 0, 0, 0);
   color: var(--font-color);
 }
@@ -39,28 +40,27 @@ table {
   justify-content: center;
 }
 
-tr {
-  display: flex;
-  flex-direction: column;
-}
-
-#main-window {
-  z-index: -100;
-  border: 2px solid black;
+#game-window {
   background-image: url("./assets/space.gif");
   background-repeat:repeat;
-  position:relative;
+  position:absolute;
   /* the width and height must be fixed! Use transform: scale() on the body to change size of all elements */
-  top:0;
-  left: 0;
   width: 1920px;
   height: 1080px;
 }
+  tr {
+    display: flex;
+    flex-direction: column;
+  }
 
-#player-object{
+
+#player-object {
   position: absolute;
 }
 
+#asteroid-object{
+  position: absolute;
+}
 /* Button Component */
 .upperCase {
   text-transform: uppercase;
