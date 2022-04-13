@@ -10,9 +10,9 @@ const Profile = () => {
   const {loading, data } = useQuery(GET_ME);
   console.log(data);
   return (
-   <div>
+   <>
        test!
-   </div>
+   </>
   )
 }
 
