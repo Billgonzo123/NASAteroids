@@ -79,6 +79,7 @@ const MainWindow = () => {
 
   //...........................................USE EFFECT------------------------------//
   useEffect(() => {
+    setScreenScale((window.innerWidth)/1920);
     document.addEventListener('keyup', logKeyUp);
     document.addEventListener('keydown', logKeyDown);
     //generate initial asteroids
