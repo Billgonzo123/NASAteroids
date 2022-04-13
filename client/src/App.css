@@ -9,31 +9,50 @@
 :root {
   --headings-font: 'Russo One', sans-serif;
   --secondary-font: 'Press Start 2P', cursive;
-  --headings-font-size: 15vw;
-  color: #fff;
+  --headings-font-size: 10vw;
+  --font-color: #fff;
+}
+
+html {
+  background: url(./assets/space.gif) repeat center center fixed;
 }
 
 body {
-  font-family: 'Press Start 2P', cursive;
-  text-transform: uppercase;
-  background-color: black;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0);
+  color: var(--font-color);
 }
 
-
-h1 {
-  
-  top:0;
-  left: 0;
-  z-index: 100;
-  border: 2px solid black;
-  /* background-color: antiquewhite; */
+.logo h1 {
+  font-family: var(--headings-font);
+  font-size: var(--headings-font-size);
+  color: #FFFE3D;
+  -webkit-text-stroke: 1px #FF0000;
 }
 
+p {
+  font-family: var(--secondary-font);
+}
+
+table {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
 
 #game-window {
   position: absolute;
   z-index: 1;
   border: 20px solid rgb(255, 255, 255);
+}
+  tr {
+    display: flex;
+    flex-direction: column;
+  }
+
+#main-window {
+  z-index: -100;
+  border: 2px solid black;
   background-image: url("./assets/space.gif");
   background-repeat:repeat;
   position:absolute;
@@ -50,7 +69,6 @@ h1 {
 #asteroid-object{
   position: absolute;
 }
-
 /* Button Component */
 .upperCase {
   text-transform: uppercase;
