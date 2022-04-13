@@ -1,6 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://unpkg.com/nes.css@latest/css/nes.min.css');
+
 *{
   padding: 0;
   margin: 0;
+}
+
+:root {
+  --headings-font: 'Russo One', sans-serif;
+  --secondary-font: 'Press Start 2P', cursive;
+  --headings-font-size: 15vw;
+  color: #fff;
+}
+
+body {
+  font-family: 'Press Start 2P', cursive;
+  text-transform: uppercase;
+  background-color: black;
 }
 
 
@@ -10,7 +26,7 @@ h1 {
   left: 0;
   z-index: 100;
   border: 2px solid black;
-  background-color: antiquewhite;
+  /* background-color: antiquewhite; */
 }
 
 
@@ -31,6 +47,11 @@ h1 {
 #player-object{
   position: absolute;
 
+}
+
+/* Button Component */
+.upperCase {
+  text-transform: uppercase;
 }
 
 
