@@ -9,6 +9,7 @@ export const GET_ME = gql`
       highscores
       avatar
       level
+      XP
     }
   }
 `;
