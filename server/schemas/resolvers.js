@@ -50,19 +50,26 @@ const resolvers = {
       }
     },
     addLeaderboardHighscore: async (parent, { score }, context) => {
-      if (context.user) {
-        console.log(score);
-        console.log('context.user.username', context.user.username);
+      //query all leaderboards
+      const all = await Leaderboard.findOne();
 
-        const leaderboard = await Leaderboard.updateOne(
-          {
-            $push: {
-              highscores: { user: context.user.username, score: score },
-            },
-          },
-          { new: true, runValidators: true }
+      // construct highscore object
+      let highscore = { user: context.user.username, score: score };
+      console.log('highscore object', highscore);
+
+      // If a leaderboard doesn't already exist and logged in, create leaderboard
+      if (all instanceof Leaderboard == false && context.user) {
+        //create new board with highscore object info
+        const newBoard = Leaderboard.create(highscore);
+        return newBoard;
+      }
+      //else update existing board
+      else if (context.user) {
+        const updatedLeaderboard = await Leaderboard.findOneAndUpdate(
+          { _id: all._id },
+          { $push: { highscores: highscore } }
         );
-        return leaderboard;
+        return updatedLeaderboard;
       }
     },
   },

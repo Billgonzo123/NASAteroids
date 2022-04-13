@@ -20,11 +20,6 @@ const typeDefs = gql`
     highscores: [highscore]
   }
 
-  input highscoreData {
-    user: String,
-    score: Int
-  }
-
   type highscore {
     user: String,
     score: Int
@@ -39,7 +34,7 @@ const typeDefs = gql`
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!, highscores: [String]): Auth
     addUserHighscore(highscores: [Int!]): User
-    addLeaderboardHighscore(highscores: [highscoreData]): Leaderboard
+    addLeaderboardHighscore(score: Int): Leaderboard
   }
 `;
 

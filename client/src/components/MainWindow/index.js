@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Player from '../Player';
 import motion from '../../util/motion';
 import updateAsteroids from '../../util/updateAsteroids';
@@ -43,7 +43,7 @@ const MainWindow = () => {
     if (screenWidth !== window.innerWidth) {
       screenWidth = window.innerWidth;
       console.log('Window Width: ', screenWidth)
-      //setScreenScale((screenWidth)/1920);-----currently disabled-----
+      // setScreenScale((screenWidth)/1920);
     }
     ////update all states at the end
     setGlobalPlayer({ ...updatedPlayer });
@@ -81,14 +81,14 @@ const MainWindow = () => {
     document.addEventListener('keyup', logKeyUp);
     document.addEventListener('keydown', logKeyDown);
     //generate initial asteroids
-    for (let i = 1; i <= gameState.curLevel + 2; i++) {
+    for (let i = 1; i <= gameState.curLevel + 3; i++) {
      setAsteroids(old => ({...old,[i]:{     
       id: i,
       x: 0,
       y: 0,
       xB: 0,
       yB: 0,
-      dir: Math.floor(Math.random() * 359),
+      dir: Math.floor(Math.random() * 100) + Math.floor(Math.random() * (i*40)),
       thrust: .8,
       vx: 0,
       vy: 0,
@@ -98,7 +98,7 @@ const MainWindow = () => {
     }
 
     loop();
-
+//ignore below error
   }, [])
 
 
