@@ -12,7 +12,7 @@ const Footer = () => {
       }}
     >
       <footer>
-        <p>COPYRIGHT 2022 NASA</p>
+        <p>COPYRIGHT {new Date().getFullYear()} NASA</p>
       </footer>
     </Box>
   );
