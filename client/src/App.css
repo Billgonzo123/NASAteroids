@@ -38,8 +38,7 @@ h1 {
   background-repeat:repeat;
   position:relative;
   /* the width and height must be fixed! Use transform: scale() on the body to change size of all elements */
-  top:0;
-  left: 0;
+  
   width: 1920px;
   height: 1080px;
 }

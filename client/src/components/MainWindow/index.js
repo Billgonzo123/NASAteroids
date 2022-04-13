@@ -108,9 +108,14 @@ const MainWindow = () => {
 
   return (
     <div id='game-window'
-      className="App"
-      style={{ "transform": `scale(${screenScale})` }}>
 
+  
+      className="App"
+      style={{ left: (window.innerWidth-(1920))/2, "transform": `scale(${screenScale})` }}>
+     <div className="nes-container with-title is-centered">
+        <p className="title">Controls</p>
+        <h1>Press W: Up | A:Left | D:Right |</h1>
+      </div>
       <Player
         globalPlayer={globalPlayer}
         setGlobalPlayer={setGlobalPlayer}
