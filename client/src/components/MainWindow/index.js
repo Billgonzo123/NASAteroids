@@ -129,6 +129,7 @@ const MainWindow = () => {
           style={motion(globalPlayer.x, globalPlayer.y, globalPlayer.dir)}
         ></img>
       ) : (
+        // render death animation elements here
         ""
       )
       }
