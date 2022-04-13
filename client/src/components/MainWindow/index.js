@@ -84,8 +84,8 @@ const MainWindow = () => {
     for (let i = 1; i <= gameState.curLevel + 3; i++) {
      setAsteroids(old => ({...old,[i]:{     
       id: i,
-      x: 0,
-      y: 0,
+      x: Math.floor(Math.random() * 1920),
+      y: Math.floor(Math.random() * 1080),
       xB: 0,
       yB: 0,
       dir: Math.floor(Math.random() * 100) + Math.floor(Math.random() * (i*40)),
