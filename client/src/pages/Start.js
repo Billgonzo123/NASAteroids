@@ -54,7 +54,7 @@ const Start = () => {
           <div className="logo">
             <h1>ASTEROIDS</h1>
           </div>
-          {/* <Leaderboard />
+          <Leaderboard />
           <Card sx={{ justifyContent: "space-between", backgroundColor: "transparent" }}>
             <CardActions sx={{ justifyContent: "space-between", backgroundColor: "transparent" }}>
               <button type="button" className="nes-btn upperCase">
@@ -64,8 +64,7 @@ const Start = () => {
                 Signup
               </button>
             </CardActions>
-          </Card> */}
-          <Login />
+          </Card>
           <Footer />
         </Grid>
       </Box>
