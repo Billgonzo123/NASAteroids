@@ -2,6 +2,7 @@ import React from "react";
 import Footer from "../components/Footer";
 import Leaderboard from "../components/Leaderboard";
 import LevelLoadIn from "../components/LevelLoadIn";
+import Profile from "../components/Profile"
 import { Button, Box, Grid } from "@mui/material";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
@@ -37,6 +38,7 @@ const Start = () => {
           <h1>ASTEROIDS</h1>
         </div>
         <Leaderboard />
+        <Profile />
         <LevelLoadIn />
         <Footer />
       </Grid>
