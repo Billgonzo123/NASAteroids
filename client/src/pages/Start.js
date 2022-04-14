@@ -1,11 +1,29 @@
 import React from "react";
 import Footer from "../components/Footer";
+import Leaderboard from "../components/Leaderboard";
 import { Button, Box, Grid } from "@mui/material";
-import { color, fontFamily } from "@mui/system";
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+
+const theme = createTheme({
+  typography: {
+    fontFamily: [
+      'Press Start 2P',
+    ],
+    body1: {
+      textTransform: 'uppercase',
+    },
+  },
+  palette: {
+    text:{
+      primary: "#FFFFFF"
+    }
+  }
+});
 
 const Start = () => {
   return (
-    <Box>
+    <ThemeProvider theme={theme}>
+      <Box>
       <Grid
         container
         columnSpacing={{ md: 1 }}
@@ -17,39 +35,12 @@ const Start = () => {
         <div className="logo">
           <h1>ASTEROIDS</h1>
         </div>
-        <div className="leader-board">
-          <table>
-            <tr>
-              <td>L33TGAMR</td>
-              <td>PAPRSHRDR</td>
-              <td>EMDOK</td>
-              <td>KT</td>
-              <td>KURZ890</td>
-              <td>ANGALET</td>
-              <td>BEEKILLR</td>
-              <td>FFYOGURT</td>
-              <td>KILLRBRGR</td>
-            </tr>
-            <tr>
-              <td>500900</td>
-              <td>400890</td>
-              <td>400777</td>
-              <td>399999</td>
-              <td>383876</td>
-              <td>369870</td>
-              <td>200000</td>
-              <td>198708</td>
-              <td>187907</td>
-            </tr>
-          </table>
-        </div>
-        <div>
-          <Button variant="text">LOGIN</Button>
-          <Button variant="text">SIGNUP</Button>
-        </div>
+        <Leaderboard />
         <Footer />
       </Grid>
     </Box>
+    </ThemeProvider>
+    
   );
 };
 
