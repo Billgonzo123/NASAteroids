@@ -29,6 +29,7 @@ body {
   font-size: var(--headings-font-size);
   color: #FFFE3D;
   -webkit-text-stroke: 1px #FF0000;
+  margin-top: 175px;
 }
 
 p {
@@ -56,6 +57,13 @@ table {
 
 #player-object {
   position: absolute;
+
+}
+.fire {
+  background-image: url('./assets/img/fire.png');
+  background-repeat: no-repeat;
+  background-position:top;
+background-size: cover;
 }
 
 #asteroid-object{
@@ -64,4 +72,8 @@ table {
 /* Button Component */
 .upperCase {
   text-transform: uppercase;
+}
+
+.Mui-focused {
+  color: white !important;
 }
