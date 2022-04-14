@@ -18,8 +18,13 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    // set highscores to be an array
-    highscores: [Number],
+    // set highscores to be an array of highscores
+    highscores: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Highscore'
+      }
+    ],
     avatar: {
       type: String,
       required: false,

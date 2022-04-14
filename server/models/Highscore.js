@@ -1,13 +1,17 @@
-const { Schema } = require('mongoose');
+const { Schema, model } = require('mongoose');
 
-// This is a subdocument schema for the leaderboard model
 const highscoreSchema = new Schema({
-  user: {
-    type: String
-  },
   score: {
-    type: Number
+    type: Number,
+  },
+  user: {
+    type: String,
+  },
+  date: {
+    type: Date,
+    default: Date.now,
   },
 });
 
-module.exports = highscoreSchema;
+const Highscore = model('Highscore', highscoreSchema);
+module.exports = Highscore;

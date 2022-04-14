@@ -10,19 +10,21 @@ const typeDefs = gql`
     _id: ID!
     username: String
     email: String
-    highscores: [Int]
+    highscores: [Highscore]
     avatar: String
     level: Int
     XP: Int
   }
 
   type Leaderboard {
-    highscores: [highscore]
+    highscores: [Highscore]
   }
 
-  type highscore {
-    user: String,
+  type Highscore {
+    _id: ID
     score: Int
+    user: String
+    date: String
   }
 
   type Query {
@@ -32,8 +34,13 @@ const typeDefs = gql`
 
   type Mutation {
     login(email: String!, password: String!): Auth
-    addUser(username: String!, email: String!, password: String!, highscores: [String]): Auth
-    addUserHighscore(highscores: [Int!]): User
+    addUser(
+      username: String!
+      email: String!
+      password: String!
+      highscores: [String]
+    ): Auth
+    addUserHighscore(score: Int): User
     addLeaderboardHighscore(score: Int): Leaderboard
     addUserXP(XP: Int!): User
   }

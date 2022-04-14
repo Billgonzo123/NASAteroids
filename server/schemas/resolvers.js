@@ -1,5 +1,5 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User, Leaderboard } = require('../models');
+const { User, Leaderboard, Highscore } = require('../models');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
@@ -36,18 +36,19 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    addUserHighscore: async (parent, { highscores }, context) => {
+    addUserHighscore: async (parent, args, context) => {
       if (context.user) {
-        console.log('user', context.user);
-        console.log('highscore', highscores);
-
+        let highscore = await Highscore.create({ ...args, user: context.user.username, score: args.score })
+        
         const user = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $push: { highscores: highscores } },
-          { new: true, runValidators: true }
+          { $push: { highscores: highscore } },
+          { new: true }
         );
+        console.log('highscore', highscore)
         return user;
       }
+      throw new AuthenticationError('Must be logged in');
     },
     addLeaderboardHighscore: async (parent, { score }, context) => {
       //query all leaderboards

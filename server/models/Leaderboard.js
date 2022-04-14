@@ -1,9 +1,14 @@
 const { Schema, model } = require('mongoose');
-const highscoreSchema = require('./Highscore');
+const Highscore = require('./Highscore');
 
 const leaderboardSchema = new Schema(
   {
-    highscores: [highscoreSchema],
+    highscores: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Highscore'
+      }
+    ]
   },
   {
     toJSON: {
