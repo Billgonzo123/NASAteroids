@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Player from '../Player';
 import motion from '../../util/motion';
 import updateAsteroids from '../../util/updateAsteroids';
 import updatePlayer from '../../util/updatePlayer';
@@ -12,7 +11,7 @@ const MainWindow = () => {
   ///8 is best for a base speed because it updates inputs twice per frame. very responsive
   //we can make each level harder by increasing this slightly if we want
   const [screenScale, setScreenScale] = useState(.75);//useState(window.innerWidth / 1920);
-  const [globalPlayer, setGlobalPlayer] = useState({ x: 960, y: 540, xB: 500, yB: 500, dir: 90, thrust: .05, vx: 0, vy: 0, turnSpeed: 2, spriteDim: { w: 54, h: 62 }, alive: true });
+  const [globalPlayer, setGlobalPlayer] = useState({ x: 906, y: 478, xB: 500, yB: 500, dir: 90, thrust: .05, vx: 0, vy: 0, turnSpeed: 2, spriteDim: { w: 54, h: 62 }, alive: true });
   const [asteroids, setAsteroids] = useState({});
   const [bullets, setBullets] = useState({});
   const [gameState, setGameState] = useState({ curLevel: 1, score: 0, exp: 0, playerLevel: 0, numberOfAsteroids: 0 });
@@ -43,8 +42,8 @@ const MainWindow = () => {
       if (screenWidth !== window.innerWidth) {
         screenWidth = window.innerWidth;
         console.log('Window Width: ', screenWidth)
-        console.log("Game scale: ", (window.innerWidth)/1920)
-         setScreenScale((window.innerWidth)/1920);
+        console.log("Game scale: ", (window.innerWidth) / 1920)
+        setScreenScale((window.innerWidth) / 1920);
       }
       ////update all states at the end
       setGlobalPlayer({ ...updatedPlayer });
@@ -79,7 +78,7 @@ const MainWindow = () => {
 
   //...........................................USE EFFECT------------------------------//
   useEffect(() => {
-    setScreenScale((window.innerWidth)/1920);
+    setScreenScale((window.innerWidth) / 1920);
     document.addEventListener('keyup', logKeyUp);
     document.addEventListener('keydown', logKeyDown);
     //generate initial asteroids
@@ -103,7 +102,7 @@ const MainWindow = () => {
     }
 
     loop();
-//eslint-disable-next-line react-hooks/exhaustive-deps
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
 
@@ -111,24 +110,34 @@ const MainWindow = () => {
 
   // console.log(asteroids)
 
-  return ( 
+  return (
     <div id='game-window'
-
-
       className="App"
       style={{ left: (window.innerWidth - (1920)) / 2, "transform": `scale(${screenScale})` }}>
+{/*--------- HUD      ---------*/}
       <div className="nes-container with-title is-centered">
         <p className="title">Controls</p>
         <h1>Press W: Up | A:Left | D:Right |</h1>
       </div>
-      <Player
-        globalPlayer={globalPlayer}
-        setGlobalPlayer={setGlobalPlayer}
-      />
+     
+{/*--------- RENDER PLAYER ---------*/}
+      {globalPlayer.alive ? (
+        <img
+          id='player-object'
+          alt='player-sprite'
+          src={require('../../assets/player_sprt.png')}
+          style={motion(globalPlayer.x, globalPlayer.y, globalPlayer.dir)}
+        ></img>
+      ) : (
+        // render death animation elements here
+        ""
+      )
+      }
 
+{/*--------- RENDER ASTEROIDS ---------*/}
       {Object.keys(asteroids).map(posId => {
         const pos = asteroids[posId];
-        return pos ? (
+        return pos.alive ? (
           <img
             key={posId}
             id='asteroid-object'
