@@ -3,6 +3,8 @@ import "./App.css";
 import MainWindow from "./components/MainWindow";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import Start from "./pages/Start";
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+
 
 import {
   ApolloClient,
@@ -14,6 +16,45 @@ import { setContext } from "@apollo/client/link/context";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
+});
+
+
+
+const theme = createTheme({
+  typography: {
+    fontFamily: ["Press Start 2P"],
+    body1: {
+      textTransform: "uppercase",
+    },
+    h6: {
+      textTransform: "uppercase",
+    },
+  },
+  palette: {
+    primary: {
+      light: '#757ce8',
+      main: '#3f50b5',
+      dark: '#002884',
+      contrastText: '#fff',
+    },
+    text: {
+      primary: "#FFFFFF",
+    },
+  },
+  components: {
+    MuiInput: {
+      styleOverrides: {
+        underline: {
+          "&&::before": {
+            borderBottom: "1px solid rgba(255, 255, 255, 1)"
+          },
+          "&&::after": {
+            borderBottom: "1px solid rgba(255, 255, 255, 1)"
+          }
+        }
+      }
+    }
+  }
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -34,7 +75,8 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <Router>
+      <ThemeProvider theme={theme}>
+        <Router>
         <Route exact path="/">
           <Start />
         </Route>
@@ -42,6 +84,7 @@ function App() {
           <MainWindow />
         </Route>
       </Router>
+      </ThemeProvider>
     </ApolloProvider>
   );
 }
