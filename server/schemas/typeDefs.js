@@ -21,7 +21,6 @@ const typeDefs = gql`
   }
 
   type Highscore {
-    _id: ID
     score: Int
     user: String
     date: String
