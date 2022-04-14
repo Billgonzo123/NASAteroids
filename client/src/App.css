@@ -28,6 +28,7 @@ body {
   font-size: var(--headings-font-size);
   color: #FFFE3D;
   -webkit-text-stroke: 1px #FF0000;
+  margin-top: 175px;
 }
 
 p {
