@@ -72,6 +72,19 @@ const resolvers = {
         return updatedLeaderboard;
       }
     },
+    addUserXP: async (parent, { XP }, context) => {
+      if (context.user) {
+        console.log('user', context.user);
+        console.log('XP', XP);
+
+        const user = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $inc: {XP: XP} },
+          { new: true, runValidators: true }
+        );
+        return user;
+      }
+    },
   },
 };
 

@@ -35,6 +35,7 @@ const typeDefs = gql`
     addUser(username: String!, email: String!, password: String!, highscores: [String]): Auth
     addUserHighscore(highscores: [Int!]): User
     addLeaderboardHighscore(score: Int): Leaderboard
+    addUserXP(XP: Int!): User
   }
 `;
 
