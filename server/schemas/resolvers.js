@@ -44,7 +44,6 @@ const resolvers = {
           user: context.user.username,
           date: (new Date()).toLocaleDateString('en-US')
         };
-        console.log('highscore', highscore);
 
         const user = await User.findOneAndUpdate(
           { _id: context.user._id },
@@ -60,8 +59,11 @@ const resolvers = {
       const all = await Leaderboard.findOne();
 
       // construct highscore object
-      let highscore = { user: context.user.username, score: score };
-      console.log('highscore object', highscore);
+      const highscore = {
+        score: score,
+        user: context.user.username,
+        date: (new Date()).toLocaleDateString('en-US')
+      };
 
       // If a leaderboard doesn't already exist and logged in, create leaderboard
       if (all instanceof Leaderboard == false && context.user) {
