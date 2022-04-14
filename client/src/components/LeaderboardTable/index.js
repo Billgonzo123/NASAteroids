@@ -17,7 +17,7 @@ const rows = [
   createData('KILLRBRGR', 187907),
 ];
 
-export default function BasicTable() {
+export default function LeaderboardTable() {
   return (
     <TableContainer>
       <Table sx={{ minWidth: 275, textTransform: 'uppercase' }} aria-label="simple table">

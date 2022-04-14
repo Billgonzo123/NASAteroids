@@ -4,6 +4,7 @@ import Leaderboard from "../components/Leaderboard";
 import Login from "../components/Login";
 import { Card, CardActions, Button, Box, Grid } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import LevelLoadIn from "../components/LevelLoadIn";
 
 const theme = createTheme({
   typography: {
