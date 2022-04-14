@@ -9,7 +9,7 @@ export default function LevelLoadIn() {
         <CardContent>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <Typography variant="h3" align="center" gutterBottom>
+              <Typography variant="h3" align="center" gutterBottom sx={{ fontFamily: "Russo One" }} >
                 Level One
               </Typography>
               <progress class="nes-progress is-pattern" value="50" max="100"></progress>

@@ -3,7 +3,7 @@ import motion from '../../util/motion';
 import updateAsteroids from '../../util/updateAsteroids';
 import updatePlayer from '../../util/updatePlayer';
 import {playSound, stopSound} from '../../util/playSound';
-
+import Hud from "../../components/Hud"
 
 const MainWindow = () => {
 
@@ -112,7 +112,7 @@ const MainWindow = () => {
     <div id='game-window'
       className="App"
       style={{ left: (window.innerWidth - (1920)) / 2, "transform": `scale(${screenScale})` }}>
-
+        
       {/*------------ AUDIO -------------*/}
       {/* for every sound effect, there must be an audio element with an id of the file name */}
       <audio id='engine_snd' src={require(`../../assets/snd/player_snd/engine_snd.wav`)} loop type='audio/wav'/>
@@ -121,6 +121,8 @@ const MainWindow = () => {
         <p className="title">Controls</p>
         <h1>Press W: Up | A:Left | D:Right |</h1>
       </div>
+      {/* HUD Display */}
+      <Hud />
 
       {/*--------- RENDER PLAYER ---------*/}
       {globalPlayer.alive ? (

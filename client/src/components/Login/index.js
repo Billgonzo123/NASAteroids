@@ -67,7 +67,7 @@ const Login = () => {
             }}
           >
             <button type="button" className="nes-btn upperCase">
-              Submit
+              Login
             </button>
             <button type="button" className="nes-btn upperCase">
               Cancel
