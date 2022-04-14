@@ -16,8 +16,28 @@ const theme = createTheme({
     },
   },
   palette: {
-    text:{
-      primary: "#FFFFFF"
+    primary: {
+      light: '#757ce8',
+      main: '#3f50b5',
+      dark: '#002884',
+      contrastText: '#fff',
+    },
+    text: {
+      primary: "#FFFFFF",
+    },
+  },
+  components: {
+    MuiInput: {
+      styleOverrides: {
+        underline: {
+          "&&::before": {
+            borderBottom: "1px solid rgba(255, 255, 255, 1)"
+          },
+          "&&::after": {
+            borderBottom: "1px solid rgba(255, 255, 255, 1)"
+          }
+        }
+      }
     }
   }
 });
@@ -37,7 +57,6 @@ const Start = () => {
         <div className="logo">
           <h1>ASTEROIDS</h1>
         </div>
-        <Leaderboard />
         <Signup />
         <Footer />
       </Grid>
