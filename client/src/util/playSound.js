@@ -6,6 +6,13 @@ export function playSound(snd) {
 export function stopSound(snd) {
     const el = document.getElementById(`${snd}`);
     el.pause()
-    el.load(); 
+
+}
+
+export function playMenuSound(snd, setState) {
+    setState(old => (snd));
+    const el = document.getElementById(`menu-sound`);
+    el.load();
+    el.play();
 }
 
