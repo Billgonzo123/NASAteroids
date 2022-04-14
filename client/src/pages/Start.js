@@ -1,11 +1,54 @@
 import React from "react";
 import Footer from "../components/Footer";
+import Leaderboard from "../components/Leaderboard";
+import Login from "../components/Login";
+import { Card, CardActions, Button, Box, Grid } from "@mui/material";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import LevelLoadIn from "../components/LevelLoadIn";
+
+import Signup from "../components/Signup";
 import { Button, Box, Grid } from "@mui/material";
-import { color, fontFamily } from "@mui/system";
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+=======
+
+const theme = createTheme({
+  typography: {
+    fontFamily: ["Press Start 2P"],
+    body1: {
+      textTransform: "uppercase",
+    },
+  },
+  palette: {
+    primary: {
+      light: '#757ce8',
+      main: '#3f50b5',
+      dark: '#002884',
+      contrastText: '#fff',
+    },
+    text: {
+      primary: "#FFFFFF",
+    },
+  },
+  components: {
+    MuiInput: {
+      styleOverrides: {
+        underline: {
+          "&&::before": {
+            borderBottom: "1px solid rgba(255, 255, 255, 1)"
+          },
+          "&&::after": {
+            borderBottom: "1px solid rgba(255, 255, 255, 1)"
+          }
+        }
+      }
+    }
+  }
+});
 
 const Start = () => {
   return (
-    <Box>
+    <ThemeProvider theme={theme}>
+      <Box>
       <Grid
         container
         columnSpacing={{ md: 1 }}
@@ -17,39 +60,11 @@ const Start = () => {
         <div className="logo">
           <h1>ASTEROIDS</h1>
         </div>
-        <div className="leader-board">
-          <table>
-            <tr>
-              <td>L33TGAMR</td>
-              <td>PAPRSHRDR</td>
-              <td>EMDOK</td>
-              <td>KT</td>
-              <td>KURZ890</td>
-              <td>ANGALET</td>
-              <td>BEEKILLR</td>
-              <td>FFYOGURT</td>
-              <td>KILLRBRGR</td>
-            </tr>
-            <tr>
-              <td>500900</td>
-              <td>400890</td>
-              <td>400777</td>
-              <td>399999</td>
-              <td>383876</td>
-              <td>369870</td>
-              <td>200000</td>
-              <td>198708</td>
-              <td>187907</td>
-            </tr>
-          </table>
-        </div>
-        <div>
-          <Button variant="text">LOGIN</Button>
-          <Button variant="text">SIGNUP</Button>
-        </div>
+        <Signup />
         <Footer />
       </Grid>
-    </Box>
+    </Box>  
+   </ThemeProvider>
   );
 };
 
