@@ -6,7 +6,7 @@ export default function BasicCard() {
   return (
     <Card sx={{ minWidth: 275, backgroundColor: "transparent" }}>
       <CardContent>
-        <Typography variant="h3" align="center" gutterBottom>
+        <Typography align="center" gutterBottom>
           Leaderboard
         </Typography>
         <LeaderboardTable />

@@ -65,3 +65,7 @@ table {
 .upperCase {
   text-transform: uppercase;
 }
+
+.Mui-focused {
+  color: white !important;
+}
