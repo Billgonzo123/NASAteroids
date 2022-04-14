@@ -55,6 +55,13 @@ table {
 
 #player-object {
   position: absolute;
+
+}
+.fire {
+  background-image: url('./assets/img/fire.png');
+  background-repeat: no-repeat;
+  background-position:top;
+background-size: cover;
 }
 
 #asteroid-object{
