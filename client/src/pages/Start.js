@@ -10,6 +10,9 @@ const theme = createTheme({
     fontFamily: [
       'Press Start 2P',
     ],
+    h3: {
+      textTransform: 'uppercase',
+    },
     body1: {
       textTransform: 'uppercase',
     },
