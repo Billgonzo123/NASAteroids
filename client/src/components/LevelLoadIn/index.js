@@ -1,17 +1,29 @@
 import * as React from "react";
-import {  Card,  CardContent,  Typography,} from "@mui/material";
-import LeaderboardTable from "../../components/LeaderboardTable";
+import {  Card,  CardContent,  Typography, Container, Grid } from "@mui/material";
+import GameControls from "../../components/GameControls";
 
-export default function BasicCard() {
+export default function LevelLoadIn() {
   return (
-    <Card sx={{ minWidth: 275, backgroundColor: "transparent" }}>
-      <CardContent>
-        <Typography variant="h1" align="center" gutterBottom>
-          Level One
-        </Typography>
-        <progress class="nes-progress is-pattern" value="50" max="100"></progress>
-        <LeaderboardTable />
-      </CardContent>
-    </Card>
+    <Container maxWidth="sm">  
+      <Card sx={{ backgroundColor: "transparent" }}>
+        <CardContent>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <Typography variant="h3" align="center" gutterBottom>
+                Level One
+              </Typography>
+              <progress class="nes-progress is-pattern" value="50" max="100"></progress>
+            </Grid>
+            <Grid item xs={2} md={3}>
+            </Grid>
+            <Grid item xs={8} md={6}>
+            <GameControls />
+            </Grid>
+            <Grid item xs={2} md={3}>
+            </Grid>
+          </Grid>
+        </CardContent>
+      </Card>
+    </Container> 
   );
 }
