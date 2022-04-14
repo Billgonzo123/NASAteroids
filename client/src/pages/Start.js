@@ -57,7 +57,8 @@ const Start = () => {
         <div className="logo">
           <h1>ASTEROIDS</h1>
         </div>
-        <Signup />
+        <Leaderboard />
+        {/* <Signup /> */}
         <Footer />
       </Grid>
     </Box>  

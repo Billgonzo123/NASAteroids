@@ -88,7 +88,7 @@ const Signup = () => {
             }}
           >
             <button type="button" className="nes-btn upperCase">
-              Submit
+              Signup
             </button>
             <button type="button" className="nes-btn upperCase">
               Cancel

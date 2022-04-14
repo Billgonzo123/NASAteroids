@@ -27,7 +27,7 @@ export default function LeaderboardTable() {
               key={row.userName}
               sx={{ '& td': { border: 0 } }}
             >
-              <TableCell scope="row" align="left" sx={{ p: 0.25 }}>
+              <TableCell scope="row" align="left" sx={{ p: 0.25, py: 1 }}>
                 {row.userName}
               </TableCell>
               <TableCell align="center" sx={{ p: 0.25 }}>{row.score}</TableCell>
