@@ -49,3 +49,17 @@ export const ADD_LEADERBOARD_HIGHSCORE = gql`
     }
   }
 `;
+
+export const ADD_USER_XP = gql`
+  mutation addXP($xp: Int!) {
+    addUserXP(XP: $xp) {
+      _id
+      username
+      email
+      highscores
+      avatar
+      level
+      XP
+    }
+  }
+`;
