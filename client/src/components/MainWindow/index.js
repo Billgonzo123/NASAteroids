@@ -42,8 +42,8 @@ const MainWindow = () => {
         setScreenScale((window.innerWidth) / 1920);
       }
 
+      //updates state with current keys. We dont really wnat this state updtaed as fast as the keysPressed variable, so we put it in the loop
       setCurrentKeys(old => [...keysPressed]);
-      (keysPressed.includes('w')) ? playSound('engine_snd') : stopSound('engine_snd');
       
       //----------------------------------This is just an example of how to use playMenuSound function-------------------------------//
       if (keysPressed.includes('m'))  playMenuSound('confirmA', setMenuSoundState);
