@@ -1,6 +1,8 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 
+const highscoreSchema = require('./Highscore');
+
 const userSchema = new Schema(
   {
     username: {
@@ -18,8 +20,7 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    // set highscores to be an array
-    highscores: [Number],
+    highscores: [highscoreSchema],
     avatar: {
       type: String,
       required: false,
@@ -28,8 +29,8 @@ const userSchema = new Schema(
       type: Number,
     },
     XP: {
-      type: Number
-    }
+      type: Number,
+    },
   },
   // set this to use virtual below
   {
