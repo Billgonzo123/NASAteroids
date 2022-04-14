@@ -38,7 +38,7 @@ const Signup = () => {
         >
         <Typography
           sx={{
-            mr: 3
+            mr: 9
           }}
         >
           Email
