@@ -1,18 +1,21 @@
 import React from "react";
 import Footer from "../components/Footer";
 import Leaderboard from "../components/Leaderboard";
+import Login from "../components/Login";
+import { Card, CardActions, Button, Box, Grid } from "@mui/material";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import LevelLoadIn from "../components/LevelLoadIn";
+
 import Signup from "../components/Signup";
 import { Button, Box, Grid } from "@mui/material";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+=======
 
 const theme = createTheme({
   typography: {
-    fontFamily: [
-      'Press Start 2P',
-    ],
+    fontFamily: ["Press Start 2P"],
     body1: {
-      textTransform: 'uppercase',
+      textTransform: "uppercase",
     },
   },
   palette: {
@@ -60,9 +63,8 @@ const Start = () => {
         <Signup />
         <Footer />
       </Grid>
-    </Box>
-    </ThemeProvider>
-    
+    </Box>  
+   </ThemeProvider>
   );
 };
 
