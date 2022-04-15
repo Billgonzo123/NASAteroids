@@ -1,68 +1,74 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { TextField, Box, Grid, Typography, Card, CardActions } from "@mui/material";
+import {
+  TextField,
+  Box,
+  Grid,
+  Typography,
+  Card,
+  CardActions,
+} from "@mui/material";
 
-const Login = ({show, setShow}) => {
-
+const Login = ({ show, setShow }) => {
   const navigate = useHistory();
 
   const handleClick = () => {
     navigate.push("/start");
-  }
+  };
 
   return (
-    <Box 
-      component="form" 
-      noValidate autoComplete="off"
+    <Box component="form" noValidate autoComplete="off">
+      <Typography
+        sx={{
+          textAlign: "center",
+        }}
       >
+        Login
+      </Typography>
       <Grid
         container
         columnSpacing={{ md: 1 }}
         direction="column"
         sx={{
-          mt: 15
+          mt: 15,
         }}
       >
-        <Grid
-          container
-        >
-        <Typography
-          sx={{
-            mr: 3
-          }}
-        >
-          Username
-        </Typography>
-        <TextField
-          id="username"
-          name="username"
-          type="text"
-          variant="standard"
-          sx={{
-            bottomBorder: "1px #fff",
-            mb: 5
-          }}
-        />
+        <Grid container>
+          <Typography
+            sx={{
+              mr: 3,
+            }}
+          >
+            Username
+          </Typography>
+          <TextField
+            id="username"
+            name="username"
+            type="text"
+            variant="standard"
+            sx={{
+              bottomBorder: "1px #fff",
+              mb: 5,
+            }}
+          />
         </Grid>
-        <Grid
-          container
-        >
-        <Typography
-          sx={{
-            mr: 3
-          }}
-        >
-          Password
-        </Typography>
-        <TextField
-          id="password"
-          name="password"
-          type="text"
-          variant="standard"
-          sx={{
-            mb:10
-          }}
-        />
+        <Grid container>
+          <Typography
+            sx={{
+              mr: 3,
+            }}
+          >
+            Password
+          </Typography>
+          <TextField
+            id="password"
+            name="password"
+            type="text"
+            variant="standard"
+            sx={{
+              mb: 10,
+            }}
+          />
         </Grid>
         <Card
           sx={{
@@ -76,16 +82,20 @@ const Login = ({show, setShow}) => {
               backgroundColor: "transparent",
             }}
           >
-            <button 
-              type="button" 
+            <button
+              type="button"
               onClick={handleClick}
-              className="nes-btn upperCase">
+              className="nes-btn upperCase"
+            >
               Submit
             </button>
-            <button 
-              type="button" 
-              onClick={() => {setShow("Welcome")}}
-              className={`${show === 'Welcome'} nes-btn upperCase`}>
+            <button
+              type="button"
+              onClick={() => {
+                setShow("Welcome");
+              }}
+              className={`${show === "Welcome"} nes-btn upperCase`}
+            >
               Cancel
             </button>
           </CardActions>

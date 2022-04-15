@@ -15,6 +15,13 @@ const Signup = ({show, setShow}) => {
       component="form" 
       noValidate autoComplete="off"
       >
+      <Typography
+        sx={{
+          textAlign: "center"
+        }}
+      >
+          Sign Up
+      </Typography>
       <Grid
         container
         columnSpacing={{ md: 1 }}

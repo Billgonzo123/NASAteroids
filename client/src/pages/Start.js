@@ -9,8 +9,11 @@ const Start = () => {
 
   const navigate = useHistory();
 
-  const handleClick = () => {
+  const handleStart = () => {
     navigate.push("/main");
+  }
+  const handleLogout = () => {
+    navigate.push("/");
   }
 
   return (
@@ -46,11 +49,14 @@ const Start = () => {
             <button 
               type="button" 
               className="nes-btn upperCase"
-              onClick={handleClick}
+              onClick={handleStart}
               >
               Start
             </button>
-            <button type="button" className="nes-btn upperCase">
+            <button 
+              type="button" 
+              className="nes-btn upperCase"
+              onClick={handleLogout}>
               Logout
             </button>
           </CardActions>
