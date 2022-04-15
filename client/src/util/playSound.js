@@ -9,8 +9,8 @@ export function stopSound(snd) {
 
 }
 
-export function playMenuSound(snd, setState) {
-    setState(old => (snd));
+export async function playMenuSound(snd, setState) {
+   await setState(old => (snd));
     const el = document.getElementById(`menu-sound`);
     el.load();
     el.play();

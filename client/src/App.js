@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import "./App.css";
 import MainWindow from "./components/MainWindow";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
@@ -73,15 +73,24 @@ const client = new ApolloClient({
 });
 
 function App() {
+  const [menuSoundstate,setMenuSoundState] = useState('');
+
   return (
     <ApolloProvider client={client}>
+         { menuSoundstate.length && <audio id='menu-sound' src={require(`./assets/snd/menu_snd/${menuSoundstate}.wav`)}  type='audio/wav'/>}
       <ThemeProvider theme={theme}>
         <Router>
         <Route exact path="/">
-          <Start />
+          <Start
+            menuSoundstate ={menuSoundstate}
+            setMenuSoundState = {setMenuSoundState}
+          />
         </Route>
         <Route exact path="/main">
-          <MainWindow />
+          <MainWindow
+            menuSoundstate ={menuSoundstate}
+            setMenuSoundState = {setMenuSoundState}
+          />
         </Route>
       </Router>
       </ThemeProvider>

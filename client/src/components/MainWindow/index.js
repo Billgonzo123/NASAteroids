@@ -5,7 +5,7 @@ import updatePlayer from '../../util/updatePlayer';
 import {playSound, stopSound, playMenuSound} from '../../util/playSound';
 import Hud from "../../components/Hud"
 
-const MainWindow = () => {
+const MainWindow = ({menuSoundstate , setMenuSoundState}) => {
 
   const [gameSpeed, setGameSpeed] = useState(8);
   const [screenScale, setScreenScale] = useState(.75);//useState(window.innerWidth / 1920);
@@ -15,7 +15,7 @@ const MainWindow = () => {
   const [gameState, setGameState] = useState({ curLevel: 1, score: 0, exp: 0, playerLevel: 0, numberOfAsteroids: 0 });
   const [timer, setTimer] = useState(0);
   const [ currentKeys, setCurrentKeys] = useState([]);
-  const [menuSoundstate,setMenuSoundState] = useState('');
+
 
   //----------------------------------------------------------- Cnsturctor Scope Variables------------------------------------------------------//
   // //this will hold the currently pressed keys
@@ -119,7 +119,7 @@ const MainWindow = () => {
         
       {/*------------ AUDIO -------------*/}
       {/* for every sound effect, there must be an audio element with an id of the file name */}
-     { menuSoundstate.length && <audio id='menu-sound' src={require(`../../assets/snd/menu_snd/${menuSoundstate}.wav`)}  type='audio/wav'/>}
+    
       <audio id='engine_snd' src={require(`../../assets/snd/player_snd/engine_snd.wav`)} loop type='audio/wav'/>
       {/*------------- HUD  -------------*/}
       <div className="nes-container with-title is-centered">

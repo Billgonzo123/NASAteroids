@@ -1,4 +1,4 @@
-import React from "react";
+import React  from "react";
 import Footer from "../components/Footer";
 import Leaderboard from "../components/Leaderboard";
 import Hud from "../components/Hud";
@@ -6,10 +6,10 @@ import LevelLoadIn from "../components/LevelLoadIn";
 import Signup from "../components/Signup";
 
 import { Button, Box, Grid } from "@mui/material";
+import { playMenuSound } from "../util/playSound";
 
+const Start = ({menuSoundstate , setMenuSoundState}) => {
 
-
-const Start = () => {
   return (
     
       <Box>
