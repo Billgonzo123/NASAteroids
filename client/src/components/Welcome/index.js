@@ -1,10 +1,14 @@
 import React, { useState } from "react";
-import Footer from "../Footer";
 import Leaderboard from "../Leaderboard";
 import { Card, CardActions, Box, Grid } from "@mui/material";
 import { playMenuSound } from "../../util/playSound";
 
-const Welcome = ({ menuSoundstate, setMenuSoundState }) => {
+const Welcome = ({ menuSoundstate, setMenuSoundState, props }) => {
+  const {
+    elements = [],
+    show,
+    setShow,
+  } = props;
 
   return (
     <Box>
@@ -30,14 +34,19 @@ const Welcome = ({ menuSoundstate, setMenuSoundState }) => {
           >
             <button 
               type="button" 
-              className="nes-btn upperCase">
+              onClick={() => setShow(elements[1])}
+              className={`${show === "Login"} nes-btn upperCase`}
+              >
               Login
             </button>
-            <button type="button" className="nes-btn upperCase">
+            <button 
+              type="button" 
+              onClick={() => setShow(elements[2])}
+              className={`${show === "Signup"} nes-btn upperCase`}
+              >
               Signup
             </button>
           </CardActions>
-        <Footer />
       </Grid>
     </Box>
   );

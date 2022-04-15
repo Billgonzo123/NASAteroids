@@ -1,7 +1,20 @@
 import React from "react";
-import { TextField, Box, Grid, Typography } from "@mui/material";
+import { useHistory } from "react-router-dom";
+import { TextField, Box, Grid, Typography, Card, CardActions } from "@mui/material";
 
-const Login = () => {
+const Login = (props) => {
+  const {
+    elements = [],
+    show,
+    setShow,
+  } = props;
+
+  const navigate = useHistory();
+
+  const handleClick = () => {
+    navigate("/main");
+  }
+
   return (
     <Box 
       component="form" 
@@ -53,6 +66,32 @@ const Login = () => {
           }}
         />
         </Grid>
+        <Card
+          sx={{
+            justifyContent: "space-between",
+            backgroundColor: "transparent",
+          }}
+        >
+          <CardActions
+            sx={{
+              justifyContent: "space-between",
+              backgroundColor: "transparent",
+            }}
+          >
+            <button 
+              type="button" 
+              onClick={handleClick}
+              className="nes-btn upperCase">
+              Signup
+            </button>
+            <button 
+              type="button" 
+              onClick={() => {setShow(elements[0])}}
+              className={`${show === 'Welcome'} "nes-btn upperCase"`}>
+              Cancel
+            </button>
+          </CardActions>
+        </Card>
       </Grid>
     </Box>
   );

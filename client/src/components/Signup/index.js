@@ -1,7 +1,20 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { TextField, Button, Card, CardActions, Box, Grid, Typography } from "@mui/material";
 
-const Signup = () => {
+const Signup = (props) => {
+  const {
+    elements = [],
+    show,
+    setShow,
+  } = props;
+
+  const navigate = useHistory();
+
+  const handleClick = () => {
+    navigate("/main");
+  }
+
   return (
     <Box 
       component="form" 
@@ -87,10 +100,16 @@ const Signup = () => {
               backgroundColor: "transparent",
             }}
           >
-            <button type="button" className="nes-btn upperCase">
+            <button 
+              type="button" 
+              onClick={handleClick}
+              className="nes-btn upperCase">
               Signup
             </button>
-            <button type="button" className="nes-btn upperCase">
+            <button 
+              type="button" 
+              onClick={() => {setShow(elements[0])}}
+              className={`${show === 'Welcome'} "nes-btn upperCase"`}>
               Cancel
             </button>
           </CardActions>
