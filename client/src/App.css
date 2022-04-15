@@ -19,7 +19,7 @@
   height: 100vh;
 }
 html {
- background: url(./assets/space.gif) repeat center center fixed; 
+ /* background: url(./assets/space.gif) repeat center center fixed;  */
   
 }
 
@@ -47,8 +47,12 @@ table {
   justify-content: center;
 }
 
+
+
+
 #game-window {
- 
+  top: 0px;
+ left: 0px;
   background-image: url("./assets/space.gif");
   background-repeat:repeat;
   position:absolute;

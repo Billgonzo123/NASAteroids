@@ -1,9 +1,15 @@
 import React from "react";
 import MainWindow from "../components/MainWindow";
 
-const Main = () => {
+
+    const Main = ({gameState,setGameState,setMenuSoundState,menuSoundstate}) => {
   return (
-    <MainWindow />
+    <MainWindow
+    menuSoundstate = {menuSoundstate}
+    setMenuSoundState = {setMenuSoundState}
+    setGameState = {setGameState}
+    gameState = {gameState}
+    />
   )
 };
 
