@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import motion from '../../util/motion';
 import updateAsteroids from '../../util/updateAsteroids';
 import updatePlayer from '../../util/updatePlayer';
-import {playSound, stopSound, playMenuSound} from '../../util/playSound';
+import { playSound, stopSound, playMenuSound } from '../../util/playSound';
 import Hud from "../../components/Hud"
 
-const MainWindow = ({menuSoundstate , setMenuSoundState}) => {
+const MainWindow = ({ menuSoundstate, setMenuSoundState }) => {
 
   const [gameSpeed, setGameSpeed] = useState(8);
   const [screenScale, setScreenScale] = useState(.75);//useState(window.innerWidth / 1920);
@@ -14,7 +14,7 @@ const MainWindow = ({menuSoundstate , setMenuSoundState}) => {
   const [bullets, setBullets] = useState({});
   const [gameState, setGameState] = useState({ curLevel: 1, score: 0, exp: 0, playerLevel: 0, numberOfAsteroids: 0 });
   const [timer, setTimer] = useState(0);
-  const [ currentKeys, setCurrentKeys] = useState([]);
+  const [currentKeys, setCurrentKeys] = useState([]);
 
 
   //----------------------------------------------------------- Cnsturctor Scope Variables------------------------------------------------------//
@@ -40,9 +40,9 @@ const MainWindow = ({menuSoundstate , setMenuSoundState}) => {
       }
       //updates state with current keys. We dont really wnat this state updtaed as fast as the keysPressed variable, so we put it in the loop
       setCurrentKeys(old => [...keysPressed]);
-      
+
       //----------------------------------This is just an example of how to use playMenuSound function-------------------------------//
-      if (keysPressed.includes('m'))  playMenuSound('confirmA', setMenuSoundState);
+      if (keysPressed.includes('m')) playMenuSound('confirmA', setMenuSoundState);
 
       //timer for timer stuff
       setTimer(old => old + 1);
@@ -57,7 +57,7 @@ const MainWindow = ({menuSoundstate , setMenuSoundState}) => {
     if (!keysPressed.includes(e.key)) {
       keysPressed = [...keysPressed, e.key];
       console.log('Pressed: ', keysPressed);
-      
+
     }
   }
 
@@ -66,7 +66,7 @@ const MainWindow = ({menuSoundstate , setMenuSoundState}) => {
     const newKeys = keysPressed.filter(key => key !== e.key);
     if (newKeys !== keysPressed) keysPressed = newKeys;
     console.log('Released: ', keysPressed);
-    
+
   }
 
 
@@ -76,26 +76,27 @@ const MainWindow = ({menuSoundstate , setMenuSoundState}) => {
     document.addEventListener('keyup', logKeyUp);
     document.addEventListener('keydown', logKeyDown);
     //generate initial asteroids
-    for (let i = 1; i <= gameState.curLevel + 3 ; i++) {
+    for (let i = 1; i <= gameState.curLevel+3; i++) {
       setAsteroids(old => {
         const xrnd = Math.floor(Math.random() * 1920);
         const yrnd = Math.floor(Math.random() * 1080);
-        return ({...old, [i]: {
-          id: i,
-          x: xrnd,
-          y: yrnd,
-          xB: xrnd,
-          yB: yrnd,
-          dir: Math.floor(Math.random() * 100) + Math.floor(Math.random() * (i * 40)),
-          thrust: .8,
-          vx: 0,
-          vy: 0,
-          turnSpeed: 2,
-          spriteDim: { w: 248, h: 248 },
-          alive: true
-        }
+        return ({
+          ...old, [i]: {
+            id: i,
+            x: xrnd,
+            y: yrnd,
+            xB: xrnd,
+            yB: yrnd,
+            dir: Math.floor(Math.random() * 100) + Math.floor(Math.random() * (i * 40)),
+            thrust: .8,
+            vx: 0,
+            vy: 0,
+            turnSpeed: 2,
+            spriteDim: { w: 248, h: 248 },
+            alive: true
+          }
+        })
       })
-    })
     }
     loop();
     //eslint-disable-next-line react-hooks/exhaustive-deps
@@ -109,24 +110,42 @@ const MainWindow = ({menuSoundstate , setMenuSoundState}) => {
     <div id='game-window'
       className="App"
       style={{ left: (window.innerWidth - (1920)) / 2, "transform": `scale(${screenScale})` }}>
-        
+
       {/*------------ AUDIO -------------*/}
       {/* for every sound effect, there must be an audio element with an id of the file name */}
-    
-      <audio id='engine_snd' src={require(`../../assets/snd/player_snd/engine_snd.wav`)} loop type='audio/wav'/>
+
+      <audio id='engine_snd' src={require(`../../assets/snd/player_snd/engine_snd.wav`)} loop type='audio/wav' />
       {/*------------- HUD  -------------*/}
       <Hud />
 
       {/*--------- RENDER PLAYER ---------*/}
       {globalPlayer.alive ? (
-        <img
-          id='player-object'
-          className={currentKeys.includes('w') ? 'fire' : ''}
-          alt='player-sprite'
-          src={require('../../assets/img/player_sprt.png')}
-          style={motion(globalPlayer.x, globalPlayer.y, globalPlayer.dir) }
-          
-        />
+        <>
+          <img
+            id='player-object'
+            className={currentKeys.includes('w') ? 'fire' : ''}
+            alt='player-sprite'
+            src={require('../../assets/img/player_sprt.png')}
+            style={motion(globalPlayer.x, globalPlayer.y, globalPlayer.dir)} />
+          <img
+            id='player-object'
+            className={currentKeys.includes('w') ? 'fire' : ''}
+            alt='player-sprite'
+            src={require('../../assets/img/player_sprt.png')}
+            style={motion(globalPlayer.xB, globalPlayer.y, globalPlayer.dir)} />
+          <img
+            id='player-object'
+            className={currentKeys.includes('w') ? 'fire' : ''}
+            alt='player-sprite'
+            src={require('../../assets/img/player_sprt.png')}
+            style={motion(globalPlayer.x, globalPlayer.yB, globalPlayer.dir)} />
+          <img
+            id='player-object'
+            className={currentKeys.includes('w') ? 'fire' : ''}
+            alt='player-sprite'
+            src={require('../../assets/img/player_sprt.png')}
+            style={motion(globalPlayer.xB, globalPlayer.yB, globalPlayer.dir)} />
+        </>
       ) : (
         // render death animation elements here
         ""
@@ -137,23 +156,33 @@ const MainWindow = ({menuSoundstate , setMenuSoundState}) => {
       {Object.keys(asteroids).map(posId => {
         const pos = asteroids[posId];
         return pos.alive ? (
+          //our asteroid has the potential to reneder at 4 places at once, so we need 4 elements per asteroid!
           <>
-          <img
-            key={posId}
-            id='asteroid-object'
-            alt='asteroid-sprite'
-            src={require('../../assets/img/asteroid_large_sprt.png')}
-            style={motion(pos.x, pos.y, pos.dir)}
-          >
-          </img>
-          <img
-           
-           id='asteroid-shadow'
-           alt='asteroid-sprite'
-           src={require('../../assets/img/asteroid_large_sprt.png')}
-           style={motion(pos.xB, pos.yB, pos.dir)}
-         >
-         </img>
+            <img
+              key={posId}
+              id='asteroid-object'
+              alt='asteroid-sprite'
+              src={require('../../assets/img/asteroid_large_sprt.png')}
+              style={motion(pos.x, pos.y, pos.dir)} />
+            <img
+              key={posId + 100}
+              id='asteroid-shadow'
+              alt='asteroid-sprite'
+              src={require('../../assets/img/asteroid_large_sprt.png')}
+              style={motion(pos.xB, pos.y, pos.dir)} />
+            <img
+              key={posId + 200}
+              id='asteroid-shadow'
+              alt='asteroid-sprite'
+              src={require('../../assets/img/asteroid_large_sprt.png')}
+              style={motion(pos.x, pos.yB, pos.dir)} />
+            <img
+              key={posId + 300}
+              id='asteroid-shadow'
+              alt='asteroid-sprite'
+              src={require('../../assets/img/asteroid_large_sprt.png')}
+              style={motion(pos.xB, pos.yB, pos.dir)} />
+
           </>
         ) : (
           ""
