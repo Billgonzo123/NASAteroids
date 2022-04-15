@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import motion from '../../util/motion';
 import updateAsteroids from '../../util/updateAsteroids';
 import updatePlayer from '../../util/updatePlayer';
-import {playSound, stopSound} from '../../util/playSound';
+import {playSound, stopSound, playMenuSound} from '../../util/playSound';
 import Hud from "../../components/Hud"
 
 const MainWindow = () => {
@@ -15,6 +15,7 @@ const MainWindow = () => {
   const [gameState, setGameState] = useState({ curLevel: 1, score: 0, exp: 0, playerLevel: 0, numberOfAsteroids: 0 });
   const [timer, setTimer] = useState(0);
   const [ currentKeys, setCurrentKeys] = useState([]);
+  const [menuSoundstate,setMenuSoundState] = useState('');
 
   //----------------------------------------------------------- Cnsturctor Scope Variables------------------------------------------------------//
   // //this will hold the currently pressed keys
@@ -41,8 +42,11 @@ const MainWindow = () => {
         setScreenScale((window.innerWidth) / 1920);
       }
 
+      //updates state with current keys. We dont really wnat this state updtaed as fast as the keysPressed variable, so we put it in the loop
       setCurrentKeys(old => [...keysPressed]);
-      (keysPressed.includes('w')) ? playSound('engine_snd') : stopSound('engine_snd');
+      
+      //----------------------------------This is just an example of how to use playMenuSound function-------------------------------//
+      if (keysPressed.includes('m'))  playMenuSound('confirmA', setMenuSoundState);
 
 
       //timer for timer stuff
@@ -115,6 +119,7 @@ const MainWindow = () => {
         
       {/*------------ AUDIO -------------*/}
       {/* for every sound effect, there must be an audio element with an id of the file name */}
+     { menuSoundstate.length && <audio id='menu-sound' src={require(`../../assets/snd/menu_snd/${menuSoundstate}.wav`)}  type='audio/wav'/>}
       <audio id='engine_snd' src={require(`../../assets/snd/player_snd/engine_snd.wav`)} loop type='audio/wav'/>
       {/*------------- HUD  -------------*/}
       <div className="nes-container with-title is-centered">
