@@ -1,5 +1,5 @@
 import React from "react";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 const Footer = () => {
   return (
@@ -11,9 +11,9 @@ const Footer = () => {
         mt: "auto",
       }}
     >
-      <footer>
-        <p>COPYRIGHT {new Date().getFullYear()} NASA</p>
-      </footer>
+      <Typography variant="body1" align="center">
+        COPYRIGHT {new Date().getFullYear()} NASA
+      </Typography>
     </Box>
   );
 };
