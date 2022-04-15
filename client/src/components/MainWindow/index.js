@@ -76,14 +76,16 @@ const MainWindow = ({menuSoundstate , setMenuSoundState}) => {
     document.addEventListener('keyup', logKeyUp);
     document.addEventListener('keydown', logKeyDown);
     //generate initial asteroids
-    for (let i = 1; i <= gameState.curLevel + 3; i++) {
-      setAsteroids(old => ({
-        ...old, [i]: {
+    for (let i = 1; i <= gameState.curLevel + 3 ; i++) {
+      setAsteroids(old => {
+        const xrnd = Math.floor(Math.random() * 1920);
+        const yrnd = Math.floor(Math.random() * 1080);
+        return ({...old, [i]: {
           id: i,
-          x: Math.floor(Math.random() * 1920),
-          y: Math.floor(Math.random() * 1080),
-          xB: 0,
-          yB: 0,
+          x: xrnd,
+          y: yrnd,
+          xB: xrnd,
+          yB: yrnd,
           dir: Math.floor(Math.random() * 100) + Math.floor(Math.random() * (i * 40)),
           thrust: .8,
           vx: 0,
@@ -92,7 +94,8 @@ const MainWindow = ({menuSoundstate , setMenuSoundState}) => {
           spriteDim: { w: 248, h: 248 },
           alive: true
         }
-      }))
+      })
+    })
     }
     loop();
     //eslint-disable-next-line react-hooks/exhaustive-deps
@@ -134,13 +137,24 @@ const MainWindow = ({menuSoundstate , setMenuSoundState}) => {
       {Object.keys(asteroids).map(posId => {
         const pos = asteroids[posId];
         return pos.alive ? (
+          <>
           <img
             key={posId}
             id='asteroid-object'
             alt='asteroid-sprite'
             src={require('../../assets/img/asteroid_large_sprt.png')}
             style={motion(pos.x, pos.y, pos.dir)}
-          ></img>
+          >
+          </img>
+          <img
+           
+           id='asteroid-shadow'
+           alt='asteroid-sprite'
+           src={require('../../assets/img/asteroid_large_sprt.png')}
+           style={motion(pos.xB, pos.yB, pos.dir)}
+         >
+         </img>
+          </>
         ) : (
           ""
         );

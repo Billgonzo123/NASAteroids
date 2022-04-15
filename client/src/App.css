@@ -19,7 +19,8 @@
   height: 100vh;
 }
 html {
-  background: url(./assets/space.gif) repeat center center fixed;
+ background: url(./assets/space.gif) repeat center center fixed; 
+  
 }
 
 body {
@@ -76,6 +77,12 @@ background-size: cover;
 #asteroid-object{
   z-index: -1;
   position: absolute;
+}
+
+#asteroid-shadow {
+  z-index: -1;
+  position:absolute;
+
 }
 /* Button Component */
 .upperCase {
