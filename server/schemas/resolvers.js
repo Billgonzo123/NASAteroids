@@ -13,6 +13,9 @@ const resolvers = {
       }
       throw new AuthenticationError('🛸 Not logged in');
     },
+    users: async () => {
+      return User.find()
+    },
     leaderboard: async () => {
       return Leaderboard.find();
     },
