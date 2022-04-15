@@ -127,24 +127,24 @@ const MainWindow = ({ menuSoundstate, setMenuSoundState }) => {
             alt='player-sprite'
             src={require('../../assets/img/player_sprt.png')}
             style={motion(globalPlayer.x, globalPlayer.y, globalPlayer.dir)} />
-          <img
+          {globalPlayer.xB !==globalPlayer.x && <img
             id='player-object'
             className={currentKeys.includes('w') ? 'fire' : ''}
             alt='player-sprite'
             src={require('../../assets/img/player_sprt.png')}
-            style={motion(globalPlayer.xB, globalPlayer.y, globalPlayer.dir)} />
-          <img
+            style={motion(globalPlayer.xB, globalPlayer.y, globalPlayer.dir)} />}
+          {globalPlayer.yB !==globalPlayer.y && <img
             id='player-object'
             className={currentKeys.includes('w') ? 'fire' : ''}
             alt='player-sprite'
             src={require('../../assets/img/player_sprt.png')}
-            style={motion(globalPlayer.x, globalPlayer.yB, globalPlayer.dir)} />
-          <img
+            style={motion(globalPlayer.x, globalPlayer.yB, globalPlayer.dir)} />}
+          {globalPlayer.xB !==globalPlayer.x && globalPlayer.yB !==globalPlayer.y &&<img
             id='player-object'
             className={currentKeys.includes('w') ? 'fire' : ''}
             alt='player-sprite'
             src={require('../../assets/img/player_sprt.png')}
-            style={motion(globalPlayer.xB, globalPlayer.yB, globalPlayer.dir)} />
+            style={motion(globalPlayer.xB, globalPlayer.yB, globalPlayer.dir)} />}
         </>
       ) : (
         // render death animation elements here
@@ -158,6 +158,7 @@ const MainWindow = ({ menuSoundstate, setMenuSoundState }) => {
         return pos.alive ? (
           //our asteroid has the potential to reneder at 4 places at once, so we need 4 elements per asteroid!
           <>
+
           <img
             key={posId}
             id='asteroid-object'
@@ -188,6 +189,7 @@ const MainWindow = ({ menuSoundstate, setMenuSoundState }) => {
             style={motion(pos.xB, pos.yB, pos.dir)} />}
      
         </>
+
         ) : (
           ""
         );
