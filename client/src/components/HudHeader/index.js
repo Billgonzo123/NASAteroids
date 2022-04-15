@@ -1,7 +1,7 @@
 import * as React from "react";
 import { AppBar, Toolbar, Typography, Grid } from "@mui/material";
 
-export default function Album() {
+export default function HudHeader() {
   return (
     <AppBar position="relative" sx={{ backgroundColor: "transparent", boxShadow: "none" }}>
         <Toolbar>

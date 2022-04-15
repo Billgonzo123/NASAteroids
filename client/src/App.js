@@ -5,8 +5,6 @@ import Home from "./pages/Home";
 import Start from "./pages/Start";
 import Main from "./pages/Main";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import GameOver from "./components/GameOver";
-
 
 import {
   ApolloClient,

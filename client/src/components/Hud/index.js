@@ -2,7 +2,7 @@ import * as React from "react";
 import { Box, Container, Typography, Grid } from "@mui/material";
 import HudHeader from "../../components/HudHeader"
 
-export default function Album() {
+export default function Hud() {
   return (
     <Box sx={{
         display: 'flex',

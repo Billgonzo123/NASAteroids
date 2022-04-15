@@ -2,8 +2,9 @@ import * as React from "react";
 import {  Box, Typography, Grid } from "@mui/material";
 import HudHeader from "../../components/HudHeader";
 import Footer from "../Footer";
+import GameOverStats from "../../components/GameOverStats";
 
-export default function LevelLoadIn() {
+export default function GameOver() {
   return (
     <Box sx={{
         display: 'flex',
@@ -14,14 +15,15 @@ export default function LevelLoadIn() {
         <Grid container spacing={2}>
             <Grid item xs={12}>
               <Typography variant="h1" align="center" gutterBottom sx={{ fontFamily: "Russo One", mt: 15, textTransform: 'uppercase' }} >
-                Level One
+                Game Over
               </Typography>
             </Grid>
-            <Grid item xs={2} md={3}>
+            <Grid item xs={2} md={4}>
             </Grid>
-            <Grid item xs={8} md={6}>
+            <Grid item xs={8} md={4}>
+                <GameOverStats />
             </Grid>
-            <Grid item xs={2} md={3}>
+            <Grid item xs={2} md={4}>
             </Grid>
           </Grid>
         <Footer />
