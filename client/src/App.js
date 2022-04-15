@@ -6,7 +6,6 @@ import Start from "./pages/Start";
 import Main from "./pages/Main";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
-
 import {
   ApolloClient,
   InMemoryCache,

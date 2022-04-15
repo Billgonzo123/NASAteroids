@@ -1,8 +1,8 @@
 import * as React from "react";
-import { Card, CardContent, CardActions, Typography} from "@mui/material";
+import { Card, CardContent, Typography} from "@mui/material";
 import LeaderboardTable from "../../components/LeaderboardTable";
 
-export default function BasicCard() {
+export default function Leaderboard() {
   return (
     <Card sx={{ minWidth: 350, backgroundColor: "transparent" }}>
       <CardContent>
