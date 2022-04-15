@@ -5,7 +5,7 @@ import updatePlayer from '../../util/updatePlayer';
 import {playSound, stopSound, playMenuSound} from '../../util/playSound';
 import Hud from "../../components/Hud"
 
-const MainWindow = () => {
+const MainWindow = ({menuSoundstate , setMenuSoundState}) => {
 
   const [gameSpeed, setGameSpeed] = useState(8);
   const [screenScale, setScreenScale] = useState(.75);//useState(window.innerWidth / 1920);
@@ -15,7 +15,7 @@ const MainWindow = () => {
   const [gameState, setGameState] = useState({ curLevel: 1, score: 0, exp: 0, playerLevel: 0, numberOfAsteroids: 0 });
   const [timer, setTimer] = useState(0);
   const [ currentKeys, setCurrentKeys] = useState([]);
-  const [menuSoundstate,setMenuSoundState] = useState('');
+
 
   //----------------------------------------------------------- Cnsturctor Scope Variables------------------------------------------------------//
   // //this will hold the currently pressed keys
@@ -31,23 +31,18 @@ const MainWindow = () => {
       //check how many asteroid-object there are
       const numOfAst = document.querySelectorAll('#asteroid-object').length;
       setGameState({ ...gameState, numberOfAsteroids: numOfAst });
-      //update player 
       setGlobalPlayer(oldPlayer => updatePlayer(oldPlayer, keysPressed))
-      //update asteroids
       setAsteroids(oldOpsitions => updateAsteroids(oldOpsitions))
-
       //check for a change in screen size and change scale if change
       if (screenWidth !== window.innerWidth) {
         screenWidth = window.innerWidth;
         setScreenScale((window.innerWidth) / 1920);
       }
-
       //updates state with current keys. We dont really wnat this state updtaed as fast as the keysPressed variable, so we put it in the loop
       setCurrentKeys(old => [...keysPressed]);
       
       //----------------------------------This is just an example of how to use playMenuSound function-------------------------------//
       if (keysPressed.includes('m'))  playMenuSound('confirmA', setMenuSoundState);
-
 
       //timer for timer stuff
       setTimer(old => old + 1);
@@ -99,18 +94,13 @@ const MainWindow = () => {
         }
       }))
     }
-
-   
- 
-
-   
     loop();
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
 
 
-  console.log(currentKeys)
+
 
   return (
     <div id='game-window'
@@ -119,14 +109,13 @@ const MainWindow = () => {
         
       {/*------------ AUDIO -------------*/}
       {/* for every sound effect, there must be an audio element with an id of the file name */}
-     { menuSoundstate.length && <audio id='menu-sound' src={require(`../../assets/snd/menu_snd/${menuSoundstate}.wav`)}  type='audio/wav'/>}
+    
       <audio id='engine_snd' src={require(`../../assets/snd/player_snd/engine_snd.wav`)} loop type='audio/wav'/>
       {/*------------- HUD  -------------*/}
       <div className="nes-container with-title is-centered">
         <p className="title">Controls</p>
         <h1>Press W: Up | A:Left | D:Right |</h1>
       </div>
-      {/* HUD Display */}
       <Hud />
 
       {/*--------- RENDER PLAYER ---------*/}
