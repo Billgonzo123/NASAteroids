@@ -4,6 +4,7 @@ import Leaderboard from "../components/Leaderboard";
 import Login from "../components/Login";
 import LevelLoadIn from "../components/LevelLoadIn";
 import Signup from "../components/Signup";
+import Profile from "../components/Profile";
 
 
 import { playMenuSound } from "../util/playSound";
@@ -29,6 +30,7 @@ const Start = ({menuSoundstate , setMenuSoundState}) => {
         </div>
         <Login />
         {/* <Signup /> */}
+        <Profile/>
         <Footer />
       </Grid>
     </Box>  
