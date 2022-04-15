@@ -1,30 +1,15 @@
 import React from "react";
 import Footer from "../components/Footer";
 import Leaderboard from "../components/Leaderboard";
+import Hud from "../components/Hud";
 import LevelLoadIn from "../components/LevelLoadIn";
-import Profile from "../components/Profile"
-import { Button, Box, Grid } from "@mui/material";
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import Signup from "../components/Signup";
 
-const theme = createTheme({
-  typography: {
-    fontFamily: [
-      'Press Start 2P',
-    ],
-    body1: {
-      textTransform: 'uppercase',
-    },
-  },
-  palette: {
-    text:{
-      primary: "#FFFFFF"
-    }
-  }
-});
+import { Button, Box, Grid } from "@mui/material";
 
 const Start = () => {
   return (
-    <ThemeProvider theme={theme}>
+    
       <Box>
       <Grid
         container
@@ -37,14 +22,11 @@ const Start = () => {
         <div className="logo">
           <h1>ASTEROIDS</h1>
         </div>
-        <Leaderboard />
-        <Profile />
-        <LevelLoadIn />
+        <Hud />
+        {/* <Signup /> */}
         <Footer />
       </Grid>
-    </Box>
-    </ThemeProvider>
-    
+    </Box>  
   );
 };
 

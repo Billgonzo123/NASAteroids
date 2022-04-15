@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 @import url('https://unpkg.com/nes.css@latest/css/nes.min.css');
 
 *{
@@ -28,6 +29,7 @@ body {
   font-size: var(--headings-font-size);
   color: #FFFE3D;
   -webkit-text-stroke: 1px #FF0000;
+  margin-top: 175px;
 }
 
 p {
@@ -70,4 +72,8 @@ background-size: cover;
 /* Button Component */
 .upperCase {
   text-transform: uppercase;
+}
+
+.Mui-focused {
+  color: white !important;
 }
