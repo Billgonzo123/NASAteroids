@@ -53,27 +53,6 @@ const Login = () => {
           }}
         />
         </Grid>
-
-        <Card
-          sx={{
-            justifyContent: "space-between",
-            backgroundColor: "transparent",
-          }}
-        >
-          <CardActions
-            sx={{
-              justifyContent: "space-between",
-              backgroundColor: "transparent",
-            }}
-          >
-            <button type="button" className="nes-btn upperCase">
-              Login
-            </button>
-            <button type="button" className="nes-btn upperCase">
-              Cancel
-            </button>
-          </CardActions>
-        </Card>
       </Grid>
     </Box>
   );

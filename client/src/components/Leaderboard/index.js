@@ -10,20 +10,6 @@ export default function BasicCard() {
           Leaderboard
         </Typography>
         <LeaderboardTable />
-        <CardActions
-            sx={{
-              justifyContent: "space-between",
-              backgroundColor: "transparent",
-              mt: 10,
-            }}
-          >
-            <button type="button" className="nes-btn upperCase">
-              Login
-            </button>
-            <button type="button" className="nes-btn upperCase">
-              Signup
-            </button>
-          </CardActions>
       </CardContent>
     </Card>
   );
