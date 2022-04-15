@@ -72,6 +72,7 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+
 function App() {
   const [menuSoundstate,setMenuSoundState] = useState('');
 

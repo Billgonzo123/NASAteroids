@@ -31,23 +31,18 @@ const MainWindow = ({menuSoundstate , setMenuSoundState}) => {
       //check how many asteroid-object there are
       const numOfAst = document.querySelectorAll('#asteroid-object').length;
       setGameState({ ...gameState, numberOfAsteroids: numOfAst });
-      //update player 
       setGlobalPlayer(oldPlayer => updatePlayer(oldPlayer, keysPressed))
-      //update asteroids
       setAsteroids(oldOpsitions => updateAsteroids(oldOpsitions))
-
       //check for a change in screen size and change scale if change
       if (screenWidth !== window.innerWidth) {
         screenWidth = window.innerWidth;
         setScreenScale((window.innerWidth) / 1920);
       }
-
       //updates state with current keys. We dont really wnat this state updtaed as fast as the keysPressed variable, so we put it in the loop
       setCurrentKeys(old => [...keysPressed]);
       
       //----------------------------------This is just an example of how to use playMenuSound function-------------------------------//
       if (keysPressed.includes('m'))  playMenuSound('confirmA', setMenuSoundState);
-
 
       //timer for timer stuff
       setTimer(old => old + 1);
@@ -99,11 +94,6 @@ const MainWindow = ({menuSoundstate , setMenuSoundState}) => {
         }
       }))
     }
-
-   
- 
-
-   
     loop();
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

@@ -14,6 +14,10 @@
   --font-color: #fff;
 }
 
+#root{
+  width: 100vw;
+  height: 100vh;
+}
 html {
   background: url(./assets/space.gif) repeat center center fixed;
 }
@@ -43,6 +47,7 @@ table {
 }
 
 #game-window {
+ 
   background-image: url("./assets/space.gif");
   background-repeat:repeat;
   position:absolute;
@@ -50,12 +55,14 @@ table {
   width: 1920px;
   height: 1080px;
 }
+
   tr {
     display: flex;
     flex-direction: column;
   }
 
 #player-object {
+  z-index: -1;
   position: absolute;
 
 }
@@ -67,6 +74,7 @@ background-size: cover;
 }
 
 #asteroid-object{
+  z-index: -1;
   position: absolute;
 }
 /* Button Component */
