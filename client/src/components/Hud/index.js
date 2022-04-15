@@ -3,8 +3,12 @@ import { AppBar, Box, Container, Toolbar, Typography, Grid } from "@mui/material
 
 export default function Album() {
   return (
-    <Box>
-        <AppBar position="relative" sx={{ backgroundColor: "transparent" }}>
+    <Box sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '97vh',
+      }}>
+        <AppBar position="relative" sx={{ backgroundColor: "transparent", boxShadow: "none" }}>
         <Toolbar>
             <Grid
                 container
@@ -48,8 +52,8 @@ export default function Album() {
           mt: 'auto',
         }}
       >
-        <Container maxWidth="sm">
-          <Typography variant="body1">
+        <Container>
+          <Typography variant="h6" align="center">
             Press W: Up | A:Left | D:Right
           </Typography>
         </Container>
