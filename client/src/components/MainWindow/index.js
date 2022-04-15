@@ -112,10 +112,6 @@ const MainWindow = ({menuSoundstate , setMenuSoundState}) => {
     
       <audio id='engine_snd' src={require(`../../assets/snd/player_snd/engine_snd.wav`)} loop type='audio/wav'/>
       {/*------------- HUD  -------------*/}
-      <div className="nes-container with-title is-centered">
-        <p className="title">Controls</p>
-        <h1>Press W: Up | A:Left | D:Right |</h1>
-      </div>
       <Hud />
 
       {/*--------- RENDER PLAYER ---------*/}
