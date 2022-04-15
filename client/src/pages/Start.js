@@ -1,22 +1,12 @@
-import React  from "react";
+import React from "react";
 import Footer from "../components/Footer";
 import Leaderboard from "../components/Leaderboard";
-import Login from "../components/Login";
-import LevelLoadIn from "../components/LevelLoadIn";
-import Signup from "../components/Signup";
-import Profile from "../components/Profile";
-
-
+import { Card, CardActions, Box, Grid } from "@mui/material";
 import { playMenuSound } from "../util/playSound";
 
-import { Box, Grid } from "@mui/material";
-
-
-const Start = ({menuSoundstate , setMenuSoundState}) => {
-
+const Start = ({ menuSoundstate, setMenuSoundState }) => {
   return (
-    
-      <Box>
+    <Box>
       <Grid
         container
         columnSpacing={{ md: 1 }}
@@ -28,12 +18,30 @@ const Start = ({menuSoundstate , setMenuSoundState}) => {
         <div className="logo">
           <h1>ASTEROIDS</h1>
         </div>
-        <Login />
-        {/* <Signup /> */}
-        <Profile/>
+        <Leaderboard />
+        <Card
+          sx={{
+            justifyContent: "space-between",
+            backgroundColor: "transparent",
+          }}
+        >
+          <CardActions
+            sx={{
+              justifyContent: "space-between",
+              backgroundColor: "transparent",
+            }}
+          >
+            <button type="button" className="nes-btn upperCase">
+              Login
+            </button>
+            <button type="button" className="nes-btn upperCase">
+              Cancel
+            </button>
+          </CardActions>
+        </Card>
         <Footer />
       </Grid>
-    </Box>  
+    </Box>
   );
 };
 
