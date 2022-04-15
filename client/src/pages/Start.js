@@ -32,6 +32,7 @@ const Start = () => {
               justifyContent: "space-between",
               backgroundColor: "transparent",
               mt: 10,
+              gap: 20
             }}
           >
             <button type="button" className="nes-btn upperCase">
