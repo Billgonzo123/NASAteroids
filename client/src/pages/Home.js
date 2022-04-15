@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Footer from "../components/Footer";
 import Leaderboard from "../components/Leaderboard";
 import Signup from "../components/Signup";
@@ -7,6 +7,8 @@ import { Card, CardActions, Box, Grid } from "@mui/material";
 import { playMenuSound } from "../util/playSound";
 
 const Start = ({ menuSoundstate, setMenuSoundState }) => {
+  const [show, setShow] = useState(false);
+
   return (
     <Box>
       <Grid
@@ -29,9 +31,13 @@ const Start = ({ menuSoundstate, setMenuSoundState }) => {
               gap: 20
             }}
           >
-            <button type="button" className="nes-btn upperCase">
+            <button 
+              type="button" 
+              className="nes-btn upperCase" 
+              onClick={() => setShow(prev => !prev)}>
               Login
             </button>
+            {show && <Login /> }
             <button type="button" className="nes-btn upperCase">
               Signup
             </button>
