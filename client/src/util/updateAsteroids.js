@@ -44,6 +44,7 @@ function updateAsteroids(asteroids) {
                     xB = x
                 } else {
                     xB = x - 1920;
+                    yB = y 
                 }
             } else {
                 if (x < 0) {
