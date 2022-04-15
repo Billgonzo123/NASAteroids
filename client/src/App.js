@@ -1,8 +1,9 @@
 import React, {useState} from "react";
 import "./App.css";
-import MainWindow from "./components/MainWindow";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import Home from "./pages/Home";
 import Start from "./pages/Start";
+import Main from "./pages/Main";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 
@@ -80,13 +81,19 @@ function App() {
       <ThemeProvider theme={theme}>
         <Router>
         <Route exact path="/">
+          <Home
+            menuSoundstate ={menuSoundstate}
+            setMenuSoundState = {setMenuSoundState}
+          />
+        </Route>
+        <Route exact path="/start">
           <Start
             menuSoundstate ={menuSoundstate}
             setMenuSoundState = {setMenuSoundState}
           />
         </Route>
         <Route exact path="/main">
-          <MainWindow
+          <Main
             menuSoundstate ={menuSoundstate}
             setMenuSoundState = {setMenuSoundState}
           />
