@@ -116,7 +116,6 @@ const MainWindow = ({menuSoundstate , setMenuSoundState}) => {
         <p className="title">Controls</p>
         <h1>Press W: Up | A:Left | D:Right |</h1>
       </div>
-      {/* HUD Display */}
       <Hud />
 
       {/*--------- RENDER PLAYER ---------*/}
