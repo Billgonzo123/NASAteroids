@@ -1,6 +1,7 @@
 import React from "react";
 import Footer from "../components/Footer";
 import Leaderboard from "../components/Leaderboard";
+import 
 import { Card, CardActions, Box, Grid } from "@mui/material";
 import { playMenuSound } from "../util/playSound";
 
@@ -19,26 +20,20 @@ const Start = ({ menuSoundstate, setMenuSoundState }) => {
           <h1>ASTEROIDS</h1>
         </div>
         <Leaderboard />
-        <Card
-          sx={{
-            justifyContent: "space-between",
-            backgroundColor: "transparent",
-          }}
-        >
-          <CardActions
+        <CardActions
             sx={{
               justifyContent: "space-between",
               backgroundColor: "transparent",
+              mt: 10,
             }}
           >
             <button type="button" className="nes-btn upperCase">
               Login
             </button>
             <button type="button" className="nes-btn upperCase">
-              Cancel
+              Signup
             </button>
           </CardActions>
-        </Card>
         <Footer />
       </Grid>
     </Box>
