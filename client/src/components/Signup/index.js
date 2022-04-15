@@ -2,12 +2,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { TextField, Button, Card, CardActions, Box, Grid, Typography } from "@mui/material";
 
-const Signup = (props) => {
-  const {
-    elements = [],
-    show,
-    setShow,
-  } = props;
+const Signup = ({show, setShow}) => {
 
   const navigate = useHistory();
 
@@ -23,7 +18,10 @@ const Signup = (props) => {
       <Grid
         container
         columnSpacing={{ md: 1 }}
-        direction="column"
+        direction="column" 
+        sx={{
+          mt: 15
+        }}
       >
         <Grid
           container
@@ -104,12 +102,12 @@ const Signup = (props) => {
               type="button" 
               onClick={handleClick}
               className="nes-btn upperCase">
-              Signup
+              Submit
             </button>
             <button 
               type="button" 
-              onClick={() => {setShow(elements[0])}}
-              className={`${show === 'Welcome'} "nes-btn upperCase"`}>
+              onClick={() => {setShow("Welcome")}}
+              className= {`${show === 'Welcome'} nes-btn upperCase`}>
               Cancel
             </button>
           </CardActions>
