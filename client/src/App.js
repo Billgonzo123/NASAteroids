@@ -18,8 +18,6 @@ const httpLink = createHttpLink({
   uri: "/graphql",
 });
 
-
-
 const theme = createTheme({
   typography: {
     fontFamily: ["Press Start 2P"],
