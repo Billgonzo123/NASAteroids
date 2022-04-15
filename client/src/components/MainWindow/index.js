@@ -110,7 +110,7 @@ const MainWindow = ({menuSoundstate , setMenuSoundState}) => {
 
 
 
-  console.log(currentKeys)
+
 
   return (
     <div id='game-window'
