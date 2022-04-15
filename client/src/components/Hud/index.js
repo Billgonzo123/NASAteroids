@@ -1,25 +1,39 @@
-import * as React from 'react';
-import {AppBar, Toolbar, Typography, Link} from '@mui/material';
+import * as React from "react";
+import { AppBar, Toolbar, Typography, Grid } from "@mui/material";
 
 export default function Album() {
   return (
-      <AppBar position="relative" sx={{backgroundColor: "transparent"}}>
-        <Toolbar sx={{ flexWrap: 'wrap' }}>
-          <Typography variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
-            Angalet
-          </Typography>
-          <Typography variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
-            SCORE: 534
-          </Typography>
-          <nav>
+    <AppBar position="relative" sx={{ backgroundColor: "transparent" }}>
+    <Toolbar>
+        <Grid
+            container
+            direction="row"
+            justifyContent="flex-start"
+            alignItems="center"
+            >
+            {/* Player Username */}
+            <Typography variant="h6" sx={{ flexGrow: .2 }}>
+                Angalet
+            </Typography>
+            {/* Player Current Score */}
+            <Typography variant="h6">
+                SCORE: 534
+            </Typography>
+        </Grid>
+        <Grid
+            container
+            direction="row"
+            justifyContent="flex-end"
+            alignItems="center"
+            >
+            {/* Player Lives */}
             <section class="icon-list">
-                 {/* heart  */}
                 <i class="nes-icon is-medium heart"></i>
                 <i class="nes-icon is-medium heart"></i>
                 <i class="nes-icon is-medium heart is-empty"></i>
             </section>
-          </nav>
-        </Toolbar>
-      </AppBar>
+        </Grid>
+    </Toolbar>
+  </AppBar>
   );
 }
