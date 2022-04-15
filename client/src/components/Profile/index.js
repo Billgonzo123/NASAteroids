@@ -67,7 +67,10 @@ const Profile = () => {
             </TableRow>
             <TableRow sx={{ '& td': { border: 0 } }}>
               <TableCell scope="row" align="left" sx={{ p: 0.25 }}>
-                {user.highscores}
+               4/14/22
+              </TableCell>
+              <TableCell scope="row" align="left" sx={{ m: 0.25 }}>
+               100
               </TableCell>
             </TableRow>
           </TableBody>

@@ -4,6 +4,7 @@ import Leaderboard from "../components/Leaderboard";
 import Hud from "../components/Hud";
 import LevelLoadIn from "../components/LevelLoadIn";
 import Signup from "../components/Signup";
+import Profile from "../components/Profile";
 
 import { Button, Box, Grid } from "@mui/material";
 
@@ -24,6 +25,7 @@ const Start = () => {
         </div>
         <Hud />
         {/* <Signup /> */}
+        <Profile/>
         <Footer />
       </Grid>
     </Box>  
