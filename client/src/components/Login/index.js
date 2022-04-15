@@ -12,7 +12,7 @@ const Login = (props) => {
   const navigate = useHistory();
 
   const handleClick = () => {
-    navigate("/main");
+    navigate.push("/start");
   }
 
   return (
