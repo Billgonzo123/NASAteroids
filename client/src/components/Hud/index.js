@@ -36,10 +36,10 @@ export default function Album() {
                 alignItems="center"
                 >
                 {/* Player Lives */}
-                <section class="icon-list">
-                    <i class="nes-icon is-medium heart"></i>
-                    <i class="nes-icon is-medium heart"></i>
-                    <i class="nes-icon is-medium heart is-empty"></i>
+                <section className="icon-list">
+                    <i className="nes-icon is-medium heart"></i>
+                    <i className="nes-icon is-medium heart"></i>
+                    <i className="nes-icon is-medium heart is-empty"></i>
                 </section>
             </Grid>
         </Toolbar>
