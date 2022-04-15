@@ -1,29 +1,30 @@
 import * as React from "react";
-import {  Card,  CardContent,  Typography, Container, Grid } from "@mui/material";
+import {  Box, Typography, Grid } from "@mui/material";
 import HudHeader from "../../components/HudHeader";
+import Footer from "../Footer";
 
 export default function LevelLoadIn() {
   return (
-    <Container maxWidth="sm">  
-      <Card sx={{ backgroundColor: "transparent" }}>
-        <CardContent>
-          <Grid container spacing={2}>
+    <Box sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '97vh',
+      }}>
+        <HudHeader />
+        <Grid container spacing={2}>
             <Grid item xs={12}>
-              <Typography variant="h3" align="center" gutterBottom sx={{ fontFamily: "Russo One" }} >
+              <Typography variant="h1" align="center" gutterBottom sx={{ fontFamily: "Russo One", mt: 15, textTransform: 'uppercase' }} >
                 Level One
               </Typography>
-              <progress class="nes-progress is-pattern" value="50" max="100"></progress>
             </Grid>
             <Grid item xs={2} md={3}>
             </Grid>
             <Grid item xs={8} md={6}>
-            <GameControls />
             </Grid>
             <Grid item xs={2} md={3}>
             </Grid>
           </Grid>
-        </CardContent>
-      </Card>
-    </Container> 
+        <Footer />
+    </Box>
   );
 }

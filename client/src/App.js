@@ -4,6 +4,7 @@ import MainWindow from "./components/MainWindow";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import Start from "./pages/Start";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import GameOver from "./components/GameOver";
 
 
 import {
@@ -80,7 +81,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <Router>
         <Route exact path="/">
-          <Start
+          <GameOver
             menuSoundstate ={menuSoundstate}
             setMenuSoundState = {setMenuSoundState}
           />

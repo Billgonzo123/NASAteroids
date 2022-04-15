@@ -9,7 +9,7 @@ export default function Album() {
         flexDirection: 'column',
         minHeight: '97vh',
       }}>
-        <HudHeader>
+        <HudHeader />
         <Box
         component="footer"
         sx={{
