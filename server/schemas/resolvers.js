@@ -36,16 +36,21 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    addUserHighscore: async (parent, { highscores }, context) => {
+    addUserHighscore: async (parent, { score }, context) => {
       if (context.user) {
-        console.log('user', context.user);
-        console.log('highscore', highscores);
+        console.log('score', score);
+        const highscore = {
+          score: score,
+          user: context.user.username,
+          date: (new Date()).toLocaleDateString('en-US')
+        };
 
         const user = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $push: { highscores: highscores } },
-          { new: true, runValidators: true }
+          { $push: { highscores: highscore } },
+          { new: true }
         );
+
         return user;
       }
     },
@@ -54,8 +59,11 @@ const resolvers = {
       const all = await Leaderboard.findOne();
 
       // construct highscore object
-      let highscore = { user: context.user.username, score: score };
-      console.log('highscore object', highscore);
+      const highscore = {
+        score: score,
+        user: context.user.username,
+        date: (new Date()).toLocaleDateString('en-US')
+      };
 
       // If a leaderboard doesn't already exist and logged in, create leaderboard
       if (all instanceof Leaderboard == false && context.user) {

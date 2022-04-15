@@ -20,21 +20,34 @@ export const ADD_USER = gql`
       user {
         _id
         username
+        email
+        highscores {
+          score
+          user
+          date
+        }
+        avatar
+        level
+        XP
       }
     }
   }
 `;
 
 export const ADD_USER_HIGHSCORE = gql`
-  mutation AddUserHighscore($highscores: [Int!]) {
-    addUserHighscore(highscores: $highscores) {
+  mutation AddUserHighscore($score: Int) {
+    addUserHighscore(score: $score) {
       _id
       username
       email
-      XP
-      highscores
+      highscores {
+        score
+        user
+        date
+      }
       avatar
       level
+      XP
     }
   }
 `;
@@ -43,8 +56,9 @@ export const ADD_LEADERBOARD_HIGHSCORE = gql`
   mutation AddLeaderboardHighscore($score: Int) {
     addLeaderboardHighscore(score: $score) {
       highscores {
-        user
         score
+        user
+        date
       }
     }
   }
