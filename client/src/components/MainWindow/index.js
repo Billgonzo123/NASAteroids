@@ -52,7 +52,7 @@ const MainWindow = ({
       setGameState((old) => ({ ...old, numberOfAsteroids: numOfAst.length }));
       setGlobalPlayer((oldPlayer) => updatePlayer(oldPlayer, keysPressed));
       setAsteroids((oldPositions) => updateAsteroids(oldPositions));
-      // setBullets((oldPositions) => updateBullet(oldPositions));
+      setBullets((oldPositions) => updateBullet(oldPositions));
 
       //check for a change in screen size and change scale if change
       checkScreenScale(screenWidth, setScreenScale);
@@ -71,11 +71,11 @@ const MainWindow = ({
     }, gameSpeed);
   };
 
+
   //* UseEffect FOR GAME LOGIC STUFF THAT REQUIRES STATES
   useEffect(() => {
     //pew pew 🔫
-    if (currentKeys.includes(' ')) {
-      playSound('bullet_snd');
+    function generateBullet(globalPlayer) {
       const bulletObj = {
         alive: true,
         dir: globalPlayer.dir,
@@ -85,9 +85,20 @@ const MainWindow = ({
         },
         x: globalPlayer.x,
         y: globalPlayer.y,
+        vx: globalPlayer.vx,
+        vy: globalPlayer.vy,
+        thrust: globalPlayer.thrust
       };
-      setBullets((old) => [...old, bulletObj]);
-      console.log('bullets', bullets);
+
+      const newBulletObj = updateBullet(bulletObj);
+
+        //need to cap at 5
+        setBullets([bulletObj]);
+    }
+
+    if (currentKeys.includes(' ')) {
+      playSound('bullet_snd');
+      generateBullet(globalPlayer);
     }
 
     //when the last asteroid is destroyed, run setGameState(old => ({...old, curLevel: (old.curLevel+1), score: (old.score+1000)}) );
@@ -152,20 +163,18 @@ const MainWindow = ({
         {/*--------- RENDER BULLETS ---------*/}
         {Object.keys(bullets).map((posId) => {
           const pos = bullets[posId];
-          const style = {
-            position: "absolute",
-            top: pos.y,
-            left: pos. x,
-          }
+          // const style = {
+          //   position: "absolute",
+          //   top: pos.y,
+          //   left: pos. x,
+          // }
           return pos.alive ? (
             <img
               alt="bullet-sprite"
               src={require('../../assets/img/bullet.png')}
-              style={style}
+              style={motion(pos.x, pos.y, pos.dir)}
             />
-          ) : (
-            ''
-          );
+          ) : '';
         })}
         {/*--------- RENDER ASTEROIDS ---------*/}
         {Object.keys(asteroids).map((posId) => {
