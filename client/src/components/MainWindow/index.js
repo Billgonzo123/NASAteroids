@@ -83,7 +83,7 @@ const MainWindow = ({
 
     //------------TEST ASTEROID DESTRUCTION ---------------------------------------------------------
       //destoryAsteroid = (id, asteroids , setAsteroids)
-    if (currentKeys.includes('x'))  destoryAsteroid('1', asteroids, setAsteroids);
+    if (currentKeys.includes('x'))  destoryAsteroid('1', globalPlayer, asteroids, setAsteroids);
     //-----------------------------------------------------------------------------------------------
 
     //DONT PUT STATE: asteroids INTO DEPENDENCY!!
