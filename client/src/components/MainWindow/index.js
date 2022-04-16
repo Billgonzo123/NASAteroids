@@ -36,7 +36,7 @@ const MainWindow = ({
     alive: true,
   });
   const [asteroids, setAsteroids] = useState({});
-  const [bullets, setBullets] = useState(0);
+  const [bullets, setBullets] = useState([]);
   const [timer, setTimer] = useState(0);
   const [currentKeys, setCurrentKeys] = useState([]);
 
@@ -52,7 +52,7 @@ const MainWindow = ({
       setGameState((old) => ({ ...old, numberOfAsteroids: numOfAst.length }));
       setGlobalPlayer((oldPlayer) => updatePlayer(oldPlayer, keysPressed));
       setAsteroids((oldPositions) => updateAsteroids(oldPositions));
-      
+      // setBullets((oldPositions) => updateBullet(oldPositions));
 
       //check for a change in screen size and change scale if change
       checkScreenScale(screenWidth, setScreenScale);
@@ -64,9 +64,6 @@ const MainWindow = ({
       if (keysPressed.includes('m'))
         playMenuSound('confirmA', setMenuSoundState);
 
-      if (keysPressed.includes(' ')) { 
-        playSound('bullet_snd') };
-      
       //timer for timer stuff
       setTimer((old) => old + 1);
 
@@ -76,6 +73,23 @@ const MainWindow = ({
 
   //* UseEffect FOR GAME LOGIC STUFF THAT REQUIRES STATES
   useEffect(() => {
+    //pew pew 🔫
+    if (currentKeys.includes(' ')) {
+      playSound('bullet_snd');
+      const bulletObj = {
+        alive: true,
+        dir: globalPlayer.dir,
+        spriteDim: {
+          w: 13,
+          h: 13,
+        },
+        x: globalPlayer.x,
+        y: globalPlayer.y,
+      };
+      setBullets((old) => [...old, bulletObj]);
+      console.log('bullets', bullets);
+    }
+
     //when the last asteroid is destroyed, run setGameState(old => ({...old, curLevel: (old.curLevel+1), score: (old.score+1000)}) );
     asteroidGenerationLoop(gameState, setGameState, setAsteroids, timer);
   }, [gameState, setGameState]);
@@ -140,11 +154,9 @@ const MainWindow = ({
           const pos = bullets[posId];
           return pos.alive ? (
             <img
-              key={posId}
-              id="bullet-object"
               alt="bullet-sprite"
               src={require('../../assets/img/bullet.png')}
-              style={motion(pos.x, pos.y, pos.dir)}
+              style={motion(pos.x, pos.y, 0)}
             />
           ) : (
             ''
