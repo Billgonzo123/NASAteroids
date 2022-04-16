@@ -46,8 +46,9 @@ const MainWindow = ({ gameState, setGameState, menuSoundstate, setMenuSoundState
 
   //-------------UseEffect FOR GAME LOGIC STUFF THAT REQUIRES STATES-------------------//
   useEffect(() => {
-    //asteroidGeneration( setAsteroids, spriteSizeIndex, howMany, setX, setY, rndPos)
-    if (gameState.numberOfAsteroids <= 0) asteroidGeneration(setAsteroids, 2, gameState.curLevel + 3, 0, 0, 1);
+ 
+    //asteroidGeneration( setAsteroids, globalPlayer, spriteSizeIndex, howMany, setX, setY, rndPos)
+    if (gameState.numberOfAsteroids <= 0) asteroidGeneration(setAsteroids, globalPlayer, 2, gameState.curLevel + 3, 0, 0, 1);
 
     //------------TEST ASTEROID DESTRUCTION ---------------------------------------------------------
       //destoryAsteroid = (id, asteroids , setAsteroids)
