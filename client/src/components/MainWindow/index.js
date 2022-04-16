@@ -4,7 +4,7 @@ import updateAsteroids from '../../util/updateAsteroids';
 import updatePlayer from '../../util/updatePlayer';
 import { playSound, stopSound, playMenuSound } from '../../util/playSound';
 import { checkScreenScale } from '../../util/checkScreenScale';
-import asteroidGenerationLoop from '../../util/asteroidGenerationLoop';
+import asteroidGeneration from '../../util/asteroidGeneration';
 import Hud from "../../components/Hud"
 import Player from '../Player';
 import Asteroid from '../Asteroid';
@@ -14,7 +14,7 @@ const MainWindow = ({ gameState, setGameState, menuSoundstate, setMenuSoundState
   const [screenScale, setScreenScale] = useState((window.innerWidth) / (1920));
   const [globalPlayer, setGlobalPlayer] = useState({ x: 906, y: 478, xB: 500, yB: 500, dir: 90, thrust: .05, vx: 0, vy: 0, turnSpeed: 2, spriteDim: { w: 54, h: 62 }, alive: true });
   const [asteroids, setAsteroids] = useState({});
-  const [bullets, setBullets] = useState({});
+  const [bullets, setBullets] = useState([]);
   const [timer, setTimer] = useState(0);
   const [currentKeys, setCurrentKeys] = useState([]);
 
@@ -46,8 +46,10 @@ const MainWindow = ({ gameState, setGameState, menuSoundstate, setMenuSoundState
   //-------------UseEffect FOR GAME LOGIC STUFF THAT REQUIRES STATES-------------------//
   useEffect(() => {
     //when the last asteroid is destory, run setGameState(old => ({...old, curLevel: (old.curLevel+1), score: (old.score+1000)}) );
-    asteroidGenerationLoop(gameState, setGameState, setAsteroids, timer);
-  }, [gameState, setGameState])
+    if (gameState.numberOfAsteroids <= 0)   asteroidGeneration( setAsteroids, 2, gameState.curLevel + 3);
+  
+
+  }, [gameState, setGameState, timer])
 
   //-------------------------------------Key Input-----------------------------------//
   //keyboard key event handlers. Keeps an array of all currently pressed keys
