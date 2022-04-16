@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import Home from "./pages/Home";
 import Start from "./pages/Start";
 import Main from "./pages/Main";
+import Nomatch from "./components/Nomatch";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 import {
@@ -98,7 +99,7 @@ function App() {
           />
         </Route>
         <Route>
-          <h1>404 This page does not exist!</h1>
+          <Nomatch />
         </Route>
       </Router>
       </ThemeProvider>
