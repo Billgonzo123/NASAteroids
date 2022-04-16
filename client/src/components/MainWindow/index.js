@@ -152,11 +152,16 @@ const MainWindow = ({
         {/*--------- RENDER BULLETS ---------*/}
         {Object.keys(bullets).map((posId) => {
           const pos = bullets[posId];
+          const style = {
+            position: "absolute",
+            top: pos.y,
+            left: pos. x,
+          }
           return pos.alive ? (
             <img
               alt="bullet-sprite"
               src={require('../../assets/img/bullet.png')}
-              style={motion(pos.x, pos.y, 0)}
+              style={style}
             />
           ) : (
             ''
