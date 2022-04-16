@@ -36,11 +36,9 @@ const MainWindow = ({
     alive: true,
   });
   const [asteroids, setAsteroids] = useState({});
-  const [bullets, setBullets] = useState([]);
+  const [bullets, setBullets] = useState(0);
   const [timer, setTimer] = useState(0);
   const [currentKeys, setCurrentKeys] = useState([]);
-
-
 
   let keysPressed = [];
   let screenWidth = window.innerWidth;
@@ -54,8 +52,7 @@ const MainWindow = ({
       setGameState((old) => ({ ...old, numberOfAsteroids: numOfAst.length }));
       setGlobalPlayer((oldPlayer) => updatePlayer(oldPlayer, keysPressed));
       setAsteroids((oldPositions) => updateAsteroids(oldPositions));
-
-      setBullets((oldPositions) => updateBullets(oldPositions));
+      
 
       //check for a change in screen size and change scale if change
       checkScreenScale(screenWidth, setScreenScale);
@@ -67,6 +64,9 @@ const MainWindow = ({
       if (keysPressed.includes('m'))
         playMenuSound('confirmA', setMenuSoundState);
 
+      if (keysPressed.includes(' ')) { 
+        playSound('bullet_snd') };
+      
       //timer for timer stuff
       setTimer((old) => old + 1);
 
@@ -76,13 +76,12 @@ const MainWindow = ({
 
   //* UseEffect FOR GAME LOGIC STUFF THAT REQUIRES STATES
   useEffect(() => {
-    //when the last asteroid is destory, run setGameState(old => ({...old, curLevel: (old.curLevel+1), score: (old.score+1000)}) );
+    //when the last asteroid is destroyed, run setGameState(old => ({...old, curLevel: (old.curLevel+1), score: (old.score+1000)}) );
     asteroidGenerationLoop(gameState, setGameState, setAsteroids, timer);
   }, [gameState, setGameState]);
 
   //* Key Input
   //keyboard key event handlers. Keeps an array of all currently pressed keys
-
   const logKeyDown = (e) => {
     e.preventDefault();
     if (!keysPressed.includes(e.key)) {
@@ -123,7 +122,7 @@ const MainWindow = ({
           type="audio/wav"
         />
         <audio
-          id="engine_snd"
+          id="bullet_snd"
           src={require(`../../assets/snd/bullet_snd/bullet_snd.wav`)}
           loop
           type="audio/wav"
@@ -139,13 +138,22 @@ const MainWindow = ({
         {/*--------- RENDER BULLETS ---------*/}
         {Object.keys(bullets).map((posId) => {
           const pos = bullets[posId];
-          //add an asteroids to game
-          return pos.alive ? <Asteroid pos={pos} posId={posId} /> : '';
+          return pos.alive ? (
+            <img
+              key={posId}
+              id="bullet-object"
+              alt="bullet-sprite"
+              src={require('../../assets/img/bullet.png')}
+              style={motion(pos.x, pos.y, pos.dir)}
+            />
+          ) : (
+            ''
+          );
         })}
         {/*--------- RENDER ASTEROIDS ---------*/}
         {Object.keys(asteroids).map((posId) => {
           const pos = asteroids[posId];
-          //add an asteroids to game
+          //add asteroids to game
           return pos.alive ? <Asteroid pos={pos} posId={posId} /> : '';
         })}
       </div>
