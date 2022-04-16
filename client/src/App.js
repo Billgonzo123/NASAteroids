@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import Home from "./pages/Home";
 import Start from "./pages/Start";
 import Main from "./pages/Main";
+import Nomatch from "./components/Nomatch";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 import {
@@ -96,6 +97,9 @@ function App() {
             menuSoundstate ={menuSoundstate}
             setMenuSoundState = {setMenuSoundState}
           />
+        </Route>
+        <Route>
+          <Nomatch />
         </Route>
       </Router>
       </ThemeProvider>
