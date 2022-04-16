@@ -20,7 +20,6 @@
 }
 html {
  background: url(./assets/space.gif) repeat center center fixed; 
-  
 }
 
 body {
@@ -47,14 +46,28 @@ table {
   justify-content: center;
 }
 
+
+
 #game-window {
- 
   background-image: url("./assets/space.gif");
   background-repeat:repeat;
   position:absolute;
+  top: 0px;
+  left: 0px;
+  transform-origin:top left;
   /* the width and height must be fixed! Use transform: scale() on the body to change size of all elements */
   width: 1920px;
   height: 1080px;
+}
+#controls-footer {
+  margin-top: -950px;
+}
+#black-bar {
+  position:absolute;
+  z-index: 100;
+  width: 100vw;
+  height:100vh;
+background-color: black;
 }
 
   tr {

@@ -19,7 +19,7 @@ export default function Hud() {
         }}
       >
         <Container>
-          <Typography variant="h6" align="center">
+          <Typography id="controls-footer" variant="h6" align="center">
             Press W: Up | A:Left | D:Right
           </Typography>
         </Container>

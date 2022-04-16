@@ -1,8 +1,6 @@
-
 function updateAsteroids(asteroids) {
 
     let updatedAsteroids = { ...asteroids };
-
 
     for (let [key, value] of Object.entries(updatedAsteroids)) {
 
@@ -13,12 +11,11 @@ function updateAsteroids(asteroids) {
             //constatley update momentum
             x += vx;
             y += vy;
-
             //calculate cenetr based of current x,y cord
             let center = { x: x + (spriteDim.w / 2), y: y + (spriteDim.h / 2) }
             //These numbers represent the actual image height and width in pixels
-        
-         //---------Sprite wrapping----------
+
+            //---------Sprite wrapping----------
             if (y + spriteDim.h > 1080) {
                 if (y > 1080) {
                     y = 0;
@@ -32,7 +29,7 @@ function updateAsteroids(asteroids) {
                         y = 1080 - spriteDim.h;
                         yB = y;
                     } else {
-                        yB =1080 + y;
+                        yB = 1080 + y;
                     }
                 } else { yB = y }
             }
@@ -44,7 +41,6 @@ function updateAsteroids(asteroids) {
                     xB = x
                 } else {
                     xB = x - 1920;
-                    yB = y 
                 }
             } else {
                 if (x < 0) {
@@ -52,17 +48,10 @@ function updateAsteroids(asteroids) {
                         x = 1920 - spriteDim.w;
                         xB = x;
                     } else {
-                        xB =1920 + x;
+                        xB = 1920 + x;
                     }
                 } else { xB = x }
             }
-
-
-          
-
-
-
-
 
             updatedAsteroids[key] = { ...value, x: x, y: y, xB: xB, yB: yB, vx: vx, vy: vy };
 
