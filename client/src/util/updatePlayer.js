@@ -1,13 +1,11 @@
 import { playSound, stopSound } from "./playSound";
 
 function updatePlayer(globalPlayer, keysPressed) {
-
     let { x, y, xB, yB, dir, thrust, vx, vy, turnSpeed, spriteDim, alive } = globalPlayer;
 
     (keysPressed.includes('w')) ? playSound('engine_snd') : stopSound('engine_snd');
     //if 'w' key opressed, add velocity in direction
     if (keysPressed.includes('w')) {
-       
         vx -= thrust * Math.cos((dir) * Math.PI / 180);
         vy -= thrust * Math.sin((dir) * Math.PI / 180);
     }
@@ -15,15 +13,14 @@ function updatePlayer(globalPlayer, keysPressed) {
     if (keysPressed.includes('d')) {
         (dir < 360) ? dir += turnSpeed : dir = 0;
     }
-    
     if (keysPressed.includes('a')) {
         (dir <= 0) ? dir = 360 : dir -= turnSpeed;
     }
-
     //constatley update momentum
     x += vx;
     y += vy;
-//make this code a seperate function
+
+//Sprite wrapping --- make this code a seperate function
     if (y + spriteDim.h > 1080) {
         if (y > 1080) {
             y = 0;

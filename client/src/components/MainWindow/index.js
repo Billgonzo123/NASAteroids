@@ -24,8 +24,6 @@ const MainWindow = ({ gameState, setGameState, menuSoundstate, setMenuSoundState
   //generate multiple asteroids based on game level
   let screenWidth = window.innerWidth;
 
-  //loop must use useRef() in order to get updated states
-console.log(window.devicePixelRatio)
   // -------------------------------------------------------Game Loop----------------------------------------------//
   const loop = () => {
     setTimeout(() => {
@@ -45,7 +43,6 @@ console.log(window.devicePixelRatio)
     }, gameSpeed);
   }
 
-
   //-------------UseEffect FOR GAME LOGIC STUFF THAT REQUIRES STATES-------------------//
   useEffect(() => {
     //when the last asteroid is destory, run setGameState(old => ({...old, curLevel: (old.curLevel+1), score: (old.score+1000)}) );
@@ -53,7 +50,6 @@ console.log(window.devicePixelRatio)
   }, [gameState, setGameState])
 
   //-------------------------------------Key Input-----------------------------------//
-
   //keyboard key event handlers. Keeps an array of all currently pressed keys
   const logKeyDown = (e) => {
     e.preventDefault()
@@ -62,7 +58,6 @@ console.log(window.devicePixelRatio)
       console.log('Pressed: ', keysPressed);
     }
   }
-
   const logKeyUp = (e) => {
     e.preventDefault()
     const newKeys = keysPressed.filter(key => key !== e.key);
@@ -83,9 +78,10 @@ console.log(window.devicePixelRatio)
 
 
   return (
+    <>
       <div id='game-window'
         className="App"
-        style={{ left: (window.innerWidth - (1920)) / 2, "transform": `scale(${screenScale})` }}>
+        style={{"transform": `scale(${screenScale})` }}>
         {/*------------ AUDIO -------------*/}
         {/* for every sound effect, there must be an audio element with an id of the file name */}
         <audio id='engine_snd' src={require(`../../assets/snd/player_snd/engine_snd.wav`)} loop type='audio/wav' />
@@ -108,8 +104,9 @@ console.log(window.devicePixelRatio)
             ""
           );
         })}
-
       </div>  
+      <div id='black-bar' style={{ "top": `${(screenScale*1080)}px` }}/> 
+      </>
   )
 }
 
