@@ -1,8 +1,13 @@
-//We need the setAsteroid setter, a number 0-2(small, medium, large) for the size of the asteroid, howMany is the number of asteroids to create
+/*We need the setAsteroid setter, 
+A number 0-2(small, medium, large) for the size of the asteroid, 
+'howMany' is the number of asteroids to create, 
+setX and setY are the specific coordinates to place the asteroids, 
+rndPos is boolean for if the (x,y) cordinates should be random or not*/
 function asteroidGeneration(setAsteroids, spriteSizeIndex, howMany, setX, setY, rndPos) {
   const directionSeed = (360 / howMany);
   for (let i = 1; i <= howMany; i++) {
     setAsteroids(old => {
+      //decide if (x,y) shoudl be random
       const xx = (rndPos) ? Math.floor(Math.random() * 1920) : setX;
       const yy = (rndPos) ? Math.floor(Math.random() * 1080) : setY;
       let freshId = i;

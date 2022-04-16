@@ -46,7 +46,6 @@ const MainWindow = ({ gameState, setGameState, menuSoundstate, setMenuSoundState
 
   //-------------UseEffect FOR GAME LOGIC STUFF THAT REQUIRES STATES-------------------//
   useEffect(() => {
-    //when the last asteroid is destory, run setGameState(old => ({...old, curLevel: (old.curLevel+1), score: (old.score+1000)}) );
     //asteroidGeneration( setAsteroids, spriteSizeIndex, howMany, setX, setY, rndPos)
     if (gameState.numberOfAsteroids <= 0) asteroidGeneration(setAsteroids, 2, gameState.curLevel + 3, 0, 0, 1);
 
