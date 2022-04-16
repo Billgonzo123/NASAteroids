@@ -1,16 +1,34 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { TextField, Button, Card, CardActions, Box, Grid, Typography } from "@mui/material";
 
-const Signup = () => {
+const Signup = ({show, setShow}) => {
+
+  const navigate = useHistory();
+
+  const handleClick = () => {
+    navigate.push("/start");
+  }
+
   return (
     <Box 
       component="form" 
       noValidate autoComplete="off"
       >
+      <Typography
+        sx={{
+          textAlign: "center"
+        }}
+      >
+          Sign Up
+      </Typography>
       <Grid
         container
         columnSpacing={{ md: 1 }}
-        direction="column"
+        direction="column" 
+        sx={{
+          mt: 15
+        }}
       >
         <Grid
           container
@@ -87,10 +105,16 @@ const Signup = () => {
               backgroundColor: "transparent",
             }}
           >
-            <button type="button" className="nes-btn upperCase">
-              Signup
+            <button 
+              type="button" 
+              onClick={handleClick}
+              className="nes-btn upperCase">
+              Submit
             </button>
-            <button type="button" className="nes-btn upperCase">
+            <button 
+              type="button" 
+              onClick={() => {setShow("Welcome")}}
+              className= {`${show === 'Welcome'} nes-btn upperCase`}>
               Cancel
             </button>
           </CardActions>

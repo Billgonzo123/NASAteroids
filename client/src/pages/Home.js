@@ -1,12 +1,13 @@
-import React from "react";
-import Footer from "../components/Footer";
-import Leaderboard from "../components/Leaderboard";
+import React, { useState } from "react";
 import Signup from "../components/Signup";
 import Login from "../components/Login";
-import { Card, CardActions, Box, Grid } from "@mui/material";
-import { playMenuSound } from "../util/playSound";
+import Welcome from "../components/Welcome";
+import Footer from "../components/Footer";
+import { Box, Grid } from "@mui/material";
 
-const Start = ({ menuSoundstate, setMenuSoundState }) => {
+const Home = () => {
+  const [show, setShow] = useState("Welcome");
+
   return (
     <Box>
       <Grid
@@ -20,26 +21,13 @@ const Start = ({ menuSoundstate, setMenuSoundState }) => {
         <div className="logo">
           <h1>ASTEROIDS</h1>
         </div>
-        <Leaderboard />
-        <CardActions
-            sx={{
-              justifyContent: "space-between",
-              backgroundColor: "transparent",
-              mt: 10,
-              gap: 20
-            }}
-          >
-            <button type="button" className="nes-btn upperCase">
-              Login
-            </button>
-            <button type="button" className="nes-btn upperCase">
-              Signup
-            </button>
-          </CardActions>
-        <Footer />
-      </Grid>
+      {show === "Welcome" && <Welcome show={show} setShow={setShow}/>}
+      {show === "Login" && <Login show={show} setShow={setShow} />}
+      {show === "Signup" && <Signup show={show} setShow={setShow} />}
+      <Footer />
+    </Grid>
     </Box>
   );
 };
 
-export default Start;
+export default Home;
