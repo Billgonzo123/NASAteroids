@@ -1,11 +1,11 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import Home from "./pages/Home";
 import Start from "./pages/Start";
 import Main from "./pages/Main";
 import Nomatch from "./components/Nomatch";
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 import {
   ApolloClient,
@@ -31,10 +31,10 @@ const theme = createTheme({
   },
   palette: {
     primary: {
-      light: '#757ce8',
-      main: '#3f50b5',
-      dark: '#002884',
-      contrastText: '#fff',
+      light: "#757ce8",
+      main: "#3f50b5",
+      dark: "#002884",
+      contrastText: "#fff",
     },
     text: {
       primary: "#FFFFFF",
@@ -45,15 +45,15 @@ const theme = createTheme({
       styleOverrides: {
         underline: {
           "&&::before": {
-            borderBottom: "1px solid rgba(255, 255, 255, 1)"
+            borderBottom: "1px solid rgba(255, 255, 255, 1)",
           },
           "&&::after": {
-            borderBottom: "1px solid rgba(255, 255, 255, 1)"
-          }
-        }
-      }
-    }
-  }
+            borderBottom: "1px solid rgba(255, 255, 255, 1)",
+          },
+        },
+      },
+    },
+  },
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -71,40 +71,53 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-
 function App() {
-  const [menuSoundstate,setMenuSoundState] = useState('');
-  const [gameState, setGameState] = useState({ curLevel: 1, score: 0, exp: 0, playerLevel: 0, numberOfAsteroids: 0 });
-
+  const [menuSoundstate, setMenuSoundState] = useState("");
+  const [gameState, setGameState] = useState({
+    curLevel: 1,
+    score: 0,
+    exp: 0,
+    playerLevel: 0,
+    numberOfAsteroids: 0,
+  });
 
   return (
     <ApolloProvider client={client}>
-         { menuSoundstate.length && <audio id='menu-sound' src={require(`./assets/snd/menu_snd/${menuSoundstate}.wav`)}  type='audio/wav'/>}
+      {menuSoundstate.length && (
+        <audio
+          id="menu-sound"
+          src={require(`./assets/snd/menu_snd/${menuSoundstate}.wav`)}
+          type="audio/wav"
+        />
+      )}
       <ThemeProvider theme={theme}>
         <Router>
-        <Route exact path="/">
-          <Home
-            menuSoundstate ={menuSoundstate}
-            setMenuSoundState = {setMenuSoundState}
-          />
-        </Route>
-        <Route exact path="/start">
-          <Start
-            menuSoundstate ={menuSoundstate}
-            setMenuSoundState = {setMenuSoundState}
-          />
-        </Route>
-        <Route exact path="/main">
-          <Main
-            menuSoundstate = {menuSoundstate}
-            setMenuSoundState = {setMenuSoundState}
-            setGameState = {setGameState}
-            gameState = {gameState}/>
-        </Route>
-        <Route>
-          <Nomatch />
-        </Route>
-      </Router>
+          <Switch>
+            <Route exact path="/">
+              <Home
+                menuSoundstate={menuSoundstate}
+                setMenuSoundState={setMenuSoundState}
+              />
+            </Route>
+            <Route exact path="/start">
+              <Start
+                menuSoundstate={menuSoundstate}
+                setMenuSoundState={setMenuSoundState}
+              />
+            </Route>
+            <Route exact path="/main">
+              <Main
+                menuSoundstate={menuSoundstate}
+                setMenuSoundState={setMenuSoundState}
+                setGameState={setGameState}
+                gameState={gameState}
+              />
+            </Route>
+            <Route>
+              <Nomatch />
+            </Route>
+          </Switch>
+        </Router>
       </ThemeProvider>
     </ApolloProvider>
   );
