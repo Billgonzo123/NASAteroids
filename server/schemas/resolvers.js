@@ -17,7 +17,7 @@ const resolvers = {
       return User.find()
     },
     leaderboard: async () => {
-      return Leaderboard.find();
+      return Leaderboard.findOne();
     },
   },
 
