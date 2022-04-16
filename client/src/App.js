@@ -97,6 +97,9 @@ function App() {
             setMenuSoundState = {setMenuSoundState}
           />
         </Route>
+        <Route>
+          <h1>404 This page does not exist!</h1>
+        </Route>
       </Router>
       </ThemeProvider>
     </ApolloProvider>
