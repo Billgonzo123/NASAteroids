@@ -74,6 +74,8 @@ const client = new ApolloClient({
 
 function App() {
   const [menuSoundstate,setMenuSoundState] = useState('');
+  const [gameState, setGameState] = useState({ curLevel: 1, score: 0, exp: 0, playerLevel: 0, numberOfAsteroids: 0 });
+
 
   return (
     <ApolloProvider client={client}>
@@ -94,9 +96,10 @@ function App() {
         </Route>
         <Route exact path="/main">
           <Main
-            menuSoundstate ={menuSoundstate}
+            menuSoundstate = {menuSoundstate}
             setMenuSoundState = {setMenuSoundState}
-          />
+            setGameState = {setGameState}
+            gameState = {gameState}/>
         </Route>
         <Route>
           <Nomatch />
