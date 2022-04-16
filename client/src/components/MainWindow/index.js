@@ -82,7 +82,7 @@ const MainWindow = ({
     if (gameState.numberOfAsteroids <= 0) asteroidGeneration(setAsteroids, globalPlayer, 2, gameState.curLevel + 3, 0, 0, 1);
 
     //------------TEST ASTEROID DESTRUCTION ---------------------------------------------------------
-      //destoryAsteroid = (id, asteroids , setAsteroids)
+      //destoryAsteroid = (id, globalPlayer, asteroids , setAsteroids)
     if (currentKeys.includes('x'))  destoryAsteroid('1', globalPlayer, asteroids, setAsteroids);
     //-----------------------------------------------------------------------------------------------
 
