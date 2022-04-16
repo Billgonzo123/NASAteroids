@@ -23,6 +23,9 @@ const startServer = async () => {
   // integrate our Apollo server with the Express application as middleware
   server.applyMiddleware({ app });
 
+  app.use(express.urlencoded({ extended: false }));
+  app.use(express.json());
+
   // log where we can go to test our GQL API
   console.log(`🛰️ Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
 };
@@ -30,8 +33,7 @@ const startServer = async () => {
 // Initialize the Apollo server
 startServer();
 
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+
 
 // Serve up static assets
 // if (process.env.NODE_ENV === 'production') {
