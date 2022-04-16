@@ -17,7 +17,11 @@ export const GET_ME = gql`
 export const GET_LEADERBOARD = gql`
   query leaderboard {
     leaderboard {
-      highscores
+      highscores {
+        score
+        user
+        date
+      }
     }
   }
 `;
