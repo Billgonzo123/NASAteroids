@@ -7,10 +7,9 @@ import updatePlayer from '../../util/updatePlayer';
 import updateBullet from '../../util/updateBullet';
 import { playSound, stopSound, playMenuSound } from '../../util/playSound';
 import { checkScreenScale } from '../../util/checkScreenScale';
-import asteroidGenerationLoop from '../../util/asteroidGenerationLoop';
-
-//components
-import Hud from '../Hud';
+import asteroidGeneration from '../../util/asteroidGeneration';
+import destoryAsteroid from '../../util/destoryAsteroid';
+import Hud from '../../components/Hud';
 import Player from '../Player';
 import Asteroid from '../Asteroid';
 
@@ -35,6 +34,7 @@ const MainWindow = ({
     spriteDim: { w: 54, h: 62 },
     alive: true,
   });
+
   const [asteroids, setAsteroids] = useState({});
   const [bullets, setBullets] = useState([]);
   const [timer, setTimer] = useState(0);
@@ -71,7 +71,6 @@ const MainWindow = ({
     }, gameSpeed);
   };
 
-
   //* UseEffect FOR GAME LOGIC STUFF THAT REQUIRES STATES
   useEffect(() => {
     //pew pew 🔫
@@ -87,13 +86,13 @@ const MainWindow = ({
         y: globalPlayer.y,
         vx: globalPlayer.vx,
         vy: globalPlayer.vy,
-        thrust: globalPlayer.thrust
+        thrust: globalPlayer.thrust,
       };
 
       const newBulletObj = updateBullet(bulletObj);
 
-        //need to cap at 5
-        setBullets([bulletObj]);
+      //need to cap at 5
+      setBullets([bulletObj]);
     }
 
     if (currentKeys.includes(' ')) {
@@ -101,9 +100,26 @@ const MainWindow = ({
       generateBullet(globalPlayer);
     }
 
-    //when the last asteroid is destroyed, run setGameState(old => ({...old, curLevel: (old.curLevel+1), score: (old.score+1000)}) );
-    asteroidGenerationLoop(gameState, setGameState, setAsteroids, timer);
-  }, [gameState, setGameState]);
+    //asteroidGeneration( setAsteroids, globalPlayer, spriteSizeIndex, howMany, setX, setY, rndPos)
+    if (gameState.numberOfAsteroids <= 0)
+      asteroidGeneration(
+        setAsteroids,
+        globalPlayer,
+        2,
+        gameState.curLevel + 3,
+        0,
+        0,
+        1
+      );
+
+    //------------TEST ASTEROID DESTRUCTION ---------------------------------------------------------
+    //destoryAsteroid = (id, globalPlayer, asteroids , setAsteroids)
+    if (currentKeys.includes('x'))
+      destoryAsteroid('1', globalPlayer, asteroids, setAsteroids);
+    //-----------------------------------------------------------------------------------------------
+
+    //DONT PUT STATE: asteroids INTO DEPENDENCY!!
+  }, [gameState, setGameState, timer, currentKeys]);
 
   //* Key Input
   //keyboard key event handlers. Keeps an array of all currently pressed keys
@@ -122,11 +138,10 @@ const MainWindow = ({
     console.log('Released: ', keysPressed);
   };
 
-  //* USE EFFECT ON MOUNT
+  //...........................................USE EFFECT ON MOUNT------------------------------//
   useEffect(() => {
     document.addEventListener('keyup', logKeyUp);
     document.addEventListener('keydown', logKeyDown);
-
     loop();
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -174,7 +189,9 @@ const MainWindow = ({
               src={require('../../assets/img/bullet.png')}
               style={motion(pos.x, pos.y, pos.dir)}
             />
-          ) : '';
+          ) : (
+            ''
+          );
         })}
         {/*--------- RENDER ASTEROIDS ---------*/}
         {Object.keys(asteroids).map((posId) => {
