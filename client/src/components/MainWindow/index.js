@@ -50,16 +50,12 @@ const MainWindow = ({ gameState, setGameState, menuSoundstate, setMenuSoundState
     //asteroidGeneration( setAsteroids, spriteSizeIndex, howMany, setX, setY, rndPos)
     if (gameState.numberOfAsteroids <= 0) asteroidGeneration(setAsteroids, 2, gameState.curLevel + 3, 0, 0, 1);
 
-    //TEST ASTEROID DESTRUCTION ---------------------------------------------------------------------
-    if (currentKeys.includes('x')) {
-      console.log('BOOOOM!!!!!');
+    //------------TEST ASTEROID DESTRUCTION ---------------------------------------------------------
       //destoryAsteroid = (id, asteroids , setAsteroids)
-      destoryAsteroid('1', asteroids, setAsteroids);
-      
-    };
-
+    if (currentKeys.includes('x'))  destoryAsteroid('1', asteroids, setAsteroids);
     //-----------------------------------------------------------------------------------------------
 
+    //DONT PUT STATE: asteroids INTO DEPENDENCY!!
   }, [gameState, setGameState, timer, currentKeys])
 
   //-------------------------------------Key Input-----------------------------------//
