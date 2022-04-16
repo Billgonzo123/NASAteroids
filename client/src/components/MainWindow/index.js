@@ -5,6 +5,7 @@ import updatePlayer from '../../util/updatePlayer';
 import { playSound, stopSound, playMenuSound } from '../../util/playSound';
 import { checkScreenScale } from '../../util/checkScreenScale';
 import asteroidGeneration from '../../util/asteroidGeneration';
+import destoryAsteroid from '../../util/destoryAsteroid';
 import Hud from "../../components/Hud"
 import Player from '../Player';
 import Asteroid from '../Asteroid';
@@ -46,10 +47,20 @@ const MainWindow = ({ gameState, setGameState, menuSoundstate, setMenuSoundState
   //-------------UseEffect FOR GAME LOGIC STUFF THAT REQUIRES STATES-------------------//
   useEffect(() => {
     //when the last asteroid is destory, run setGameState(old => ({...old, curLevel: (old.curLevel+1), score: (old.score+1000)}) );
-    if (gameState.numberOfAsteroids <= 0)   asteroidGeneration( setAsteroids, 2, gameState.curLevel + 3);
-  
+    //asteroidGeneration( setAsteroids, spriteSizeIndex, howMany, setX, setY, rndPos)
+    if (gameState.numberOfAsteroids <= 0) asteroidGeneration(setAsteroids, 2, gameState.curLevel + 3, 0, 0, 1);
 
-  }, [gameState, setGameState, timer])
+    //TEST ASTEROID DESTRUCTION ---------------------------------------------------------------------
+    if (currentKeys.includes('x')) {
+      console.log('BOOOOM!!!!!');
+      //destoryAsteroid = (id, asteroids , setAsteroids)
+      destoryAsteroid('1', asteroids, setAsteroids);
+      
+    };
+
+    //-----------------------------------------------------------------------------------------------
+
+  }, [gameState, setGameState, timer, currentKeys])
 
   //-------------------------------------Key Input-----------------------------------//
   //keyboard key event handlers. Keeps an array of all currently pressed keys
@@ -65,15 +76,12 @@ const MainWindow = ({ gameState, setGameState, menuSoundstate, setMenuSoundState
     const newKeys = keysPressed.filter(key => key !== e.key);
     if (newKeys !== keysPressed) keysPressed = newKeys;
     console.log('Released: ', keysPressed);
-
   }
-
 
   //...........................................USE EFFECT ON MOUNT------------------------------//
   useEffect(() => {
     document.addEventListener('keyup', logKeyUp);
     document.addEventListener('keydown', logKeyDown);
-    //generate initial asteroids
     loop();
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -83,7 +91,7 @@ const MainWindow = ({ gameState, setGameState, menuSoundstate, setMenuSoundState
     <>
       <div id='game-window'
         className="App"
-        style={{"transform": `scale(${screenScale})` }}>
+        style={{ "transform": `scale(${screenScale})` }}>
         {/*------------ AUDIO -------------*/}
         {/* for every sound effect, there must be an audio element with an id of the file name */}
         <audio id='engine_snd' src={require(`../../assets/snd/player_snd/engine_snd.wav`)} loop type='audio/wav' />
@@ -106,9 +114,9 @@ const MainWindow = ({ gameState, setGameState, menuSoundstate, setMenuSoundState
             ""
           );
         })}
-      </div>  
-      <div id='black-bar' style={{ "top": `${(screenScale*1080)}px` }}/> 
-      </>
+      </div>
+      <div id='black-bar' style={{ "top": `${(screenScale * 1080)}px` }} />
+    </>
   )
 }
 

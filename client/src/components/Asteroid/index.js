@@ -6,6 +6,7 @@ import motion from '../../util/motion';
 const Asteroid = ({posId, pos}) => {
   //sizes uses the number saved in size (0-2) to decide which sprite to draw
   const sizes = ['asteroid_sm_sprt','asteroid_med_sprt', 'asteroid_large_sprt']
+  const sprite = sizes[pos.size];
   //we must return 4 elements, 3 of which are conditional for rendering the illusion of the screen wrapping
     return (
         <>
@@ -13,30 +14,35 @@ const Asteroid = ({posId, pos}) => {
             key={posId}
             id='asteroid-object'
             alt='asteroid-sprite'
-            src={require( `../../assets/img/${sizes[pos.size]}.png`)}
-            style={motion(pos.x, pos.y, pos.dir)} />
+            src={require( `../../assets/img/${sprite}.png`)}
+            style={motion(pos.x, pos.y, pos.dir)} 
+            />
+            
 
           {pos.xB !== pos.x && <img
             key={posId + 'a'}
             id='asteroid-shadow'
             alt='asteroid-sprite'
-            src={require(`../../assets/img/${sizes[pos.size]}.png`)}
-            style={motion(pos.xB, pos.y, pos.dir)} />}
+            src={require(`../../assets/img/${sprite}.png`)}
+            style={motion(pos.xB, pos.y, pos.dir)} 
+            />}
 
           {pos.yB !== pos.y && <img
             key={posId + 'b'}
             id='asteroid-shadow'
             alt='asteroid-sprite'
-            src={require(`../../assets/img/${sizes[pos.size]}.png`)}
-            style={motion(pos.x, pos.yB, pos.dir)} />}
+            src={require(`../../assets/img/${sprite}.png`)}
+            style={motion(pos.x, pos.yB, pos.dir)} 
+            />}
 
 
           {pos.yB !== pos.y && pos.xB !== pos.x && <img
             key={posId + 'c'}
             id='asteroid-shadow'
             alt='asteroid-sprite'
-            src={require(`../../assets/img/${sizes[pos.size]}.png`)}
-            style={motion(pos.xB, pos.yB, pos.dir)} />}
+            src={require(`../../assets/img/${sprite}.png`)}
+            style={motion(pos.xB, pos.yB, pos.dir)} 
+            />}
      
         </>
     )
