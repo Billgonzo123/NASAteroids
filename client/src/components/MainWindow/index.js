@@ -36,7 +36,7 @@ const MainWindow = ({
   });
 
   const [asteroids, setAsteroids] = useState({});
-  const [bullets, setBullets] = useState({});
+  const [bullets, setBullets] = useState([]);
   const [timer, setTimer] = useState(0);
   const [currentKeys, setCurrentKeys] = useState([]);
 
@@ -82,17 +82,18 @@ const MainWindow = ({
           w: 13,
           h: 13,
         },
-        x: player.x,
-        y: player.y,
+        x: player.x+(player.spriteDim.w/2),
+        y: player.y+(player.spriteDim.h/2),
         vx: 0,
         vy:0,
-        thrust: 2,
+        thrust: 30,
       };
 
       // const newBulletObj = updateBullet(bulletObj);
 
       // //need to cap at 5
-      setBullets((old) => [...old, bulletObj]);
+      if (bullets.length<5) setBullets((old) => ([...old, bulletObj]));
+      
     }
 
     if (currentKeys.includes(' ')) {
@@ -138,6 +139,7 @@ const MainWindow = ({
     console.log('Released: ', keysPressed);
   };
 
+
   //...........................................USE EFFECT ON MOUNT------------------------------//
   useEffect(() => {
     document.addEventListener('keyup', logKeyUp);
@@ -146,7 +148,6 @@ const MainWindow = ({
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log('bullets -- how often does this pop up?', bullets)
   return (
     <>
       <div
@@ -177,17 +178,13 @@ const MainWindow = ({
           ''
         )}
         {/*--------- RENDER BULLETS ---------*/}
-        {bullets.map((posId) => {
+        {bullets.map((pos) => {
           console.log('bullets in render', bullets);
-          console.log('posId', posId);
-          const pos = bullets[posId];
-          const style = {
-            position: "absolute",
-            top: pos.y,
-            left: pos. x,
-          }
+          console.log('pos', pos);
+       
           return pos ? (
             <img
+            id='bullet-object'
               alt="bullet-sprite"
               src={require('../../assets/img/bullet.png')}
               style={motion(pos.x, pos.y, pos.dir)}

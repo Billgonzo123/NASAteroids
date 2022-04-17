@@ -87,10 +87,16 @@ background-color: black;
 background-size: cover;
 }
 
+#bullet-object{
+  z-index: -1;
+  position: absolute;
+}
+
 #asteroid-object{
   z-index: -1;
   position: absolute;
 }
+
 
 #asteroid-shadow {
   z-index: -1;
