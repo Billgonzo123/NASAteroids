@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import {
+  Box,
   Table,
   TableBody,
   TableCell,
@@ -24,7 +25,13 @@ export default function LeaderboardTable() {
       rows.push(createData(score.user, score.score));
       return rows;
     })
+  } 
+  
+  if (!data) {
+    return <Box sx={{ textAlign: "center", mt: 10 }}><p>No high scores yet!</p></Box>
   }
+
+
   if (error) {
     console.log(error);
   }
