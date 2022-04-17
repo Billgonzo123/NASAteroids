@@ -16,7 +16,8 @@ const Player = ({ globalPlayer, currentKeys }) => {
         className={currentKeys.includes('w') ? 'fire' : ''}
         alt='player-sprite'
         src={require('../../assets/img/player_sprt_invs.gif')}
-        style={motion(globalPlayer.xB, globalPlayer.y, globalPlayer.dir)} />}
+        style={motion(globalPlayer.xB, globalPlayer.y, globalPlayer.dir)} />
+        }
       {globalPlayer.xB !== globalPlayer.x && <img
         id='player-object'
         className={currentKeys.includes('w') ? 'fire' : ''}

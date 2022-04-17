@@ -13,6 +13,7 @@ import destoryAsteroid from '../../util/destoryAsteroid';
 import Hud from "../../components/Hud"
 import Player from '../Player';
 import Asteroid from '../Asteroid';
+import { global } from '@apollo/client/utilities/globals';
 
 const MainWindow = ({
   gameState,
@@ -133,6 +134,7 @@ console.log(globalPlayer.invincible)
           loop
           type="audio/wav"
         />
+        {gameState.lives === 3 && globalPlayer.invnsTimer && <div id='start-display'>!START!</div>}
         <audio
           id="bullet_snd"
           src={require(`../../assets/snd/bullet_snd/bullet_snd.wav`)}
