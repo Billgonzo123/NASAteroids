@@ -3,28 +3,23 @@ import {
   Card,
   CardContent,
   Typography,
-  Container,
-  Grid,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableRow,
 } from '@mui/material';
-
-// import { useQuery } from '@apollo/client';
-// import { GET_ME } from '../../util/queries';
+import { useQuery } from '@apollo/client';
+import { GET_ME } from '../../util/queries';
 
 const Profile = () => {
-  // const { loading, data } = useQuery(GET_ME);
-  // console.log('logged in user data', data);
+  const { loading, data } = useQuery(GET_ME);
+  const user = data?.me || {};
+  const highscores = data?.me.highscores || [];
 
-  let user = {
-    username: 'username',
-    highscores: [100, 200, 300],
-    level: 2,
-    XP: 1000000,
-  };
+  if (loading) {
+    return <div>Loading...</div>
+  }
 
   return (
     <Card sx={{ minWidth: 275, backgroundColor: 'transparent' }}>
@@ -56,7 +51,7 @@ const Profile = () => {
                 XP:
               </TableCell>
               <TableCell scope="row" align="left" sx={{ p: 0.25 }}>
-                {user.XP}
+                {user.XP ? user.XP : 0}
               </TableCell>
             </TableRow>
             {/* user scores */}
@@ -65,14 +60,16 @@ const Profile = () => {
                 Scores:
               </TableCell>
             </TableRow>
-            <TableRow sx={{ '& td': { border: 0 } }}>
+            {highscores && highscores.map((score, i) => (
+            <TableRow key={i} sx={{ '& td': { border: 0 } }}>
               <TableCell scope="row" align="left" sx={{ p: 0.25 }}>
-               4/14/22
+               {score.date}
               </TableCell>
               <TableCell scope="row" align="left" sx={{ m: 0.25 }}>
-               100
+               {score.score}
               </TableCell>
             </TableRow>
+            ))}
           </TableBody>
         </Table>
       </TableContainer>
