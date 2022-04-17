@@ -79,6 +79,8 @@ background-color: black;
   position: absolute;
   font-size: 100px;
   text-align: center;
+  top: 206px; 
+  left: 510px;
   color: #ffff;
 }
 #player-object {

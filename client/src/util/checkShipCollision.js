@@ -1,9 +1,11 @@
 import getDistance from '../util/getDistance'
 
 function checkShipCollision(globalPlayer, setGlobalPlayer, setGameState, asteroids) {
-    const { x, y, xB, yB, spriteDim, alive } = globalPlayer;
-  
-    if (alive){
+    const { x, y, xB, yB, spriteDim, alive, invnsTimer } = globalPlayer;
+
+   if (invnsTimer>0) setGlobalPlayer(old => ({...old, invnsTimer: old.invnsTimer-1}));
+
+    if (alive && invnsTimer<=0 ){
     Object.keys(asteroids).map((asteroid) => {
         const a = asteroids[asteroid];
         //radius is hard coded
@@ -21,22 +23,19 @@ function checkShipCollision(globalPlayer, setGlobalPlayer, setGameState, asteroi
         if (lineA < dist || lineB < dist || lineC < dist || lineD < dist) {
           
             setGameState( old => {
-        console.log('OLD LIVES: ', old.lives)
                 if (old.lives <= 0) {
+                    //kill player. set alive to false
                     setGlobalPlayer(old => ({...old,   x: 906, y: 478, xB: 906, yB: 478, vx: 0, vy: 0, dir:90, alive: false}))
                     return ({...old, lives: 0})
                 } else {
-                    setGlobalPlayer(old => ({...old,   x: 906, y: 478, xB: 906, yB: 478, vx: 0, vy: 0, dir:90}))
+                    setGlobalPlayer(old => ({...old,   x: 906, y: 478, xB: 906, yB: 478, vx: 0, vy: 0, dir:90, invnsTimer: 800}))
                     return ({...old, lives: old.lives-1})
                 }
             
-            });
-                
-              
-            
-       
+            }); 
+            return;
         }
-      
+  
     });
 }
 

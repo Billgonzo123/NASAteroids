@@ -23,6 +23,7 @@ const MainWindow = ({
   const [gameSpeed, setGameSpeed] = useState(8);
   const [screenScale, setScreenScale] = useState(window.innerWidth / 1920);
   const [globalPlayer, setGlobalPlayer] = useState({
+ 
     x: 906,
     y: 478,
     xB: 906,
@@ -34,7 +35,7 @@ const MainWindow = ({
     turnSpeed: 2,
     spriteDim: { w: 54, h: 62 },
     alive: true,
-    start: 1000
+    invnsTimer: 800
   });
   const [asteroids, setAsteroids] = useState({});
 
@@ -45,7 +46,7 @@ const MainWindow = ({
 
   let keysPressed = [];
   let screenWidth = window.innerWidth;
-
+console.log(globalPlayer.invincible)
   //*GAME LOOP
   const loop = () => {
     setTimeout(() => {
@@ -146,7 +147,7 @@ const MainWindow = ({
         {globalPlayer.alive ? (
           <Player currentKeys={currentKeys} globalPlayer={globalPlayer} />
         ) : (
-          <div id='game-over' style={{"top": `206px`, "left": `510px`}}>GAME OVER</div>
+          <div id='game-over' >GAME OVER</div>
         )}
         {/*--------- RENDER BULLETS ---------*/}
         {Object.keys(bullets).map((posId) => {

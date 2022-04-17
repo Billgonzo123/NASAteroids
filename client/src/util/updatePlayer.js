@@ -76,7 +76,7 @@ function updatePlayer(globalPlayer, keysPressed) {
 
 
   
-    return { x, y, xB, yB, dir, thrust, vx, vy, turnSpeed, spriteDim, alive }
+    return { ...globalPlayer, x, y, xB, yB, dir, thrust, vx, vy, turnSpeed, spriteDim, alive }
 }
 
 export default updatePlayer;
