@@ -126,21 +126,14 @@ console.log(globalPlayer.invincible)
         id="game-window"
         className="App"
         style={{ "transform": `scale(${screenScale})` }}>
+            {gameState.lives === 3 && globalPlayer.invnsTimer && <div id='start-display'>!START!</div>}
         {/*------------ AUDIO -------------*/}
         {/* for every sound effect, there must be an audio element with an id of the file name */}
-        <audio
-          id="engine_snd"
-          src={require(`../../assets/snd/player_snd/engine_snd.wav`)}
-          loop
-          type="audio/wav"
-        />
-        {gameState.lives === 3 && globalPlayer.invnsTimer && <div id='start-display'>!START!</div>}
-        <audio
-          id="bullet_snd"
-          src={require(`../../assets/snd/bullet_snd/bullet_snd.wav`)}
-          loop
-          type="audio/wav"
-        />
+        <audio id="engine_snd" src={require(`../../assets/snd/player_snd/engine_snd.wav`)} loop type="audio/wav"/>
+        <audio id="bullet_snd" src={require(`../../assets/snd/bullet_snd/bullet_snd.wav`)}  type="audio/wav"/>
+        <audio id="player_die" src={require(`../../assets/snd/player_snd/player_die.wav`)}  type="audio/wav"/>
+
+        
         {/*------------- HUD  -------------*/}
         <Hud
           gameState = {gameState}

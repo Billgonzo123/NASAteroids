@@ -1,4 +1,5 @@
 import getDistance from '../util/getDistance'
+import {playSound} from '../util/playSound'
 
 function checkShipCollision(globalPlayer, setGlobalPlayer, setGameState, asteroids) {
     const { x, y, xB, yB, spriteDim, alive, invnsTimer } = globalPlayer;
@@ -24,10 +25,12 @@ function checkShipCollision(globalPlayer, setGlobalPlayer, setGameState, asteroi
           
             setGameState( old => {
                 if (old.lives <= 0) {
+                    playSound('player_die')
                     //kill player. set alive to false
                     setGlobalPlayer(old => ({...old,   x: 906, y: 478, xB: 906, yB: 478, vx: 0, vy: 0, dir:90, alive: false}))
                     return ({...old, lives: 0})
                 } else {
+                    playSound('player_die')
                     setGlobalPlayer(old => ({...old,   x: 906, y: 478, xB: 906, yB: 478, vx: 0, vy: 0, dir:90, invnsTimer: 800}))
                     return ({...old, lives: old.lives-1})
                 }
