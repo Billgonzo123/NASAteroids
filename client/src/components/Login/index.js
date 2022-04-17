@@ -1,13 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import {
-  TextField,
-  Box,
-  Grid,
-  Typography,
-  Card,
-  CardActions,
-} from "@mui/material";
+import { TextField, Box, Grid, Typography, Card, CardActions } from "@mui/material";
 import Auth from "../../util/auth";
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../../util/mutations";
@@ -20,20 +13,19 @@ const Login = ({ show, setShow }) => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
-      try {
-        const mutationResponse = await login({
-          variables: { email: formState.email, password: formState.password },
-        });
-        const token = mutationResponse.data.login.token;
-        Auth.login(token);
-      } catch (e) {
-        console.log(e);
-      }
+    try {
+      const mutationResponse = await login({
+        variables: { email: formState.email, password: formState.password },
+      });
+      const token = mutationResponse.data.login.token;
+      Auth.login(token);
+    } catch (e) {
+      console.log(e);
+    }
 
-      if (Auth.loggedIn) {
-        navigate.push("/start");
-      }
-
+    if (Auth.loggedIn) {
+      navigate.push("/start");
+    }
   };
 
   const handleChange = (event) => {
@@ -105,6 +97,19 @@ const Login = ({ show, setShow }) => {
             }}
           />
         </Grid>
+        <Box
+          sx={{
+            textAlign: "center",
+          }}
+        >
+          {error ? (
+            <div>
+              <p className="error-text">
+                The provided credentials are incorrect
+              </p>
+            </div>
+          ) : null}
+        </Box>
         <Card
           sx={{
             justifyContent: "space-between",
@@ -131,11 +136,6 @@ const Login = ({ show, setShow }) => {
             </button>
           </CardActions>
         </Card>
-        {error ? (
-          <div>
-            <p className="error-text">The provided credentials are incorrect</p>
-          </div>
-        ) : null}
       </Grid>
     </Box>
   );
