@@ -10,7 +10,7 @@ import { playSound, stopSound, playMenuSound } from '../../util/playSound';
 import { checkScreenScale } from '../../util/checkScreenScale';
 import asteroidGeneration from '../../util/asteroidGeneration';
 import destoryAsteroid from '../../util/destoryAsteroid';
-import Hud from "../../components/Hud"
+import Hud from '../../components/Hud';
 import Player from '../Player';
 import Asteroid from '../Asteroid';
 import { global } from '@apollo/client/utilities/globals';
@@ -38,10 +38,9 @@ const MainWindow = ({
     alive: true,
     invnsTimer: 800
   });
+
   const [asteroids, setAsteroids] = useState({});
-
-  const [bullets, setBullets] = useState(0);
-
+  const [bullets, setBullets] = useState([]);
   const [timer, setTimer] = useState(0);
   const [currentKeys, setCurrentKeys] = useState([]);
 
@@ -60,7 +59,8 @@ const MainWindow = ({
         setGameState((old) => ({ ...old, curLevel: old.curLevel+1, numberOfAsteroids: numOfAst.length }));
       }
       setGlobalPlayer((oldPlayer) => updatePlayer(oldPlayer, keysPressed));
-      setAsteroids((oldPositions) => updateAsteroids(oldPositions)); 
+      setAsteroids((oldPositions) => updateAsteroids(oldPositions));
+      setBullets((oldPositions) => updateBullet(oldPositions));
 
       //check for a change in screen size and change scale if change
       checkScreenScale(screenWidth, setScreenScale);
@@ -72,10 +72,6 @@ const MainWindow = ({
       if (keysPressed.includes('m'))
         playMenuSound('confirmA', setMenuSoundState);
 
-      if (keysPressed.includes(' ')) {
-        playSound('bullet_snd')
-      };
-
       //timer for timer stuff
       setTimer((old) => old + 1);
 
@@ -85,26 +81,55 @@ const MainWindow = ({
 
   //* UseEffect FOR GAME LOGIC STUFF THAT REQUIRES STATES
   useEffect(() => {
+    //pew pew 🔫
+    function generateBullet(player) {
+      const bulletObj = {
+        alive: true,
+        dir: player.dir,
+        spriteDim: {
+          w: 13,
+          h: 13,
+        },
+        x: player.x+(player.spriteDim.w/2),
+        y: player.y+(player.spriteDim.h/2),
+        vx: 0,
+        vy:0,
+        thrust: 30,
+      };
+
+      // const newBulletObj = updateBullet(bulletObj);
+
+      // //need to cap at 5
+    setBullets((old) => ([...old, bulletObj]));
+      
+    }
+
+    if (currentKeys.includes(' ') && document.getElementById('bullet_snd').paused && bullets.length<5) {
+      playSound('bullet_snd');
+      generateBullet(globalPlayer);
+    }
 
     //asteroidGeneration( setAsteroids, globalPlayer, spriteSizeIndex, howMany, setX, setY, rndPos)
-
-    if (gameState.numberOfAsteroids <= 0) {
-     
-     asteroidGeneration(setAsteroids, globalPlayer, 2, gameState.curLevel + 3, 0, 0, 1); 
-     
-    }
-   
- 
-
+    if (gameState.numberOfAsteroids <= 0)
+      asteroidGeneration(
+        setAsteroids,
+        globalPlayer,
+        2,
+        gameState.curLevel + 3,
+        0,
+        0,
+        1
+      );
 
     //------------TEST ASTEROID DESTRUCTION ---------------------------------------------------------
     //destoryAsteroid = (id, globalPlayer, asteroids , setAsteroids)
-    if (currentKeys.includes('x')) destoryAsteroid('1', globalPlayer, asteroids, setAsteroids);
+    if (currentKeys.includes('x'))
+      destoryAsteroid('1', globalPlayer, asteroids, setAsteroids);
     //-----------------------------------------------------------------------------------------------
 
     checkShipCollision(globalPlayer, setGlobalPlayer, setGameState, asteroids)
     //DONT PUT STATE: asteroids INTO DEPENDENCY!!
-  }, [gameState, setGameState, timer, currentKeys])
+  }, [gameState, setGameState, timer, currentKeys]);
 
   //* Key Input
   //keyboard key event handlers. Keeps an array of all currently pressed keys
@@ -121,7 +146,8 @@ const MainWindow = ({
     const newKeys = keysPressed.filter((key) => key !== e.key);
     if (newKeys !== keysPressed) keysPressed = newKeys;
     console.log('Released: ', keysPressed);
-  }
+  };
+
 
   //...........................................USE EFFECT ON MOUNT------------------------------//
   useEffect(() => {
@@ -162,12 +188,13 @@ const MainWindow = ({
           <div id='game-over' >GAME OVER</div>
         )}
         {/*--------- RENDER BULLETS ---------*/}
-        {Object.keys(bullets).map((posId) => {
-          const pos = bullets[posId];
-          return pos.alive ? (
+        {bullets.map((pos) => {
+          console.log('bullets in render', bullets);
+          console.log('pos', pos);
+       
+          return pos ? (
             <img
-              key={posId}
-              id="bullet-object"
+            id='bullet-object'
               alt="bullet-sprite"
               src={require('../../assets/img/bullet.png')}
               style={motion(pos.x, pos.y, pos.dir)}

@@ -15,6 +15,8 @@ function updateAsteroids(asteroids) {
             let center = { x: x + (spriteDim.w / 2), y: y + (spriteDim.h / 2) }
             //These numbers represent the actual image height and width in pixels
 
+
+      
             //---------Sprite wrapping----------
             if (y + spriteDim.h > 1080) {
                 if (y > 1080) {
