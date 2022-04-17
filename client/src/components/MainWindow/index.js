@@ -56,8 +56,7 @@ console.log(globalPlayer.invincible)
       //states
       setGameState((old) => ({ ...old, numberOfAsteroids: numOfAst.length }));
       setGlobalPlayer((oldPlayer) => updatePlayer(oldPlayer, keysPressed));
-      setAsteroids((oldPositions) => updateAsteroids(oldPositions));
-
+      setAsteroids((oldPositions) => updateAsteroids(oldPositions)); 
 
       //check for a change in screen size and change scale if change
       checkScreenScale(screenWidth, setScreenScale);
@@ -84,7 +83,15 @@ console.log(globalPlayer.invincible)
   useEffect(() => {
 
     //asteroidGeneration( setAsteroids, globalPlayer, spriteSizeIndex, howMany, setX, setY, rndPos)
-    if (gameState.numberOfAsteroids <= 0) asteroidGeneration(setAsteroids, globalPlayer, 2, gameState.curLevel + 3, 0, 0, 1);
+console.log(gameState)
+    if (gameState.numberOfAsteroids <= 0) {
+     
+     asteroidGeneration(setAsteroids, globalPlayer, 2, gameState.curLevel + 3, 0, 0, 1); 
+     
+    }
+   
+ 
+
 
     //------------TEST ASTEROID DESTRUCTION ---------------------------------------------------------
     //destoryAsteroid = (id, globalPlayer, asteroids , setAsteroids)
