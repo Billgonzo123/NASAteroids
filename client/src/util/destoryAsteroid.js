@@ -4,7 +4,6 @@ import { playSound, stopSound } from "./playSound";
 
 const destoryAsteroid = (id, globalPlayer, asteroids, setAsteroids) => {
 
-
     if (asteroids[id].alive) {
         stopSound('asteroid_die');
         playSound('asteroid_die');
