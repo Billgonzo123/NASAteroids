@@ -25,7 +25,7 @@ function checkShipCollision(globalPlayer, setGlobalPlayer, setGameState, asteroi
           
             setGameState( old => {
                 if (old.lives <= 0) {
-                    playSound('player_die')
+                    playSound('gameover')
                     //kill player. set alive to false
                     setGlobalPlayer(old => ({...old,   x: 906, y: 478, xB: 906, yB: 478, vx: 0, vy: 0, dir:90, alive: false}))
                     return ({...old, lives: 0})
