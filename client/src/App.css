@@ -49,6 +49,7 @@ table {
 
 
 #game-window {
+  
   background-image: url("./assets/space.gif");
   background-repeat:repeat;
   position:absolute;
@@ -74,7 +75,32 @@ background-color: black;
     display: flex;
     flex-direction: column;
   }
+  #start-display {
+    z-index: 1;
+    position: absolute;
+    font-size: 50px;
+    text-align: center;
+    top: 206px; 
+    left: 764px;
+    color: #ffff;
+    transform: scale(1.5) perspective(200px) rotateX(45deg);
+    animation: zoomIn .5s;
 
+     
+  }
+  
+#game-over {
+  z-index: 1;
+  position: absolute;
+  font-size: 100px;
+  text-align: center;
+  top: 206px; 
+  left: 510px;
+  color: #ffff;
+  transform: scale(1) perspective(200px) rotateX(45deg);
+  animation: zoomIn .6s;
+
+}
 #player-object {
   z-index: -1;
   position: absolute;
@@ -104,4 +130,13 @@ background-size: cover;
 
 .Mui-focused {
   color: white !important;
+}
+
+
+@keyframes zoomIn{
+from {
+  transform: scale(0) perspective(10000px) rotateX(45deg);
+
+}
+
 }

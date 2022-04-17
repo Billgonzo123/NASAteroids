@@ -78,6 +78,7 @@ function App() {
     curLevel: 1,
     score: 0,
     exp: 0,
+    lives: 3,
     playerLevel: 0,
     numberOfAsteroids: 0,
   });
