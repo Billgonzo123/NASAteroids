@@ -6,6 +6,7 @@ import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../../util/mutations';
 
 const Signup = ({show, setShow}) => {
+  const navigate = useHistory();
   const [formState, setFormState] = useState({ email: '', password: '' });
   const [addUser] = useMutation(ADD_USER);
 
@@ -18,9 +19,9 @@ const Signup = ({show, setShow}) => {
         username: formState.username,
       },
     });
-    console.log("Hello!");
     const token = mutationResponse.data.addUser.token;
     Auth.login(token);
+    navigate.push("/start");
   }
 
   const handleChange = (event) => {
@@ -30,12 +31,6 @@ const Signup = ({show, setShow}) => {
       [name]: value,
     });
   };
-
-  const navigate = useHistory();
-
-  const handleClick = () => {
-    navigate.push("/start");
-  }
 
   return (
     <Box 
@@ -72,7 +67,7 @@ const Signup = ({show, setShow}) => {
           autoComplete="username"
           id="username"
           name="username"
-          type="text"
+          type="username"
           variant="standard"
           onChange={handleChange}
           sx={{
@@ -94,7 +89,7 @@ const Signup = ({show, setShow}) => {
         <TextField
           id="email"
           name="email"
-          type="text"
+          type="email"
           variant="standard"
           onChange={handleChange}
           sx={{
@@ -140,8 +135,7 @@ const Signup = ({show, setShow}) => {
             }}
           >
             <button 
-              type="button" 
-              onClick={handleClick}
+              type="submit" 
               className="nes-btn upperCase">
               Submit
             </button>

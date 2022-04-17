@@ -1,19 +1,39 @@
-import React from "react";
+import React, {useState} from "react";
 import { useHistory } from "react-router-dom";
 import { TextField, Box, Grid, Typography, Card, CardActions } from "@mui/material";
-// import Auth from '../../util/auth';
-// import { useMutation } from '@apollo/client';
-// import { LOGIN } from '../../util/mutations';
+import Auth from '../../util/auth';
+import { useMutation } from '@apollo/client';
+import { LOGIN_USER } from '../../util/mutations';
 
 const Login = ({ show, setShow }) => {
   const navigate = useHistory();
+  const [formState, setFormState] = useState({ email: '', password: '' });
+  const [login, { error }] = useMutation(LOGIN_USER);
 
-  const handleClick = () => {
-    navigate.push("/start");
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    try{
+      const mutationResponse = await login({
+        variables: { email: formState.email, password: formState.password },
+      });
+      const token = mutationResponse.data.login.token;
+      Auth.login(token);
+      navigate.push("/start");
+    } catch(e) {
+      console.log(e);
+    }
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
   };
 
   return (
-    <Box component="form" noValidate autoComplete="off">
+    <Box component="form" noValidate autoComplete="off" onSubmit={handleFormSubmit}>
       <Typography
         sx={{
           textAlign: "center",
@@ -80,7 +100,6 @@ const Login = ({ show, setShow }) => {
           >
             <button
               type="button"
-              onClick={handleClick}
               className="nes-btn upperCase"
             >
               Submit
