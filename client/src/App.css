@@ -107,7 +107,7 @@ background-color: black;
 
 }
 .fire {
-  background-image: url('./assets/img/fire.png');
+  background-image: url('./assets/img/fire.gif');
   background-repeat: no-repeat;
   background-position:top;
 background-size: cover;
