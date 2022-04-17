@@ -1,19 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { TextField, Button, Card, CardActions, Box, Grid, Typography } from "@mui/material";
+import Auth from '../../util/auth';
+import { useMutation } from '@apollo/client';
+import { ADD_USER } from '../../util/mutations';
 
 const Signup = ({show, setShow}) => {
-
   const navigate = useHistory();
+  const [formState, setFormState] = useState({ email: '', password: '', username: '' });
+  const [addUser, { error }] = useMutation(ADD_USER);
 
-  const handleClick = () => {
-    navigate.push("/start");
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    const mutationResponse = await addUser({
+      variables: {
+        email: formState.email,
+        password: formState.password,
+        username: formState.username,
+      },
+    });
+    const token = mutationResponse.data.addUser.token;
+    Auth.login(token);
+    
   }
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
+  };
 
   return (
     <Box 
       component="form" 
       noValidate autoComplete="off"
+      onSubmit={handleFormSubmit}
       >
       <Typography
         sx={{
@@ -41,10 +64,12 @@ const Signup = ({show, setShow}) => {
           Username
         </Typography>
         <TextField
+          autoComplete="username"
           id="username"
           name="username"
-          type="text"
+          type="username"
           variant="standard"
+          onChange={handleChange}
           sx={{
             bottomBorder: "1px #fff",
             mb: 5
@@ -64,8 +89,9 @@ const Signup = ({show, setShow}) => {
         <TextField
           id="email"
           name="email"
-          type="text"
+          type="email"
           variant="standard"
+          onChange={handleChange}
           sx={{
             bottomBorder: "1px #fff",
             mb: 5
@@ -83,10 +109,13 @@ const Signup = ({show, setShow}) => {
           Password
         </Typography>
         <TextField
+          autoComplete="current-password"
+          placeholder="******"
           id="password"
           name="password"
-          type="text"
+          type="password"
           variant="standard"
+          onChange={handleChange}
           sx={{
             mb:10
           }}
@@ -106,8 +135,7 @@ const Signup = ({show, setShow}) => {
             }}
           >
             <button 
-              type="button" 
-              onClick={handleClick}
+              type="submit" 
               className="nes-btn upperCase">
               Submit
             </button>
