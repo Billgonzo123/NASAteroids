@@ -5,6 +5,7 @@ import motion from '../../util/motion';
 import updateAsteroids from '../../util/updateAsteroids';
 import updatePlayer from '../../util/updatePlayer';
 import updateBullet from '../../util/updateBullet';
+import checkShipCollision from '../../util/checkShipCollision';
 import { playSound, stopSound, playMenuSound } from '../../util/playSound';
 import { checkScreenScale } from '../../util/checkScreenScale';
 import asteroidGeneration from '../../util/asteroidGeneration';
@@ -12,6 +13,7 @@ import destoryAsteroid from '../../util/destoryAsteroid';
 import Hud from '../../components/Hud';
 import Player from '../Player';
 import Asteroid from '../Asteroid';
+import { global } from '@apollo/client/utilities/globals';
 
 const MainWindow = ({
   gameState,
@@ -22,10 +24,11 @@ const MainWindow = ({
   const [gameSpeed, setGameSpeed] = useState(8);
   const [screenScale, setScreenScale] = useState(window.innerWidth / 1920);
   const [globalPlayer, setGlobalPlayer] = useState({
+ 
     x: 906,
     y: 478,
-    xB: 500,
-    yB: 500,
+    xB: 906,
+    yB: 478,
     dir: 90,
     thrust: 0.05,
     vx: 0,
@@ -33,6 +36,7 @@ const MainWindow = ({
     turnSpeed: 2,
     spriteDim: { w: 54, h: 62 },
     alive: true,
+    invnsTimer: 800
   });
 
   const [asteroids, setAsteroids] = useState({});
@@ -42,14 +46,18 @@ const MainWindow = ({
 
   let keysPressed = [];
   let screenWidth = window.innerWidth;
-
   //*GAME LOOP
   const loop = () => {
     setTimeout(() => {
+      
       const numOfAst = document.querySelectorAll('#asteroid-object');
 
       //states
-      setGameState((old) => ({ ...old, numberOfAsteroids: numOfAst.length }));
+      if (numOfAst.length) {
+        setGameState((old) => ({ ...old, numberOfAsteroids: numOfAst.length }));
+      } else {
+        setGameState((old) => ({ ...old, curLevel: old.curLevel+1, numberOfAsteroids: numOfAst.length }));
+      }
       setGlobalPlayer((oldPlayer) => updatePlayer(oldPlayer, keysPressed));
       setAsteroids((oldPositions) => updateAsteroids(oldPositions));
       setBullets((oldPositions) => updateBullet(oldPositions));
@@ -92,11 +100,11 @@ const MainWindow = ({
       // const newBulletObj = updateBullet(bulletObj);
 
       // //need to cap at 5
-      if (bullets.length<5) setBullets((old) => ([...old, bulletObj]));
+    setBullets((old) => ([...old, bulletObj]));
       
     }
 
-    if (currentKeys.includes(' ')) {
+    if (currentKeys.includes(' ') && document.getElementById('bullet_snd').paused && bullets.length<5) {
       playSound('bullet_snd');
       generateBullet(globalPlayer);
     }
@@ -119,6 +127,7 @@ const MainWindow = ({
       destoryAsteroid('1', globalPlayer, asteroids, setAsteroids);
     //-----------------------------------------------------------------------------------------------
 
+    checkShipCollision(globalPlayer, setGlobalPlayer, setGameState, asteroids)
     //DONT PUT STATE: asteroids INTO DEPENDENCY!!
   }, [gameState, setGameState, timer, currentKeys]);
 
@@ -142,8 +151,11 @@ const MainWindow = ({
 
   //...........................................USE EFFECT ON MOUNT------------------------------//
   useEffect(() => {
+
+    playSound('start_snd')
     document.addEventListener('keyup', logKeyUp);
     document.addEventListener('keydown', logKeyDown);
+   
     loop();
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -153,29 +165,27 @@ const MainWindow = ({
       <div
         id="game-window"
         className="App"
-        style={{ transform: `scale(${screenScale})` }}
-      >
+        style={{ "transform": `scale(${screenScale})` }}>
+            {gameState.lives === 3 && globalPlayer.invnsTimer && <div id='start-display'>!START!</div>}
         {/*------------ AUDIO -------------*/}
         {/* for every sound effect, there must be an audio element with an id of the file name */}
-        <audio
-          id="engine_snd"
-          src={require(`../../assets/snd/player_snd/engine_snd.wav`)}
-          loop
-          type="audio/wav"
-        />
-        <audio
-          id="bullet_snd"
-          src={require(`../../assets/snd/bullet_snd/bullet_snd.wav`)}
-          loop
-          type="audio/wav"
-        />
+        <audio id="engine_snd" src={require(`../../assets/snd/player_snd/engine_snd.wav`)} loop type="audio/wav"/>
+        <audio id="bullet_snd" src={require(`../../assets/snd/bullet_snd/bullet_snd.wav`)}  type="audio/wav"/>
+        <audio id="asteroid_die" src={require(`../../assets/snd/bullet_snd/asteroid_die.wav`)}  type="audio/wav"/>
+        <audio id="player_die" src={require(`../../assets/snd/player_snd/player_die.wav`)}  type="audio/wav"/>
+        <audio id="start_snd" src={require(`../../assets/snd/player_snd/start_snd.wav`)}  type="audio/wav"/>
+        <audio id="gameover" src={require(`../../assets/snd/player_snd/gameover.wav`)}  type="audio/wav"/>
+
+        
         {/*------------- HUD  -------------*/}
-        <Hud />
+        <Hud
+          gameState = {gameState}
+        />
         {/*--------- RENDER PLAYER ---------*/}
         {globalPlayer.alive ? (
           <Player currentKeys={currentKeys} globalPlayer={globalPlayer} />
         ) : (
-          ''
+          <div id='game-over' >GAME OVER</div>
         )}
         {/*--------- RENDER BULLETS ---------*/}
         {bullets.map((pos) => {

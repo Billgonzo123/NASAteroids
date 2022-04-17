@@ -14,6 +14,9 @@ function asteroidGeneration(setAsteroids, globalPlayer, spriteSizeIndex, howMany
       //decide if (x,y) shoudl be random
       const xx = (rndPos) ? randomPositions.x : setX;
       const yy = (rndPos) ? randomPositions.y : setY;
+      //get the sprite dimentions (they are square)
+      const astSizes = [62, 124, 248];
+      const pix = astSizes[spriteSizeIndex];
       let freshId = i;
 
       //make sure we arent overwriting any remaining asteroids
@@ -32,7 +35,7 @@ function asteroidGeneration(setAsteroids, globalPlayer, spriteSizeIndex, howMany
           vx: 0,
           vy: 0,
           turnSpeed: 2,
-          spriteDim: { w: 248, h: 248 },
+          spriteDim: { w: pix, h: pix },
           size: spriteSizeIndex,
           alive: true
         }

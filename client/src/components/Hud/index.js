@@ -1,29 +1,17 @@
 import * as React from "react";
-import { Box, Container, Typography, Grid } from "@mui/material";
+import { Box} from "@mui/material";
 import HudHeader from "../../components/HudHeader"
+import HudFooter from "../../components/HudFooter"
 
-export default function Hud() {
+export default function Hud(gameState) {
   return (
     <Box sx={{
         display: 'flex',
         flexDirection: 'column',
-        minHeight: '97vh',
+        minHeight: '90vh',
       }}>
-        <HudHeader />
-        <Box
-        component="footer"
-        sx={{
-          py: 3,
-          px: 2,
-          mt: 'auto',
-        }}
-      >
-        <Container>
-          <Typography id="controls-footer" variant="h6" align="center">
-            Press W: Up | A:Left | D:Right
-          </Typography>
-        </Container>
-      </Box>
+        <HudHeader gameState={gameState} />
+        <HudFooter />
     </Box>
     
   );

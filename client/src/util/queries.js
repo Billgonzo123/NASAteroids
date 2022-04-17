@@ -6,7 +6,10 @@ export const GET_ME = gql`
       _id
       username
       email
-      highscores
+      highscores {
+        score
+        date
+      }
       avatar
       level
       XP

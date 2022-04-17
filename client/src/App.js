@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Start from "./pages/Start";
 import Main from "./pages/Main";
 import Nomatch from "./components/Nomatch";
+import Auth from "./util/auth";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 import {
@@ -77,6 +78,7 @@ function App() {
     curLevel: 1,
     score: 0,
     exp: 0,
+    lives: 3,
     playerLevel: 0,
     numberOfAsteroids: 0,
   });

@@ -1,9 +1,10 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
 import Profile from '../components/Profile';
 import Leaderboard from '../components/Leaderboard';
 import Footer from '../components/Footer';
 import { Box, Grid, Card, CardActions } from '@mui/material';
+import Auth from "../util/auth";
 
 const Start = () => {
 
@@ -13,7 +14,12 @@ const Start = () => {
     navigate.push("/main");
   }
   const handleLogout = () => {
+    Auth.logout();
     navigate.push("/");
+  }
+
+  if (!Auth.loggedIn()) {
+    return <Redirect to="/" />
   }
 
   return (
