@@ -1,12 +1,19 @@
 import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
 import Signup from "../components/Signup";
 import Login from "../components/Login";
 import Welcome from "../components/Welcome";
 import Footer from "../components/Footer";
 import { Box, Grid } from "@mui/material";
+import Auth from "../util/auth";
 
 const Home = () => {
   const [show, setShow] = useState("Welcome");
+  const loggedIn = Auth.loggedIn();
+
+  if (loggedIn) {
+    return <Redirect to="/start" />;
+  }
 
   return (
     <Box>
