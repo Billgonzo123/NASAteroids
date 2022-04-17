@@ -1,5 +1,7 @@
 import React from 'react';
 import MainWindow from '../components/MainWindow';
+import Auth from "../util/auth";
+import { Redirect } from 'react-router-dom';
 
 const Main = ({
   gameState,
@@ -7,6 +9,11 @@ const Main = ({
   setMenuSoundState,
   menuSoundstate,
 }) => {
+
+  if (!Auth.loggedIn()) {
+    return <Redirect to="/" />
+  }
+
   return (
     <MainWindow
       menuSoundstate={menuSoundstate}

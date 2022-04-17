@@ -36,8 +36,8 @@ export default function LeaderboardTable() {
         aria-label="simple table"
       >
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.userName} sx={{ "& td": { border: 0 } }}>
+          {rows.map((row, i) => (
+            <TableRow key={i} sx={{ "& td": { border: 0 } }}>
               <TableCell scope="row" align="left" sx={{ p: 0.25, py: 1 }}>
                 {row.userName}
               </TableCell>
