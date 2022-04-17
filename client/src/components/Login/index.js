@@ -12,15 +12,15 @@ const Login = ({ show, setShow }) => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    try{
+    try {
       const mutationResponse = await login({
         variables: { email: formState.email, password: formState.password },
       });
       const token = mutationResponse.data.login.token;
       Auth.login(token);
       navigate.push("/start");
-    } catch(e) {
-      console.log(e);
+    } catch(error) {
+      console.log(error);
     }
   };
 
@@ -52,16 +52,17 @@ const Login = ({ show, setShow }) => {
         <Grid container>
           <Typography
             sx={{
-              mr: 3,
+              mr: 9,
             }}
           >
-            Username
+            Email
           </Typography>
           <TextField
-            id="username"
-            name="username"
-            type="text"
+            id="email"
+            name="email"
+            type="email"
             variant="standard"
+            onChange={handleChange}
             sx={{
               bottomBorder: "1px #fff",
               mb: 5,
@@ -79,8 +80,9 @@ const Login = ({ show, setShow }) => {
           <TextField
             id="password"
             name="password"
-            type="text"
+            type="password"
             variant="standard"
+            onChange={handleChange}
             sx={{
               mb: 10,
             }}
@@ -99,7 +101,7 @@ const Login = ({ show, setShow }) => {
             }}
           >
             <button
-              type="button"
+              type="submit"
               className="nes-btn upperCase"
             >
               Submit
@@ -115,6 +117,11 @@ const Login = ({ show, setShow }) => {
             </button>
           </CardActions>
         </Card>
+        {error ? (
+          <div>
+            <p>The provided credentials are incorrect</p>
+          </div>
+        ) : null}
       </Grid>
     </Box>
   );

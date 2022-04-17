@@ -7,7 +7,7 @@ import { ADD_USER } from '../../util/mutations';
 
 const Signup = ({show, setShow}) => {
   const navigate = useHistory();
-  const [formState, setFormState] = useState({ email: '', password: '' });
+  const [formState, setFormState] = useState({ email: '', password: '', username: '' });
   const [addUser] = useMutation(ADD_USER);
 
   const handleFormSubmit = async (event) => {
