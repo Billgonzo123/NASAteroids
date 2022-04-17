@@ -5,6 +5,7 @@ import motion from '../../util/motion';
 import updateAsteroids from '../../util/updateAsteroids';
 import updatePlayer from '../../util/updatePlayer';
 import updateBullet from '../../util/updateBullet';
+import checkShipCollision from '../../util/checkShipCollision';
 import { playSound, stopSound, playMenuSound } from '../../util/playSound';
 import { checkScreenScale } from '../../util/checkScreenScale';
 import asteroidGeneration from '../../util/asteroidGeneration';
@@ -24,8 +25,8 @@ const MainWindow = ({
   const [globalPlayer, setGlobalPlayer] = useState({
     x: 906,
     y: 478,
-    xB: 500,
-    yB: 500,
+    xB: 906,
+    yB: 478,
     dir: 90,
     thrust: 0.05,
     vx: 0,
@@ -53,7 +54,7 @@ const MainWindow = ({
       setGameState((old) => ({ ...old, numberOfAsteroids: numOfAst.length }));
       setGlobalPlayer((oldPlayer) => updatePlayer(oldPlayer, keysPressed));
       setAsteroids((oldPositions) => updateAsteroids(oldPositions));
-      
+
 
       //check for a change in screen size and change scale if change
       checkScreenScale(screenWidth, setScreenScale);
@@ -65,9 +66,10 @@ const MainWindow = ({
       if (keysPressed.includes('m'))
         playMenuSound('confirmA', setMenuSoundState);
 
-      if (keysPressed.includes(' ')) { 
-        playSound('bullet_snd') };
-      
+      if (keysPressed.includes(' ')) {
+        playSound('bullet_snd')
+      };
+
       //timer for timer stuff
       setTimer((old) => old + 1);
 
@@ -77,15 +79,16 @@ const MainWindow = ({
 
   //* UseEffect FOR GAME LOGIC STUFF THAT REQUIRES STATES
   useEffect(() => {
- 
+
     //asteroidGeneration( setAsteroids, globalPlayer, spriteSizeIndex, howMany, setX, setY, rndPos)
     if (gameState.numberOfAsteroids <= 0) asteroidGeneration(setAsteroids, globalPlayer, 2, gameState.curLevel + 3, 0, 0, 1);
 
     //------------TEST ASTEROID DESTRUCTION ---------------------------------------------------------
-      //destoryAsteroid = (id, globalPlayer, asteroids , setAsteroids)
-    if (currentKeys.includes('x'))  destoryAsteroid('1', globalPlayer, asteroids, setAsteroids);
+    //destoryAsteroid = (id, globalPlayer, asteroids , setAsteroids)
+    if (currentKeys.includes('x')) destoryAsteroid('1', globalPlayer, asteroids, setAsteroids);
     //-----------------------------------------------------------------------------------------------
 
+    checkShipCollision(globalPlayer, setGlobalPlayer, setGameState, asteroids)
     //DONT PUT STATE: asteroids INTO DEPENDENCY!!
   }, [gameState, setGameState, timer, currentKeys])
 
@@ -135,7 +138,9 @@ const MainWindow = ({
           type="audio/wav"
         />
         {/*------------- HUD  -------------*/}
-        <Hud />
+        <Hud
+          gameState = {gameState}
+        />
         {/*--------- RENDER PLAYER ---------*/}
         {globalPlayer.alive ? (
           <Player currentKeys={currentKeys} globalPlayer={globalPlayer} />

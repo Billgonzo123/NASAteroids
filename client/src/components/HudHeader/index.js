@@ -1,7 +1,7 @@
 import * as React from "react";
 import { AppBar, Toolbar, Typography, Grid } from "@mui/material";
 
-export default function HudHeader() {
+export default function HudHeader(gameState) {
   return (
     <AppBar position="relative" sx={{ backgroundColor: "transparent", boxShadow: "none" }}>
         <Toolbar>
@@ -32,9 +32,9 @@ export default function HudHeader() {
                 >
                 {/* Player Lives */}
                 <section className="icon-list">
-                    <i className="nes-icon is-medium heart"></i>
-                    <i className="nes-icon is-medium heart"></i>
-                    <i className="nes-icon is-medium heart is-empty"></i>
+                    <i className={`nes-icon is-medium heart ${gameState.gameState.gameState.lives < 1 && "is-empty"}`}></i>
+                    <i className={`nes-icon is-medium heart ${gameState.gameState.gameState.lives < 2 && "is-empty"}`}></i>
+                    <i className={`nes-icon is-medium heart ${gameState.gameState.gameState.lives < 3 && "is-empty"}`}></i>
                 </section>
             </Grid>
         </Toolbar>

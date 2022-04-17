@@ -2,14 +2,14 @@ import * as React from "react";
 import { Box, Container, Typography, Grid } from "@mui/material";
 import HudHeader from "../../components/HudHeader"
 
-export default function Hud() {
+export default function Hud(gameState) {
   return (
     <Box sx={{
         display: 'flex',
         flexDirection: 'column',
         minHeight: '97vh',
       }}>
-        <HudHeader />
+        <HudHeader gameState={gameState} />
         <Box
         component="footer"
         sx={{
