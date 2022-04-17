@@ -8,7 +8,7 @@ import { ADD_USER } from '../../util/mutations';
 const Signup = ({show, setShow}) => {
   const navigate = useHistory();
   const [formState, setFormState] = useState({ email: '', password: '', username: '' });
-  const [addUser] = useMutation(ADD_USER);
+  const [addUser, { error }] = useMutation(ADD_USER);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -21,7 +21,7 @@ const Signup = ({show, setShow}) => {
     });
     const token = mutationResponse.data.addUser.token;
     Auth.login(token);
-    navigate.push("/start");
+    
   }
 
   const handleChange = (event) => {

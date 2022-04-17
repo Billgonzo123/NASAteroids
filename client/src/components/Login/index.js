@@ -1,27 +1,39 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { TextField, Box, Grid, Typography, Card, CardActions } from "@mui/material";
-import Auth from '../../util/auth';
-import { useMutation } from '@apollo/client';
-import { LOGIN_USER } from '../../util/mutations';
+import {
+  TextField,
+  Box,
+  Grid,
+  Typography,
+  Card,
+  CardActions,
+} from "@mui/material";
+import Auth from "../../util/auth";
+import { useMutation } from "@apollo/client";
+import { LOGIN_USER } from "../../util/mutations";
 
 const Login = ({ show, setShow }) => {
   const navigate = useHistory();
-  const [formState, setFormState] = useState({ email: '', password: '' });
+  const [formState, setFormState] = useState({ email: "", password: "" });
   const [login, { error }] = useMutation(LOGIN_USER);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    try {
-      const mutationResponse = await login({
-        variables: { email: formState.email, password: formState.password },
-      });
-      const token = mutationResponse.data.login.token;
-      Auth.login(token);
-      navigate.push("/start");
-    } catch(error) {
-      console.log(error);
-    }
+
+      try {
+        const mutationResponse = await login({
+          variables: { email: formState.email, password: formState.password },
+        });
+        const token = mutationResponse.data.login.token;
+        Auth.login(token);
+      } catch (e) {
+        console.log(e);
+      }
+
+      if (Auth.loggedIn) {
+        navigate.push("/start");
+      }
+
   };
 
   const handleChange = (event) => {
@@ -33,7 +45,12 @@ const Login = ({ show, setShow }) => {
   };
 
   return (
-    <Box component="form" noValidate autoComplete="off" onSubmit={handleFormSubmit}>
+    <Box
+      component="form"
+      noValidate
+      autoComplete="off"
+      onSubmit={handleFormSubmit}
+    >
       <Typography
         sx={{
           textAlign: "center",
@@ -100,10 +117,7 @@ const Login = ({ show, setShow }) => {
               backgroundColor: "transparent",
             }}
           >
-            <button
-              type="submit"
-              className="nes-btn upperCase"
-            >
+            <button type="submit" className="nes-btn upperCase">
               Submit
             </button>
             <button
@@ -119,7 +133,7 @@ const Login = ({ show, setShow }) => {
         </Card>
         {error ? (
           <div>
-            <p>The provided credentials are incorrect</p>
+            <p className="error-text">The provided credentials are incorrect</p>
           </div>
         ) : null}
       </Grid>
