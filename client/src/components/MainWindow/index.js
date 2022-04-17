@@ -36,7 +36,7 @@ const MainWindow = ({
   });
 
   const [asteroids, setAsteroids] = useState({});
-  const [bullets, setBullets] = useState([]);
+  const [bullets, setBullets] = useState({});
   const [timer, setTimer] = useState(0);
   const [currentKeys, setCurrentKeys] = useState([]);
 
@@ -74,25 +74,25 @@ const MainWindow = ({
   //* UseEffect FOR GAME LOGIC STUFF THAT REQUIRES STATES
   useEffect(() => {
     //pew pew 🔫
-    function generateBullet(globalPlayer) {
+    function generateBullet(player) {
       const bulletObj = {
         alive: true,
-        dir: globalPlayer.dir,
+        dir: player.dir,
         spriteDim: {
           w: 13,
           h: 13,
         },
-        x: globalPlayer.x,
-        y: globalPlayer.y,
-        vx: globalPlayer.vx,
-        vy: globalPlayer.vy,
-        thrust: globalPlayer.thrust,
+        x: player.x,
+        y: player.y,
+        vx: 0,
+        vy:0,
+        thrust: 2,
       };
 
-      const newBulletObj = updateBullet(bulletObj);
+      // const newBulletObj = updateBullet(bulletObj);
 
-      //need to cap at 5
-      setBullets([bulletObj]);
+      // //need to cap at 5
+      setBullets((old) => [...old, bulletObj]);
     }
 
     if (currentKeys.includes(' ')) {
@@ -146,6 +146,7 @@ const MainWindow = ({
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  console.log('bullets -- how often does this pop up?', bullets)
   return (
     <>
       <div
@@ -176,14 +177,16 @@ const MainWindow = ({
           ''
         )}
         {/*--------- RENDER BULLETS ---------*/}
-        {Object.keys(bullets).map((posId) => {
+        {bullets.map((posId) => {
+          console.log('bullets in render', bullets);
+          console.log('posId', posId);
           const pos = bullets[posId];
-          // const style = {
-          //   position: "absolute",
-          //   top: pos.y,
-          //   left: pos. x,
-          // }
-          return pos.alive ? (
+          const style = {
+            position: "absolute",
+            top: pos.y,
+            left: pos. x,
+          }
+          return pos ? (
             <img
               alt="bullet-sprite"
               src={require('../../assets/img/bullet.png')}
