@@ -34,6 +34,7 @@ const MainWindow = ({
     turnSpeed: 2,
     spriteDim: { w: 54, h: 62 },
     alive: true,
+    start: 1000
   });
   const [asteroids, setAsteroids] = useState({});
 
@@ -145,7 +146,7 @@ const MainWindow = ({
         {globalPlayer.alive ? (
           <Player currentKeys={currentKeys} globalPlayer={globalPlayer} />
         ) : (
-          ''
+          <div id='game-over' style={{"top": `206px`, "left": `510px`}}>GAME OVER</div>
         )}
         {/*--------- RENDER BULLETS ---------*/}
         {Object.keys(bullets).map((posId) => {

@@ -1,9 +1,10 @@
+import { global } from "@apollo/client/utilities/globals";
 import { playSound, stopSound } from "./playSound";
 
 function updatePlayer(globalPlayer, keysPressed) {
     let { x, y, xB, yB, dir, thrust, vx, vy, turnSpeed, spriteDim, alive } = globalPlayer;
 
-    (keysPressed.includes('w')) ? playSound('engine_snd') : stopSound('engine_snd');
+    (keysPressed.includes('w') && globalPlayer.alive) ? playSound('engine_snd') : stopSound('engine_snd');
     //if 'w' key opressed, add velocity in direction
     if (keysPressed.includes('w')) {
         vx -= thrust * Math.cos((dir) * Math.PI / 180);

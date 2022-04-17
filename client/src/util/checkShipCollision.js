@@ -1,8 +1,9 @@
 import getDistance from '../util/getDistance'
 
 function checkShipCollision(globalPlayer, setGlobalPlayer, setGameState, asteroids) {
-    const { x, y, xB, yB, spriteDim } = globalPlayer;
+    const { x, y, xB, yB, spriteDim, alive } = globalPlayer;
   
+    if (alive){
     Object.keys(asteroids).map((asteroid) => {
         const a = asteroids[asteroid];
         //radius is hard coded
@@ -18,11 +19,26 @@ function checkShipCollision(globalPlayer, setGlobalPlayer, setGameState, asteroi
         const lineD = getDistance(xB+(d.w/2), a.xB+r, yB+(d.h/2), a.yB+r)
 
         if (lineA < dist || lineB < dist || lineC < dist || lineD < dist) {
-            setGlobalPlayer(old => ({...old,   x: 906, y: 478, xB: 906, yB: 478, vx: 0, vy: 0, dir:90}))
-            setGameState( old => ({...old, lives: old.lives-1}))
+          
+            setGameState( old => {
+        console.log('OLD LIVES: ', old.lives)
+                if (old.lives <= 0) {
+                    setGlobalPlayer(old => ({...old,   x: 906, y: 478, xB: 906, yB: 478, vx: 0, vy: 0, dir:90, alive: false}))
+                    return ({...old, lives: 0})
+                } else {
+                    setGlobalPlayer(old => ({...old,   x: 906, y: 478, xB: 906, yB: 478, vx: 0, vy: 0, dir:90}))
+                    return ({...old, lives: old.lives-1})
+                }
+            
+            });
+                
+              
+            
+       
         }
       
     });
+}
 
 };
 
