@@ -54,7 +54,11 @@ console.log(globalPlayer.invincible)
       const numOfAst = document.querySelectorAll('#asteroid-object');
 
       //states
-      setGameState((old) => ({ ...old, numberOfAsteroids: numOfAst.length }));
+      if (numOfAst.length) {
+        setGameState((old) => ({ ...old, numberOfAsteroids: numOfAst.length }));
+      } else {
+        setGameState((old) => ({ ...old, curLevel: old.curLevel+1, numberOfAsteroids: numOfAst.length }));
+      }
       setGlobalPlayer((oldPlayer) => updatePlayer(oldPlayer, keysPressed));
       setAsteroids((oldPositions) => updateAsteroids(oldPositions)); 
 
