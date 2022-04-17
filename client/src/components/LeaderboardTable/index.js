@@ -17,7 +17,7 @@ export default function LeaderboardTable() {
   const { loading, data, error } = useQuery(GET_LEADERBOARD);
   let rows = [];
   
-  if (false) {
+  if (data) {
     const highscores = data.leaderboard.highscores;
     
     highscores.forEach((score) => {
