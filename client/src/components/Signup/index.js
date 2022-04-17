@@ -1,98 +1,143 @@
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { TextField, Button, Card, CardActions, Box, Grid, Typography } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Card,
+  CardActions,
+  Box,
+  Grid,
+  Typography,
+} from "@mui/material";
+import Auth from "../../util/auth";
+import { useMutation } from "@apollo/client";
+import { ADD_USER } from "../../util/mutations";
 
-const Signup = ({show, setShow}) => {
-
+const Signup = ({ show, setShow }) => {
   const navigate = useHistory();
+  const [formState, setFormState] = useState({
+    email: "",
+    password: "",
+    username: "",
+  });
+  const [addUser, { error }] = useMutation(ADD_USER);
 
-  const handleClick = () => {
-    navigate.push("/start");
-  }
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    const mutationResponse = await addUser({
+      variables: {
+        email: formState.email,
+        password: formState.password,
+        username: formState.username,
+      },
+    });
+    const token = mutationResponse.data.addUser.token;
+    Auth.login(token);
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
+  };
 
   return (
-    <Box 
-      component="form" 
-      noValidate autoComplete="off"
-      >
+    <Box
+      component="form"
+      noValidate
+      autoComplete="off"
+      onSubmit={handleFormSubmit}
+    >
       <Typography
         sx={{
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
-          Sign Up
+        Sign Up
       </Typography>
       <Grid
         container
         columnSpacing={{ md: 1 }}
-        direction="column" 
+        direction="column"
         sx={{
-          mt: 15
+          mt: 15,
         }}
       >
-        <Grid
-          container
-        >
-        <Typography
-          sx={{
-            mr: 3
-          }}
-        >
-          Username
-        </Typography>
-        <TextField
-          id="username"
-          name="username"
-          type="text"
-          variant="standard"
-          sx={{
-            bottomBorder: "1px #fff",
-            mb: 5
-          }}
-        />
+        <Grid container>
+          <Typography
+            sx={{
+              mr: 3,
+            }}
+          >
+            Username
+          </Typography>
+          <TextField
+            autoComplete="username"
+            id="username"
+            name="username"
+            type="username"
+            variant="standard"
+            onChange={handleChange}
+            sx={{
+              bottomBorder: "1px #fff",
+              mb: 5,
+            }}
+          />
         </Grid>
-        <Grid
-          container
-        >
-        <Typography
-          sx={{
-            mr: 9
-          }}
-        >
-          Email
-        </Typography>
-        <TextField
-          id="email"
-          name="email"
-          type="text"
-          variant="standard"
-          sx={{
-            bottomBorder: "1px #fff",
-            mb: 5
-          }}
-        />
+        <Grid container>
+          <Typography
+            sx={{
+              mr: 9,
+            }}
+          >
+            Email
+          </Typography>
+          <TextField
+            id="email"
+            name="email"
+            type="email"
+            variant="standard"
+            onChange={handleChange}
+            sx={{
+              bottomBorder: "1px #fff",
+              mb: 5,
+            }}
+          />
         </Grid>
-        <Grid
-          container
-        >
-        <Typography
-          sx={{
-            mr: 3
-          }}
-        >
-          Password
-        </Typography>
-        <TextField
-          id="password"
-          name="password"
-          type="text"
-          variant="standard"
-          sx={{
-            mb:10
-          }}
-        />
+        <Grid container>
+          <Typography
+            sx={{
+              mr: 3,
+            }}
+          >
+            Password
+          </Typography>
+          <TextField
+            autoComplete="current-password"
+            placeholder="******"
+            id="password"
+            name="password"
+            type="password"
+            variant="standard"
+            onChange={handleChange}
+            sx={{
+              mb: 10,
+            }}
+          />
         </Grid>
-
+        <Box
+        sx={{
+          textAlign: "center"
+        }}
+        >
+        {error ? (
+          <div>
+            <p className="error-text">User already exists!</p>
+          </div>
+        ) : null}
+        </Box>
         <Card
           sx={{
             justifyContent: "space-between",
@@ -105,16 +150,16 @@ const Signup = ({show, setShow}) => {
               backgroundColor: "transparent",
             }}
           >
-            <button 
-              type="button" 
-              onClick={handleClick}
-              className="nes-btn upperCase">
+            <button type="submit" className="nes-btn upperCase">
               Submit
             </button>
-            <button 
-              type="button" 
-              onClick={() => {setShow("Welcome")}}
-              className= {`${show === 'Welcome'} nes-btn upperCase`}>
+            <button
+              type="button"
+              onClick={() => {
+                setShow("Welcome");
+              }}
+              className={`${show === "Welcome"} nes-btn upperCase`}
+            >
               Cancel
             </button>
           </CardActions>

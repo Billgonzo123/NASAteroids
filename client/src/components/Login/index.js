@@ -1,23 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import {
-  TextField,
-  Box,
-  Grid,
-  Typography,
-  Card,
-  CardActions,
-} from "@mui/material";
+import { TextField, Box, Grid, Typography, Card, CardActions } from "@mui/material";
+import Auth from "../../util/auth";
+import { useMutation } from "@apollo/client";
+import { LOGIN_USER } from "../../util/mutations";
 
 const Login = ({ show, setShow }) => {
   const navigate = useHistory();
+  const [formState, setFormState] = useState({ email: "", password: "" });
+  const [login, { error }] = useMutation(LOGIN_USER);
 
-  const handleClick = () => {
-    navigate.push("/start");
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const mutationResponse = await login({
+        variables: { email: formState.email, password: formState.password },
+      });
+      const token = mutationResponse.data.login.token;
+      Auth.login(token);
+    } catch (e) {
+      console.log(e);
+    }
+
+    if (Auth.loggedIn) {
+      navigate.push("/start");
+    }
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
   };
 
   return (
-    <Box component="form" noValidate autoComplete="off">
+    <Box
+      component="form"
+      noValidate
+      autoComplete="off"
+      onSubmit={handleFormSubmit}
+    >
       <Typography
         sx={{
           textAlign: "center",
@@ -36,16 +61,17 @@ const Login = ({ show, setShow }) => {
         <Grid container>
           <Typography
             sx={{
-              mr: 3,
+              mr: 9,
             }}
           >
-            Username
+            Email
           </Typography>
           <TextField
-            id="username"
-            name="username"
-            type="text"
+            id="email"
+            name="email"
+            type="email"
             variant="standard"
+            onChange={handleChange}
             sx={{
               bottomBorder: "1px #fff",
               mb: 5,
@@ -63,13 +89,27 @@ const Login = ({ show, setShow }) => {
           <TextField
             id="password"
             name="password"
-            type="text"
+            type="password"
             variant="standard"
+            onChange={handleChange}
             sx={{
               mb: 10,
             }}
           />
         </Grid>
+        <Box
+          sx={{
+            textAlign: "center",
+          }}
+        >
+          {error ? (
+            <div>
+              <p className="error-text">
+                The provided credentials are incorrect
+              </p>
+            </div>
+          ) : null}
+        </Box>
         <Card
           sx={{
             justifyContent: "space-between",
@@ -82,11 +122,7 @@ const Login = ({ show, setShow }) => {
               backgroundColor: "transparent",
             }}
           >
-            <button
-              type="button"
-              onClick={handleClick}
-              className="nes-btn upperCase"
-            >
+            <button type="submit" className="nes-btn upperCase">
               Submit
             </button>
             <button
