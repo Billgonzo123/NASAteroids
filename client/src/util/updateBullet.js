@@ -26,6 +26,4 @@ function updateBullet(bullets) {
   return newBulletArray
 }
 
-
-
 export default updateBullet;

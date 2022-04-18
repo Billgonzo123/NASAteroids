@@ -59,7 +59,7 @@ const MainWindow = ({ gameState, setGameState }) => {
   useEffect(() => {
     level.current = gameState.curLevel;
 
-    if (  spaceDown.current === 1  && bullets.length <= 5) {
+    if ( globalPlayer.alive &&  spaceDown.current === 1  && bullets.length <= 5) {
       spaceDown.current = 2;
       playSoundCancle('bullet_snd');
       setBullets((old) => ([...old, generateBullet(globalPlayer)]));
