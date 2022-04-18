@@ -93,6 +93,7 @@ function App() {
         <audio
           id="menu-sound"
           src={require(`./assets/snd/menu_snd/${menuSoundstate}.wav`)}
+          style={{'disply': 'none'}}
           type="audio/wav"
         />
       ) : ('')}

@@ -1,11 +1,10 @@
 import asteroidGeneration from "./asteroidGeneration";
-import { playSound, stopSound } from "./playSound";
+import { playSoundCancle} from "./playSound";
 
 
 const destoryAsteroid =  (id, globalPlayer, asteroids, setAsteroids) => {
     if (asteroids[id].alive) {
-        stopSound('asteroid_die');
-        playSound('asteroid_die');
+        playSoundCancle('asteroid_die');
         const oldSize = asteroids[id].size;
         const newX = asteroids[id].x;
         const newY = asteroids[id].y;

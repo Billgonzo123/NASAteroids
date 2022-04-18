@@ -7,7 +7,7 @@ import updatePlayer from '../../util/updatePlayer';
 import updateBullet from '../../util/updateBullet';
 import checkShipCollision from '../../util/checkShipCollision';
 import checkBulletCollision from '../../util/checkBulletCollision';
-import { playSound } from '../../util/playSound';
+import { playSound, playSoundCancle } from '../../util/playSound';
 import { checkScreenScale } from '../../util/checkScreenScale';
 import asteroidGeneration from '../../util/asteroidGeneration';
 import generateBullet from '../../util/generateBullet';
@@ -17,7 +17,7 @@ import Player from '../Player';
 import Asteroid from '../Asteroid';
 
 const MainWindow = ({ gameState, setGameState }) => {
-  
+
   const gameSpeed = 16.667;//16.667ms per frame = ~ 60fps
   const [screenScale, setScreenScale] = useState(window.innerWidth / 1920);
   const [globalPlayer, setGlobalPlayer] = useState({
@@ -27,33 +27,27 @@ const MainWindow = ({ gameState, setGameState }) => {
 
   const [asteroids, setAsteroids] = useState({});
   const [bullets, setBullets] = useState([]);
-  const [currentKeys, setCurrentKeys] = useState([]);
 
-  let keysPressed = useRef([]);
+  const keysPressed = useRef([]);
   let screenWidth = window.innerWidth;
   const level = useRef(1);
-  const setNewAsteroidsFlag = useRef(1);
   const numOfAst = useRef();
   const timer = useRef();
-  const halfFrame = useRef(1);
+  const spaceDown = useRef(0);
   //--------------------------GAME LOOP-------------------------//
   const loop = () => {
-    
     setTimeout(() => {
       if (!gameState.paused) {
-        
-        //(halfFrame.current) ? halfFrame.current = 0 : halfFrame.current = 1;
         numOfAst.current = document.querySelectorAll('#asteroid-object').length;
         setGlobalPlayer((oldPlayer) => {
           if (globalPlayer.alive) return updatePlayer(oldPlayer, keysPressed.current)
           return null;
         });
-
         setBullets((oldPositions) => {
           if (bullets) return updateBullet(oldPositions);
           return null;
         });
-        if ( halfFrame.current )setAsteroids((oldPositions) => updateAsteroids(oldPositions, level.current));
+        setAsteroids((oldPositions) => updateAsteroids(oldPositions, level.current));
         //check for a change in screen size and change scale if change
         checkScreenScale(screenWidth, setScreenScale);
       }
@@ -64,16 +58,17 @@ const MainWindow = ({ gameState, setGameState }) => {
   // ----------FOR GAME LOGIC STUFF THAT REQUIRES STATES---------//
   useEffect(() => {
     level.current = gameState.curLevel;
-    if (keysPressed.current.includes(' ') && document.getElementById('bullet_snd').paused) {
-      playSound('bullet_snd');
-      setBullets((old) => ([...old, generateBullet(globalPlayer)]));;
+
+    if (  spaceDown.current === 1  && bullets.length <= 5) {
+      spaceDown.current = 2;
+      playSoundCancle('bullet_snd');
+      setBullets((old) => ([...old, generateBullet(globalPlayer)]));
+      setTimeout(() => (spaceDown.current === 2)? spaceDown.current = 1 : false, 200)
     }
     //asteroidGeneration
-    if (numOfAst.current <= 0 && setNewAsteroidsFlag.current) {
-      setNewAsteroidsFlag.current = 0;
+    if (numOfAst.current <= 0) {
       (gameState.timer <= 60) ? setGameState(old => ({ ...old, curLevel: old.curLevel + 1, timer: 0, score: (old.score + 3000) })) : setGameState(old => ({ ...old, curLevel: old.curLevel + 1, timer: 0, score: (old.score + 1000) }));
-      setAsteroids(old => asteroidGeneration(asteroids, globalPlayer, 2, gameState.curLevel + 1, 0, 0, 1));
-      setTimeout(() => setNewAsteroidsFlag.current = 1, 500);
+      setAsteroids(asteroidGeneration(asteroids, globalPlayer, 2, gameState.curLevel + 1, 0, 0, 1));
     }
     checkBulletCollision(bullets, setBullets, setAsteroids, asteroids, globalPlayer, setGameState);
     checkShipCollision(globalPlayer, setGlobalPlayer, setGameState, asteroids);
@@ -86,10 +81,12 @@ const MainWindow = ({ gameState, setGameState }) => {
   const logKeyDown = (e) => {
     e.preventDefault();
     if (!keysPressed.current.includes(e.key)) keysPressed.current = [...keysPressed.current, e.key.toLowerCase()];
+    if (keysPressed.current.includes(" ") && spaceDown.current !==2 ) spaceDown.current = 1;
   };
   const logKeyUp = (e) => {
     e.preventDefault();
     const newKeys = keysPressed.current.filter((key) => key !== e.key.toLowerCase());
+    if (!newKeys.includes(" ")) spaceDown.current = 0;
     if (newKeys !== keysPressed.current) keysPressed.current = newKeys;
   };
 
@@ -119,9 +116,9 @@ const MainWindow = ({ gameState, setGameState }) => {
         id="game-window"
         className="App"
         style={{ "transform": `scale(${screenScale})` }}>
-        {gameState.lives === 3 && globalPlayer.invnsTimer && <div id='start-display'>!START!</div>}
+        {(gameState.lives === 3 && globalPlayer.invnsTimer) ? (<div id='start-display'>!START!</div>) : ("")}
         {/*------------ AUDIO -------------*/}
-        <AudioEl/>
+        <AudioEl />
         {/*------------- HUD  -------------*/}
         <Hud gameState={gameState} setGameState={setGameState} />
         {/*--------- RENDER PLAYER ---------*/}
