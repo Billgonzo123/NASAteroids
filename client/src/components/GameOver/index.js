@@ -4,7 +4,7 @@ import HudHeader from '../HudHeader';
 import Footer from '../Footer';
 import GameOverStats from '../GameStats';
 
-export default function GameOver({ gameState }) {
+export default function GameOver({ gameState, setGameState }) {
   return (
     <Box
       sx={{
@@ -13,7 +13,7 @@ export default function GameOver({ gameState }) {
         minHeight: '97vh',
       }}
     >
-      <HudHeader gameState={gameState}/>
+      {/* <HudHeader gameState={gameState, setGameState}/> */}
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Typography

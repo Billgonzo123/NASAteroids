@@ -36,6 +36,8 @@ const GameOverStats = ({ gameState }) => {
   // //*MUTATIONS
   //Add user score
   const [addUserHighscore, { error }] = useMutation(ADD_USER_HIGHSCORE);
+  
+  //! does this work? If so, make sure only 10 entries
   //Handle user score submit
   async function handleUserScoreSubmit() {
     try {
@@ -58,10 +60,8 @@ const GameOverStats = ({ gameState }) => {
     console.log('Better luck next time.');
   } else {
     console.log('Congrats!');
-    console.log('indexof', userHighscores.indexOf(currentScore));
+    handleUserScoreSubmit();
   }
-
-  console.log(gameState);
 
   return (
     <TableContainer>
