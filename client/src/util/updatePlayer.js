@@ -1,9 +1,8 @@
-import { global } from "@apollo/client/utilities/globals";
 import { playSound, stopSound } from "./playSound";
 
 function updatePlayer(globalPlayer, keysPressed) {
-    let { x, y, xB, yB, dir, thrust, vx, vy, turnSpeed, spriteDim, alive } = globalPlayer;
-
+    let { x, y, xB, yB, dir, thrust, vx, vy, turnSpeed, spriteDim, alive, invnsTimer } = globalPlayer;
+    if (invnsTimer > 0) invnsTimer--;
     (keysPressed.includes('w') && globalPlayer.alive) ? playSound('engine_snd') : stopSound('engine_snd');
     //if 'w' key opressed, add velocity in direction
     if (keysPressed.includes('w')) {
@@ -60,23 +59,7 @@ function updatePlayer(globalPlayer, keysPressed) {
         } else { xB = x }
     }
 
-    //calculate cenetr based of current x,y cord
-    let center = { x: x + (spriteDim.w / 2), y: y + (spriteDim.h / 2) }
-
-    //this loops the player around the screen. NOW BASED OFF CENTER POSITION
-    //These numbers represent the actual image height and width in pixels
-    if (center.y > 1080) y = 0;
-    if (center.y < 0) y = 1080 - (spriteDim.h / 2);
-    if (center.x > 1920) x = 0;
-    if (center.x < 0) x = 1920 - (spriteDim.w / 2);
-
-
-    //recalc center
-    center = { x: x + (spriteDim.w / 2), y: y + (spriteDim.h / 2) }
-
-
-  
-    return { ...globalPlayer, x, y, xB, yB, dir, thrust, vx, vy, turnSpeed, spriteDim, alive }
+    return { ...globalPlayer, x, y, xB, yB, dir, thrust, vx, vy, turnSpeed, spriteDim, alive, invnsTimer }
 }
 
 export default updatePlayer;

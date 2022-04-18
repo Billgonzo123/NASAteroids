@@ -5,12 +5,12 @@ A number 0-2(small, medium, large) for the size of the asteroid,
 'howMany' is the number of asteroids to create, 
 setX and setY are the specific coordinates to place the asteroids, 
 rndPos is boolean for if the (x,y) cordinates should be random or not*/
-function asteroidGeneration(setAsteroids, globalPlayer, spriteSizeIndex, howMany, setX, setY, rndPos) {
+function asteroidGeneration( asteroids, globalPlayer, spriteSizeIndex, howMany, setX, setY, rndPos) {
+  let newAsteroids = {...asteroids};
   const directionSeed = (360 / howMany);
   for (let i = 1; i <= howMany; i++) {
-    const randomPositions = rndAstPos(globalPlayer);
-    setAsteroids(old => {
     
+    const randomPositions = rndAstPos(globalPlayer);
       //decide if (x,y) shoudl be random
       const xx = (rndPos) ? randomPositions.x : setX;
       const yy = (rndPos) ? randomPositions.y : setY;
@@ -18,20 +18,19 @@ function asteroidGeneration(setAsteroids, globalPlayer, spriteSizeIndex, howMany
       const astSizes = [62, 124, 248];
       const pix = astSizes[spriteSizeIndex];
       let freshId = i;
-
       //make sure we arent overwriting any remaining asteroids
-      while (Object.keys(old).includes(freshId.toString())) {
-        freshId++
+      while (Object.keys(asteroids).includes(freshId.toString()) || Object.keys(newAsteroids).includes(freshId.toString())) {
+       
+        freshId = freshId+1;
       };
-      return ({
-        ...old, [freshId]: {
+      newAsteroids[freshId] = {
           id: freshId,
           x: xx,
           y: yy,
           xB: xx,
           yB: yy,
           dir: (directionSeed * i) + Math.floor(Math.random() * (360 / howMany)),
-          thrust: 1.2,
+          thrust: 2,
           vx: 0,
           vy: 0,
           turnSpeed: 2,
@@ -39,10 +38,10 @@ function asteroidGeneration(setAsteroids, globalPlayer, spriteSizeIndex, howMany
           size: spriteSizeIndex,
           alive: true
         }
-      })
-    })
+      };
+    
+      return newAsteroids;
   }
-}
 
 export default asteroidGeneration;
 

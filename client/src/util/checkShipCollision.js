@@ -3,16 +3,14 @@ import { playSound } from '../util/playSound'
 
 function checkShipCollision(globalPlayer, setGlobalPlayer, setGameState, asteroids) {
     const { x, y, xB, yB, spriteDim, alive, invnsTimer } = globalPlayer;
-
-    if (invnsTimer > 0) setGlobalPlayer(old => ({ ...old, invnsTimer: old.invnsTimer - 1 }));
-
+//if player is alive and is not invincible, check for collision
     if (alive && invnsTimer <= 0) {
         Object.keys(asteroids).map((asteroid) => {
             const a = asteroids[asteroid];
             if (a.alive) {
                 //radius is hard coded
                 //player radius should be smaller than ship
-                const d = spriteDim;
+                const d = spriteDim; //d = {w: int, h: int}
                 const plrRadius = 30;
                 const astRadius = [21, 62, 124];
                 const r = astRadius[a.size];
@@ -22,22 +20,25 @@ function checkShipCollision(globalPlayer, setGlobalPlayer, setGameState, asteroi
                 const lineC = getDistance(x + (d.w / 2), a.xB + r, y + (d.h / 2), a.yB + r)
                 const lineD = getDistance(xB + (d.w / 2), a.xB + r, yB + (d.h / 2), a.yB + r)
 
+                //if length of line is smaller than (player radius + asteroid radius) we have a collision
                 if (lineA < dist || lineB < dist || lineC < dist || lineD < dist) {
-
+                    //update state -1 live or gameover = 1
                     setGameState(old => {
+                        //check if gameover
                         if (old.lives <= 1) {
                             playSound('gameover')
                             //kill player. set alive to false
-                            setGlobalPlayer(old => ({ ...old, x: 906, y: 478, xB: 906, yB: 478, vx: 0, vy: 0, dir: 90, alive: false }))
+                            setGlobalPlayer(old => ({ ...old, x: 906, y: 478, xB: 906, yB: 478, vx: 0, vy: 0, dir: 90, alive: false }));
                             setTimeout(() => {
                                 window.location = "/";
                             }, 8000);
-
-                            return ({ ...old, lives: 0, gameOver: 1 })
+                            //return uosated gameState
+                            return ({ ...old, lives: 0, gameOver: 1 });
                         } else {
                             playSound('player_die')
-                            setGlobalPlayer(old => ({ ...old, x: 906, y: 478, xB: 906, yB: 478, vx: 0, vy: 0, dir: 90, invnsTimer: 800 }))
-                            return ({ ...old, lives: old.lives - 1 })
+                            setGlobalPlayer(old => ({ ...old, x: 906, y: 478, xB: 906, yB: 478, vx: 0, vy: 0, dir: 90, invnsTimer: 300 }));
+                            //return uosated gameState
+                            return ({ ...old, lives: old.lives - 1 });
                         }
 
                     });

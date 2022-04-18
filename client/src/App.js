@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import "./App.css";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./pages/Home";
 import Start from "./pages/Start";
 import Main from "./pages/Main";
 import Nomatch from "./components/Nomatch";
-import Auth from "./util/auth";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 import {
@@ -83,6 +82,7 @@ function App() {
     playerLevel: 0,
     numberOfAsteroids: 0,
     timer: 0,
+    paused: 0,
     gameOver: 0
   });
 

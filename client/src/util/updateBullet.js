@@ -1,6 +1,3 @@
-import { playSound } from './playSound';
-import motion from '../util/motion';
-
 function updateBullet(bullets) {
   const newBulletArray = [];
   bullets.map(bullet => {
@@ -27,6 +24,7 @@ function updateBullet(bullets) {
         timer: bullet.timer - 10
       })
     }
+    return false;
   })
   return newBulletArray
 }

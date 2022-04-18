@@ -1,6 +1,6 @@
 export function playSound(snd) {
     const el = document.getElementById(`${snd}`);
-    el.loop = false;
+  
     el.play()
 }
 
