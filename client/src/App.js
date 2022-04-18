@@ -75,7 +75,7 @@ function App() {
   const [menuSoundstate, setMenuSoundState] = useState("");
   const [gameState, setGameState] = useState({
     username: " ",
-    curLevel: 1,
+    curLevel: 0,
     score: 0,
     exp: 0,
     lives: 3,
@@ -93,6 +93,7 @@ function App() {
         <audio
           id="menu-sound"
           src={require(`./assets/snd/menu_snd/${menuSoundstate}.wav`)}
+          style={{'disply': 'none'}}
           type="audio/wav"
         />
       ) : ('')}

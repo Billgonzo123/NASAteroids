@@ -4,7 +4,7 @@ import rndAstPos from "./rndAstPos";
 A number 0-2(small, medium, large) for the size of the asteroid, 
 'howMany' is the number of asteroids to create, 
 setX and setY are the specific coordinates to place the asteroids, 
-rndPos is boolean for if the (x,y) cordinates should be random or not*/
+rndPos is boolean for if each (x,y) cordinate should be random or not*/
 function asteroidGeneration( asteroids, globalPlayer, spriteSizeIndex, howMany, setX, setY, rndPos) {
   let newAsteroids = {...asteroids};
   const directionSeed = (360 / howMany);
@@ -20,17 +20,20 @@ function asteroidGeneration( asteroids, globalPlayer, spriteSizeIndex, howMany, 
       let freshId = i;
       //make sure we arent overwriting any remaining asteroids
       while (Object.keys(asteroids).includes(freshId.toString()) || Object.keys(newAsteroids).includes(freshId.toString())) {
-       
         freshId = freshId+1;
       };
+
+      const accl = 2;
+      const ranDir = (directionSeed * i) + Math.floor(Math.random() * (360 / howMany))
+
       newAsteroids[freshId] = {
           id: freshId,
           x: xx,
           y: yy,
           xB: xx,
           yB: yy,
-          dir: (directionSeed * i) + Math.floor(Math.random() * (360 / howMany)),
-          thrust: 2,
+          dir: ranDir,
+          thrust: accl,
           vx: 0,
           vy: 0,
           turnSpeed: 2,
