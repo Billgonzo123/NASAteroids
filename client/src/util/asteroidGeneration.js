@@ -31,7 +31,7 @@ function asteroidGeneration(setAsteroids, globalPlayer, spriteSizeIndex, howMany
           xB: xx,
           yB: yy,
           dir: (directionSeed * i) + Math.floor(Math.random() * (360 / howMany)),
-          thrust: 1.2,
+          thrust: 2,
           vx: 0,
           vy: 0,
           turnSpeed: 2,

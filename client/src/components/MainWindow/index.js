@@ -16,10 +16,10 @@ import Player from '../Player';
 import Asteroid from '../Asteroid';
 
 const MainWindow = ({ gameState, setGameState }) => {
-  const gameSpeed = 8;
+  const gameSpeed = 16;
   const [screenScale, setScreenScale] = useState(window.innerWidth / 1920);
   const [globalPlayer, setGlobalPlayer] = useState({
-    x: 906, y: 478, xB: 906, yB: 478, dir: 90, thrust: 0.05, vx: 0, vy: 0,
+    x: 906, y: 478, xB: 906, yB: 478, dir: 90, thrust: 0.2, vx: 0, vy: 0,
     turnSpeed: 3, spriteDim: { w: 54, h: 62 }, alive: true, invnsTimer: 800
   });
 
