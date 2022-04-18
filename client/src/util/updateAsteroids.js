@@ -6,12 +6,11 @@ function updateAsteroids(asteroids, currentLevel) {
         const value = updatedAsteroids[key];
         if (value.alive) {
             let { x, y, xB, yB, dir, vx, vy, thrust, spriteDim } = value;
-            thrust = thrust + currentLevel/2;
-            vx = -thrust * Math.cos((dir) * Math.PI / 180);
-            vy = -thrust * Math.sin((dir) * Math.PI / 180);
+            thrust = thrust + currentLevel/4;
+            
             //constatley update momentum
-            x += vx;
-            y += vy;
+            x += vx*thrust;
+            y += vy*thrust;
             //---------Sprite wrapping----------
             if (y + spriteDim.h > 1080) {
                 if (y > 1080) {
