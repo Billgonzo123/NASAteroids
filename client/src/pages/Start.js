@@ -5,8 +5,6 @@ import Leaderboard from '../components/Leaderboard';
 import Footer from '../components/Footer';
 import { Box, Grid, Card, CardActions } from '@mui/material';
 import Auth from '../util/auth';
-// TESTING
-import GameStats from '../components/GameStats';
 
 const Start = ({ gameState, setGameState }) => {
   const navigate = useHistory();
@@ -25,8 +23,6 @@ const Start = ({ gameState, setGameState }) => {
 
   return (
     <Box>
-      {/* GAMESTATS TESTING ONLY */}
-      <GameStats gameState={gameState}/>
       <Grid
         container
         columnSpacing={{ md: 1 }}

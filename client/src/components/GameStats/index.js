@@ -16,9 +16,13 @@ import {
 const GameOverStats = ({ gameState }) => {
   // //*QUERIES
   //leaderboard data
-  const { data: leaderboardData } = useQuery(GET_LEADERBOARD);
+  const { data: leaderboardData, error: leaderboardError } = useQuery(GET_LEADERBOARD);
   const leaderboardHighscores = leaderboardData.leaderboard.highscores;
   console.log('leaderboardHighscores', leaderboardHighscores);
+
+  if (leaderboardError) {
+    console.log("leaderboard error")
+  }
 
   //logged in user data
   const { data: userData } = useQuery(GET_ME);
