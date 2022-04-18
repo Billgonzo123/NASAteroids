@@ -81,7 +81,9 @@ function App() {
     lives: 3,
     playerLevel: 0,
     numberOfAsteroids: 0,
+    timer: 0
   });
+
 
   return (
     <ApolloProvider client={client}>

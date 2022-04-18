@@ -2,7 +2,7 @@ import getDistance from '../util/getDistance'
 import destoryAsteroid from './destoryAsteroid';
 
 
-function checkBulletCollision(bullets, setBullets, setAsteroids, asteroids, globalPlayer) {
+function checkBulletCollision(bullets, setBullets, setAsteroids, asteroids, globalPlayer, setGameState) {
     //b is bullets state. Shortened to 'b' to reduce clutter in code
 
 
@@ -22,9 +22,11 @@ function checkBulletCollision(bullets, setBullets, setAsteroids, asteroids, glob
                     const lineB = getDistance(b.x, a.xB + r, b.y, a.yB + r);
 
                     if (lineA < dist || lineB < dist) {
-                      
-                        setBullets(old => (old.splice(i, 1)))
-                        destoryAsteroid(id, globalPlayer, asteroids, setAsteroids)
+                        const newBullets = bullets;
+                        const results = newBullets.filter((bullet, index) => index !== i);
+                        setBullets(results);
+                        destoryAsteroid(id, globalPlayer, asteroids, setAsteroids);
+                        setGameState(old => ({...old, score: (old.score+50*old.curLevel)}));
                         return false;
                     };
                     return false;
