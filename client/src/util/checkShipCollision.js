@@ -4,8 +4,6 @@ import { playSound } from '../util/playSound'
 function checkShipCollision(globalPlayer, setGlobalPlayer, setGameState, asteroids) {
     const { x, y, xB, yB, spriteDim, alive, invnsTimer } = globalPlayer;
 
-    if (invnsTimer > 0) setGlobalPlayer(old => ({ ...old, invnsTimer: old.invnsTimer - 1 }));
-
     if (alive && invnsTimer <= 0) {
         Object.keys(asteroids).map((asteroid) => {
             const a = asteroids[asteroid];
