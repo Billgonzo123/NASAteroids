@@ -25,15 +25,15 @@ function checkShipCollision(globalPlayer, setGlobalPlayer, setGameState, asteroi
                 if (lineA < dist || lineB < dist || lineC < dist || lineD < dist) {
 
                     setGameState(old => {
-                        if (old.lives <= 0) {
+                        if (old.lives <= 1) {
                             playSound('gameover')
                             //kill player. set alive to false
                             setGlobalPlayer(old => ({ ...old, x: 906, y: 478, xB: 906, yB: 478, vx: 0, vy: 0, dir: 90, alive: false }))
                             setTimeout(() => {
                                 window.location = "/";
-                            }, 6000);
+                            }, 8000);
 
-                            return ({ ...old, lives: 0 })
+                            return ({ ...old, lives: 0, gameOver: 1 })
                         } else {
                             playSound('player_die')
                             setGlobalPlayer(old => ({ ...old, x: 906, y: 478, xB: 906, yB: 478, vx: 0, vy: 0, dir: 90, invnsTimer: 800 }))
