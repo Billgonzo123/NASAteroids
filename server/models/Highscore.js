@@ -7,6 +7,7 @@ const highscoreSchema = new Schema({
   },
   user: {
     type: String,
+    uppercase: true,
   },
   date: {
     type: String
