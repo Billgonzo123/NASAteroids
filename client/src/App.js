@@ -84,6 +84,7 @@ function App() {
     timer: 0
   });
 
+
   return (
     <ApolloProvider client={client}>
       {menuSoundstate.length && (
