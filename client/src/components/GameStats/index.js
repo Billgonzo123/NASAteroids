@@ -1,6 +1,8 @@
 import * as React from 'react';
+import { useQuery, useMutation } from "@apollo/client";
 import {Table ,TableBody, TableCell, TableContainer, TableRow} from '@mui/material';
-import { GET_ME } from "../../util/queries";
+import { GET_ME, GET_LEADERBOARD } from "../../util/queries";
+import { ADD_USER_HIGHSCORE, ADD_LEADERBOARD_HIGHSCORE } from "../../util/mutations";
 
 function createData(name, score) {
   return { name, score};
