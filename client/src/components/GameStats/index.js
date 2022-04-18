@@ -14,6 +14,7 @@ import {
 } from '../../util/mutations';
 
 const GameOverStats = ({ gameState }) => {
+  //*QUERIES
   //leaderboard data
   const { data: leaderboardData } = useQuery(GET_LEADERBOARD);
   const leaderboardHighscores = leaderboardData.leaderboard.highscores;
@@ -28,23 +29,35 @@ const GameOverStats = ({ gameState }) => {
   const currentScore = gameState.score;
   console.log(gameState.score);
 
-  //*loop through userdata, if current score is higher, add, sort and pop
-  //* if equal to another score, don't add (error handling)
+  //*MUTATIONS
+  //Add user score
+  const [addUserHighscore, { error }] = useMutation(ADD_USER_HIGHSCORE);
+  //Handle user score submit
+  async function handleUserScoreSubmit() {
+    try {
+      await addUserHighscore({
+        variables: { currentScore },
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-  //if user has a highscore greater than the currentscore, better luck next time
+  // //*loop through userdata, if current score is higher, add, sort and pop
+  // //* if equal to another score, don't add (error handling, seems to run twice)
+
+  //flawed logic
   if (userHighscores.find((score) => score > currentScore)) {
-    console.log("better luck next time")
+    console.log('Better luck next time.');
   } else {
-    //use mutation to add to their highscore array
-    console.log("congrats!")
+    console.log('Congrats!');
+    handleUserScoreSubmit();
   }
 
   return (
-    <>
-    hello!
-    </>
+    <>hello!</>
     // <TableContainer>
-      /* <Table sx={{ textTransform: 'uppercase' }} aria-label="simple table">
+    /* <Table sx={{ textTransform: 'uppercase' }} aria-label="simple table">
         <TableBody>
           {rows.map((row) => (
             <TableRow key={row.name} sx={{ '& td': { border: 0 } }}>

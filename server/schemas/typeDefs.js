@@ -40,8 +40,8 @@ const typeDefs = gql`
       password: String!
       highscores: [String]
     ): Auth
-    addUserHighscore(score: Int): User
-    addLeaderboardHighscore(score: Int): Leaderboard
+    addUserHighscore(score: Int!): User
+    addLeaderboardHighscore(score: Int!): Leaderboard
     addUserXP(XP: Int!): User
   }
 `;
