@@ -75,7 +75,8 @@ const client = new ApolloClient({
 function App() {
   const [menuSoundstate, setMenuSoundState] = useState("");
   const [gameState, setGameState] = useState({
-    curLevel: 0,
+    username: " ",
+    curLevel: 1,
     score: 0,
     exp: 0,
     lives: 3,
@@ -109,6 +110,8 @@ function App() {
               <Start
                 menuSoundstate={menuSoundstate}
                 setMenuSoundState={setMenuSoundState}
+                setGameState={setGameState}
+                gameState={gameState}
               />
             </Route>
             <Route exact path="/main">
