@@ -117,7 +117,7 @@ const MainWindow = ({ gameState, setGameState, menuSoundstate, setMenuSoundState
         <audio id="start_snd" src={require(`../../assets/snd/player_snd/start_snd.wav`)} type="audio/wav" />
         <audio id="gameover" src={require(`../../assets/snd/player_snd/gameover.wav`)} type="audio/wav" />
         {/*------------- HUD  -------------*/}
-        <Hud gameState={gameState} />
+        <Hud gameState={gameState} setGameState={setGameState} />
         {/*--------- RENDER PLAYER ---------*/}
         {globalPlayer.alive ? (
           <Player currentKeys={currentKeys} globalPlayer={globalPlayer} />

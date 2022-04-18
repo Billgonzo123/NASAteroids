@@ -19,6 +19,8 @@ const rndAstPos = (plPos) => {
         distB = getDistatce(centerA.x, setX, centerA.y,setY);
     }
 
+    console.log(distA, distB);
+
     return { x: setX, y: setY }
 };
 
