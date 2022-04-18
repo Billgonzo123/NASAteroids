@@ -1,8 +1,9 @@
 import * as React from 'react';
 import {Table ,TableBody, TableCell, TableContainer, TableRow} from '@mui/material';
+import { GET_ME } from "../../util/queries";
 
-function createData(controlName, keyStroke) {
-  return { controlName, keyStroke};
+function createData(name, score) {
+  return { name, score};
 }
 
 const rows = [
@@ -19,13 +20,13 @@ export default function GameOverStats() {
         <TableBody>
           {rows.map((row) => (
             <TableRow
-              key={row.controlName}
+              key={row.name}
               sx={{ '& td': { border: 0 } }}
             >
               <TableCell scope="row" align="left" sx={{ p: 0.25 }}>
-                {row.controlName}
+                {row.name}
               </TableCell>
-              <TableCell align="center" sx={{ p: 0.25 }}>{row.keyStroke}</TableCell>
+              <TableCell align="center" sx={{ p: 0.25 }}>{row.score}</TableCell>
             </TableRow>
           ))}
         </TableBody>
