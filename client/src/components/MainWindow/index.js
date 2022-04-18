@@ -12,11 +12,12 @@ import { checkScreenScale } from '../../util/checkScreenScale';
 import asteroidGeneration from '../../util/asteroidGeneration';
 import generateBullet from '../../util/generateBullet';
 import Hud from '../../components/Hud';
+import AudioEl from "../AudioEl/AudioEl";
 import Player from '../Player';
 import Asteroid from '../Asteroid';
 
 const MainWindow = ({ gameState, setGameState }) => {
-  const gameSpeed = 16;
+  const gameSpeed = 16.667;//16.667ms per frame = ~ 60fps
   const [screenScale, setScreenScale] = useState(window.innerWidth / 1920);
   const [globalPlayer, setGlobalPlayer] = useState({
     x: 906, y: 478, xB: 906, yB: 478, dir: 90, thrust: 0.2, vx: 0, vy: 0,
@@ -33,9 +34,10 @@ const MainWindow = ({ gameState, setGameState }) => {
   const setNewAsteroidsFlag = useRef(1);
   const numOfAst = useRef();
   const timer = useRef();
-  //*GAME LOOP
+  //--------------------------GAME LOOP-------------------------//
   const loop = () => {
     setTimeout(() => {
+     if (!gameState.paused){
       numOfAst.current =  document.querySelectorAll('#asteroid-object').length;
       setGlobalPlayer((oldPlayer) => updatePlayer(oldPlayer, keysPressed));
       setAsteroids((oldPositions) => updateAsteroids(oldPositions, level.current));
@@ -49,6 +51,7 @@ const MainWindow = ({ gameState, setGameState }) => {
         }
         return null;
       });
+    }
       loop();
     }, gameSpeed);
   };
@@ -58,7 +61,7 @@ const MainWindow = ({ gameState, setGameState }) => {
     level.current = gameState.curLevel;
     if (currentKeys.includes(' ') && document.getElementById('bullet_snd').paused) {
       playSound('bullet_snd');
-      generateBullet(globalPlayer, setBullets);
+      setBullets((old) => ([...old, generateBullet(globalPlayer)]));;
     }
     //asteroidGeneration
     if (numOfAst.current <= 0 && setNewAsteroidsFlag.current) {
@@ -84,8 +87,6 @@ const MainWindow = ({ gameState, setGameState }) => {
     const newKeys = keysPressed.filter((key) => key !== e.key);
     if (newKeys !== keysPressed) keysPressed = newKeys;
   };
-
-
   
   //...........................................USE EFFECT ON MOUNT------------------------------//
   useEffect(() => {
@@ -115,13 +116,8 @@ const MainWindow = ({ gameState, setGameState }) => {
         style={{ "transform": `scale(${screenScale})` }}>
         {gameState.lives === 3 && globalPlayer.invnsTimer && <div id='start-display'>!START!</div>}
         {/*------------ AUDIO -------------*/}
-        {/* for every sound effect, there must be an audio element with an id of the file name */}
-        <audio id="engine_snd" src={require(`../../assets/snd/player_snd/engine_snd.wav`)} loop type="audio/wav" />
-        <audio id="bullet_snd" src={require(`../../assets/snd/bullet_snd/bullet_snd.wav`)} type="audio/wav" />
-        <audio id="asteroid_die" src={require(`../../assets/snd/bullet_snd/asteroid_die.wav`)} type="audio/wav" />
-        <audio id="player_die" src={require(`../../assets/snd/player_snd/player_die.wav`)} type="audio/wav" />
-        <audio id="start_snd" src={require(`../../assets/snd/player_snd/start_snd.wav`)} type="audio/wav" />
-        <audio id="gameover" src={require(`../../assets/snd/player_snd/gameover.wav`)} type="audio/wav" />
+       
+           <AudioEl/>
         {/*------------- HUD  -------------*/}
         <Hud gameState={gameState} />
         {/*--------- RENDER PLAYER ---------*/}
@@ -139,9 +135,7 @@ const MainWindow = ({ gameState, setGameState }) => {
               src={require("../../assets/img/bullet.png")}
               style={motion(pos.x, pos.y, pos.dir)}
             />
-          ) : (
-            ""
-          );
+          ) : ( "" );
         })}
         {/*--------- RENDER ASTEROIDS ---------*/}
         {Object.keys(asteroids).map((posId) => {
