@@ -220,7 +220,7 @@ const MainWindow = ({
         />
 
         {/*------------- HUD  -------------*/}
-        <Hud gameState={gameState} />
+        <Hud gameState={gameState} setGameState={setGameState} />
         {/*--------- RENDER PLAYER ---------*/}
         {globalPlayer.alive ? (
           <Player currentKeys={currentKeys} globalPlayer={globalPlayer} />
