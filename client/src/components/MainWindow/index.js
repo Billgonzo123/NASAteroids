@@ -59,7 +59,7 @@ const MainWindow = ({ gameState, setGameState, menuSoundstate, setMenuSoundState
     if (gameState.numberOfAsteroids <= 0 && setNewAsteroidsFlag.current) {
       // console.log(gameState.curLevel)
       setNewAsteroidsFlag.current = 0;
-      (gameState.timer <= 60) ? setGameState(old => ({ ...old, curLevel: old.curLevel + 1, score: (old.score + 3000) })) : setGameState(old => ({ ...old, curLevel: old.curLevel + 1, score: (old.score + 1000) }));
+      (gameState.timer <= 60) ? setGameState(old => ({ ...old, curLevel: old.curLevel + 1, timer: 0, score: (old.score + 3000) })) : setGameState(old => ({ ...old, curLevel: old.curLevel + 1, timer: 0, score: (old.score + 1000) }));
       asteroidGeneration(setAsteroids, globalPlayer, 2, gameState.curLevel , 0, 0, 1);
       setTimeout(() => setNewAsteroidsFlag.current = 1, 5000);
     }
