@@ -87,13 +87,13 @@ function App() {
 
   return (
     <ApolloProvider client={client}>
-      {menuSoundstate.length && (
+      {menuSoundstate.length ? (
         <audio
           id="menu-sound"
           src={require(`./assets/snd/menu_snd/${menuSoundstate}.wav`)}
           type="audio/wav"
         />
-      )}
+      ) : ('')}
       <ThemeProvider theme={theme}>
         <Router>
           <Switch>
