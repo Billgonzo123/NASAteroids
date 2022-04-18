@@ -2,7 +2,7 @@ import asteroidGeneration from "./asteroidGeneration";
 import { playSound, stopSound } from "./playSound";
 
 
-const destoryAsteroid = async (id, globalPlayer, asteroids, setAsteroids) => {
+const destoryAsteroid =  (id, globalPlayer, asteroids, setAsteroids) => {
     if (asteroids[id].alive) {
         stopSound('asteroid_die');
         playSound('asteroid_die');
@@ -14,10 +14,10 @@ const destoryAsteroid = async (id, globalPlayer, asteroids, setAsteroids) => {
         if (oldSize) {
             const newAsteroids = asteroidGeneration(asteroids, globalPlayer, oldSize - 1, 3, newX, newY, 0);
                   //kill the asteroid with id and add new ones
-            await setAsteroids(old => ({ ...old, ...newAsteroids, [id]: { ...old[id], alive: false } }));
+             setAsteroids(old => ({ ...old, ...newAsteroids, [id]: { ...old[id], alive: false } }));
         } else {
                   //kill the asteroid with id
-            await setAsteroids(old => ({ ...old, [id]: { ...old[id], alive: false } }));
+             setAsteroids(old => ({ ...old, [id]: { ...old[id], alive: false } }));
         }
     }
 };

@@ -21,7 +21,7 @@ const MainWindow = ({ gameState, setGameState }) => {
   const [screenScale, setScreenScale] = useState(window.innerWidth / 1920);
   const [globalPlayer, setGlobalPlayer] = useState({
     x: 906, y: 478, xB: 906, yB: 478, dir: 90, thrust: 0.2, vx: 0, vy: 0,
-    turnSpeed: 5, spriteDim: { w: 54, h: 62 }, alive: true, invnsTimer: 300
+    turnSpeed: 5, spriteDim: { w: 54, h: 62 }, alive: true, invnsTimer: 150
   });
 
   const [asteroids, setAsteroids] = useState({});
@@ -37,21 +37,28 @@ const MainWindow = ({ gameState, setGameState }) => {
   //--------------------------GAME LOOP-------------------------//
   const loop = () => {
     setTimeout(() => {
-     if (!gameState.paused){
-      numOfAst.current =  document.querySelectorAll('#asteroid-object').length;
-      setGlobalPlayer((oldPlayer) => updatePlayer(oldPlayer, keysPressed));
-      setAsteroids((oldPositions) => updateAsteroids(oldPositions, level.current));
-      setBullets((oldPositions) => updateBullet(oldPositions));
-      //check for a change in screen size and change scale if change
-      checkScreenScale(screenWidth, setScreenScale);
-      //updates state with current keys. We dont really want this state updated as fast as the keysPressed variable, so we put it in the loop
-      setCurrentKeys((old) => {
-        if (old !== [...keysPressed]) {
-          return [...keysPressed];
-        }
-        return null;
-      });
-    }
+      if (!gameState.paused) {
+        numOfAst.current = document.querySelectorAll('#asteroid-object').length;
+        setGlobalPlayer((oldPlayer) => {
+          if (globalPlayer.alive) return updatePlayer(oldPlayer, keysPressed)
+          return null;
+        });
+
+        setBullets((oldPositions) => {
+          if (bullets) return updateBullet(oldPositions);
+          return null;
+        });
+        setAsteroids((oldPositions) => updateAsteroids(oldPositions, level.current));
+        //check for a change in screen size and change scale if change
+        checkScreenScale(screenWidth, setScreenScale);
+        //updates state with current keys. We dont really want this state updated as fast as the keysPressed variable, so we put it in the loop
+        setCurrentKeys((old) => {
+          if (old !== [...keysPressed]) {
+            return [...keysPressed];
+          }
+          return null;
+        });
+      }
       loop();
     }, gameSpeed);
   };
@@ -73,21 +80,21 @@ const MainWindow = ({ gameState, setGameState }) => {
     checkBulletCollision(bullets, setBullets, setAsteroids, asteroids, globalPlayer, setGameState);
     checkShipCollision(globalPlayer, setGlobalPlayer, setGameState, asteroids);
     //DONT PUT ANYMORE INTO DEPENDENCY!! globalPlayer constantly updates!
-     //eslint-disable-next-line react-hooks/exhaustive-deps
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [globalPlayer]);
 
   //-------------------------Key Input----------------------//
   //keyboard key event handlers. Keeps an array of all currently pressed keys
   const logKeyDown = (e) => {
     e.preventDefault();
-    if (!keysPressed.includes(e.key)) keysPressed = [...keysPressed, e.key];
+    if (!keysPressed.includes(e.key)) keysPressed = [...keysPressed, e.key.toLowerCase()];
   };
   const logKeyUp = (e) => {
     e.preventDefault();
-    const newKeys = keysPressed.filter((key) => key !== e.key);
+    const newKeys = keysPressed.filter((key) => key !== e.key.toLowerCase());
     if (newKeys !== keysPressed) keysPressed = newKeys;
   };
-  
+
   //...........................................USE EFFECT ON MOUNT------------------------------//
   useEffect(() => {
     playSound("start_snd");
@@ -116,8 +123,7 @@ const MainWindow = ({ gameState, setGameState }) => {
         style={{ "transform": `scale(${screenScale})` }}>
         {gameState.lives === 3 && globalPlayer.invnsTimer && <div id='start-display'>!START!</div>}
         {/*------------ AUDIO -------------*/}
-       
-           <AudioEl/>
+        <AudioEl/>
         {/*------------- HUD  -------------*/}
         <Hud gameState={gameState} setGameState={setGameState} />
         {/*--------- RENDER PLAYER ---------*/}
@@ -135,7 +141,7 @@ const MainWindow = ({ gameState, setGameState }) => {
               src={require("../../assets/img/bullet.png")}
               style={motion(pos.x, pos.y, pos.dir)}
             />
-          ) : ( "" );
+          ) : ("");
         })}
         {/*--------- RENDER ASTEROIDS ---------*/}
         {Object.keys(asteroids).map((posId) => {
