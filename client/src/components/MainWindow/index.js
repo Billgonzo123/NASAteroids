@@ -15,8 +15,8 @@ import Hud from '../../components/Hud';
 import Player from '../Player';
 import Asteroid from '../Asteroid';
 
-const MainWindow = ({ gameState, setGameState, menuSoundstate, setMenuSoundState }) => {
-  const [gameSpeed, setGameSpeed] = useState(8);
+const MainWindow = ({ gameState, setGameState }) => {
+  const gameSpeed = 8;
   const [screenScale, setScreenScale] = useState(window.innerWidth / 1920);
   const [globalPlayer, setGlobalPlayer] = useState({
     x: 906, y: 478, xB: 906, yB: 478, dir: 90, thrust: 0.05, vx: 0, vy: 0,
@@ -31,41 +31,47 @@ const MainWindow = ({ gameState, setGameState, menuSoundstate, setMenuSoundState
   let screenWidth = window.innerWidth;
   let level = useRef(1);
   let setNewAsteroidsFlag = useRef(1);
+  let numOfAst = useRef();
   //*GAME LOOP
   const loop = () => {
     setTimeout(() => {
-      const numOfAst = document.querySelectorAll('#asteroid-object');
-      //Checks if all asteroids are dead. if so, current level + 1
-      setGameState((old) => ({ ...old, numberOfAsteroids: numOfAst.length }));
+
+      numOfAst.current =  document.querySelectorAll('#asteroid-object').length;
       setGlobalPlayer((oldPlayer) => updatePlayer(oldPlayer, keysPressed));
       setAsteroids((oldPositions) => updateAsteroids(oldPositions, level.current));
       setBullets((oldPositions) => updateBullet(oldPositions));
       //check for a change in screen size and change scale if change
       checkScreenScale(screenWidth, setScreenScale);
       //updates state with current keys. We dont really want this state updated as fast as the keysPressed variable, so we put it in the loop
-      setCurrentKeys((old) => [...keysPressed]);
+      setCurrentKeys((old) => {
+        if (old !== [...keysPressed]) {
+          return [...keysPressed];
+        }
+        return null;
+      });
       loop();
     }, gameSpeed);
   };
 
   // ----------FOR GAME LOGIC STUFF THAT REQUIRES STATES---------//
   useEffect(() => {
-    level.current = gameState.curLevel; 
+    level.current = gameState.curLevel;
     if (currentKeys.includes(' ') && document.getElementById('bullet_snd').paused) {
       playSound('bullet_snd');
       generateBullet(globalPlayer, setBullets);
     }
-    //asteroidGeneration( setAsteroids, globalPlayer, spriteSizeIndex, howMany, setX, setY, rndPos)
-    if (gameState.numberOfAsteroids <= 0 && setNewAsteroidsFlag.current) {
+
+    //asteroidGeneration
+    if (numOfAst.current <= 0 && setNewAsteroidsFlag.current) {
       setNewAsteroidsFlag.current = 0;
-        (gameState.timer <= 60) ? setGameState(old => ({ ...old, curLevel: old.curLevel + 1, timer: 0, score: (old.score + 3000) })) : setGameState(old => ({ ...old, curLevel: old.curLevel + 1, timer: 0, score: (old.score + 1000) }));
+      (gameState.timer <= 60) ? setGameState(old => ({ ...old, curLevel: old.curLevel + 1, timer: 0, score: (old.score + 3000) })) : setGameState(old => ({ ...old, curLevel: old.curLevel + 1, timer: 0, score: (old.score + 1000) }));
       asteroidGeneration(setAsteroids, globalPlayer, 2, gameState.curLevel + 1, 0, 0, 1);
       setTimeout(() => setNewAsteroidsFlag.current = 1, 500);
     }
     checkBulletCollision(bullets, setBullets, setAsteroids, asteroids, globalPlayer, setGameState);
     checkShipCollision(globalPlayer, setGlobalPlayer, setGameState, asteroids);
     //DONT PUT STATE: asteroids INTO DEPENDENCY!!
-  }, [gameState, setGameState, currentKeys]);
+  }, [globalPlayer]);
 
   //-------------------------Key Input----------------------//
   //keyboard key event handlers. Keeps an array of all currently pressed keys
