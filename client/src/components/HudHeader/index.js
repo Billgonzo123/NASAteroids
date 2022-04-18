@@ -2,6 +2,7 @@ import * as React from "react";
 import { AppBar, Toolbar, Typography, Grid } from "@mui/material";
 
 export default function HudHeader(gameState) {
+
   return (
     <AppBar position="relative" sx={{ backgroundColor: "transparent", boxShadow: "none" }}>
         <Toolbar>
@@ -13,15 +14,15 @@ export default function HudHeader(gameState) {
                 >
                 {/* Player Username */}
                 <Typography variant="h6" sx={{ flexGrow: .2 }}>
-                    Angalet
+                    Emdok
                 </Typography>
                 {/* Player Current Score */}
                 <Typography variant="h6" sx={{ flexGrow: .2 }}>
-                    SCORE: 534
+                    SCORE: {gameState.gameState.gameState.score}
                 </Typography>
                 {/* Player Current Score */}
                 <Typography variant="h6">
-                    Time : 30
+                    Time: {gameState.gameState.gameState.timer}
                 </Typography>
             </Grid>
             <Grid
