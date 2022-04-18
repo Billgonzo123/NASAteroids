@@ -1,9 +1,9 @@
 function updateAsteroids(asteroids, currentLevel) {
 
     let updatedAsteroids = { ...asteroids };
-
-    for (let [key, value] of Object.entries(updatedAsteroids)) {
-
+    
+    Object.keys(updatedAsteroids).map((key) =>{
+        const value = updatedAsteroids[key];
         if (value.thrust) {
             let { x, y, xB, yB, dir, vx, vy, thrust, spriteDim } = value;
             thrust = thrust + currentLevel/2;
@@ -55,8 +55,7 @@ function updateAsteroids(asteroids, currentLevel) {
         } else {
             updatedAsteroids[key] = {}
         }
-    };
-
+    });
     return updatedAsteroids;
 }
 

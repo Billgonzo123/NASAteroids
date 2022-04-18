@@ -7,7 +7,7 @@ import updatePlayer from '../../util/updatePlayer';
 import updateBullet from '../../util/updateBullet';
 import checkShipCollision from '../../util/checkShipCollision';
 import checkBulletCollision from '../../util/checkBulletCollision';
-import { playSound, stopSound, playMenuSound } from '../../util/playSound';
+import { playSound } from '../../util/playSound';
 import { checkScreenScale } from '../../util/checkScreenScale';
 import asteroidGeneration from '../../util/asteroidGeneration';
 import generateBullet from '../../util/generateBullet';
@@ -29,13 +29,13 @@ const MainWindow = ({ gameState, setGameState }) => {
 
   let keysPressed = [];
   let screenWidth = window.innerWidth;
-  let level = useRef(1);
-  let setNewAsteroidsFlag = useRef(1);
-  let numOfAst = useRef();
+  const level = useRef(1);
+  const setNewAsteroidsFlag = useRef(1);
+  const numOfAst = useRef();
+  const timer = useRef();
   //*GAME LOOP
   const loop = () => {
     setTimeout(() => {
-
       numOfAst.current =  document.querySelectorAll('#asteroid-object').length;
       setGlobalPlayer((oldPlayer) => updatePlayer(oldPlayer, keysPressed));
       setAsteroids((oldPositions) => updateAsteroids(oldPositions, level.current));
@@ -60,7 +60,6 @@ const MainWindow = ({ gameState, setGameState }) => {
       playSound('bullet_snd');
       generateBullet(globalPlayer, setBullets);
     }
-
     //asteroidGeneration
     if (numOfAst.current <= 0 && setNewAsteroidsFlag.current) {
       setNewAsteroidsFlag.current = 0;
@@ -70,7 +69,8 @@ const MainWindow = ({ gameState, setGameState }) => {
     }
     checkBulletCollision(bullets, setBullets, setAsteroids, asteroids, globalPlayer, setGameState);
     checkShipCollision(globalPlayer, setGlobalPlayer, setGameState, asteroids);
-    //DONT PUT STATE: asteroids INTO DEPENDENCY!!
+    //DONT PUT ANYMORE INTO DEPENDENCY!! globalPlayer constantly updates!
+     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [globalPlayer]);
 
   //-------------------------Key Input----------------------//
@@ -86,7 +86,7 @@ const MainWindow = ({ gameState, setGameState }) => {
   };
 
 
-  const timer = useRef();
+  
   //...........................................USE EFFECT ON MOUNT------------------------------//
   useEffect(() => {
     playSound("start_snd");

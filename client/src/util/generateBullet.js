@@ -7,12 +7,8 @@
       vx: 0,
       vy: 0,
       thrust: 30,
-      timer: 300
+      timer: 320
     };
-
-    // const newBulletObj = updateBullet(bulletObj);
-
-    // //need to cap at 5
     setBullets((old) => ([...old, bulletObj]));
 
   }

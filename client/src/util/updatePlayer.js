@@ -1,4 +1,3 @@
-import { global } from "@apollo/client/utilities/globals";
 import { playSound, stopSound } from "./playSound";
 
 function updatePlayer(globalPlayer, keysPressed) {
