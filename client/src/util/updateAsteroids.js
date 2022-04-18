@@ -10,43 +10,15 @@ function updateAsteroids(asteroids, currentLevel) {
             //constatley update momentum
             x += vx*thrust;
             y += vy*thrust;
+            
+          
             //---------Sprite wrapping----------
-            if (y + spriteDim.h > 1080) {
-                if (y > 1080) {
-                    y = 0;
-                    yB = y
-                } else {
-                    yB = y - 1080;
-                }
-            } else {
-                if (y < 0) {
-                    if (y < -spriteDim.h) {
-                        y = 1080 - spriteDim.h;
-                        yB = y;
-                    } else {
-                        yB = 1080 + y;
-                    }
-                } else { yB = y }
-            }
-
-
-            if (x + spriteDim.w > 1920) {
-                if (x > 1920) {
-                    x = 0;
-                    xB = x
-                } else {
-                    xB = x - 1920;
-                }
-            } else {
-                if (x < 0) {
-                    if (x < -spriteDim.w) {
-                        x = 1920 - spriteDim.w;
-                        xB = x;
-                    } else {
-                        xB = 1920 + x;
-                    }
-                } else { xB = x }
-            }
+            if (y > 1080) y = 0;
+            if (y < 0) y = 1080;
+            if (x > 1920) x = 0;
+            if (x < 0) x = 1920;
+            xB=x; if (xB+spriteDim.w>1920) xB -=1920;
+            yB=y; if (yB+spriteDim.h>1080) yB -=1080;
 
             updatedAsteroids[key] = { ...value, x: x, y: y, xB: xB, yB: yB, vx: vx, vy: vy };
         } 
