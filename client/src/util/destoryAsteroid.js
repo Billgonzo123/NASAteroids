@@ -2,7 +2,7 @@ import asteroidGeneration from "./asteroidGeneration";
 import { playSound, stopSound } from "./playSound";
 
 
-const destoryAsteroid = (id, globalPlayer, asteroids, setAsteroids) => {
+const destoryAsteroid = async (id, globalPlayer, asteroids, setAsteroids) => {
 
 
     if (asteroids[id].alive) {
@@ -15,10 +15,12 @@ const destoryAsteroid = (id, globalPlayer, asteroids, setAsteroids) => {
         //smallest asteroid size = 0. If smallest size dont make more asteroids
    
         //asteroidGeneration(setAsteroids, globalPlayer, spriteSizeIndex, howMany, setX, setY, rndPos)
-        if (oldSize) asteroidGeneration(setAsteroids, globalPlayer, oldSize - 1, 5 - oldSize, newX, newY, 0);
+        await setAsteroids(old => ({ ...old, [id]: { ...old[id], alive: false } }));
+
+        if (oldSize) asteroidGeneration(setAsteroids, globalPlayer, oldSize - 1, 3, newX, newY, 0);
 
         //kill the asteroid with id
-        setAsteroids(old => ({ ...old, [id]: { ...old[id], alive: false } }))
+       
     }
 };
 

@@ -82,18 +82,20 @@ function App() {
     lives: 3,
     playerLevel: 0,
     numberOfAsteroids: 0,
-    timer: 0
+    timer: 0,
+    gameOver: 0
   });
+
 
   return (
     <ApolloProvider client={client}>
-      {menuSoundstate.length && (
+      {menuSoundstate.length ? (
         <audio
           id="menu-sound"
           src={require(`./assets/snd/menu_snd/${menuSoundstate}.wav`)}
           type="audio/wav"
         />
-      )}
+      ) : ('')}
       <ThemeProvider theme={theme}>
         <Router>
           <Switch>
