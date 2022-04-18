@@ -5,9 +5,8 @@ function updateAsteroids(asteroids, currentLevel) {
     Object.keys(updatedAsteroids).map((key) =>{
         const value = updatedAsteroids[key];
         if (value.alive) {
-            let { x, y, xB, yB, dir, vx, vy, thrust, spriteDim } = value;
-            thrust = thrust + currentLevel/4;
-            
+            let { x, y, xB, yB, vx, vy, thrust, spriteDim } = value;
+            thrust = thrust + currentLevel/4; 
             //constatley update momentum
             x += vx*thrust;
             y += vy*thrust;

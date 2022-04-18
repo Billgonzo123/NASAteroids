@@ -3,12 +3,12 @@ import { playSound, stopSound } from "./playSound";
 function updatePlayer(globalPlayer, keysPressed) {
     let { x, y, xB, yB, dir, thrust, vx, vy, turnSpeed, spriteDim, alive, invnsTimer, pressW } = globalPlayer;
     if (invnsTimer > 0) invnsTimer--;
-     
+
     //if 'w' key opressed, add velocity in direction
-    
+
     if (keysPressed.includes('w')) {
         pressW = true;
-        if (globalPlayer.alive)  playSound('engine_snd')
+        if (globalPlayer.alive) playSound('engine_snd')
         vx -= thrust * Math.cos((dir) * Math.PI / 180);
         vy -= thrust * Math.sin((dir) * Math.PI / 180);
     } else {
@@ -26,7 +26,7 @@ function updatePlayer(globalPlayer, keysPressed) {
     x += vx;
     y += vy;
 
-//Sprite wrapping --- make this code a seperate function
+    //Sprite wrapping --- make this code a seperate function
     if (y + spriteDim.h > 1080) {
         if (y > 1080) {
             y = 0;
@@ -40,7 +40,7 @@ function updatePlayer(globalPlayer, keysPressed) {
                 y = 1080 - spriteDim.h;
                 yB = y;
             } else {
-                yB =1080 + y;
+                yB = 1080 + y;
             }
         } else { yB = y }
     }
@@ -52,7 +52,7 @@ function updatePlayer(globalPlayer, keysPressed) {
             xB = x
         } else {
             xB = x - 1920;
-            yB = y 
+            yB = y
         }
     } else {
         if (x < 0) {
@@ -60,7 +60,7 @@ function updatePlayer(globalPlayer, keysPressed) {
                 x = 1920 - spriteDim.w;
                 xB = x;
             } else {
-                xB =1920 + x;
+                xB = 1920 + x;
             }
         } else { xB = x }
     }

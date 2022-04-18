@@ -58,7 +58,6 @@ const MainWindow = ({ gameState, setGameState }) => {
   // ----------FOR GAME LOGIC STUFF THAT REQUIRES STATES---------//
   useEffect(() => {
     level.current = gameState.curLevel;
-
     if ( globalPlayer.alive &&  spaceDown.current === 1  && bullets.length <= 5) {
       spaceDown.current = 2;
       playSoundCancle('bullet_snd');
