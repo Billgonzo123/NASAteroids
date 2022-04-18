@@ -6,7 +6,7 @@ import Footer from '../components/Footer';
 import { Box, Grid, Card, CardActions } from '@mui/material';
 import Auth from "../util/auth";
 
-const Start = () => {
+const Start = ({gameState, setGameState}) => {
 
   const navigate = useHistory();
 
@@ -41,7 +41,10 @@ const Start = () => {
           direction="row"
           justifyContent="center"
         >
-          <Profile />
+          <Profile 
+            setGameState={setGameState}
+            gameState={gameState}
+          />
           <Leaderboard />
         </Grid>
         <CardActions

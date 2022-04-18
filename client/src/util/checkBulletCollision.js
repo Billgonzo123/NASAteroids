@@ -12,7 +12,7 @@ function checkBulletCollision(bullets, setBullets, setAsteroids, asteroids, glob
             const a = asteroids[id];
             if (a.alive) {
                 //radius is hard coded
-                const astRadius = [21, 62, 124];
+                const astRadius = [23, 62, 124];
                 const r = astRadius[a.size];
                 const dist = r+5;
                 

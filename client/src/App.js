@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import "./App.css";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./pages/Home";
 import Start from "./pages/Start";
 import Main from "./pages/Main";
 import Nomatch from "./components/Nomatch";
-import Auth from "./util/auth";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 import {
@@ -75,25 +74,28 @@ const client = new ApolloClient({
 function App() {
   const [menuSoundstate, setMenuSoundState] = useState("");
   const [gameState, setGameState] = useState({
+    username: " ",
     curLevel: 1,
     score: 0,
     exp: 0,
     lives: 3,
     playerLevel: 0,
     numberOfAsteroids: 0,
-    timer: 0
+    timer: 0,
+    paused: 0,
+    gameOver: 0
   });
 
 
   return (
     <ApolloProvider client={client}>
-      {menuSoundstate.length && (
+      {menuSoundstate.length ? (
         <audio
           id="menu-sound"
           src={require(`./assets/snd/menu_snd/${menuSoundstate}.wav`)}
           type="audio/wav"
         />
-      )}
+      ) : ('')}
       <ThemeProvider theme={theme}>
         <Router>
           <Switch>
@@ -107,6 +109,8 @@ function App() {
               <Start
                 menuSoundstate={menuSoundstate}
                 setMenuSoundState={setMenuSoundState}
+                setGameState={setGameState}
+                gameState={gameState}
               />
             </Route>
             <Route exact path="/main">

@@ -12,7 +12,7 @@ import {
 import { useQuery } from '@apollo/client';
 import { GET_ME } from '../../util/queries';
 
-const Profile = () => {
+const Profile = ({gameState, setGameState}) => {
   const { loading, data } = useQuery(GET_ME);
   const user = data?.me || {};
   const highscores = data?.me.highscores || [];

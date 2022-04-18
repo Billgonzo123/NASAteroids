@@ -1,22 +1,17 @@
-function updateAsteroids(asteroids) {
+function updateAsteroids(asteroids, currentLevel) {
 
     let updatedAsteroids = { ...asteroids };
-
-    for (let [key, value] of Object.entries(updatedAsteroids)) {
-
+    
+    Object.keys(updatedAsteroids).map((key) =>{
+        const value = updatedAsteroids[key];
         if (value.thrust) {
             let { x, y, xB, yB, dir, vx, vy, thrust, spriteDim } = value;
+            thrust = thrust + currentLevel/2;
             vx = -thrust * Math.cos((dir) * Math.PI / 180);
             vy = -thrust * Math.sin((dir) * Math.PI / 180);
             //constatley update momentum
             x += vx;
             y += vy;
-            //calculate cenetr based of current x,y cord
-            let center = { x: x + (spriteDim.w / 2), y: y + (spriteDim.h / 2) }
-            //These numbers represent the actual image height and width in pixels
-
-
-      
             //---------Sprite wrapping----------
             if (y + spriteDim.h > 1080) {
                 if (y > 1080) {
@@ -60,8 +55,8 @@ function updateAsteroids(asteroids) {
         } else {
             updatedAsteroids[key] = {}
         }
-    };
-
+        return false;
+    });
     return updatedAsteroids;
 }
 

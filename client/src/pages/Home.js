@@ -28,11 +28,21 @@ const Home = () => {
         <div className="logo">
           <h1>ASTEROIDS</h1>
         </div>
-      {show === "Welcome" && <Welcome show={show} setShow={setShow}/>}
-      {show === "Login" && <Login show={show} setShow={setShow} />}
-      {show === "Signup" && <Signup show={show} setShow={setShow} />}
-      <Footer />
-    </Grid>
+        {show === "Welcome" && <Welcome show={show} setShow={setShow} />}
+        {show === "Login" && (
+          <Login
+            show={show}
+            setShow={setShow}
+          />
+        )}
+        {show === "Signup" && (
+          <Signup
+            show={show}
+            setShow={setShow}
+          />
+        )}
+        <Footer />
+      </Grid>
     </Box>
   );
 };
