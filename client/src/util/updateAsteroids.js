@@ -55,6 +55,7 @@ function updateAsteroids(asteroids, currentLevel) {
         } else {
             updatedAsteroids[key] = {}
         }
+        return false;
     });
     return updatedAsteroids;
 }
