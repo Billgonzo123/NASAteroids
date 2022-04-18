@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from "react";
 
 //utilities
 import motion from '../../util/motion';
@@ -79,18 +79,33 @@ const MainWindow = ({ gameState, setGameState, menuSoundstate, setMenuSoundState
     e.preventDefault();
     const newKeys = keysPressed.filter((key) => key !== e.key);
     if (newKeys !== keysPressed) keysPressed = newKeys;
+
   };
 
-  //......................USE EFFECT ON MOUNT----------------//
+  const timer = useRef();
+  //...........................................USE EFFECT ON MOUNT------------------------------//
   useEffect(() => {
-    playSound('start_snd')
-    document.addEventListener('keyup', logKeyUp);
-    document.addEventListener('keydown', logKeyDown);
+    playSound("start_snd");
+    document.addEventListener("keyup", logKeyUp);
+    document.addEventListener("keydown", logKeyDown);
+
     loop();
+
+    // Start Game Timer
+    timer.current = setInterval(() => {
+      setGameState((old) => ({ ...old, timer: old.timer + 1 }));
+      }, 1000);
+
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  //-----------------------------JSX-----------------------//
+  // Stop Timer when Player Dies
+  useEffect(() => {
+    return () => {
+      clearInterval(timer.current);
+    };
+  }, [globalPlayer.alive]);
+
   return (
     <>
       <div
@@ -112,7 +127,7 @@ const MainWindow = ({ gameState, setGameState, menuSoundstate, setMenuSoundState
         {globalPlayer.alive ? (
           <Player currentKeys={currentKeys} globalPlayer={globalPlayer} />
         ) : (
-          <div id='game-over' >GAME OVER</div>
+          <div id="game-over">GAME OVER</div>
         )}
         {/*--------- RENDER BULLETS ---------*/}
         {bullets.map((pos) => {
@@ -120,11 +135,11 @@ const MainWindow = ({ gameState, setGameState, menuSoundstate, setMenuSoundState
             <img
               id='bullet-object'
               alt="bullet-sprite"
-              src={require('../../assets/img/bullet.png')}
+              src={require("../../assets/img/bullet.png")}
               style={motion(pos.x, pos.y, pos.dir)}
             />
           ) : (
-            ''
+            ""
           );
         })}
         {/*--------- RENDER ASTEROIDS ---------*/}
