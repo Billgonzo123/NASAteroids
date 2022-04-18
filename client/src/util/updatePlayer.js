@@ -1,13 +1,17 @@
 import { playSound, stopSound } from "./playSound";
 
 function updatePlayer(globalPlayer, keysPressed) {
-    let { x, y, xB, yB, dir, thrust, vx, vy, turnSpeed, spriteDim, alive, invnsTimer } = globalPlayer;
+    let { x, y, xB, yB, dir, thrust, vx, vy, turnSpeed, spriteDim, alive, invnsTimer, pressW } = globalPlayer;
     if (invnsTimer > 0) invnsTimer--;
-    (keysPressed.includes('w') && globalPlayer.alive) ? playSound('engine_snd') : stopSound('engine_snd');
+    (keysPressed && globalPlayer.alive) ? playSound('engine_snd') : stopSound('engine_snd');
     //if 'w' key opressed, add velocity in direction
+    
     if (keysPressed.includes('w')) {
+        pressW = true;
         vx -= thrust * Math.cos((dir) * Math.PI / 180);
         vy -= thrust * Math.sin((dir) * Math.PI / 180);
+    } else {
+        pressW = false;
     }
     //Rotate ship whe A or D pressed
     if (keysPressed.includes('d')) {
@@ -59,7 +63,7 @@ function updatePlayer(globalPlayer, keysPressed) {
         } else { xB = x }
     }
 
-    return { ...globalPlayer, x, y, xB, yB, dir, thrust, vx, vy, turnSpeed, spriteDim, alive, invnsTimer }
+    return { ...globalPlayer, x, y, xB, yB, dir, thrust, vx, vy, turnSpeed, spriteDim, alive, invnsTimer, pressW }
 }
 
 export default updatePlayer;
