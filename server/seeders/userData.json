@@ -53,11 +53,23 @@
         "username": "angalet",
         "email": "angalet@test.com",
         "password": "test-password",
-        "highscores": [{
-            "score": 369870,
-            "user": "angalet",
-            "date": "04/15/2022"
-        }]
+        "highscores": [
+            {
+                "score": 369870,
+                "user": "angalet",
+                "date": "04/15/2022"
+            },
+            {
+                "score": 300870,
+                "user": "angalet",
+                "date": "04/13/2022"
+            },
+            {
+                "score": 250000,
+                "user": "angalet",
+                "date": "04/17/2022"
+            }
+        ]
     },
     {
         "username": "BEEKILLR",
