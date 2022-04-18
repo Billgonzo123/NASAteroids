@@ -64,7 +64,7 @@ const MainWindow = ({ gameState, setGameState }) => {
     if (numOfAst.current <= 0 && setNewAsteroidsFlag.current) {
       setNewAsteroidsFlag.current = 0;
       (gameState.timer <= 60) ? setGameState(old => ({ ...old, curLevel: old.curLevel + 1, timer: 0, score: (old.score + 3000) })) : setGameState(old => ({ ...old, curLevel: old.curLevel + 1, timer: 0, score: (old.score + 1000) }));
-      asteroidGeneration(setAsteroids, globalPlayer, 2, gameState.curLevel + 1, 0, 0, 1);
+      setAsteroids(old => asteroidGeneration(asteroids, globalPlayer, 2, gameState.curLevel + 1, 0, 0, 1));
       setTimeout(() => setNewAsteroidsFlag.current = 1, 500);
     }
     checkBulletCollision(bullets, setBullets, setAsteroids, asteroids, globalPlayer, setGameState);

@@ -27,6 +27,7 @@ function updateBullet(bullets) {
         timer: bullet.timer - 10
       })
     }
+    return false;
   })
   return newBulletArray
 }
