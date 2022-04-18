@@ -1,6 +1,11 @@
 export function playSound(snd) {
     const el = document.getElementById(`${snd}`);
-  
+ 
+    el.play()
+}
+export function playSoundCancle(snd) {
+    const el = document.getElementById(`${snd}`);
+    el.load();
     el.play()
 }
 
