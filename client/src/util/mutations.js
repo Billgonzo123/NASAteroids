@@ -77,3 +77,21 @@ export const ADD_USER_XP = gql`
     }
   }
 `;
+
+export const DELETE_USER_SCORE = gql`
+  mutation deleteUserScore($score: Int) {
+    deleteUserScore(score: $score) {
+      _id
+      username
+      email
+      highscores {
+        score
+        user
+        date
+      }
+      avatar
+      level
+      XP
+    }
+  }
+`;

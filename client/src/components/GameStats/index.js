@@ -11,7 +11,9 @@ import { GET_ME, GET_LEADERBOARD } from '../../util/queries';
 import {
   ADD_USER_HIGHSCORE,
   ADD_LEADERBOARD_HIGHSCORE,
+  DELETE_USER_SCORE,
 } from '../../util/mutations';
+import Auth from '../../util/auth';
 
 const GameOverStats = ({ gameState }) => {
   //states
@@ -31,8 +33,22 @@ const GameOverStats = ({ gameState }) => {
   //current score
   const currentScore = gameState.score;
 
-  //* ADD USER SCORE
+  //* USER SCORE
   const [addUserHighscore] = useMutation(ADD_USER_HIGHSCORE);
+  const [deleteUserScore] = useMutation(DELETE_USER_SCORE);
+
+  //Handle delete user's lowest score
+  async function handleDeleteUserScore() {
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+    if (!token) {
+      return false;
+    }
+    try {
+      deleteUserScore();
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   //Handle user score submit
   async function handleUserScoreSubmit() {
@@ -42,14 +58,9 @@ const GameOverStats = ({ gameState }) => {
         variables: { score: currentScore },
       });
       // do we have more than 5 user highscores?
-      // if (userHighscores.length >= 5) {
-        //create array of userHighscores.score's and math.min
-        const scores = userHighscores.map((highscore) => highscore.score);
-        const lowestScore = Math.min(...scores);
-        //find index of lowest score and delete
-        const lowestTest = userHighscores.indexOf(lowestScore);
-        console.log('index of lowest score?', lowestTest);
-      // }
+      if (userHighscores.length >= 5) {
+        handleDeleteUserScore();
+      }
       setUserScoreDisplay(userHighscores);
     } catch (err) {
       console.error(err);
@@ -90,7 +101,7 @@ const GameOverStats = ({ gameState }) => {
                   const score = userScoreDisplay[index];
                   return userScoreDisplay ? (
                     <li>
-                      ${score.date}, ${score.score}
+                      {score.date}, {score.score}
                     </li>
                   ) : (
                     ''
