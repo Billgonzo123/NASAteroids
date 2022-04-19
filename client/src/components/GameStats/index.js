@@ -30,11 +30,11 @@ const GameOverStats = ({ gameState }) => {
   // const [addLeaderboardHighscore] = useMutation(ADD_LEADERBOARD_HIGHSCORE);
   // const [deleteLeaderboardScore] = useMutation(DELETE_LEADERBOARD_SCORE);
 
-  // //leaderboard data
-  // const { data: leaderboardData, error: error } = useQuery(GET_LEADERBOARD);
-  // const leaderboardHighscores = leaderboardData.leaderboard.highscores.map(
-  //   (highscore) => highscore.score
-  // );
+  //leaderboard data
+  const { data: leaderboardData, error: error } = useQuery(GET_LEADERBOARD);
+  const leaderboardHighscores = leaderboardData.leaderboard.highscores.map(
+    (highscore) => highscore.score
+  );
 
   // //handle delete lowest leaderboard score
   // async function handleDeleteLeaderBoardScore() {
