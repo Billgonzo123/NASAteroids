@@ -40,7 +40,11 @@ const MainWindow = ({ gameState, setGameState }) => {
       //This stays here to trigger the useState below
       //By grouping all the state changes we get better performance
       //but we need to change a state to loop the useEffect
-      setAsteroids((oldPositions) => updateAsteroids(oldPositions, level.current));
+      setGlobalPlayer((oldPlayer) => {
+        if (globalPlayer.alive) return updatePlayer(oldPlayer, keysPressed.current)
+        return null;
+      });
+     
       loop();
     }, gameSpeed);
   };
@@ -50,10 +54,7 @@ const MainWindow = ({ gameState, setGameState }) => {
     level.current = gameState.curLevel;
     if (!gameState.paused) {
       numOfAst.current = document.querySelectorAll('#asteroid-object').length;
-      setGlobalPlayer((oldPlayer) => {
-        if (globalPlayer.alive) return updatePlayer(oldPlayer, keysPressed.current)
-        return null;
-      });
+      setAsteroids((oldPositions) => updateAsteroids(oldPositions, level.current));
       setBullets((oldPositions) => {
         if (bullets) return updateBullet(oldPositions);
         return null;
@@ -79,7 +80,7 @@ const MainWindow = ({ gameState, setGameState }) => {
     }
     //DONT PUT ANYMORE INTO DEPENDENCY!! globalPlayer constantly updates!
     //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [asteroids]);
+  }, [globalPlayer]);
 
   //-------------------------Key Input----------------------//
   //keyboard key event handlers. Keeps an array of all currently pressed keys
