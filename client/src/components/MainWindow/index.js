@@ -7,7 +7,7 @@ import updatePlayer from '../../util/updatePlayer';
 import updateBullet from '../../util/updateBullet';
 import checkShipCollision from '../../util/checkShipCollision';
 import checkBulletCollision from '../../util/checkBulletCollision';
-import { playSound, playSoundCancle } from '../../util/playSound';
+import { playSound, playSoundCancel } from '../../util/playSound';
 import { checkScreenScale } from '../../util/checkScreenScale';
 import asteroidGeneration from '../../util/asteroidGeneration';
 import generateBullet from '../../util/generateBullet';
@@ -65,7 +65,7 @@ const MainWindow = ({ gameState, setGameState }) => {
 
       if (globalPlayer.alive && spaceDown.current === 1 && bullets.length <= 5) {
         spaceDown.current = 2;
-        playSoundCancle('bullet_snd');
+        playSoundCancel('bullet_snd');
         setBullets((old) => ([...old, generateBullet(globalPlayer)]));
         setTimeout(() => (spaceDown.current === 2) ? spaceDown.current = 1 : false, 200)
       }
