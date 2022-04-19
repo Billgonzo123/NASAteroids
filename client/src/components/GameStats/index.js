@@ -42,20 +42,24 @@ const GameOverStats = ({ gameState }) => {
     }
   }
 
-  let notification = <span>Nothing here yet!</span>
+  const [notification, setNotification] = useState(
+    <span>Nothing here yet!</span>
+  );
 
   useEffect(() => {
     console.log('userHighscores before', userHighscores);
     if (
-      userHighscores.find((score) => score >= currentScore || currentScore === 0)
+      userHighscores.find(
+        (score) => score >= currentScore || currentScore === 0
+      )
     ) {
       console.log('Better luck next time!');
-      let notification = <span>Better luck next time!</span>;
+      setNotification(<span>Better luck next time!</span>);
     } else {
       console.log('Congrats!');
       handleUserScoreSubmit();
       console.log('typeof currentscore', typeof currentScore);
-      let notification = <span>Congratulations!</span>;
+      setNotification(<span>Congratulations, new high score!</span>);
     }
   }, []);
 
@@ -72,6 +76,13 @@ const GameOverStats = ({ gameState }) => {
             </TableCell>
             <TableCell align="center" sx={{ p: 0.25 }}>
               {notification}
+            </TableCell>
+            <TableCell align="center" sx={{ p: 0.25 }}>
+              <ul>
+                {Object.keys(userHighscores).map((score) => {
+                  return <li>score</li>;
+                })}
+              </ul>
             </TableCell>
           </TableRow>
         </TableBody>
