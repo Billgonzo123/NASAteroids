@@ -14,7 +14,7 @@ import updatePlayer from '../../util/updatePlayer';
 import updateBullet from '../../util/updateBullet';
 import checkShipCollision from '../../util/checkShipCollision';
 import checkBulletCollision from '../../util/checkBulletCollision';
-import { playSound, playSoundCancle } from '../../util/playSound';
+import { playSound, playSoundCancel } from '../../util/playSound';
 import { checkScreenScale } from '../../util/checkScreenScale';
 import asteroidGeneration from '../../util/asteroidGeneration';
 import generateBullet from '../../util/generateBullet';
@@ -40,20 +40,10 @@ const MainWindow = ({ gameState, setGameState }) => {
   //--------------------------GAME LOOP-------------------------//
   const loop = () => {
     setTimeout(() => {
-      if (!gameState.paused) {
-        numOfAst.current = document.querySelectorAll('#asteroid-object').length;
-        setGlobalPlayer((oldPlayer) => {
-          if (globalPlayer.alive) return updatePlayer(oldPlayer, keysPressed.current)
-          return null;
-        });
-        setBullets((oldPositions) => {
-          if (bullets) return updateBullet(oldPositions);
-          return null;
-        });
-        setAsteroids((oldPositions) => updateAsteroids(oldPositions, level.current));
-        //check for a change in screen size and change scale if change
-        checkScreenScale(screenWidth, setScreenScale);
-      }
+      //This stays here to trigger the useState below
+      //By grouping all the state changes we get better performance
+      //but we need to change a state to loop the useEffect
+      setAsteroids((oldPositions) => updateAsteroids(oldPositions, level.current));
       loop();
     }, gameSpeed);
   };
@@ -61,30 +51,45 @@ const MainWindow = ({ gameState, setGameState }) => {
   // ----------FOR GAME LOGIC STUFF THAT REQUIRES STATES---------//
   useEffect(() => {
     level.current = gameState.curLevel;
+    if (!gameState.paused) {
+      numOfAst.current = document.querySelectorAll('#asteroid-object').length;
+      setGlobalPlayer((oldPlayer) => {
+        if (globalPlayer.alive) return updatePlayer(oldPlayer, keysPressed.current)
+        return null;
+      });
+      setBullets((oldPositions) => {
+        if (bullets) return updateBullet(oldPositions);
+        return null;
+      });
+    
+      //check for a change in screen size and change scale if change
+      checkScreenScale(screenWidth, setScreenScale);
 
-    if (  spaceDown.current === 1  && bullets.length <= 5) {
-      spaceDown.current = 2;
-      playSoundCancle('bullet_snd');
-      setBullets((old) => ([...old, generateBullet(globalPlayer)]));
-      setTimeout(() => (spaceDown.current === 2)? spaceDown.current = 1 : false, 200)
+
+      if (globalPlayer.alive && spaceDown.current === 1 && bullets.length <= 5) {
+        spaceDown.current = 2;
+        playSoundCancel('bullet_snd');
+        setBullets((old) => ([...old, generateBullet(globalPlayer)]));
+        setTimeout(() => (spaceDown.current === 2) ? spaceDown.current = 1 : false, 200)
+      }
+      //asteroidGeneration
+      if (numOfAst.current <= 0) {
+        (gameState.timer <= 60) ? setGameState(old => ({ ...old, curLevel: old.curLevel + 1, timer: 0, score: (old.score + 3000) })) : setGameState(old => ({ ...old, curLevel: old.curLevel + 1, timer: 0, score: (old.score + 1000) }));
+        setAsteroids(asteroidGeneration(asteroids, globalPlayer, 2, gameState.curLevel + 1, 0, 0, 1));
+      }
+      checkBulletCollision(bullets, setBullets, setAsteroids, asteroids, globalPlayer, setGameState);
+      checkShipCollision(globalPlayer, setGlobalPlayer, setGameState, asteroids);
     }
-    //asteroidGeneration
-    if (numOfAst.current <= 0) {
-      (gameState.timer <= 60) ? setGameState(old => ({ ...old, curLevel: old.curLevel + 1, timer: 0, score: (old.score + 3000) })) : setGameState(old => ({ ...old, curLevel: old.curLevel + 1, timer: 0, score: (old.score + 1000) }));
-      setAsteroids(asteroidGeneration(asteroids, globalPlayer, 2, gameState.curLevel + 1, 0, 0, 1));
-    }
-    checkBulletCollision(bullets, setBullets, setAsteroids, asteroids, globalPlayer, setGameState);
-    checkShipCollision(globalPlayer, setGlobalPlayer, setGameState, asteroids);
     //DONT PUT ANYMORE INTO DEPENDENCY!! globalPlayer constantly updates!
     //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [globalPlayer]);
+  }, [asteroids]);
 
   //-------------------------Key Input----------------------//
   //keyboard key event handlers. Keeps an array of all currently pressed keys
   const logKeyDown = (e) => {
     e.preventDefault();
     if (!keysPressed.current.includes(e.key)) keysPressed.current = [...keysPressed.current, e.key.toLowerCase()];
-    if (keysPressed.current.includes(" ") && spaceDown.current !==2 ) spaceDown.current = 1;
+    if (keysPressed.current.includes(" ") && spaceDown.current !== 2) spaceDown.current = 1;
   };
   const logKeyUp = (e) => {
     e.preventDefault();
