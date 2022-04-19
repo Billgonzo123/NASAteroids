@@ -2,12 +2,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
 @import url("https://unpkg.com/nes.css@latest/css/nes.min.css");
 
-#main-hud{
-  position: relative;
-  top:0px;
-  left: 0px;
-}
-
 #hud-footer {
   opacity: 40%;
   position: relative;
@@ -19,10 +13,6 @@
   position: relative;
   top:800px;
   left: 0px;
-}
-#root{
-  width: 100vw;
-  height: 100vh;
 }
 
 html {

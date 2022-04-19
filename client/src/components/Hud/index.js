@@ -8,7 +8,6 @@ export default function Hud({gameState, setGameState}) {
     <Box sx={{
         display: 'flex',
         flexDirection: 'column',
-        minHeight: '75vh',
         position: 'relative',
         top: '0px',
         left: '0px'

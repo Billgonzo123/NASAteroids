@@ -7,13 +7,7 @@ import Main from "./pages/Main";
 import Nomatch from "./components/Nomatch";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./theme";
-
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  createHttpLink,
-} from "@apollo/client";
+import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink,} from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 
 const httpLink = createHttpLink({
@@ -52,9 +46,7 @@ function App() {
 
   return (
     <ApolloProvider client={client}>
-     
-        <audio id="menu-sound"src={require(`./assets/snd/menu_snd/menu_select.wav`)} style={{'disply': 'none'}} type="audio/wav"/>
-      
+        <audio id="menu-sound"src={require(`./assets/snd/menu_snd/menu_select.wav`)} style={{'disply': 'none'}} type="audio/wav"/>     
       <ThemeProvider theme={theme}>
         <Router>
           <Switch>
