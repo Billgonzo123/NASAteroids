@@ -5,7 +5,8 @@ import Home from "./pages/Home";
 import Start from "./pages/Start";
 import Main from "./pages/Main";
 import Nomatch from "./components/Nomatch";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "./theme";
 
 import {
   ApolloClient,
@@ -17,37 +18,6 @@ import { setContext } from "@apollo/client/link/context";
 
 const httpLink = createHttpLink({
   uri: "http://localhost:3001/graphql",
-});
-
-const theme = createTheme({
-  typography: {
-    fontFamily: ["Press Start 2P"],
-    body1: {
-      textTransform: "uppercase",
-    },
-    h6: {
-      textTransform: "uppercase",
-    },
-  },
-  palette: {
-    text: {
-      primary: "#FFFFFF",
-    },
-  },
-  components: {
-    MuiInput: {
-      styleOverrides: {
-        underline: {
-          "&&::before": {
-            borderBottom: "1px solid rgba(255, 255, 255, 1)",
-          },
-          "&&::after": {
-            borderBottom: "1px solid rgba(255, 255, 255, 1)",
-          },
-        },
-      },
-    },
-  },
 });
 
 const authLink = setContext((_, { headers }) => {
