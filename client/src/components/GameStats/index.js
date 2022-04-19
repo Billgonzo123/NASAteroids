@@ -6,6 +6,7 @@ import {
   TableCell,
   TableContainer,
   TableRow,
+  Typography
 } from '@mui/material';
 import { GET_ME, GET_LEADERBOARD } from '../../util/queries';
 import {
@@ -127,18 +128,22 @@ const GameOverStats = ({ gameState }) => {
   }, []);
 
   return (
-    <TableContainer>
-      <Table sx={{ textTransform: 'uppercase' }} aria-label="simple table">
-        <TableBody>
-          <TableRow align="center">
-            {isHighscore ? (
+    <>
+    <Typography
+    variant="h5"
+    align="center"
+    >
+    {isHighscore ? (
               <span>Congratulations, new highscore!</span>
             ) : (
               <span>Better luck next time!</span>
             )}
-          </TableRow>
+    </Typography>
+    <TableContainer sx={{ display: 'absolute' }}>
+      <Table sx={{ textTransform: 'uppercase' }} aria-label="simple table">
+        <TableBody>
           <TableRow key="GameStats">
-            <TableCell scope="right" align="left" sx={{ p: 0.25 }}>
+            <TableCell align="right" sx={{ p: 0.25 }}>
               Final Score:
             </TableCell>
             <TableCell align="left" sx={{ p: 0.25 }}>
@@ -164,6 +169,7 @@ const GameOverStats = ({ gameState }) => {
         </TableBody>
       </Table>
     </TableContainer>
+    </>
   );
 };
 

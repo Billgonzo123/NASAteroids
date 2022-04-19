@@ -60,7 +60,7 @@ body {
   font-size: 100px;
   text-align: center;
   top: 206px;
-  left: 510px;
+  left: 75vw;
   color: #ffff;
   transform: scale(1) perspective(200px) rotateX(45deg);
   animation: zoomIn 0.6s;
