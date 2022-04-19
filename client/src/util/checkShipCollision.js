@@ -36,7 +36,7 @@ function checkShipCollision(globalPlayer, setGlobalPlayer, setGameState, asteroi
                             return ({ ...old, lives: 0, gameOver: 1 });
                         } else {
                             playSound('player_die')
-                            setGlobalPlayer(old => ({ ...old, x: 906, y: 478, xB: 906, yB: 478, vx: 0, vy: 0, dir: 90, invnsTimer: 300 }));
+                            setGlobalPlayer(old => ({ ...old, x: 906, y: 478, xB: 906, yB: 478, vx: 0, vy: 0, dir: 90, invnsTimer: 510 }));
                             //return uosated gameState
                             return ({ ...old, lives: old.lives - 1 });
                         }
