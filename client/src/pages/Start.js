@@ -46,7 +46,7 @@ const Start = ({gameState, setGameState}) => {
           />
           <Leaderboard />
         </Grid>
-        <Container maxWidth="sm">
+        <Container maxWidth="xs">
           <CardActions
             sx={{
               justifyContent: "space-between",
