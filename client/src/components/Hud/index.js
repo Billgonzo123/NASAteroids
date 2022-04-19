@@ -8,7 +8,7 @@ export default function Hud({gameState, setGameState}) {
     <Box sx={{
         display: 'flex',
         flexDirection: 'column',
-        minHeight: '90vh',
+        minHeight: '75vh',
       }}>
         <HudHeader gameState={gameState} setGameState={setGameState} />
         <HudFooter />
