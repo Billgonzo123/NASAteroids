@@ -71,7 +71,7 @@ const MainWindow = ({ gameState, setGameState }) => {
       //asteroidGeneration
       if (numOfAst.current <= 0) {
         
-        (gameState.timer <= 60) ? bonus.current = 3000 : bonus.current = 1000;
+        (gameState.timer <= 60) ? bonus.current = 10000 : bonus.current = 1000;
         if (gameState.curLevel === 0) bonus.current = 0;
         setGlobalPlayer(old => ({...old, invnsTimer: 120}));
         setGameState(old => ({ ...old, curLevel: old.curLevel + 1, timer: 0, score: (old.score + bonus.current) }))
