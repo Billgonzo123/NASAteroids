@@ -1,14 +1,5 @@
 import React from 'react';
-import {
-  Card,
-  CardContent,
-  Typography,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableRow,
-} from '@mui/material';
+import {  Card, CardContent, Typography, Table, TableBody, TableCell, TableContainer, TableRow,} from '@mui/material';
 import { useQuery } from '@apollo/client';
 import { GET_ME } from '../../util/queries';
 
@@ -43,15 +34,6 @@ const Profile = ({gameState, setGameState}) => {
                   className="nes-input is-dark"
                   placeholder="Image url for avatar"
                 />
-              </TableCell>
-            </TableRow>
-            {/* XP */}
-            <TableRow sx={{ '& td': { border: 0 } }}>
-              <TableCell TableCell scope="row" align="left" sx={{ p: 0.25 }}>
-                XP:
-              </TableCell>
-              <TableCell scope="row" align="left" sx={{ p: 0.25 }}>
-                {user.XP ? user.XP : 0}
               </TableCell>
             </TableRow>
             {/* user scores */}

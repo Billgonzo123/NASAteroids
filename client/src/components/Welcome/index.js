@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Leaderboard from "../Leaderboard";
-import { Card, CardActions, Box, Grid } from "@mui/material";
+import { CardActions} from "@mui/material";
 import { playMenuSound } from "../../util/playSound";
 
 const Welcome = ({ menuSoundstate, setMenuSoundState, show, setShow }) => {
@@ -12,7 +12,6 @@ const Welcome = ({ menuSoundstate, setMenuSoundState, show, setShow }) => {
           justifyContent: "space-between",
           backgroundColor: "transparent",
           mt: 10,
-          gap: 20,
         }}
       >
         <button
