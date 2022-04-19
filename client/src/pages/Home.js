@@ -4,7 +4,7 @@ import Signup from "../components/Signup";
 import Login from "../components/Login";
 import Welcome from "../components/Welcome";
 import Footer from "../components/Footer";
-import { Box, Container,  Grid, Typography } from "@mui/material";
+import { Box, Container} from "@mui/material";
 import Auth from "../util/auth";
 
 const Home = () => {
@@ -27,24 +27,24 @@ const Home = () => {
         <div className="logo">
             <h1>ASTEROIDS</h1>
         </div>
-        {show === "Welcome" && <Welcome show={show} setShow={setShow} />}
-          {show === "Login" && (
-            <Login
-              show={show}
-              setShow={setShow}
-            />
-          )}
-          {show === "Signup" && (
-            <Signup
-              show={show}
-              setShow={setShow}
-            />
-          )}
-        
+        <Container maxWidth="sm">
+          {show === "Welcome" && <Welcome show={show} setShow={setShow} />}
+            {show === "Login" && (
+              <Login
+                show={show}
+                setShow={setShow}
+              />
+            )}
+            {show === "Signup" && (
+              <Signup
+                show={show}
+                setShow={setShow}
+              />
+            )}
+        </Container> 
       </Container>
       <Footer />
     </Box>
-  );
-};
+)};
 
 export default Home;

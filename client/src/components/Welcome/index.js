@@ -12,7 +12,6 @@ const Welcome = ({ menuSoundstate, setMenuSoundState, show, setShow }) => {
           justifyContent: "space-between",
           backgroundColor: "transparent",
           mt: 10,
-          gap: 20,
         }}
       >
         <button
