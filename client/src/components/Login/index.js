@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { TextField, Box, Grid, Typography, Card, CardActions } from "@mui/material";
 import Auth from "../../util/auth";
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../../util/mutations";
-
+import {playMenuSound} from "../../util/playSound"
 const Login = ({ show, setShow}) => {
   const navigate = useHistory();
   const [formState, setFormState] = useState({ email: "", password: "" });
   const [login, { error }] = useMutation(LOGIN_USER);
+
+  useEffect(() => {
+    setShow("Login");
+  }, [error]);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -20,13 +24,19 @@ const Login = ({ show, setShow}) => {
       const token = mutationResponse.data.login.token;
       Auth.login(token);
     } catch (e) {
-      console.log(e);
-    }
+      playMenuSound('menu_error');
+      throw e;
+      
 
-    if (Auth.loggedIn) {
-      navigate.push("/start");
     }
+ 
+    if (Auth.loggedIn) {
+   
+      navigate.push("/start");
+    } 
   };
+
+ if (error) { playMenuSound('menu_error')};
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -128,6 +138,7 @@ const Login = ({ show, setShow}) => {
             <button
               type="button"
               onClick={() => {
+                playMenuSound('menu_close');
                 setShow("Welcome");
               }}
               className={`${show === "Welcome"} nes-btn upperCase`}

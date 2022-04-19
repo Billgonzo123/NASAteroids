@@ -8,8 +8,25 @@
   --headings-font-size: 10vw;
   --font-color: #fff;
 }
+#main-hud{
+  position: relative;
+  top:0px;
+  left: 0px;
+}
 
-#root {
+#hud-footer {
+  opacity: 40%;
+  position: relative;
+  top:800px;
+  left: 0px;
+}
+#hud-footer:hover {
+  opacity: 100%;
+  position: relative;
+  top:800px;
+  left: 0px;
+}
+#root{
   width: 100vw;
   height: 100vh;
 }

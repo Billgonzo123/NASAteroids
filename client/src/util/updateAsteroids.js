@@ -6,7 +6,7 @@ function updateAsteroids(asteroids, currentLevel) {
         const value = updatedAsteroids[key];
         if (value.alive) {
             let { x, y, xB, yB, vx, vy, thrust, spriteDim } = value;
-            thrust = thrust + currentLevel/4; 
+            thrust = thrust + currentLevel/8; 
             //constatley update momentum
             x += vx*thrust;
             y += vy*thrust;
