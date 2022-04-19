@@ -19,7 +19,7 @@
   height: 100vh;
 }
 html {
- background: url(./assets/space.gif) repeat center center fixed; 
+  background: url(./assets/space.gif) repeat center center fixed; 
 }
 
 body {
@@ -34,6 +34,7 @@ body {
   color: #FFFE3D;
   -webkit-text-stroke: 1px #FF0000;
   margin-top: 175px;
+  text-align: center;
 }
 
 p {
@@ -84,9 +85,7 @@ background-color: black;
     left: 764px;
     color: #ffff;
     transform: scale(1.5) perspective(200px) rotateX(45deg);
-    animation: zoomIn .5s;
-
-     
+    animation: zoomIn .5s; 
   }
   
 #game-over {
