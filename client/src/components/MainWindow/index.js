@@ -76,7 +76,7 @@ const MainWindow = ({ gameState, setGameState }) => {
         setGlobalPlayer(old => ({...old, invnsTimer: 120}));
         setGameState(old => ({ ...old, curLevel: old.curLevel + 1, timer: 0, score: (old.score + bonus.current) }))
         setAsteroids(asteroidGeneration(asteroids, globalPlayer, 2, gameState.curLevel + 1, 0, 0, 1));
-        bonus.current = 0;
+        setTimeout(() => bonus.current = 0, 3000);
       }
       checkBulletCollision(bullets, setBullets, setAsteroids, asteroids, globalPlayer, setGameState);
       checkShipCollision(globalPlayer, setGlobalPlayer, setGameState, asteroids);
