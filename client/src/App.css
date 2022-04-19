@@ -1,21 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-@import url('https://unpkg.com/nes.css@latest/css/nes.min.css');
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+@import url("https://unpkg.com/nes.css@latest/css/nes.min.css");
 
-:root {
-  --headings-font: 'Russo One', sans-serif;
-  --secondary-font: 'Press Start 2P', cursive;
-  --headings-font-size: 10vw;
-  --font-color: #fff;
-}
-
-#root{
+#root {
   width: 100vw;
   height: 100vh;
 }
 
 html {
-  background: url(./assets/space.gif) repeat center center fixed; 
+  background: url(./assets/space.gif) repeat center center fixed;
 }
 
 body {
@@ -25,91 +18,81 @@ body {
 }
 
 .logo h1 {
-  font-family: var(--headings-font);
-  font-size: var(--headings-font-size);
-  color: #FFFE3D;
-  -webkit-text-stroke: 1px #FF0000;
-  margin-top: 175px;
+  font-family: "Russo One";
+  font-size: 10vw;
+  color: #fffe3d;
+  -webkit-text-stroke: 1px #ff0000;
+  margin-top: 135px;
   text-align: center;
 }
 
 #game-window {
-  
   background-image: url("./assets/space.gif");
-  background-repeat:repeat;
-  position:absolute;
+  background-repeat: repeat;
+  position: absolute;
   top: 0px;
   left: 0px;
-  transform-origin:top left;
+  transform-origin: top left;
   /* the width and height must be fixed! Use transform: scale() on the body to change size of all elements */
   width: 1920px;
   height: 1080px;
 }
-#controls-footer {
-  margin-top: -950px;
-}
+
 #black-bar {
-  position:absolute;
+  position: absolute;
   z-index: 100;
   width: 100vw;
-  height:100vh;
-background-color: black;
+  height: 100vh;
+  background-color: black;
 }
 
-  tr {
-    display: flex;
-    flex-direction: column;
-  }
-  #start-display {
-    z-index: 1;
-    position: absolute;
-    font-size: 50px;
-    text-align: center;
-    top: 206px; 
-    left: 764px;
-    color: #ffff;
-    transform: scale(1.5) perspective(200px) rotateX(45deg);
-    animation: zoomIn .5s; 
-  }
-  
+#start-display {
+  z-index: 1;
+  position: absolute;
+  font-size: 50px;
+  text-align: center;
+  top: 206px;
+  left: 764px;
+  color: #ffff;
+  transform: scale(1.5) perspective(200px) rotateX(45deg);
+  animation: zoomIn 0.5s;
+}
+
 #game-over {
   z-index: 1;
   position: absolute;
   font-size: 100px;
   text-align: center;
-  top: 206px; 
+  top: 206px;
   left: 510px;
   color: #ffff;
   transform: scale(1) perspective(200px) rotateX(45deg);
-  animation: zoomIn .6s;
-
+  animation: zoomIn 0.6s;
 }
 #player-object {
   z-index: -1;
   position: absolute;
-
 }
 .fire {
-  background-image: url('./assets/img/fire.gif');
+  background-image: url("./assets/img/fire.gif");
   background-repeat: no-repeat;
-  background-position:top;
-background-size: cover;
+  background-position: top;
+  background-size: cover;
 }
 
-#bullet-object{
+#bullet-object {
   z-index: -1;
   position: absolute;
 }
 
-#asteroid-object{
+#asteroid-object {
   z-index: -1;
   position: absolute;
 }
 
 #asteroid-shadow {
   z-index: -1;
-  position:absolute;
-
+  position: absolute;
 }
 /* Button Component */
 .upperCase {
@@ -120,8 +103,17 @@ background-size: cover;
   color: white !important;
 }
 
-@keyframes zoomIn{
-from {
-  transform: scale(0) perspective(10000px) rotateX(45deg);
+@keyframes zoomIn {
+  from {
+    transform: scale(0) perspective(10000px) rotateX(45deg);
+  }
 }
+/* Media Queries */
+@media (max-width: 908px) {
+  body {
+    overflow: visible;
+  }
+  .logo h1 {
+    margin-top: 75px;
+  }
 }
