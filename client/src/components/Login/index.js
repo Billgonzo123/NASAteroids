@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { TextField, Box, Grid, Typography, Card, CardActions } from "@mui/material";
 import Auth from "../../util/auth";
@@ -10,6 +10,10 @@ const Login = ({ show, setShow}) => {
   const [formState, setFormState] = useState({ email: "", password: "" });
   const [login, { error }] = useMutation(LOGIN_USER);
 
+  useEffect(() => {
+    setShow("Login");
+  }, [error]);
+
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
@@ -20,8 +24,10 @@ const Login = ({ show, setShow}) => {
       const token = mutationResponse.data.login.token;
       Auth.login(token);
     } catch (e) {
-      console.log(e);
       playMenuSound('menu_error');
+      throw e;
+      
+
     }
  
     if (Auth.loggedIn) {
