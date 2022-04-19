@@ -3,7 +3,7 @@ export function playSound(snd) {
  
     el.play()
 }
-export function playSoundCancle(snd) {
+export function playSoundCancel(snd) {
     const el = document.getElementById(`${snd}`);
     el.load();
     el.play()

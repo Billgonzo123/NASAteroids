@@ -3,9 +3,6 @@ function updateBullet(bullets) {
   bullets.map(bullet => {
     if (bullet.timer > 0) {
       let { x, y, dir, thrust, vx, vy } = bullet;
-
-      vx = -thrust * Math.cos((dir * Math.PI) / 180);
-      vy = -thrust * Math.sin((dir * Math.PI) / 180);
       x += vx;
       y += vy;
 
@@ -28,7 +25,5 @@ function updateBullet(bullets) {
   })
   return newBulletArray
 }
-
-
 
 export default updateBullet;
