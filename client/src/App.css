@@ -53,7 +53,17 @@ body {
   height: 100vh;
   background-color: black;
 }
-
+#start-display {
+  z-index: 1;
+  position: absolute;
+  font-size: 50px;
+  text-align: center;
+  top: 206px; 
+  left: 764px;
+  color: #ffff;
+  transform: scale(1.5) perspective(200px) rotateX(45deg);
+  animation: zoomIn .5s;  
+}
 #game-over {
   z-index: 1;
   position: absolute;
