@@ -82,11 +82,11 @@ body {
 #bonus-element {
   opacity: 0%;
   z-index: 0;
-  left: 300px;
+  left: 350px;
   top: 20px;
   color: greenyellow;
   position: absolute;
-  animation: fadeOutUp 3s;
+  animation: fadeOutUp 2s;
 }
 #no-bonus-element {
   opacity: 0%;
@@ -95,7 +95,7 @@ body {
   top: 20px;
   color: rgb(255, 0, 0);
   position: absolute;
-  animation: fadeOutUp 3s;
+  animation: fadeOutUp 2s;
 }
 .fire {
   background-image: url("./assets/img/fire.gif");
