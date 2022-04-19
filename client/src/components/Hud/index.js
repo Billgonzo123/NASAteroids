@@ -5,16 +5,15 @@ import HudFooter from "../../components/HudFooter"
 
 export default function Hud({gameState, setGameState}) {
   return (
-    <div id='main-hud'>
     <Box sx={{
         display: 'flex',
         flexDirection: 'column',
-        minHeight: '90vh',
+        position: 'relative',
+        top: '0px',
+        left: '0px'
       }}>
         <HudHeader gameState={gameState} setGameState={setGameState} />
         <HudFooter />
     </Box>
-    </div>
-    
   );
 }

@@ -12,7 +12,7 @@ const Welcome = ({ show, setShow }) => {
         sx={{
           justifyContent: "space-between",
           backgroundColor: "transparent",
-          mt: 10,
+          mt: 5,
         }}
       >
         <button
