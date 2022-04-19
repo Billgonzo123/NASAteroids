@@ -122,7 +122,7 @@ const MainWindow = ({ gameState, setGameState }) => {
         id="game-window"
         className="App"
         style={{ "transform": `scale(${screenScale})` }}>
-        {(gameState.lives === 3 && globalPlayer.invnsTimer ) ? (<div id='start-display'>!START!</div>) : ("")}
+        {(gameState.lives === 3 && globalPlayer.invnsTimer ) ? (<div id='start-display'>!START!</div>) : ('')}
         {/*------------ AUDIO -------------*/}
         <AudioEl />
         {/*------------- HUD  -------------*/}
