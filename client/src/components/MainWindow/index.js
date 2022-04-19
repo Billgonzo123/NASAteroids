@@ -44,7 +44,7 @@ const MainWindow = ({ gameState, setGameState }) => {
         if (globalPlayer.alive) return updatePlayer(oldPlayer, keysPressed.current)
         return null;
       });
-     
+      checkScreenScale(screenWidth, setScreenScale);
       loop();
     }, gameSpeed);
   };
@@ -60,7 +60,7 @@ const MainWindow = ({ gameState, setGameState }) => {
         return null;
       });
       //check for a change in screen size and change scale if change
-      checkScreenScale(screenWidth, setScreenScale);
+      
       if (globalPlayer.alive && spaceDown.current === 1 && bullets.length <= 5) {
         spaceDown.current = 2;
         playSoundCancel('bullet_snd');
