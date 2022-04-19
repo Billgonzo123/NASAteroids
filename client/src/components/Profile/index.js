@@ -36,15 +36,6 @@ const Profile = ({gameState, setGameState}) => {
                 />
               </TableCell>
             </TableRow>
-            {/* XP */}
-            <TableRow sx={{ '& td': { border: 0 } }}>
-              <TableCell TableCell scope="row" align="left" sx={{ p: 0.25 }}>
-                XP:
-              </TableCell>
-              <TableCell scope="row" align="left" sx={{ p: 0.25 }}>
-                {user.XP ? user.XP : 0}
-              </TableCell>
-            </TableRow>
             {/* user scores */}
             <TableRow sx={{ '& td': { border: 0 } }}>
               <TableCell TableCell scope="row" align="left" sx={{ p: 0.25 }}>
