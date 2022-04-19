@@ -28,7 +28,7 @@ function checkBulletCollision(bullets, setBullets, setAsteroids, asteroids, glob
                         const results = newBullets.filter((bullet, index) => index !== i);
                         setBullets(results);
                         destoryAsteroid(id, globalPlayer, asteroids, setAsteroids);
-                        setGameState(old => ({...old, score: (old.score+(bonus)*old.curLevel)}));
+                        setGameState(old => ({...old, score: (old.score+(bonus))}));
                         return false;
                     };
                     return false;
