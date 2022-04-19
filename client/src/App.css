@@ -2,11 +2,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 @import url('https://unpkg.com/nes.css@latest/css/nes.min.css');
 
+<<<<<<< HEAD
 * {
   padding: 0;
   margin: 0;
 }
 
+=======
+>>>>>>> 0771794bd22d1a30432d8b50bc48fddaea632c37
 :root {
   --headings-font: 'Russo One', sans-serif;
   --secondary-font: 'Press Start 2P', cursive;
@@ -18,8 +21,13 @@
   width: 100vw;
   height: 100vh;
 }
+
 html {
+<<<<<<< HEAD
   background: url(./assets/space.gif) repeat center center fixed;
+=======
+  background: url(./assets/space.gif) repeat center center fixed; 
+>>>>>>> 0771794bd22d1a30432d8b50bc48fddaea632c37
 }
 
 body {
@@ -34,8 +42,10 @@ body {
   color: #fffe3d;
   -webkit-text-stroke: 1px #ff0000;
   margin-top: 175px;
+  text-align: center;
 }
 
+<<<<<<< HEAD
 p {
   font-family: var(--secondary-font);
 }
@@ -46,6 +56,8 @@ table {
   justify-content: center;
 }
 
+=======
+>>>>>>> 0771794bd22d1a30432d8b50bc48fddaea632c37
 #game-window {
   background-image: url('./assets/space.gif');
   background-repeat: repeat;
@@ -68,6 +80,7 @@ table {
   background-color: black;
 }
 
+<<<<<<< HEAD
 tr {
   display: flex;
   flex-direction: column;
@@ -84,6 +97,24 @@ tr {
   animation: zoomIn 0.5s;
 }
 
+=======
+  tr {
+    display: flex;
+    flex-direction: column;
+  }
+  #start-display {
+    z-index: 1;
+    position: absolute;
+    font-size: 50px;
+    text-align: center;
+    top: 206px; 
+    left: 764px;
+    color: #ffff;
+    transform: scale(1.5) perspective(200px) rotateX(45deg);
+    animation: zoomIn .5s; 
+  }
+  
+>>>>>>> 0771794bd22d1a30432d8b50bc48fddaea632c37
 #game-over {
   z-index: 1;
   position: absolute;
@@ -129,8 +160,16 @@ tr {
   color: white !important;
 }
 
+<<<<<<< HEAD
 @keyframes zoomIn {
   from {
     transform: scale(0) perspective(10000px) rotateX(45deg);
   }
 }
+=======
+@keyframes zoomIn{
+from {
+  transform: scale(0) perspective(10000px) rotateX(45deg);
+}
+}
+>>>>>>> 0771794bd22d1a30432d8b50bc48fddaea632c37

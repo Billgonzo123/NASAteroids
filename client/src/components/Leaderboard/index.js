@@ -9,6 +9,7 @@ export default function Leaderboard() {
         <Typography align="center" gutterBottom>
           Leaderboard
         </Typography>
+        {/* Import Leaderboard Data Table */}
         <LeaderboardTable />
       </CardContent>
     </Card>
