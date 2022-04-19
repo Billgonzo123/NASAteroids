@@ -1,5 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 
+//components
+import Hud from '../Hud';
+import Player from '../Player';
+import Asteroid from '../Asteroid';
+import AudioEl from "../AudioEl/AudioEl";
+import GameOver from "../GameOver";
+
 //utilities
 import motion from '../../util/motion';
 import updateAsteroids from '../../util/updateAsteroids';
@@ -11,10 +18,6 @@ import { playSound, playSoundCancel } from '../../util/playSound';
 import { checkScreenScale } from '../../util/checkScreenScale';
 import asteroidGeneration from '../../util/asteroidGeneration';
 import generateBullet from '../../util/generateBullet';
-import Hud from '../../components/Hud';
-import AudioEl from "../AudioEl/AudioEl";
-import Player from '../Player';
-import Asteroid from '../Asteroid';
 
 const MainWindow = ({ gameState, setGameState }) => {
 
@@ -22,7 +25,7 @@ const MainWindow = ({ gameState, setGameState }) => {
   const [screenScale, setScreenScale] = useState(window.innerWidth / 1920);
   const [globalPlayer, setGlobalPlayer] = useState({
     x: 906, y: 478, xB: 906, yB: 478, dir: 90, thrust: 0.2, vx: 0, vy: 0,
-    turnSpeed: 5, spriteDim: { w: 54, h: 62 }, alive: true, invnsTimer: 150, pressW: false
+    turnSpeed: 5, spriteDim: { w: 54, h: 62 }, alive: true, invnsTimer: 0
   });
 
   const [asteroids, setAsteroids] = useState({});
@@ -131,7 +134,7 @@ const MainWindow = ({ gameState, setGameState }) => {
         {globalPlayer.alive ? (
           <Player globalPlayer={globalPlayer} />
         ) : (
-          <div id="game-over">GAME OVER</div>
+          <GameOver gameState={gameState} setGameState={setGameState} />
         )}
         {/*--------- RENDER BULLETS ---------*/}
         {bullets.map((pos) => {

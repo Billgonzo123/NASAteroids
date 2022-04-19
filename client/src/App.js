@@ -11,7 +11,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink,} from "@ap
 import { setContext } from "@apollo/client/link/context";
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:3001/graphql",
+  uri: 'http://localhost:3001/graphql',
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -19,7 +19,7 @@ const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : "",
+      authorization: token ? `Bearer ${token}` : '',
     },
   };
 });
@@ -31,7 +31,7 @@ const client = new ApolloClient({
 
 function App() {
   const [gameState, setGameState] = useState({
-    username: " ",
+    username: ' ',
     curLevel: 0,
     score: 0,
     exp: 0,
@@ -40,9 +40,8 @@ function App() {
     numberOfAsteroids: 0,
     timer: 0,
     paused: 0,
-    gameOver: 0
+    gameOver: 0,
   });
-
 
   return (
     <ApolloProvider client={client}>

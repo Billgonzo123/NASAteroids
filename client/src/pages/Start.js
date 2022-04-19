@@ -4,26 +4,26 @@ import Profile from '../components/Profile';
 import Leaderboard from '../components/Leaderboard';
 import Footer from '../components/Footer';
 import { Box, Container, Grid, CardActions } from '@mui/material';
-import Auth from "../util/auth";
+import Auth from '../util/auth';
 import { playMenuSound } from '../util/playSound';
-const Start = ({gameState, setGameState}) => {
-
-useEffect(()=>  {playMenuSound("menu_select")},[])
+const Start = ({ gameState, setGameState }) => {
+  useEffect(() => {
+    playMenuSound('menu_select');
+  }, []);
 
   const navigate = useHistory();
 
   const handleStart = () => {
-    navigate.push("/main");
-  }
+    navigate.push('/main');
+  };
   const handleLogout = () => {
-    
     Auth.logout();
-    navigate.push("/");
-    playMenuSound('menu_close')
-  }
+    navigate.push('/');
+    playMenuSound('menu_close');
+  };
 
   if (!Auth.loggedIn()) {
-    return <Redirect to="/" />
+    return <Redirect to="/" />;
   }
 
   return (
@@ -36,7 +36,7 @@ useEffect(()=>  {playMenuSound("menu_select")},[])
     >
       <Container component="main" sx={{mb: 2 }} maxWidth="xxl">
         <div className="logo">
-            <h1>ASTEROIDS</h1>
+          <h1>ASTEROIDS</h1>
         </div>
         <Grid
           container
@@ -44,10 +44,7 @@ useEffect(()=>  {playMenuSound("menu_select")},[])
           direction="row"
           justifyContent="center"
         >
-          <Profile 
-            setGameState={setGameState}
-            gameState={gameState}
-          />
+          <Profile setGameState={setGameState} gameState={gameState} />
           <Leaderboard />
         </Grid>
         <Container maxWidth="xs">
@@ -58,17 +55,18 @@ useEffect(()=>  {playMenuSound("menu_select")},[])
               mt: 5,
             }}
           >
-            <button 
-              type="button" 
+            <button
+              type="button"
               className="nes-btn upperCase"
               onClick={handleStart}
-              >
+            >
               Start
             </button>
-            <button 
-              type="button" 
+            <button
+              type="button"
               className="nes-btn upperCase"
-              onClick={handleLogout}>
+              onClick={handleLogout}
+            >
               Logout
             </button>
           </CardActions>
@@ -76,6 +74,7 @@ useEffect(()=>  {playMenuSound("menu_select")},[])
       </Container>
       <Footer />
     </Box>
-)};
+  );
+};
 
 export default Start;
