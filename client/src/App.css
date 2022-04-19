@@ -88,6 +88,15 @@ body {
   position: absolute;
   animation: fadeOutUp 3s;
 }
+#no-bonus-element {
+  opacity: 0%;
+  z-index: 0;
+  left: 650px;
+  top: 20px;
+  color: rgb(255, 0, 0);
+  position: absolute;
+  animation: fadeOutUp 3s;
+}
 .fire {
   background-image: url("./assets/img/fire.gif");
   background-repeat: no-repeat;

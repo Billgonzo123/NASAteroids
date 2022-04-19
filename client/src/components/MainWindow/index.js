@@ -126,16 +126,15 @@ const MainWindow = ({ gameState, setGameState }) => {
         className="App"
         style={{ "transform": `scale(${screenScale})` }}>
         {(gameState.lives === 3 && globalPlayer.invnsTimer ) ? (<div id='start-display'>{(gameState.curLevel === 1) ? "!START!" : ''}</div>) : ('')}
+        {(globalPlayer.invnsTimer && gameState.curLevel !== 1 && bonus.current) ? (<div id='bonus-element'>Bonus:{bonus.current}</div>) : ('')}
+        {(globalPlayer.invnsTimer && gameState.curLevel !== 1 && bonus.current !== 10000) ? (<div id='no-bonus-element'>No Time Bonus</div>) : ('')}
         {/*------------ AUDIO -------------*/}
         <AudioEl />
         {/*------------- HUD  -------------*/}
         <Hud gameState={gameState} setGameState={setGameState} />
         {/*--------- RENDER PLAYER / GAME OVER ---------*/}
         {globalPlayer.alive ? (
-          <>
           <Player globalPlayer={globalPlayer} />
-         {(globalPlayer.invnsTimer && gameState.curLevel !== 1 && bonus.current) ? (<div id='bonus-element'>Bonus:{bonus.current}</div>) : ('')}
-         </>
         ) : (
           <GameOver gameState={gameState} setGameState={setGameState} />
         )}
