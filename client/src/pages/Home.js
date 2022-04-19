@@ -23,7 +23,7 @@ const Home = () => {
         minHeight: '100vh',
       }}
     >
-      <Container component="main" sx={{mb: 2 }} maxWidth="lg">
+      <Container component="main" sx={{mb: 2 }} maxWidth="xxl">
         <div className="logo">
             <h1>ASTEROIDS</h1>
         </div>
