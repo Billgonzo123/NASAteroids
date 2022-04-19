@@ -10,16 +10,43 @@
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=flat&logo=node.js&logoColor=white)
 ![Apollo-GraphQL](https://img.shields.io/badge/-ApolloGraphQL-311C87?style=flat&logo=apollo-graphql)
 
-NASAteroids (NASA + Aesteroids), is a recreation of the 1979 Atari game built in React.
+NASAteroids (NASA + Aesteroids), is a recreation of the 1979 Atari game built in React.  This application utilizes MUI components and an NES-style CSS frame work for UI, MongoDB and GraphQL for database models and API queries.
+
+## Table of Contents
+- [Deployment](#deployment)
+- [Demo-Screenshot](#demo-screenshot)
+- [Usage](#usage)
+- [Contributors](#contributors)
+- [License](#license)
 
 ## Deployment
 
+## Demo-Screenshot
+To demo the game visit [here]()
 
-## Demo/Screenshot
+### Home:
+![home-screen](/client/public/assets/img/Asteroids_Home.png)
+
+### Login:
+![login-screen](/client/public/assets/img/Asteroids_Login.png)
+
+### SignUp:
+![signup-screen](/client/public/assets/img/Asteroids_SignUp.png)
+
+### Profile:
+![profile-screen](/client/public/assets/img/Asteroids_Profile.png)
+
+### Gameplay:
+![gameplay-screen](/client/public/assets/img/Asteroids_GamePlay.png)
 
 ## Installation
 
-## Usage
+## Usage:
+
+- On the home screen you will see a leaderboard with the 10 highest player's score and button to login or signup.  If you are first visiting the app, be sure to signup in order to play the game.  If you are a returning user and have an account, just login.
+- Once you are login in, you are taken to your user profile page where you again see the leaderboard along with your personal top 5 scores and buttons to start the game or logout.
+- Once you start the game you are taken to the gameplay screen.  Good luck and may the odds be ever in your favor.
+
 
 ## Contribution
 - [Chris Kurz](https://github.com/ChrisKurz098)
@@ -27,5 +54,5 @@ NASAteroids (NASA + Aesteroids), is a recreation of the 1979 Atari game built in
 - [Chris Angalet](https://github.com/cangalet)
 - [Katie Churchwell](https://github.com/katiechurchwell)
   
----
+## License
   ![](https://img.shields.io/badge/license-MIT-blue)
