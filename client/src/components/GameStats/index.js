@@ -42,14 +42,14 @@ const GameOverStats = ({ gameState }) => {
         variables: { score: currentScore },
       });
       // do we have more than 5 user highscores?
-      if (userHighscores.length > 5) {
+      // if (userHighscores.length >= 5) {
         //create array of userHighscores.score's and math.min
         const scores = userHighscores.map((highscore) => highscore.score);
-        const lowestScore = Math.min(scores);
+        const lowestScore = Math.min(...scores);
         //find index of lowest score and delete
         const lowestTest = userHighscores.indexOf(lowestScore);
         console.log('index of lowest score?', lowestTest);
-      }
+      // }
       setUserScoreDisplay(userHighscores);
     } catch (err) {
       console.error(err);
@@ -58,7 +58,6 @@ const GameOverStats = ({ gameState }) => {
 
   // is user's current score higher than previous and 0?
   useEffect(() => {
-    console.log('userHighscores before', userHighscores);
     if (
       userHighscores.find(
         (score) => score >= currentScore || currentScore === 0

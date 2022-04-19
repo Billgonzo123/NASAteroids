@@ -14,7 +14,7 @@ const resolvers = {
       throw new AuthenticationError('🛸 Not logged in');
     },
     users: async () => {
-      return User.find()
+      return User.find();
     },
     leaderboard: async () => {
       return Leaderboard.findOne();
@@ -45,7 +45,7 @@ const resolvers = {
         const highscore = {
           score: score,
           user: context.user.username,
-          date: (new Date()).toLocaleDateString('en-US')
+          date: new Date().toLocaleDateString('en-US'),
         };
 
         const user = await User.findOneAndUpdate(
@@ -57,6 +57,24 @@ const resolvers = {
         return user;
       }
     },
+    deleteUserScore: async (parent, args, context) => {
+      if (context.user) {
+        const user = await User.findOne({ _id: context.user._id });
+
+        const scores = user.highscores.map((highscore) => highscore.score);
+        const lowestScore = Math.min(...scores);
+        const index = scores.indexOf(lowestScore);
+        console.log(user.highscores[index]);
+
+        const removeScore = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $pull: { highscores: user.highscores[index] } }
+        );
+        return removeScore;
+      } else {
+        console.log('need to be logged in!');
+      }
+    },
     addLeaderboardHighscore: async (parent, { score }, context) => {
       //query all leaderboards
       const all = await Leaderboard.findOne();
@@ -65,7 +83,7 @@ const resolvers = {
       const highscore = {
         score: score,
         user: context.user.username,
-        date: (new Date()).toLocaleDateString('en-US')
+        date: new Date().toLocaleDateString('en-US'),
       };
 
       // If a leaderboard doesn't already exist and logged in, create leaderboard
@@ -90,7 +108,7 @@ const resolvers = {
 
         const user = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $inc: {XP: XP} },
+          { $inc: { XP: XP } },
           { new: true, runValidators: true }
         );
         return user;
