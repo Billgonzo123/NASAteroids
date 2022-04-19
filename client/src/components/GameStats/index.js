@@ -14,6 +14,9 @@ const GameOverStats = ({ gameState }) => {
   //highscore notification state
   const [isHighscore, setisHighscore] = useState(null);
 
+  //current score
+  const currentScore = gameState.score;
+
   //logged in user data
   const { data: userData } = useQuery(GET_ME);
   const userHighscores = userData.me.highscores.map(
@@ -23,46 +26,47 @@ const GameOverStats = ({ gameState }) => {
     userData.me.highscores
   );
 
-  //current score
-  const currentScore = gameState.score;
-
   // //* LEADERBOARD SCORE
-  // const [addLeaderboardHighscore] = useMutation(ADD_LEADERBOARD_HIGHSCORE);
-  // const [deleteLeaderboardScore] = useMutation(DELETE_LEADERBOARD_SCORE);
+  const [addLeaderboardHighscore] = useMutation(ADD_LEADERBOARD_HIGHSCORE);
+  const [deleteLeaderboardScore] = useMutation(DELETE_LEADERBOARD_SCORE);
 
   //leaderboard data
   const { data: leaderboardData, error: error } = useQuery(GET_LEADERBOARD);
   const leaderboardHighscores = leaderboardData.leaderboard.highscores.map(
     (highscore) => highscore.score
   );
+  //leaderboard display
+  const [leaderboardDisplay, setLeaderboardDisplay] = useState(
+    leaderboardHighscores
+  );
 
-  // //handle delete lowest leaderboard score
-  // async function handleDeleteLeaderBoardScore() {
-  //   const token = Auth.loggedIn() ? Auth.getToken() : null;
-  //   if (!token) {
-  //     return false;
-  //   }
-  //   try {
-  //     deleteLeaderboardScore();
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }
+  //handle delete lowest leaderboard score
+  async function handleDeleteLeaderBoardScore() {
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+    if (!token) {
+      return false;
+    }
+    try {
+      deleteLeaderboardScore();
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
-  // //add score to leaderboard
-  // async function handleLeaderBoardSubmit() {
-  //   try {
-  //     await addLeaderboardHighscore({
-  //       variables: { score: currentScore },
-  //     });
-  //     // do we have more than 10 leaderboard highscores?
-  //     if (leaderboardHighscores.length >= 10) {
-  //       handleDeleteLeaderBoardScore();
-  //     }
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // }
+  //add score to leaderboard
+  async function handleLeaderBoardSubmit() {
+    try {
+      await addLeaderboardHighscore({
+        variables: { score: currentScore },
+      });
+      // do we have more than 10 leaderboard highscores?
+      if (leaderboardHighscores.length >= 10) {
+        handleDeleteLeaderBoardScore();
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   //* USER SCORE
   const [addUserHighscore] = useMutation(ADD_USER_HIGHSCORE);
@@ -100,9 +104,9 @@ const GameOverStats = ({ gameState }) => {
 
   //is user's current score higher than previous and 0?
   useEffect(() => {
-    // const leaderboardCheck = leaderboardHighscores.find(
-    //   (score) => score >= currentScore
-    // );
+    const leaderboardCheck = leaderboardHighscores.find(
+      (score) => score >= currentScore
+    );
 
     const userScoreCheck = userHighscores.find(
       (score) => score >= currentScore
@@ -110,9 +114,9 @@ const GameOverStats = ({ gameState }) => {
 
     if (userScoreCheck || currentScore === 0) {
       setisHighscore(false);
-      // } else if (leaderboardCheck) {
-      //   handleLeaderBoardSubmit();
-      //   setisHighscore(true);
+    } else if (leaderboardCheck) {
+      handleLeaderBoardSubmit();
+      setisHighscore(true);
     } else {
       handleUserScoreSubmit();
       setisHighscore(true);
@@ -136,18 +140,33 @@ const GameOverStats = ({ gameState }) => {
           </tr>
           <tr>
             <th>Your Highscores:</th>
-            {Object.keys(userScoreDisplay).map((index) => {
-              const score = userScoreDisplay[index];
-              return userScoreDisplay ? (
-                <tr>
-                  <td>{score.date}</td>
-                  <td>{score.score}</td>
-                </tr>
-              ) : (
-                ''
-              );
-            })}
           </tr>
+          {Object.keys(userScoreDisplay).map((index) => {
+            const score = userScoreDisplay[index];
+            return userScoreDisplay ? (
+              <tr>
+                <td>{score.date}</td>
+                <td>{score.score}</td>
+              </tr>
+            ) : (
+              ''
+            );
+          })}
+
+          <tr>
+            <th>Leaderboard:</th>
+          </tr>
+          {Object.keys(leaderboardDisplay).map((index) => {
+            const score = leaderboardDisplay[index];
+            return leaderboardDisplay ? (
+              <tr>
+                <td>{score.date}</td>
+                <td>{score.score}</td>
+              </tr>
+            ) : (
+              ''
+            );
+          })}
         </thead>
       </table>
     </>
