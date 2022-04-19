@@ -7,12 +7,12 @@ export default function HudFooter() {
     const navigate = useHistory();  
 
     const handleQuit = () => {
-        navigate.push("/start");
+        window.location = "/start";
     }
 
     const handleLogout = () => {
         Auth.logout();
-        navigate.push("/");
+        window.location = "/";
     }
 
     return (

@@ -25,7 +25,7 @@ const MainWindow = ({ gameState, setGameState }) => {
   const [screenScale, setScreenScale] = useState(window.innerWidth / 1920);
   const [globalPlayer, setGlobalPlayer] = useState({
     x: 906, y: 478, xB: 906, yB: 478, dir: 90, thrust: 0.2, vx: 0, vy: 0,
-    turnSpeed: 5, spriteDim: { w: 54, h: 62 }, alive: true, invnsTimer: 0
+    turnSpeed: 5, spriteDim: { w: 54, h: 62 }, alive: true, invnsTimer: 120
   });
 
   const [asteroids, setAsteroids] = useState({});
@@ -43,10 +43,7 @@ const MainWindow = ({ gameState, setGameState }) => {
       //This stays here to trigger the useState below
       //By grouping all the state changes we get better performance
       //but we need to change a state to loop the useEffect
-      setGlobalPlayer((oldPlayer) => {
-        if (globalPlayer.alive) return updatePlayer(oldPlayer, keysPressed.current)
-        return null;
-      });
+      setGlobalPlayer((oldPlayer) =>  updatePlayer(oldPlayer, keysPressed.current));
       checkScreenScale(screenWidth, setScreenScale);
       loop();
     }, gameSpeed);
@@ -88,12 +85,12 @@ const MainWindow = ({ gameState, setGameState }) => {
   //-------------------------Key Input----------------------//
   //keyboard key event handlers. Keeps an array of all currently pressed keys
   const logKeyDown = (e) => {
-    e.preventDefault();
+    
     if (!keysPressed.current.includes(e.key)) keysPressed.current = [...keysPressed.current, e.key.toLowerCase()];
     if (keysPressed.current.includes(" ") && spaceDown.current !== 2) spaceDown.current = 1;
   };
   const logKeyUp = (e) => {
-    e.preventDefault();
+    
     const newKeys = keysPressed.current.filter((key) => key !== e.key.toLowerCase());
     if (!newKeys.includes(" ")) spaceDown.current = 0;
     if (newKeys !== keysPressed.current) keysPressed.current = newKeys;
@@ -125,12 +122,12 @@ const MainWindow = ({ gameState, setGameState }) => {
         id="game-window"
         className="App"
         style={{ "transform": `scale(${screenScale})` }}>
-        {(gameState.lives === 3 && globalPlayer.invnsTimer) ? (<div id='start-display'>!START!</div>) : ("")}
+        {(gameState.lives === 3 && globalPlayer.invnsTimer ) ? (<div id='start-display'>!START!</div>) : ('')}
         {/*------------ AUDIO -------------*/}
         <AudioEl />
         {/*------------- HUD  -------------*/}
         <Hud gameState={gameState} setGameState={setGameState} />
-        {/*--------- RENDER PLAYER ---------*/}
+        {/*--------- RENDER PLAYER / GAME OVER ---------*/}
         {globalPlayer.alive ? (
           <Player globalPlayer={globalPlayer} />
         ) : (
@@ -153,7 +150,7 @@ const MainWindow = ({ gameState, setGameState }) => {
           return pos.alive ? <Asteroid pos={pos} posId={posId} /> : '';
         })}
       </div>
-      <div id="black-bar" style={{ top: `${screenScale * 1080}px` }} />
+      <div id="black-bar" style={{ top: `${screenScale * 980}px` }} />
     </>
   );
 };
