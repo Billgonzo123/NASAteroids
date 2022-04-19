@@ -12,8 +12,6 @@ export default function HudHeader({gameState, setGameState}) {
         setGameState((old) => ({ ...old, username: user.username}));
     }, [user]);
 
-
-
   return (
     <AppBar position="relative" sx={{ backgroundColor: "transparent", boxShadow: "none" }}>
         <Toolbar>

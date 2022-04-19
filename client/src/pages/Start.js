@@ -3,7 +3,7 @@ import { useHistory, Redirect } from 'react-router-dom';
 import Profile from '../components/Profile';
 import Leaderboard from '../components/Leaderboard';
 import Footer from '../components/Footer';
-import { Box, Grid, Card, CardActions } from '@mui/material';
+import { Box, Container, Grid, CardActions } from '@mui/material';
 import Auth from "../util/auth";
 
 const Start = ({gameState, setGameState}) => {
@@ -23,17 +23,16 @@ const Start = ({gameState, setGameState}) => {
   }
 
   return (
-    <Box>
-      <Grid
-        container
-        columnSpacing={{ md: 1 }}
-        direction="column"
-        justifyContent="center"
-        alignItems="center"
-        height="100vh"
-      >
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100vh',
+      }}
+    >
+      <Container component="main" sx={{mb: 2 }} maxWidth="lg">
         <div className="logo">
-          <h1>ASTEROIDS</h1>
+            <h1>ASTEROIDS</h1>
         </div>
         <Grid
           container
@@ -47,12 +46,12 @@ const Start = ({gameState, setGameState}) => {
           />
           <Leaderboard />
         </Grid>
-        <CardActions
+        <Container maxWidth="xs">
+          <CardActions
             sx={{
               justifyContent: "space-between",
               backgroundColor: "transparent",
               mt: 10,
-              gap: 20
             }}
           >
             <button 
@@ -69,11 +68,10 @@ const Start = ({gameState, setGameState}) => {
               Logout
             </button>
           </CardActions>
-        <Footer />
-      </Grid>
+        </Container>
+      </Container>
+      <Footer />
     </Box>
-
-  )
-};
+)};
 
 export default Start;

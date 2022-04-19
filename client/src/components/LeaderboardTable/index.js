@@ -39,7 +39,7 @@ export default function LeaderboardTable() {
   return (
     <TableContainer>
       <Table
-        sx={{ minWidth: 275, textTransform: "uppercase" }}
+        sx={{ textTransform: "uppercase" }}
         aria-label="simple table"
       >
         <TableBody>
