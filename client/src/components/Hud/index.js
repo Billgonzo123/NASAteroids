@@ -9,10 +9,12 @@ export default function Hud({gameState, setGameState}) {
         display: 'flex',
         flexDirection: 'column',
         minHeight: '75vh',
+        position: 'relative',
+        top: '0px',
+        left: '0px'
       }}>
         <HudHeader gameState={gameState} setGameState={setGameState} />
         <HudFooter />
     </Box>
-    
   );
 }

@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useHistory, Redirect } from 'react-router-dom';
 import Profile from '../components/Profile';
 import Leaderboard from '../components/Leaderboard';
 import Footer from '../components/Footer';
 import { Box, Container, Grid, CardActions } from '@mui/material';
 import Auth from "../util/auth";
-
+import { playMenuSound } from '../util/playSound';
 const Start = ({gameState, setGameState}) => {
+
+useEffect(()=>  {playMenuSound("menu_select")},[])
 
   const navigate = useHistory();
 
@@ -14,8 +16,10 @@ const Start = ({gameState, setGameState}) => {
     navigate.push("/main");
   }
   const handleLogout = () => {
+    
     Auth.logout();
     navigate.push("/");
+    playMenuSound('menu_close')
   }
 
   if (!Auth.loggedIn()) {
