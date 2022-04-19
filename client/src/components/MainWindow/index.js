@@ -76,6 +76,7 @@ const MainWindow = ({ gameState, setGameState }) => {
         setGlobalPlayer(old => ({...old, invnsTimer: 120}));
         setGameState(old => ({ ...old, curLevel: old.curLevel + 1, timer: 0, score: (old.score + bonus.current) }))
         setAsteroids(asteroidGeneration(asteroids, globalPlayer, 2, gameState.curLevel + 1, 0, 0, 1));
+        bonus.current = 0;
       }
       checkBulletCollision(bullets, setBullets, setAsteroids, asteroids, globalPlayer, setGameState);
       checkShipCollision(globalPlayer, setGlobalPlayer, setGameState, asteroids);
@@ -133,7 +134,7 @@ const MainWindow = ({ gameState, setGameState }) => {
         {globalPlayer.alive ? (
           <>
           <Player globalPlayer={globalPlayer} />
-         {(globalPlayer.invnsTimer && gameState.curLevel !== 1) ? (<div id='bonus-element'>Bonus:{bonus.current}</div>) : ('')}
+         {(globalPlayer.invnsTimer && gameState.curLevel !== 1 && bonus.current) ? (<div id='bonus-element'>Bonus:{bonus.current}</div>) : ('')}
          </>
         ) : (
           <GameOver gameState={gameState} setGameState={setGameState} />
