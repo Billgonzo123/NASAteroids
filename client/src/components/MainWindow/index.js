@@ -127,7 +127,7 @@ const MainWindow = ({ gameState, setGameState }) => {
         style={{ "transform": `scale(${screenScale})` }}>
         {(gameState.lives === 3 && globalPlayer.invnsTimer ) ? (<div id='start-display'>{(gameState.curLevel === 1) ? "!START!" : ''}</div>) : ('')}
         {(globalPlayer.invnsTimer && gameState.curLevel !== 1 && bonus.current) ? (<div id='bonus-element'>Bonus:{bonus.current}</div>) : ('')}
-        {(globalPlayer.invnsTimer && gameState.curLevel !== 1 && bonus.current !== 10000) ? (<div id='no-bonus-element'>No Time Bonus</div>) : ('')}
+        {(globalPlayer.invnsTimer && gameState.curLevel !== 1 && bonus.current !== 10000 && bonus.current) ? (<div id='no-bonus-element'>No Time Bonus</div>) : ('')}
         {/*------------ AUDIO -------------*/}
         <AudioEl />
         {/*------------- HUD  -------------*/}
