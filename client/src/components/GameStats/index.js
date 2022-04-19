@@ -34,7 +34,7 @@ const GameOverStats = ({ gameState }) => {
   async function handleUserScoreSubmit() {
     try {
       await addUserHighscore({
-        variables: { "score": currentScore },
+        variables: { score: currentScore },
       });
       console.log('added to user highscores', userHighscores);
     } catch (err) {
@@ -43,17 +43,14 @@ const GameOverStats = ({ gameState }) => {
   }
 
   useEffect(() => {
-    
-    console.log('userHighscores', userHighscores)
+    console.log('userHighscores before', userHighscores);
 
-    if (
-      userHighscores.find((score) => score > currentScore)
-    ) {
+    if (userHighscores.find((score) => score >= currentScore || currentScore == 0)) {
       console.log('Better luck next time.');
     } else {
       console.log('Congrats!');
       handleUserScoreSubmit();
-      console.log('typeof currentscore', typeof currentScore)
+      console.log('typeof currentscore', typeof currentScore);
     }
   }, []);
 
