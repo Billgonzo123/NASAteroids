@@ -126,7 +126,7 @@ const Signup = ({ show, setShow }) => {
         >
         {error ? (
           <div>
-            <p className="error-text">User already exists!</p>
+            <p className="error-text">`User already exists!`</p>
           </div>
         ) : null}
         </Box>
