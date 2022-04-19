@@ -6,6 +6,7 @@ import {
   TableCell,
   TableContainer,
   TableRow,
+  Typography,
 } from '@mui/material';
 import { GET_ME, GET_LEADERBOARD } from '../../util/queries';
 import {
@@ -16,22 +17,60 @@ import {
 import Auth from '../../util/auth';
 
 const GameOverStats = ({ gameState }) => {
-  //states
-  const [userScoreDisplay, setUserScoreDisplay] = useState([]);
-  const [notification, setNotification] = useState(
-    <span>Nothing here yet!</span>
-  );
-
-  //leaderboard data
-  // const { data: leaderboardData } = useQuery(GET_LEADERBOARD);
-  // const leaderboardHighscores = leaderboardData.leaderboard.highscores;
+  //highscore notification state
+  const [isHighscore, setisHighscore] = useState(null);
 
   //logged in user data
   const { data: userData } = useQuery(GET_ME);
-  const userHighscores = userData.me.highscores;
+  const userHighscores = userData.me.highscores.map(
+    (highscore) => highscore.score
+  );
+  const [userScoreDisplay, setUserScoreDisplay] = useState(
+    userData.me.highscores
+  );
 
   //current score
   const currentScore = gameState.score;
+
+  // //* LEADERBOARD
+  // const [addLeaderboardHighscore] = useMutation(ADD_LEADERBOARD_HIGHSCORE);
+  // //need to code
+  // // const [deleteLeaderboardScore] = useMutation(DELETE_LEADERBOARD_SCORE);
+
+  // //leaderboard data
+  // const { data: leaderboardData } = useQuery(GET_LEADERBOARD);
+  // const leaderboardHighscores = leaderboardData.leaderboard.highscores.map(
+  //   (highscore) => highscore.score
+  // );
+
+  // //handle Delete
+  // async function handleDeleteLeaderBoardScore() {
+  //   const token = Auth.loggedIn() ? Auth.getToken() : null;
+  //   if (!token) {
+  //     return false;
+  //   }
+  //   try {
+  //     // deleteLeaderBoardScore();
+  //     console.log("delete leaderboard score needs to go here!")
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
+
+  // //add score to leaderboard
+  // async function handleLeaderBoardSubmit() {
+  //   try {
+  //     await addLeaderboardHighscore({
+  //       variables: { score: currentScore },
+  //     });
+  //     // do we have more than 10 leaderboard highscores?
+  //     if (leaderboardHighscores.length >= 10) {
+  //       handleDeleteLeaderBoardScore();
+  //     }
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // }
 
   //* USER SCORE
   const [addUserHighscore] = useMutation(ADD_USER_HIGHSCORE);
@@ -58,10 +97,10 @@ const GameOverStats = ({ gameState }) => {
         variables: { score: currentScore },
       });
       // do we have more than 5 user highscores?
-      if (userHighscores.length >= 5) {
+      if (userHighscores.length >= 4) {
         handleDeleteUserScore();
       }
-      setUserScoreDisplay(userHighscores);
+      setUserScoreDisplay(userData.me.highscores);
     } catch (err) {
       console.error(err);
     }
@@ -69,15 +108,22 @@ const GameOverStats = ({ gameState }) => {
 
   // is user's current score higher than previous and 0?
   useEffect(() => {
-    if (
-      userHighscores.find(
-        (score) => score >= currentScore || currentScore === 0
-      )
-    ) {
-      setNotification(<span>Better luck next time!</span>);
+    // const leaderboardCheck = leaderboardHighscores.find(
+    //   (score) => score >= currentScore
+    // );
+
+    const userScoreCheck = userHighscores.find(
+      (score) => score >= currentScore
+    );
+
+    if (userScoreCheck || currentScore === 0) {
+      setisHighscore(false);
+      // }
+      // else if (leaderboardCheck) {
+      //   handleLeaderBoardSubmit();
     } else {
       handleUserScoreSubmit();
-      setNotification(<span>Congratulations, new high score!</span>);
+      setisHighscore(true);
     }
   }, []);
 
@@ -85,29 +131,35 @@ const GameOverStats = ({ gameState }) => {
     <TableContainer>
       <Table sx={{ textTransform: 'uppercase' }} aria-label="simple table">
         <TableBody>
-          <TableRow key="GameStats" sx={{ '& td': { border: 0 } }}>
-            <TableCell scope="row" align="left" sx={{ p: 0.25 }}>
+          <TableRow align="center">
+            {isHighscore ? (
+              <span>Congratulations, new highscore!</span>
+            ) : (
+              <span>Better luck next time!</span>
+            )}
+          </TableRow>
+          <TableRow key="GameStats">
+            <TableCell scope="right" align="left" sx={{ p: 0.25 }}>
               Final Score:
             </TableCell>
-            <TableCell align="center" sx={{ p: 0.25 }}>
+            <TableCell align="left" sx={{ p: 0.25 }}>
               {currentScore} points
             </TableCell>
+            <TableRow>
+              <TableCell>Your Highscores:</TableCell>
+            </TableRow>
             <TableCell align="center" sx={{ p: 0.25 }}>
-              {notification}
-            </TableCell>
-            <TableCell align="center" sx={{ p: 0.25 }}>
-              <ul>
-                {Object.keys(userScoreDisplay).map((index) => {
-                  const score = userScoreDisplay[index];
-                  return userScoreDisplay ? (
-                    <li>
-                      {score.date}, {score.score}
-                    </li>
-                  ) : (
-                    ''
-                  );
-                })}
-              </ul>
+              {Object.keys(userScoreDisplay).map((index) => {
+                const score = userScoreDisplay[index];
+                return userScoreDisplay ? (
+                  <TableRow>
+                    <TableCell>{score.date}</TableCell>
+                    <TableCell>{score.score}</TableCell>
+                  </TableRow>
+                ) : (
+                  ''
+                );
+              })}
             </TableCell>
           </TableRow>
         </TableBody>

@@ -4,11 +4,12 @@ import Profile from '../components/Profile';
 import Leaderboard from '../components/Leaderboard';
 import Footer from '../components/Footer';
 import { Box, Container, Grid, CardActions } from '@mui/material';
-import Auth from "../util/auth";
+import Auth from '../util/auth';
 import { playMenuSound } from '../util/playSound';
-const Start = ({gameState, setGameState}) => {
-
-useEffect(()=>  {playMenuSound("menu_select")},[])
+const Start = ({ gameState, setGameState }) => {
+  useEffect(() => {
+    playMenuSound('menu_select');
+  }, []);
 
   const navigate = useHistory();
 
@@ -16,11 +17,10 @@ useEffect(()=>  {playMenuSound("menu_select")},[])
     navigate.push('/main');
   };
   const handleLogout = () => {
-    
     Auth.logout();
-    navigate.push("/");
-    playMenuSound('menu_close')
-  }
+    navigate.push('/');
+    playMenuSound('menu_close');
+  };
 
   if (!Auth.loggedIn()) {
     return <Redirect to="/" />;
@@ -44,8 +44,8 @@ useEffect(()=>  {playMenuSound("menu_select")},[])
           direction="row"
           justifyContent="center"
         >
-          <Profile setGameState={setGameState} gameState={gameState} />
-          <Leaderboard />
+          {/* <Profile setGameState={setGameState} gameState={gameState} /> */}
+          {/* <Leaderboard /> */}
         </Grid>
         <Container maxWidth="xs">
           <CardActions

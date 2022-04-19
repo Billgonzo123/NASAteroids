@@ -13,7 +13,12 @@ export default function GameOver({ gameState, setGameState }) {
         minHeight: '97vh',
       }}
     >
-      <Grid container spacing={2}>
+      <Grid
+        container
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+      >
         <Grid item xs={12}>
           <Typography
             variant="h1"
@@ -24,11 +29,9 @@ export default function GameOver({ gameState, setGameState }) {
             <div id="game-over">GAME OVER</div>
           </Typography>
         </Grid>
-        <Grid item xs={2} md={4}></Grid>
-        <Grid item xs={8} md={4}>
+        <Grid item xs={8}>
           <GameOverStats gameState={gameState} />
         </Grid>
-        <Grid item xs={2} md={4}></Grid>
       </Grid>
       <Footer />
     </Box>
