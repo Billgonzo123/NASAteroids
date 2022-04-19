@@ -15,9 +15,9 @@ export function stopSound(snd) {
 
 }
 
-export async function playMenuSound(snd, setState) {
-   await setState(old => (snd));
-    const el = document.getElementById(`menu-sound`);
+export function playMenuSound(snd) {
+    const el = document.getElementById("menu-sound");
+    el.setAttribute('src',require(`../assets/snd/menu_snd/${snd}.wav`))
     el.load();
     el.play();
 }

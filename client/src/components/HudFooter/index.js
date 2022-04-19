@@ -16,6 +16,7 @@ export default function HudFooter() {
     }
 
     return (
+        <div id='hud-footer'>
         <Box
             component="footer"
             sx={{
@@ -48,5 +49,6 @@ export default function HudFooter() {
                 </Grid>
             </Grid>
         </Box>   
+        </div>
 );
 }

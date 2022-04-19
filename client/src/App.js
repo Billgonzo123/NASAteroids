@@ -66,7 +66,6 @@ const client = new ApolloClient({
 });
 
 function App() {
-  const [menuSoundstate, setMenuSoundState] = useState("");
   const [gameState, setGameState] = useState({
     username: " ",
     curLevel: 0,
@@ -83,35 +82,23 @@ function App() {
 
   return (
     <ApolloProvider client={client}>
-      {menuSoundstate.length ? (
-        <audio
-          id="menu-sound"
-          src={require(`./assets/snd/menu_snd/${menuSoundstate}.wav`)}
-          style={{'disply': 'none'}}
-          type="audio/wav"
-        />
-      ) : ('')}
+     
+        <audio id="menu-sound"src={require(`./assets/snd/menu_snd/menu_select.wav`)} style={{'disply': 'none'}} type="audio/wav"/>
+      
       <ThemeProvider theme={theme}>
         <Router>
           <Switch>
             <Route exact path="/">
-              <Home
-                menuSoundstate={menuSoundstate}
-                setMenuSoundState={setMenuSoundState}
-              />
+              <Home/>
             </Route>
             <Route exact path="/start">
               <Start
-                menuSoundstate={menuSoundstate}
-                setMenuSoundState={setMenuSoundState}
                 setGameState={setGameState}
                 gameState={gameState}
               />
             </Route>
             <Route exact path="/main">
               <Main
-                menuSoundstate={menuSoundstate}
-                setMenuSoundState={setMenuSoundState}
                 setGameState={setGameState}
                 gameState={gameState}
               />
