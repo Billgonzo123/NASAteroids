@@ -13,7 +13,6 @@ export default function GameOver({ gameState, setGameState }) {
         minHeight: '97vh',
       }}
     >
-      {/* <HudHeader gameState={gameState, setGameState}/> */}
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Typography

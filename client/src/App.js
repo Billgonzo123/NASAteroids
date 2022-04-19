@@ -1,48 +1,48 @@
-import React, { useState } from "react";
-import "./App.css";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Home from "./pages/Home";
-import Start from "./pages/Start";
-import Main from "./pages/Main";
-import Nomatch from "./components/Nomatch";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import React, { useState } from 'react';
+import './App.css';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Home from './pages/Home';
+import Start from './pages/Start';
+import Main from './pages/Main';
+import Nomatch from './components/Nomatch';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
   createHttpLink,
-} from "@apollo/client";
-import { setContext } from "@apollo/client/link/context";
+} from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:3001/graphql",
+  uri: 'http://localhost:3001/graphql',
 });
 
 const theme = createTheme({
   typography: {
-    fontFamily: ["Press Start 2P"],
+    fontFamily: ['Press Start 2P'],
     body1: {
-      textTransform: "uppercase",
+      textTransform: 'uppercase',
     },
     h6: {
-      textTransform: "uppercase",
+      textTransform: 'uppercase',
     },
   },
   palette: {
     text: {
-      primary: "#FFFFFF",
+      primary: '#FFFFFF',
     },
   },
   components: {
     MuiInput: {
       styleOverrides: {
         underline: {
-          "&&::before": {
-            borderBottom: "1px solid rgba(255, 255, 255, 1)",
+          '&&::before': {
+            borderBottom: '1px solid rgba(255, 255, 255, 1)',
           },
-          "&&::after": {
-            borderBottom: "1px solid rgba(255, 255, 255, 1)",
+          '&&::after': {
+            borderBottom: '1px solid rgba(255, 255, 255, 1)',
           },
         },
       },
@@ -50,12 +50,12 @@ const theme = createTheme({
   },
 });
 
-const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem("id_token");
+const authLink = setContext((_, { headers, client }) => {
+  const token = localStorage.getItem('id_token');
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : "",
+      authorization: token ? `Bearer ${token}` : '',
     },
   };
 });
@@ -66,9 +66,9 @@ const client = new ApolloClient({
 });
 
 function App() {
-  const [menuSoundstate, setMenuSoundState] = useState("");
+  const [menuSoundstate, setMenuSoundState] = useState('');
   const [gameState, setGameState] = useState({
-    username: " ",
+    username: ' ',
     curLevel: 0,
     score: 0,
     exp: 0,
@@ -77,9 +77,8 @@ function App() {
     numberOfAsteroids: 0,
     timer: 0,
     paused: 0,
-    gameOver: 0
+    gameOver: 0,
   });
-
 
   return (
     <ApolloProvider client={client}>
@@ -87,10 +86,12 @@ function App() {
         <audio
           id="menu-sound"
           src={require(`./assets/snd/menu_snd/${menuSoundstate}.wav`)}
-          style={{'disply': 'none'}}
+          style={{ disply: 'none' }}
           type="audio/wav"
         />
-      ) : ('')}
+      ) : (
+        ''
+      )}
       <ThemeProvider theme={theme}>
         <Router>
           <Switch>
