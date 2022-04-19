@@ -87,7 +87,6 @@ background-color: black;
 #player-object {
   z-index: -1;
   position: absolute;
-
 }
 .fire {
   background-image: url('./assets/img/fire.gif');
