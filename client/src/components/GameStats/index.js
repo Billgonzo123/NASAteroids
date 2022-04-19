@@ -16,8 +16,8 @@ import {
 const GameOverStats = ({ gameState }) => {
   // //*QUERIES
   //leaderboard data
-  const { data: leaderboardData } = useQuery(GET_LEADERBOARD);
-  const leaderboardHighscores = leaderboardData.leaderboard.highscores;
+  // const { data: leaderboardData } = useQuery(GET_LEADERBOARD);
+  // const leaderboardHighscores = leaderboardData.leaderboard.highscores;
 
   //logged in user data
   const { data: userData } = useQuery(GET_ME);
@@ -28,7 +28,7 @@ const GameOverStats = ({ gameState }) => {
 
   // //*MUTATIONS
   //Add user score
-  const [addUserHighscore, { error }] = useMutation(ADD_USER_HIGHSCORE);
+  const [addUserHighscore] = useMutation(ADD_USER_HIGHSCORE);
 
   //Handle user score submit
   async function handleUserScoreSubmit() {
@@ -42,15 +42,20 @@ const GameOverStats = ({ gameState }) => {
     }
   }
 
+  let notification = <span>Nothing here yet!</span>
+
   useEffect(() => {
     console.log('userHighscores before', userHighscores);
-
-    if (userHighscores.find((score) => score >= currentScore || currentScore == 0)) {
-      console.log('Better luck next time.');
+    if (
+      userHighscores.find((score) => score >= currentScore || currentScore === 0)
+    ) {
+      console.log('Better luck next time!');
+      let notification = <span>Better luck next time!</span>;
     } else {
       console.log('Congrats!');
       handleUserScoreSubmit();
       console.log('typeof currentscore', typeof currentScore);
+      let notification = <span>Congratulations!</span>;
     }
   }, []);
 
@@ -58,16 +63,17 @@ const GameOverStats = ({ gameState }) => {
     <TableContainer>
       <Table sx={{ textTransform: 'uppercase' }} aria-label="simple table">
         <TableBody>
-          {/* {Object.entries(gameState).map(([key, value]) => (
-            <TableRow key={key} sx={{ '& td': { border: 0 } }}>
-              <TableCell scope="row" align="left" sx={{ p: 0.25 }}>
-                {key}
-              </TableCell>
-              <TableCell align="center" sx={{ p: 0.25 }}>
-                {value}
-              </TableCell>
-            </TableRow>
-          ))} */}
+          <TableRow key="GameStats" sx={{ '& td': { border: 0 } }}>
+            <TableCell scope="row" align="left" sx={{ p: 0.25 }}>
+              Final Score:
+            </TableCell>
+            <TableCell align="center" sx={{ p: 0.25 }}>
+              {currentScore} points
+            </TableCell>
+            <TableCell align="center" sx={{ p: 0.25 }}>
+              {notification}
+            </TableCell>
+          </TableRow>
         </TableBody>
       </Table>
     </TableContainer>
