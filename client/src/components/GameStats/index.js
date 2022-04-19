@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import {
   Table,
@@ -16,58 +16,52 @@ import {
 const GameOverStats = ({ gameState }) => {
   // //*QUERIES
   //leaderboard data
-  const { data: leaderboardData, error: leaderboardError } = useQuery(GET_LEADERBOARD);
+  const { data: leaderboardData } = useQuery(GET_LEADERBOARD);
   const leaderboardHighscores = leaderboardData.leaderboard.highscores;
-  console.log('leaderboardHighscores', leaderboardHighscores);
-
-  if (leaderboardError) {
-    console.log("leaderboard error")
-  }
 
   //logged in user data
   const { data: userData } = useQuery(GET_ME);
   const userHighscores = userData.me.highscores;
-  console.log('userHighscores', userHighscores);
 
   //current score
   const currentScore = gameState.score;
-  console.log('currentScore', currentScore);
 
   // //*MUTATIONS
   //Add user score
   const [addUserHighscore, { error }] = useMutation(ADD_USER_HIGHSCORE);
-  
-  //! does this work? If so, make sure only 10 entries
+
   //Handle user score submit
   async function handleUserScoreSubmit() {
     try {
       await addUserHighscore({
-        variables: { currentScore },
+        variables: { "score": currentScore },
       });
+      console.log('added to user highscores', userHighscores);
     } catch (err) {
       console.error(err);
     }
   }
 
-  //*loop through userdata, if current score is higher, add, sort and pop
-  //* if equal to another score, don't add (error handling, seems to run twice)
+  useEffect(() => {
+    
+    console.log('userHighscores', userHighscores)
 
-  // if not undefined and unique, add to user highscores
-  if (
-    userHighscores.find((score) => score > currentScore) ||
-    userHighscores.indexOf(currentScore) < 0
-  ) {
-    console.log('Better luck next time.');
-  } else {
-    console.log('Congrats!');
-    handleUserScoreSubmit();
-  }
+    if (
+      userHighscores.find((score) => score > currentScore)
+    ) {
+      console.log('Better luck next time.');
+    } else {
+      console.log('Congrats!');
+      handleUserScoreSubmit();
+      console.log('typeof currentscore', typeof currentScore)
+    }
+  }, []);
 
   return (
     <TableContainer>
       <Table sx={{ textTransform: 'uppercase' }} aria-label="simple table">
         <TableBody>
-          {Object.entries(gameState).map(([key, value]) => (
+          {/* {Object.entries(gameState).map(([key, value]) => (
             <TableRow key={key} sx={{ '& td': { border: 0 } }}>
               <TableCell scope="row" align="left" sx={{ p: 0.25 }}>
                 {key}
@@ -76,7 +70,7 @@ const GameOverStats = ({ gameState }) => {
                 {value}
               </TableCell>
             </TableRow>
-          ))}
+          ))} */}
         </TableBody>
       </Table>
     </TableContainer>

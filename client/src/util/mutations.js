@@ -35,7 +35,7 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_USER_HIGHSCORE = gql`
-  mutation AddUserHighscore($score: Int) {
+  mutation AddUserHighscore($score: Int!) {
     addUserHighscore(score: $score) {
       _id
       username
@@ -53,7 +53,7 @@ export const ADD_USER_HIGHSCORE = gql`
 `;
 
 export const ADD_LEADERBOARD_HIGHSCORE = gql`
-  mutation AddLeaderboardHighscore($score: Int) {
+  mutation AddLeaderboardHighscore($score: Int!) {
     addLeaderboardHighscore(score: $score) {
       highscores {
         score

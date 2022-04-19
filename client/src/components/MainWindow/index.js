@@ -128,7 +128,7 @@ const MainWindow = ({ gameState, setGameState }) => {
         {globalPlayer.alive ? (
           <Player globalPlayer={globalPlayer} />
         ) : (
-          <GameOver gameState={gameState} setGameState={setGameState}/>
+          <GameOver gameState={gameState} setGameState={setGameState} />
         )}
         {/*--------- RENDER BULLETS ---------*/}
         {bullets.map((pos) => {
