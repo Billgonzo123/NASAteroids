@@ -58,11 +58,8 @@ const MainWindow = ({ gameState, setGameState }) => {
         if (bullets) return updateBullet(oldPositions);
         return null;
       });
-    
       //check for a change in screen size and change scale if change
       checkScreenScale(screenWidth, setScreenScale);
-
-
       if (globalPlayer.alive && spaceDown.current === 1 && bullets.length <= 5) {
         spaceDown.current = 2;
         playSoundCancel('bullet_snd');
@@ -71,7 +68,9 @@ const MainWindow = ({ gameState, setGameState }) => {
       }
       //asteroidGeneration
       if (numOfAst.current <= 0) {
+        if (gameState.curLevel){
         (gameState.timer <= 60) ? setGameState(old => ({ ...old, curLevel: old.curLevel + 1, timer: 0, score: (old.score + 3000) })) : setGameState(old => ({ ...old, curLevel: old.curLevel + 1, timer: 0, score: (old.score + 1000) }));
+        }
         setAsteroids(asteroidGeneration(asteroids, globalPlayer, 2, gameState.curLevel + 1, 0, 0, 1));
       }
       checkBulletCollision(bullets, setBullets, setAsteroids, asteroids, globalPlayer, setGameState);
