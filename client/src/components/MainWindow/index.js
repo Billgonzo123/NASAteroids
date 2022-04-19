@@ -37,6 +37,7 @@ const MainWindow = ({ gameState, setGameState }) => {
   const numOfAst = useRef();
   const timer = useRef();
   const spaceDown = useRef(0);
+  const bonus = useRef();
   //--------------------------GAME LOOP-------------------------//
   const loop = () => {
     setTimeout(() => {
@@ -69,10 +70,11 @@ const MainWindow = ({ gameState, setGameState }) => {
       }
       //asteroidGeneration
       if (numOfAst.current <= 0) {
-        let bonus;
-        (gameState.timer <= 60) ? bonus = 3000 : bonus = 1000;
-        if (gameState.curLevel === 0) bonus = 0;
-        setGameState(old => ({ ...old, curLevel: old.curLevel + 1, timer: 0, score: (old.score + bonus) }))
+        
+        (gameState.timer <= 60) ? bonus.current = 3000 : bonus.current = 1000;
+        if (gameState.curLevel === 0) bonus.current = 0;
+        setGlobalPlayer(old => ({...old, invnsTimer: 120}));
+        setGameState(old => ({ ...old, curLevel: old.curLevel + 1, timer: 0, score: (old.score + bonus.current) }))
         setAsteroids(asteroidGeneration(asteroids, globalPlayer, 2, gameState.curLevel + 1, 0, 0, 1));
       }
       checkBulletCollision(bullets, setBullets, setAsteroids, asteroids, globalPlayer, setGameState);
@@ -129,7 +131,10 @@ const MainWindow = ({ gameState, setGameState }) => {
         <Hud gameState={gameState} setGameState={setGameState} />
         {/*--------- RENDER PLAYER / GAME OVER ---------*/}
         {globalPlayer.alive ? (
+          <>
           <Player globalPlayer={globalPlayer} />
+         {(globalPlayer.invnsTimer && gameState.curLevel !== 1) ? (<div id='bonus-element'>Bonus:{bonus.current}</div>) : ('')}
+         </>
         ) : (
           <GameOver gameState={gameState} setGameState={setGameState} />
         )}

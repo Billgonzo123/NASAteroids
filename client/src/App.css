@@ -79,6 +79,15 @@ body {
   z-index: -1;
   position: absolute;
 }
+#bonus-element {
+  opacity: 0%;
+  z-index: 0;
+  left: 300px;
+  top: 20px;
+  color: greenyellow;
+  position: absolute;
+  animation: fadeOutUp 3s;
+}
 .fire {
   background-image: url("./assets/img/fire.gif");
   background-repeat: no-repeat;
@@ -113,6 +122,14 @@ body {
   from {
     transform: scale(0) perspective(10000px) rotateX(45deg);
   }
+}
+
+@keyframes fadeOutUp {
+  from {
+    opacity: 100%;
+    top: 60px
+  }
+  
 }
 /* Media Queries */
 @media (max-width: 908px) {
