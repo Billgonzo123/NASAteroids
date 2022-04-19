@@ -15,9 +15,7 @@ export default function GameOver({ gameState, setGameState }) {
           >
             <div id="game-over">GAME OVER</div>
           </Typography>
-        <Typography sx={{ py:2 }}>
           <GameOverStats gameState={gameState} />
-          </Typography>
         </Box>
       <Footer />
       </Container>
