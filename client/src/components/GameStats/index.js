@@ -14,7 +14,12 @@ import {
 } from '../../util/mutations';
 
 const GameOverStats = ({ gameState }) => {
-  // //*QUERIES
+  //states
+  const [userScoreDisplay, setUserScoreDisplay] = useState([]);
+  const [notification, setNotification] = useState(
+    <span>Nothing here yet!</span>
+  );
+
   //leaderboard data
   // const { data: leaderboardData } = useQuery(GET_LEADERBOARD);
   // const leaderboardHighscores = leaderboardData.leaderboard.highscores;
@@ -26,26 +31,32 @@ const GameOverStats = ({ gameState }) => {
   //current score
   const currentScore = gameState.score;
 
-  // //*MUTATIONS
-  //Add user score
+  //* ADD USER SCORE
   const [addUserHighscore] = useMutation(ADD_USER_HIGHSCORE);
 
   //Handle user score submit
   async function handleUserScoreSubmit() {
+    //add userhighscore
     try {
       await addUserHighscore({
         variables: { score: currentScore },
       });
-      console.log('added to user highscores', userHighscores);
+      // do we have more than 5 user highscores?
+      if (userHighscores.length > 5) {
+        //create array of userHighscores.score's and math.min
+        const scores = userHighscores.map((highscore) => highscore.score);
+        const lowestScore = Math.min(scores);
+        //find index of lowest score and delete
+        const lowestTest = userHighscores.indexOf(lowestScore);
+        console.log('index of lowest score?', lowestTest);
+      }
+      setUserScoreDisplay(userHighscores);
     } catch (err) {
       console.error(err);
     }
   }
 
-  const [notification, setNotification] = useState(
-    <span>Nothing here yet!</span>
-  );
-
+  // is user's current score higher than previous and 0?
   useEffect(() => {
     console.log('userHighscores before', userHighscores);
     if (
@@ -53,12 +64,9 @@ const GameOverStats = ({ gameState }) => {
         (score) => score >= currentScore || currentScore === 0
       )
     ) {
-      console.log('Better luck next time!');
       setNotification(<span>Better luck next time!</span>);
     } else {
-      console.log('Congrats!');
       handleUserScoreSubmit();
-      console.log('typeof currentscore', typeof currentScore);
       setNotification(<span>Congratulations, new high score!</span>);
     }
   }, []);
@@ -79,8 +87,15 @@ const GameOverStats = ({ gameState }) => {
             </TableCell>
             <TableCell align="center" sx={{ p: 0.25 }}>
               <ul>
-                {Object.keys(userHighscores).map((score) => {
-                  return <li>score</li>;
+                {Object.keys(userScoreDisplay).map((index) => {
+                  const score = userScoreDisplay[index];
+                  return userScoreDisplay ? (
+                    <li>
+                      ${score.date}, ${score.score}
+                    </li>
+                  ) : (
+                    ''
+                  );
                 })}
               </ul>
             </TableCell>
