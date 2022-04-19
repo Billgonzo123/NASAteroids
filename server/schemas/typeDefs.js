@@ -44,6 +44,7 @@ const typeDefs = gql`
     addLeaderboardHighscore(score: Int!): Leaderboard
     addUserXP(XP: Int!): User
     deleteUserScore(score: Int): User
+    deleteLeaderboardHighscore(score: Int): Leaderboard
   }
 `;
 

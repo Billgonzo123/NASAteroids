@@ -95,3 +95,15 @@ export const DELETE_USER_SCORE = gql`
     }
   }
 `;
+
+export const DELETE_LEADERBOARD_SCORE = gql`
+  mutation deleteLeaderboardHighscore($score: Int) {
+    deleteLeaderboardHighscore(score: $score) {
+      highscores {
+        score
+        user
+        date
+      }
+    }
+  }
+`;

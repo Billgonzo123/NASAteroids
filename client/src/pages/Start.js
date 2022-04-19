@@ -44,8 +44,8 @@ const Start = ({ gameState, setGameState }) => {
           direction="row"
           justifyContent="center"
         >
-          {/* <Profile setGameState={setGameState} gameState={gameState} /> */}
-          {/* <Leaderboard /> */}
+          <Profile setGameState={setGameState} gameState={gameState} />
+          <Leaderboard />
         </Grid>
         <Container maxWidth="xs">
           <CardActions

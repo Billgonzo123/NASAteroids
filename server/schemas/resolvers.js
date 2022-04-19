@@ -101,6 +101,28 @@ const resolvers = {
         return updatedLeaderboard;
       }
     },
+    deleteLeaderboardHighscore: async (parent, args, context) => {
+      //query all leaderboards
+      const all = await Leaderboard.findOne();
+
+      //find lowest score index
+      const scores = all.highscores.map((highscore) => highscore.score);
+      const lowestScore = Math.min(...scores);
+      const index = scores.indexOf(lowestScore);
+
+      // If a leaderboard doesn't exist, throw error
+      if (all instanceof Leaderboard == false && context.user) {
+        console.log('No leaderboard yet!');
+      }
+      //else update existing board
+      else if (context.user) {
+        const updatedLeaderboard = await Leaderboard.findOneAndUpdate(
+          { _id: all._id },
+          { $pull: { highscores: all.highscores[index] } }
+        );
+        return updatedLeaderboard;
+      }
+    },
     addUserXP: async (parent, { XP }, context) => {
       if (context.user) {
         console.log('user', context.user);

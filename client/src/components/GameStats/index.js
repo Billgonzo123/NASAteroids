@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import {
   Table,
@@ -6,13 +6,13 @@ import {
   TableCell,
   TableContainer,
   TableRow,
-  Typography,
 } from '@mui/material';
 import { GET_ME, GET_LEADERBOARD } from '../../util/queries';
 import {
   ADD_USER_HIGHSCORE,
   ADD_LEADERBOARD_HIGHSCORE,
   DELETE_USER_SCORE,
+  DELETE_LEADERBOARD_SCORE,
 } from '../../util/mutations';
 import Auth from '../../util/auth';
 
@@ -32,51 +32,49 @@ const GameOverStats = ({ gameState }) => {
   //current score
   const currentScore = gameState.score;
 
-  // //* LEADERBOARD
-  // const [addLeaderboardHighscore] = useMutation(ADD_LEADERBOARD_HIGHSCORE);
-  // //need to code
-  // // const [deleteLeaderboardScore] = useMutation(DELETE_LEADERBOARD_SCORE);
+  //* LEADERBOARD SCORE
+  const [addLeaderboardHighscore] = useMutation(ADD_LEADERBOARD_HIGHSCORE);
+  const [deleteLeaderboardScore] = useMutation(DELETE_LEADERBOARD_SCORE);
 
-  // //leaderboard data
-  // const { data: leaderboardData } = useQuery(GET_LEADERBOARD);
-  // const leaderboardHighscores = leaderboardData.leaderboard.highscores.map(
-  //   (highscore) => highscore.score
-  // );
+  //leaderboard data
+  const { data: leaderboardData } = useQuery(GET_LEADERBOARD);
+  const leaderboardHighscores = leaderboardData.leaderboard.highscores.map(
+    (highscore) => highscore.score
+  );
 
-  // //handle Delete
-  // async function handleDeleteLeaderBoardScore() {
-  //   const token = Auth.loggedIn() ? Auth.getToken() : null;
-  //   if (!token) {
-  //     return false;
-  //   }
-  //   try {
-  //     // deleteLeaderBoardScore();
-  //     console.log("delete leaderboard score needs to go here!")
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }
+  //handle delete lowest leaderboard score
+  async function handleDeleteLeaderBoardScore() {
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+    if (!token) {
+      return false;
+    }
+    try {
+      deleteLeaderboardScore();
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
-  // //add score to leaderboard
-  // async function handleLeaderBoardSubmit() {
-  //   try {
-  //     await addLeaderboardHighscore({
-  //       variables: { score: currentScore },
-  //     });
-  //     // do we have more than 10 leaderboard highscores?
-  //     if (leaderboardHighscores.length >= 10) {
-  //       handleDeleteLeaderBoardScore();
-  //     }
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // }
+  //add score to leaderboard
+  async function handleLeaderBoardSubmit() {
+    try {
+      await addLeaderboardHighscore({
+        variables: { score: currentScore },
+      });
+      // do we have more than 10 leaderboard highscores?
+      if (leaderboardHighscores.length >= 10) {
+        handleDeleteLeaderBoardScore();
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   //* USER SCORE
   const [addUserHighscore] = useMutation(ADD_USER_HIGHSCORE);
   const [deleteUserScore] = useMutation(DELETE_USER_SCORE);
 
-  //Handle delete user's lowest score
+  //handle delete user's lowest score
   async function handleDeleteUserScore() {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
     if (!token) {
@@ -89,7 +87,7 @@ const GameOverStats = ({ gameState }) => {
     }
   }
 
-  //Handle user score submit
+  //handle user score submit
   async function handleUserScoreSubmit() {
     //add userhighscore
     try {
@@ -106,11 +104,11 @@ const GameOverStats = ({ gameState }) => {
     }
   }
 
-  // is user's current score higher than previous and 0?
+  //is user's current score higher than previous and 0?
   useEffect(() => {
-    // const leaderboardCheck = leaderboardHighscores.find(
-    //   (score) => score >= currentScore
-    // );
+    const leaderboardCheck = leaderboardHighscores.find(
+      (score) => score >= currentScore
+    );
 
     const userScoreCheck = userHighscores.find(
       (score) => score >= currentScore
@@ -118,13 +116,14 @@ const GameOverStats = ({ gameState }) => {
 
     if (userScoreCheck || currentScore === 0) {
       setisHighscore(false);
-      // }
-      // else if (leaderboardCheck) {
-      //   handleLeaderBoardSubmit();
+    } else if (leaderboardCheck) {
+      handleLeaderBoardSubmit();
+      setisHighscore(true);
     } else {
       handleUserScoreSubmit();
       setisHighscore(true);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
