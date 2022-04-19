@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import Leaderboard from "../Leaderboard";
-import { CardActions} from "@mui/material";
+import { CardActions } from "@mui/material";
 import { playMenuSound } from "../../util/playSound";
 
-const Welcome = ({ menuSoundstate, setMenuSoundState, show, setShow }) => {
+const Welcome = ({ show, setShow }) => {
+ 
   return (
     <>
       <Leaderboard />
@@ -16,14 +17,21 @@ const Welcome = ({ menuSoundstate, setMenuSoundState, show, setShow }) => {
       >
         <button
           type="button"
-          onClick={() => setShow("Login")}
+          onClick={() => {
+            playMenuSound('menu_select');
+            setShow("Login")
+          }}
           className={`${show === "Login"} nes-btn upperCase`}
         >
           Login
         </button>
         <button
           type="button"
-          onClick={() => setShow("Signup")}
+          onClick={() => {
+            playMenuSound('menu_select');
+            setShow("Signup");
+          }}
+
           className={`${show === "Signup"} nes-btn upperCase`}
         >
           Signup
