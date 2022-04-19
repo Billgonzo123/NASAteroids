@@ -4,7 +4,7 @@ import {  TextField, Card, CardActions, Box, Grid, Typography,} from "@mui/mater
 import Auth from "../../util/auth";
 import { useMutation } from "@apollo/client";
 import { ADD_USER } from "../../util/mutations";
-
+import {playMenuSound} from "../../util/playSound"
 const Signup = ({ show, setShow }) => {
   const navigate = useHistory();
   const [formState, setFormState] = useState({
@@ -13,9 +13,10 @@ const Signup = ({ show, setShow }) => {
     username: "",
   });
   const [addUser, { error }] = useMutation(ADD_USER);
-
+ 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+  
     const mutationResponse = await addUser({
       variables: {
         email: formState.email,
@@ -23,10 +24,12 @@ const Signup = ({ show, setShow }) => {
         username: formState.username,
       },
     });
+    playMenuSound("menu_yay");
     const token = mutationResponse.data.addUser.token;
     Auth.login(token);
+    
   };
-
+  if (error) { playMenuSound('menu_error')};
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormState({
@@ -148,6 +151,7 @@ const Signup = ({ show, setShow }) => {
             <button
               type="button"
               onClick={() => {
+                playMenuSound('menu_close')
                 setShow("Welcome");
               }}
               className={`${show === "Welcome"} nes-btn upperCase`}
