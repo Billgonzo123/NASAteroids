@@ -44,20 +44,19 @@ body {
 .logo h1 {
   font-family: var(--headings-font);
   font-size: var(--headings-font-size);
-  color: #FFFE3D;
-  -webkit-text-stroke: 1px #FF0000;
+  color: #fffe3d;
+  -webkit-text-stroke: 1px #ff0000;
   margin-top: 175px;
   text-align: center;
 }
 
 #game-window {
-  
-  background-image: url("./assets/space.gif");
-  background-repeat:repeat;
-  position:absolute;
+  background-image: url('./assets/space.gif');
+  background-repeat: repeat;
+  position: absolute;
   top: 0px;
   left: 0px;
-  transform-origin:top left;
+  transform-origin: top left;
   /* the width and height must be fixed! Use transform: scale() on the body to change size of all elements */
   width: 1920px;
   height: 1080px;
@@ -66,11 +65,11 @@ body {
   margin-top: -950px;
 }
 #black-bar {
-  position:absolute;
+  position: absolute;
   z-index: 100;
   width: 100vw;
-  height:100vh;
-background-color: black;
+  height: 100vh;
+  background-color: black;
 }
 
   tr {
@@ -94,12 +93,11 @@ background-color: black;
   position: absolute;
   font-size: 100px;
   text-align: center;
-  top: 206px; 
+  top: 206px;
   left: 510px;
   color: #ffff;
   transform: scale(1) perspective(200px) rotateX(45deg);
-  animation: zoomIn .6s;
-
+  animation: zoomIn 0.6s;
 }
 #player-object {
   z-index: -1;
@@ -108,24 +106,23 @@ background-color: black;
 .fire {
   background-image: url('./assets/img/fire.gif');
   background-repeat: no-repeat;
-  background-position:top;
-background-size: cover;
+  background-position: top;
+  background-size: cover;
 }
 
-#bullet-object{
+#bullet-object {
   z-index: -1;
   position: absolute;
 }
 
-#asteroid-object{
+#asteroid-object {
   z-index: -1;
   position: absolute;
 }
 
 #asteroid-shadow {
   z-index: -1;
-  position:absolute;
-
+  position: absolute;
 }
 /* Button Component */
 .upperCase {

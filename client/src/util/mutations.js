@@ -35,7 +35,7 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_USER_HIGHSCORE = gql`
-  mutation AddUserHighscore($score: Int) {
+  mutation AddUserHighscore($score: Int!) {
     addUserHighscore(score: $score) {
       _id
       username
@@ -53,7 +53,7 @@ export const ADD_USER_HIGHSCORE = gql`
 `;
 
 export const ADD_LEADERBOARD_HIGHSCORE = gql`
-  mutation AddLeaderboardHighscore($score: Int) {
+  mutation AddLeaderboardHighscore($score: Int!) {
     addLeaderboardHighscore(score: $score) {
       highscores {
         score
@@ -74,6 +74,36 @@ export const ADD_USER_XP = gql`
       avatar
       level
       XP
+    }
+  }
+`;
+
+export const DELETE_USER_SCORE = gql`
+  mutation deleteUserScore($score: Int) {
+    deleteUserScore(score: $score) {
+      _id
+      username
+      email
+      highscores {
+        score
+        user
+        date
+      }
+      avatar
+      level
+      XP
+    }
+  }
+`;
+
+export const DELETE_LEADERBOARD_SCORE = gql`
+  mutation deleteLeaderboardHighscore($score: Int) {
+    deleteLeaderboardHighscore(score: $score) {
+      highscores {
+        score
+        user
+        date
+      }
     }
   }
 `;
