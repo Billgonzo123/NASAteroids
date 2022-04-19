@@ -1,18 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-@import url('https://unpkg.com/nes.css@latest/css/nes.min.css');
-
-:root {
-  --headings-font: 'Russo One', sans-serif;
-  --secondary-font: 'Press Start 2P', cursive;
-  --headings-font-size: 10vw;
-  --font-color: #fff;
-}
-#main-hud{
-  position: relative;
-  top:0px;
-  left: 0px;
-}
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+@import url("https://unpkg.com/nes.css@latest/css/nes.min.css");
 
 #hud-footer {
   opacity: 40%;
@@ -26,32 +14,28 @@
   top:800px;
   left: 0px;
 }
-#root{
-  width: 100vw;
-  height: 100vh;
-}
 
 html {
-  background: url(./assets/space.gif) repeat center center fixed; 
+  background: url(./assets/space.gif) repeat center center fixed;
 }
 
 body {
   overflow: hidden;
   background-color: rgba(0, 0, 0, 0);
-  color: var(--font-color);
+  color: white;
 }
 
 .logo h1 {
-  font-family: var(--headings-font);
-  font-size: var(--headings-font-size);
+  font-family: "Russo One";
+  font-size: 10vw;
   color: #fffe3d;
   -webkit-text-stroke: 1px #ff0000;
-  margin-top: 175px;
+  margin-top: 135px;
   text-align: center;
 }
 
 #game-window {
-  background-image: url('./assets/space.gif');
+  background-image: url("./assets/space.gif");
   background-repeat: repeat;
   position: absolute;
   top: 0px;
@@ -61,9 +45,7 @@ body {
   width: 1920px;
   height: 1080px;
 }
-#controls-footer {
-  margin-top: -950px;
-}
+
 #black-bar {
   position: absolute;
   z-index: 100;
@@ -72,22 +54,6 @@ body {
   background-color: black;
 }
 
-  tr {
-    display: flex;
-    flex-direction: column;
-  }
-  #start-display {
-    z-index: 1;
-    position: absolute;
-    font-size: 50px;
-    text-align: center;
-    top: 206px; 
-    left: 764px;
-    color: #ffff;
-    transform: scale(1.5) perspective(200px) rotateX(45deg);
-    animation: zoomIn .5s; 
-  }
-  
 #game-over {
   z-index: 1;
   position: absolute;
@@ -104,7 +70,7 @@ body {
   position: absolute;
 }
 .fire {
-  background-image: url('./assets/img/fire.gif');
+  background-image: url("./assets/img/fire.gif");
   background-repeat: no-repeat;
   background-position: top;
   background-size: cover;
@@ -133,8 +99,17 @@ body {
   color: white !important;
 }
 
-@keyframes zoomIn{
-from {
-  transform: scale(0) perspective(10000px) rotateX(45deg);
+@keyframes zoomIn {
+  from {
+    transform: scale(0) perspective(10000px) rotateX(45deg);
+  }
 }
+/* Media Queries */
+@media (max-width: 908px) {
+  body {
+    overflow: visible;
+  }
+  .logo h1 {
+    margin-top: 75px;
+  }
 }

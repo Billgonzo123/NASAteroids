@@ -1,57 +1,21 @@
-import React, { useState } from 'react';
-import './App.css';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Home from './pages/Home';
-import Start from './pages/Start';
-import Main from './pages/Main';
-import Nomatch from './components/Nomatch';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  createHttpLink,
-} from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
+import React, { useState } from "react";
+import "./App.css";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Home from "./pages/Home";
+import Start from "./pages/Start";
+import Main from "./pages/Main";
+import Nomatch from "./components/Nomatch";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "./theme";
+import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink,} from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
 
 const httpLink = createHttpLink({
   uri: 'http://localhost:3001/graphql',
 });
 
-const theme = createTheme({
-  typography: {
-    fontFamily: ['Press Start 2P'],
-    body1: {
-      textTransform: 'uppercase',
-    },
-    h6: {
-      textTransform: 'uppercase',
-    },
-  },
-  palette: {
-    text: {
-      primary: '#FFFFFF',
-    },
-  },
-  components: {
-    MuiInput: {
-      styleOverrides: {
-        underline: {
-          '&&::before': {
-            borderBottom: '1px solid rgba(255, 255, 255, 1)',
-          },
-          '&&::after': {
-            borderBottom: '1px solid rgba(255, 255, 255, 1)',
-          },
-        },
-      },
-    },
-  },
-});
-
-const authLink = setContext((_, { headers, client }) => {
-  const token = localStorage.getItem('id_token');
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem("id_token");
   return {
     headers: {
       ...headers,
@@ -81,9 +45,7 @@ function App() {
 
   return (
     <ApolloProvider client={client}>
-     
-        <audio id="menu-sound"src={require(`./assets/snd/menu_snd/menu_select.wav`)} style={{'disply': 'none'}} type="audio/wav"/>
-      
+        <audio id="menu-sound"src={require(`./assets/snd/menu_snd/menu_select.wav`)} style={{'disply': 'none'}} type="audio/wav"/>     
       <ThemeProvider theme={theme}>
         <Router>
           <Switch>
