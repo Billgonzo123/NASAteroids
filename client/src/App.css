@@ -59,7 +59,7 @@ body {
   transform-origin: top left;
   /* the width and height must be fixed! Use transform: scale() on the body to change size of all elements */
   width: 1920px;
-  height: 1080px;
+  height: 980px;
 }
 #controls-footer {
   margin-top: -950px;

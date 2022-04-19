@@ -27,12 +27,12 @@ function updatePlayer(globalPlayer, keysPressed) {
     y += vy;
 
     //Sprite wrapping --- 
-    if (y > 1080) y = 0;
-    if (y < 0) y = 1080;
+    if (y > 980) y = 0;
+    if (y < 0) y = 980;
     if (x > 1920) x = 0;
     if (x < 0) x = 1920;
     xB=x; if (xB+spriteDim.w>1920) xB -=1920;
-    yB=y; if (yB+spriteDim.h>1080) yB -=1080;
+    yB=y; if (yB+spriteDim.h>980) yB -=980;
 
     return { ...globalPlayer, x, y, xB, yB, dir, thrust, vx, vy, turnSpeed, spriteDim, alive, invnsTimer, pressW }
 }
