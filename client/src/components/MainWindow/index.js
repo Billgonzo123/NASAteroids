@@ -37,6 +37,7 @@ const MainWindow = ({ gameState, setGameState }) => {
   const numOfAst = useRef();
   const timer = useRef();
   const spaceDown = useRef(0);
+  const bonus = useRef();
   //--------------------------GAME LOOP-------------------------//
   const loop = () => {
     setTimeout(() => {
@@ -69,11 +70,13 @@ const MainWindow = ({ gameState, setGameState }) => {
       }
       //asteroidGeneration
       if (numOfAst.current <= 0) {
-        let bonus;
-        (gameState.timer <= 60) ? bonus = 3000 : bonus = 1000;
-        if (gameState.curLevel === 0) bonus = 0;
-        setGameState(old => ({ ...old, curLevel: old.curLevel + 1, timer: 0, score: (old.score + bonus) }))
+        
+        (gameState.timer <= 30) ? bonus.current = 10000 : bonus.current = 1000;
+        if (gameState.curLevel === 0) bonus.current = 0;
+        setGlobalPlayer(old => ({...old, invnsTimer: 120}));
+        setGameState(old => ({ ...old, curLevel: old.curLevel + 1, timer: 0, score: (old.score + bonus.current) }))
         setAsteroids(asteroidGeneration(asteroids, globalPlayer, 2, gameState.curLevel + 1, 0, 0, 1));
+        setTimeout(() => bonus.current = 0, 3000);
       }
       checkBulletCollision(bullets, setBullets, setAsteroids, asteroids, globalPlayer, setGameState);
       checkShipCollision(globalPlayer, setGlobalPlayer, setGameState, asteroids);
@@ -122,7 +125,9 @@ const MainWindow = ({ gameState, setGameState }) => {
         id="game-window"
         className="App"
         style={{ "transform": `scale(${screenScale})` }}>
-        {(gameState.lives === 3 && globalPlayer.invnsTimer ) ? (<div id='start-display'>!START!</div>) : ('')}
+        {(gameState.lives === 3 && globalPlayer.invnsTimer ) ? (<div id='start-display'>{(gameState.curLevel === 1) ? "!START!" : ''}</div>) : ('')}
+        {(globalPlayer.invnsTimer && gameState.curLevel !== 1 && bonus.current) ? (<div id='bonus-element'>Bonus:{bonus.current}</div>) : ('')}
+        {(globalPlayer.invnsTimer && gameState.curLevel !== 1 && bonus.current !== 10000 && bonus.current) ? (<div id='no-bonus-element'>No Time Bonus</div>) : ('')}
         {/*------------ AUDIO -------------*/}
         <AudioEl />
         {/*------------- HUD  -------------*/}

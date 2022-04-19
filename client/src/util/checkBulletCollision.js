@@ -15,6 +15,8 @@ function checkBulletCollision(bullets, setBullets, setAsteroids, asteroids, glob
                 const astRadius = [23, 62, 124];
                 const r = astRadius[a.size];
                 const dist = r+5;
+                const bonusScores = [100, 50, 20];
+                const bonus = bonusScores[a.size]
                 
                 bullets.map((b, i) => {
                     //Each bullet gets 2 lines of detection for x,y,xB,yB
@@ -26,7 +28,7 @@ function checkBulletCollision(bullets, setBullets, setAsteroids, asteroids, glob
                         const results = newBullets.filter((bullet, index) => index !== i);
                         setBullets(results);
                         destoryAsteroid(id, globalPlayer, asteroids, setAsteroids);
-                        setGameState(old => ({...old, score: (old.score+50*old.curLevel)}));
+                        setGameState(old => ({...old, score: (old.score+(bonus))}));
                         return false;
                     };
                     return false;
