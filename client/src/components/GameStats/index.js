@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableRow,
-} from '@mui/material';
+import { Typography } from '@mui/material';
 import { GET_ME, GET_LEADERBOARD } from '../../util/queries';
 import {
   ADD_USER_HIGHSCORE,
@@ -32,43 +26,43 @@ const GameOverStats = ({ gameState }) => {
   //current score
   const currentScore = gameState.score;
 
-  //* LEADERBOARD SCORE
-  const [addLeaderboardHighscore] = useMutation(ADD_LEADERBOARD_HIGHSCORE);
-  const [deleteLeaderboardScore] = useMutation(DELETE_LEADERBOARD_SCORE);
+  // //* LEADERBOARD SCORE
+  // const [addLeaderboardHighscore] = useMutation(ADD_LEADERBOARD_HIGHSCORE);
+  // const [deleteLeaderboardScore] = useMutation(DELETE_LEADERBOARD_SCORE);
 
-  //leaderboard data
-  const { data: leaderboardData } = useQuery(GET_LEADERBOARD);
-  const leaderboardHighscores = leaderboardData.leaderboard.highscores.map(
-    (highscore) => highscore.score
-  );
+  // //leaderboard data
+  // const { data: leaderboardData, error: error } = useQuery(GET_LEADERBOARD);
+  // const leaderboardHighscores = leaderboardData.leaderboard.highscores.map(
+  //   (highscore) => highscore.score
+  // );
 
-  //handle delete lowest leaderboard score
-  async function handleDeleteLeaderBoardScore() {
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
-    if (!token) {
-      return false;
-    }
-    try {
-      deleteLeaderboardScore();
-    } catch (err) {
-      console.log(err);
-    }
-  }
+  // //handle delete lowest leaderboard score
+  // async function handleDeleteLeaderBoardScore() {
+  //   const token = Auth.loggedIn() ? Auth.getToken() : null;
+  //   if (!token) {
+  //     return false;
+  //   }
+  //   try {
+  //     deleteLeaderboardScore();
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
 
-  //add score to leaderboard
-  async function handleLeaderBoardSubmit() {
-    try {
-      await addLeaderboardHighscore({
-        variables: { score: currentScore },
-      });
-      // do we have more than 10 leaderboard highscores?
-      if (leaderboardHighscores.length >= 10) {
-        handleDeleteLeaderBoardScore();
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  }
+  // //add score to leaderboard
+  // async function handleLeaderBoardSubmit() {
+  //   try {
+  //     await addLeaderboardHighscore({
+  //       variables: { score: currentScore },
+  //     });
+  //     // do we have more than 10 leaderboard highscores?
+  //     if (leaderboardHighscores.length >= 10) {
+  //       handleDeleteLeaderBoardScore();
+  //     }
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // }
 
   //* USER SCORE
   const [addUserHighscore] = useMutation(ADD_USER_HIGHSCORE);
@@ -87,7 +81,7 @@ const GameOverStats = ({ gameState }) => {
     }
   }
 
-  //handle user score submit
+  // handle user score submit
   async function handleUserScoreSubmit() {
     //add userhighscore
     try {
@@ -106,9 +100,9 @@ const GameOverStats = ({ gameState }) => {
 
   //is user's current score higher than previous and 0?
   useEffect(() => {
-    const leaderboardCheck = leaderboardHighscores.find(
-      (score) => score >= currentScore
-    );
+    // const leaderboardCheck = leaderboardHighscores.find(
+    //   (score) => score >= currentScore
+    // );
 
     const userScoreCheck = userHighscores.find(
       (score) => score >= currentScore
@@ -116,9 +110,9 @@ const GameOverStats = ({ gameState }) => {
 
     if (userScoreCheck || currentScore === 0) {
       setisHighscore(false);
-    } else if (leaderboardCheck) {
-      handleLeaderBoardSubmit();
-      setisHighscore(true);
+      // } else if (leaderboardCheck) {
+      //   handleLeaderBoardSubmit();
+      //   setisHighscore(true);
     } else {
       handleUserScoreSubmit();
       setisHighscore(true);
@@ -127,43 +121,36 @@ const GameOverStats = ({ gameState }) => {
   }, []);
 
   return (
-    <TableContainer>
-      <Table sx={{ textTransform: 'uppercase' }} aria-label="simple table">
-        <TableBody>
-          <TableRow align="center">
-            {isHighscore ? (
-              <span>Congratulations, new highscore!</span>
-            ) : (
-              <span>Better luck next time!</span>
-            )}
-          </TableRow>
-          <TableRow key="GameStats">
-            <TableCell scope="right" align="left" sx={{ p: 0.25 }}>
-              Final Score:
-            </TableCell>
-            <TableCell align="left" sx={{ p: 0.25 }}>
-              {currentScore} points
-            </TableCell>
-            <TableRow>
-              <TableCell>Your Highscores:</TableCell>
-            </TableRow>
-            <TableCell align="center" sx={{ p: 0.25 }}>
-              {Object.keys(userScoreDisplay).map((index) => {
-                const score = userScoreDisplay[index];
-                return userScoreDisplay ? (
-                  <TableRow>
-                    <TableCell>{score.date}</TableCell>
-                    <TableCell>{score.score}</TableCell>
-                  </TableRow>
-                ) : (
-                  ''
-                );
-              })}
-            </TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <>
+      <Typography variant="h5" align="center">
+        {isHighscore ? (
+          <span>Congratulations, new highscore!</span>
+        ) : (
+          <span>Better luck next time!</span>
+        )}
+      </Typography>
+      <table id="gameover-stats">
+        <thead>
+          <tr>
+            <th> Final Score: {currentScore}</th>
+          </tr>
+          <tr>
+            <th>Your Highscores:</th>
+            {Object.keys(userScoreDisplay).map((index) => {
+              const score = userScoreDisplay[index];
+              return userScoreDisplay ? (
+                <tr>
+                  <td>{score.date}</td>
+                  <td>{score.score}</td>
+                </tr>
+              ) : (
+                ''
+              );
+            })}
+          </tr>
+        </thead>
+      </table>
+    </>
   );
 };
 
