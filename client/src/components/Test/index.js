@@ -12,7 +12,7 @@ import Auth from "../../util/auth";
 import { useQuery, useMutation } from "@apollo/client";
 
 const Test = () => {
-  const currentScore = 1719999999;
+  const currentScore = 1819999999;
 
   const { loading: loadingUser, data, refetch } = useQuery(GET_ME);
   const [addScore] = useMutation(ADD_USER_HIGHSCORE, {

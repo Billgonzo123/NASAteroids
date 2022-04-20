@@ -7,8 +7,10 @@ const Profile = ({gameState, setGameState}) => {
   const { loading, data } = useQuery(GET_ME);
   const user = data?.me || {};
   let highscores = data?.me.highscores || [];
-
-  highscores = highscores.slice(0,5);
+  let scores = [...highscores];
+    
+  scores.sort((a, b) => (a.score > b.score ? -1 : 1));
+  highscores = scores.slice(0,5);
 
   if (loading) {
     return <div>Loading...</div>
