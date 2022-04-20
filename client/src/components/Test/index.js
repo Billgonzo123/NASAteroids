@@ -34,6 +34,7 @@ if (!loadingUser) {
     console.log('Lowest Score: ',lowestScore)
 
     if (currentScore > lowestScore) {  
+      console.log('Adding...')
       try {
         addScore({
           variables: { score: currentScore } 
