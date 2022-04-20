@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
-import { Typography, Grid } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import { GET_ME, GET_LEADERBOARD } from '../../util/queries';
 import {
   ADD_USER_HIGHSCORE,
@@ -101,7 +101,7 @@ const GameOverStats = ({ gameState }) => {
     const leaderboardCheck = leaderboardData.find(
       (score) => score >= currentScore
     );
-      console.log(leaderboardCheck);
+    console.log(leaderboardCheck);
     const userScoreCheck = userHighscores.find(
       (score) => score >= currentScore
     );
@@ -128,43 +128,52 @@ const GameOverStats = ({ gameState }) => {
           <span>Better luck next time!</span>
         )}
       </Typography>
-      
-      <table id="gameover-stats">
-        <thead>
-          <tr>
-            <th> Final Score: {currentScore}</th>
-          </tr>
-          <tr>
-            <th>Your Highscores:</th>
-          </tr>
+
+      <Grid container spacing={2}>
+        <Grid item xs={2}>
+          <span> Final Score: {currentScore}</span>
+        </Grid>
+        <Grid item xs={2}>
+          <span>Your Highscores:</span>
+        </Grid>
+        <Grid item xs={2}>
           {Object.keys(userScoreDisplay).map((index) => {
             const score = userScoreDisplay[index];
             return userScoreDisplay ? (
-              <tr>
-                <td>{score.date}</td>
-                <td>{score.score}</td>
-              </tr>
+              <>
+                <Grid item xs={1}>
+                  {score.date}
+                </Grid>
+                <Grid item xs={1}>
+                  {score.score}
+                </Grid>
+              </>
             ) : (
               ''
             );
           })}
-
-          <tr>
-            <th>Leaderboard:</th>
-          </tr>
-          {leaderboardData.map(({score, date}) => {
+        </Grid>
+        <Grid item xs={2}>
+          <span>Leaderboard:</span>
+        </Grid>
+        <Grid container spacing={2}>
+          {leaderboardData.map(({ score, date }) => {
             console.log(leaderboardData);
             return leaderboardData ? (
-              <tr>
-                <td key={score}>{score}</td>
-                <td key={date}>{date}</td>
-              </tr>
+              <>
+                <Grid item xs={2} key={score}>
+                  {score}
+                </Grid>
+                <Grid item xs={2} key={date}>
+                  {date}
+                </Grid>
+              </>
             ) : (
               ''
             );
           })}
-        </thead>
-      </table>
+        </Grid>
+      </Grid>
     </>
   );
 };
