@@ -36,10 +36,9 @@ const Start = ({ gameState, setGameState }) => {
         minHeight: '100vh',
       }}
     >
-      <Container component="main" sx={{mb: 2 }} maxWidth="xxl">
-
+      <Container component="main" sx={{ mb: 2 }} maxWidth="xxl">
         <div className="logo">
-            <img src={Logo} alt="logo"/>
+          <img src={Logo} alt="logo" />
         </div>
 
         <Grid
@@ -54,8 +53,8 @@ const Start = ({ gameState, setGameState }) => {
         <Container maxWidth="xs">
           <CardActions
             sx={{
-              justifyContent: "space-between",
-              backgroundColor: "transparent",
+              justifyContent: 'space-between',
+              backgroundColor: 'transparent',
               mt: 5,
             }}
           >

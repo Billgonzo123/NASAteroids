@@ -54,25 +54,19 @@ const resolvers = {
           { new: true }
         );
 
-        return user;
-      }
-    },
-    deleteUserScore: async (parent, args, context) => {
-      if (context.user) {
-        const user = await User.findOne({ _id: context.user._id });
-
-        const scores = user.highscores.map((highscore) => highscore.score);
-        const lowestScore = Math.min(...scores);
-        const index = scores.indexOf(lowestScore);
-        console.log(user.highscores[index]);
-
-        const removeScore = await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $pull: { highscores: user.highscores[index] } }
+        const updatedLeaderboard = await Leaderboard.findOneAndUpdate(
+          { _id: all._id },
+          { $push: { highscores: highscore } }
         );
-        return removeScore;
-      } else {
-        console.log('need to be logged in!');
+
+        //sort descending
+        const sortedBoard = updatedLeaderboard.highscores.sort(
+          (a, b) => parseFloat(b.score) - parseFloat(a.score)
+        );
+
+        return sortedBoard;
+
+        return user;
       }
     },
     addLeaderboardHighscore: async (parent, { score }, context) => {
@@ -130,17 +124,22 @@ const resolvers = {
         return updatedLeaderboard;
       }
     },
-    addUserXP: async (parent, { XP }, context) => {
+    deleteUserScore: async (parent, args, context) => {
       if (context.user) {
-        console.log('user', context.user);
-        console.log('XP', XP);
+        const user = await User.findOne({ _id: context.user._id });
 
-        const user = await User.findOneAndUpdate(
+        const scores = user.highscores.map((highscore) => highscore.score);
+        const lowestScore = Math.min(...scores);
+        const index = scores.indexOf(lowestScore);
+        console.log(user.highscores[index]);
+
+        const removeScore = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $inc: { XP: XP } },
-          { new: true, runValidators: true }
+          { $pull: { highscores: user.highscores[index] } }
         );
-        return user;
+        return removeScore;
+      } else {
+        console.log('need to be logged in!');
       }
     },
   },

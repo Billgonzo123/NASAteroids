@@ -23,16 +23,6 @@ const userSchema = new Schema(
       required: true,
     },
     highscores: [highscoreSchema],
-    avatar: {
-      type: String,
-      required: false,
-    },
-    level: {
-      type: Number,
-    },
-    XP: {
-      type: Number,
-    },
   },
   // set this to use virtual below
   {

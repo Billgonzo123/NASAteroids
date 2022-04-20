@@ -1,25 +1,30 @@
-import React, { useState } from "react";
-import "./App.css";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Home from "./pages/Home";
-import Start from "./pages/Start";
-import Main from "./pages/Main";
-import Nomatch from "./components/Nomatch";
-import TestPage from "./pages/TestPage";
-import { ThemeProvider } from "@mui/material/styles";
-import theme from "./theme";
-import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink,} from "@apollo/client";
-import { setContext } from "@apollo/client/link/context";
+import React, { useState } from 'react';
+import './App.css';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Home from './pages/Home';
+import Start from './pages/Start';
+import Main from './pages/Main';
+import Nomatch from './components/Nomatch';
+import TestPage from './pages/TestPage';
+import { ThemeProvider } from '@mui/material/styles';
+import theme from './theme';
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  createHttpLink,
+} from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
 
-
-const httpLink = createHttpLink({ 
-  uri: process.env.REACT_APP_NODE_ENV === 'production' ? 
-  '/graphql' : 
-  'http://localhost:3001/graphql' 
-})
+const httpLink = createHttpLink({
+  uri:
+    process.env.REACT_APP_NODE_ENV === 'production'
+      ? '/graphql'
+      : 'http://localhost:3001/graphql',
+});
 
 const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem("id_token");
+  const token = localStorage.getItem('id_token');
   return {
     headers: {
       ...headers,
@@ -49,30 +54,23 @@ function App() {
 
   return (
     <ApolloProvider client={client}>
-        <audio id="menu-sound"src={require(`./assets/snd/menu_snd/menu_select.wav`)} style={{'disply': 'none'}} type="audio/wav"/>     
+      <audio
+        id="menu-sound"
+        src={require(`./assets/snd/menu_snd/menu_select.wav`)}
+        style={{ disply: 'none' }}
+        type="audio/wav"
+      />
       <ThemeProvider theme={theme}>
         <Router>
           <Switch>
             <Route exact path="/">
-              <Home/>
+              <Home />
             </Route>
             <Route exact path="/start">
-              <Start
-                setGameState={setGameState}
-                gameState={gameState}
-              />
+              <Start setGameState={setGameState} gameState={gameState} />
             </Route>
             <Route exact path="/main">
-              <Main
-                setGameState={setGameState}
-                gameState={gameState}
-              />
-            </Route>
-            <Route exact path="/test">
-              <TestPage
-                setGameState={setGameState}
-                gameState={gameState}
-              />
+              <Main setGameState={setGameState} gameState={gameState} />
             </Route>
             <Route>
               <Nomatch />
