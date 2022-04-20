@@ -18,7 +18,15 @@ const Test = () => {
     {score: 200, date: '04/20/22'},
   ];
 
-  
+  const { data, error } = useQuery(GET_ME);
+
+  let userDataScores = data.me.highscores;
+
+  for (let i = 0; i < userDataScores.length; i++) {
+
+  }
+
+
 
   return (
 

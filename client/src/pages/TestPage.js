@@ -1,11 +1,14 @@
 import React from "react";
 import Test from "../components/Test";
 
-const TestPage = () => {
+const TestPage = ({gameState, setGameState}) => {
   return (
 
-    <Test>
-      
+    <Test
+    setGameState={setGameState}
+    gameState={gameState}
+    >
+
     </Test>
   )
 };
