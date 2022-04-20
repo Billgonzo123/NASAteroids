@@ -61,11 +61,8 @@ const MainWindow = ({ gameState, setGameState }) => {
       setAsteroids((oldPositions) => updateAsteroids(oldPositions, level.current));
       if (bullets) setBullets((oldPositions) => (updateBullet(oldPositions)));
       if (isUfo.current) setUfo(old => (updateUfo(old, globalPlayer)));
-      //UFO Checks--
-      if (!isUfo.current && Math.random() < .0005) {
-        playSoundCancel('ufo_snd');
-        isUfo.current = 1;
-      };
+    //   //UFO Checks--
+   
       if (ufo.x > 1920) isUfo.current = 0;
       //Make bullets--
       if (globalPlayer.alive && spaceDown.current === 1 && bullets.length <= 5) {
@@ -107,6 +104,10 @@ const MainWindow = ({ gameState, setGameState }) => {
     playSound("start_snd");
     // Start Game Timer
     timer.current = setInterval(() => {
+      if (!isUfo.current && Math.random() < .05) {
+        playSoundCancel('ufo_snd');
+        isUfo.current = 1;
+      };
       setGameState((old) => ({ ...old, timer: old.timer + 1 }));
     }, 1000);
     document.addEventListener("keyup", logKeyUp);
