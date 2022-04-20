@@ -5,6 +5,7 @@ import Login from "../components/Login";
 import Welcome from "../components/Welcome";
 import Footer from "../components/Footer";
 import { Box, Container} from "@mui/material";
+import Logo from '../assets/img/logo.svg';
 import Auth from "../util/auth";
 
 const Home = () => {
@@ -25,7 +26,7 @@ const Home = () => {
     >
       <Container component="main" sx={{mb: 2 }} maxWidth="xxl">
         <div className="logo">
-            <h1>ASTEROIDS</h1>
+            <img src={Logo} alt="logo"/>
         </div>
         <Container maxWidth="sm">
           {show === "Welcome" && <Welcome show={show} setShow={setShow} />}
