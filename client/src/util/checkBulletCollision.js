@@ -25,7 +25,7 @@ function checkBulletCollision(bullets, setBullets, setAsteroids, asteroids, glob
                 bullets.map((b, i) => {
                     //Each bullet gets 2 lines of detection for x,y,xB,yB
                     const lineA = getDistance(b.x, a.x + r, b.y, a.y + r);
-                    const lineB = (a.x !== a.xB && a.y !== a.yB) ? getDistance(b.x, a.xB + r, b.y, a.yB + r) : 200;
+                    const lineB = (a.x !== a.xB || a.y !== a.yB) ? getDistance(b.x, a.xB + r, b.y, a.yB + r) : 200;
                     const lineC = (ufoX > 0 && ufoY<1920) ? getDistance(b.x, ufoX , b.y, ufoY ) : 200;
                     if (lineC < 30) {
                         const newBullets = bullets;

@@ -17,9 +17,9 @@ function checkShipCollision(globalPlayer, setGlobalPlayer, setGameState, asteroi
                 const r = astRadius[a.size];
                 const dist = plrRadius + r;
                 const lineA = getDistance(x + (d.w / 2), a.x + r, y + (d.h / 2), a.y + r)
-                const lineB = (x !== xB && y !== yB) ? getDistance(xB + (d.w / 2), a.x + r, yB + (d.h / 2), a.y + r) : 200;
-                const lineC = (a.x !== a.xB && a.y !==a.yB) ? getDistance(x + (d.w / 2), a.xB + r, y + (d.h / 2), a.yB + r) : 200;
-                const lineD = (a.x !== a.xB && a.y !==a.yB) ? getDistance(xB + (d.w / 2), a.xB + r, yB + (d.h / 2), a.yB + r) : 200;
+                const lineB = (x !== xB || y !== yB) ? getDistance(xB + (d.w / 2), a.x + r, yB + (d.h / 2), a.y + r) : 200;
+                const lineC = (a.x !== a.xB || a.y !==a.yB) ? getDistance(x + (d.w / 2), a.xB + r, y + (d.h / 2), a.yB + r) : 200;
+                const lineD = (a.x !== a.xB || a.y !==a.yB) ? getDistance(xB + (d.w / 2), a.xB + r, yB + (d.h / 2), a.yB + r) : 200;
                 const lineE = (bullet) ? getDistance(bullet.x , x + (d.w / 2), bullet.y,  y + (d.h / 2)) : 200;
 
                 //if length of any line is smaller than (player radius + asteroid radius) we have a collision
