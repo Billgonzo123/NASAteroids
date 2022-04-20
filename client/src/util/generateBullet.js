@@ -8,9 +8,7 @@
       vy: -30 * Math.sin((player.dir * Math.PI) / 180),
       thrust: 30,
       timer: 290
-    };
-  
-
+    }; 
   }
 
   export default generateBullet;
