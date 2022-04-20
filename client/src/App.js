@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from './pages/Home';
 import Start from './pages/Start';
 import Main from './pages/Main';
+import Test from './pages/TestPage';
 import Nomatch from './components/Nomatch';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from './theme';
@@ -70,6 +71,9 @@ function App() {
             </Route>
             <Route exact path="/main">
               <Main setGameState={setGameState} gameState={gameState} />
+            </Route>
+            <Route exact path="/test">
+              <Test setGameState={setGameState} gameState={gameState} />
             </Route>
             <Route>
               <Nomatch />

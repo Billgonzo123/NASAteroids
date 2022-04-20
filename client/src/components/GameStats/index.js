@@ -100,22 +100,7 @@ const GameOverStats = ({ gameState }) => {
     }
   }
 
-  //is user's current score higher than previous and 0?
-  useEffect(() => {
-    console.log('leaderboardData', leaderboardData);
-    console.log('userHighscores', userHighscores);
 
-    if (userScoreCheck || currentScore === 0) {
-      setisHighscore(false);
-    } else if (leaderboardCheck) {
-      handleLeaderBoardSubmit();
-      setisHighscore(true);
-    } else {
-      handleUserScoreSubmit();
-      setisHighscore(true);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
   <Container maxWidth="md">
