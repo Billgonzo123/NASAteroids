@@ -25,11 +25,8 @@ body {
   color: white;
 }
 
-.logo h1 {
-  font-family: "Russo One";
+.logo {
   font-size: 10vw;
-  color: #fffe3d;
-  -webkit-text-stroke: 1px #ff0000;
   margin-top: 135px;
   text-align: center;
 }
@@ -70,7 +67,7 @@ body {
   font-size: 100px;
   text-align: center;
   top: 206px;
-  left: 653px;
+  left: 495px;
   color: #ffff;
   transform: scale(1) perspective(200px) rotateX(45deg);
   animation: zoomIn 0.6s;
