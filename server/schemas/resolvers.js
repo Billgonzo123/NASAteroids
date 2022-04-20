@@ -41,7 +41,6 @@ const resolvers = {
     },
     addUserHighscore: async (parent, { score }, context) => {
       if (context.user) {
-        console.log('score', score);
         const highscore = {
           score: score,
           user: context.user.username,
@@ -50,23 +49,13 @@ const resolvers = {
 
         const user = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $push: { highscores: highscore } },
-          { new: true }
-        );
-
-        const updatedLeaderboard = await Leaderboard.findOneAndUpdate(
-          { _id: all._id },
           { $push: { highscores: highscore } }
         );
 
         //sort descending
-        const sortedBoard = updatedLeaderboard.highscores.sort(
-          (a, b) => parseFloat(b.score) - parseFloat(a.score)
-        );
+        const sortedUser = user.highscores.sort((a, b) => b.score - a.score);
 
-        return sortedBoard;
-
-        return user;
+        return { _id: user._id, highscores: sortedUser };
       }
     },
     addLeaderboardHighscore: async (parent, { score }, context) => {
@@ -89,17 +78,35 @@ const resolvers = {
       //else update existing board
       else if (context.user) {
         //add new score
-        const updatedLeaderboard = await Leaderboard.findOneAndUpdate(
+        const leaderboard = await Leaderboard.findOneAndUpdate(
           { _id: all._id },
           { $push: { highscores: highscore } }
         );
 
         //sort descending
-        const sortedBoard = updatedLeaderboard.highscores.sort(
-          (a, b) => parseFloat(b.score) - parseFloat(a.score)
+        const sortedBoard = leaderboard.highscores.sort(
+          (a, b) => b.score - a.score
         );
 
-        return sortedBoard;
+        return { _id: leaderboard._id, highscores: sortedBoard };
+      }
+    },
+    deleteUserScore: async (parent, args, context) => {
+      if (context.user) {
+        const user = await User.findOne({ _id: context.user._id });
+
+        const scores = user.highscores.map((highscore) => highscore.score);
+        const lowestScore = Math.min(...scores);
+        const index = scores.indexOf(lowestScore);
+        console.log(user.highscores[index]);
+
+        const removeScore = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $pull: { highscores: user.highscores[index] } }
+        );
+        return removeScore;
+      } else {
+        console.log('need to be logged in!');
       }
     },
     deleteLeaderboardHighscore: async (parent, args, context) => {
@@ -122,24 +129,6 @@ const resolvers = {
           { $pull: { highscores: all.highscores[index] } }
         );
         return updatedLeaderboard;
-      }
-    },
-    deleteUserScore: async (parent, args, context) => {
-      if (context.user) {
-        const user = await User.findOne({ _id: context.user._id });
-
-        const scores = user.highscores.map((highscore) => highscore.score);
-        const lowestScore = Math.min(...scores);
-        const index = scores.indexOf(lowestScore);
-        console.log(user.highscores[index]);
-
-        const removeScore = await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $pull: { highscores: user.highscores[index] } }
-        );
-        return removeScore;
-      } else {
-        console.log('need to be logged in!');
       }
     },
   },

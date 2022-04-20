@@ -32,11 +32,9 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_USER_HIGHSCORE = gql`
-  mutation AddUserHighscore($score: Int!) {
+  mutation addUserHighscore($score: Int!) {
     addUserHighscore(score: $score) {
       _id
-      username
-      email
       highscores {
         score
         user
