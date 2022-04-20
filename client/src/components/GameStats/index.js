@@ -19,9 +19,12 @@ const GameOverStats = ({ gameState }) => {
 
   //logged in user data
   const { data: userData } = useQuery(GET_ME);
-  const userHighscores = userData.me.highscores.map(
+  let userHighscores = userData.me.highscores.map(
     (highscore) => highscore.score
   );
+  
+  userHighscores = userHighscores.slice(0, 5);
+
   const [userScoreDisplay, setUserScoreDisplay] = useState(
     userData.me.highscores
   );
@@ -32,7 +35,8 @@ const GameOverStats = ({ gameState }) => {
 
   //leaderboard user data
   const { data } = useQuery(GET_LEADERBOARD);
-  const leaderboardData = data?.leaderboard.highscores || [];
+  let leaderboardData = data?.leaderboard.highscores || [];
+  leaderboardData = leaderboardData.slice(0, 10);
 
   //handle delete lowest leaderboard score
   async function handleDeleteLeaderBoardScore() {
@@ -101,7 +105,15 @@ const GameOverStats = ({ gameState }) => {
     console.log('leaderboardData', leaderboardData);
     console.log('userHighscores', userHighscores);
 
-   
+    if (userScoreCheck || currentScore === 0) {
+      setisHighscore(false);
+    } else if (leaderboardCheck) {
+      handleLeaderBoardSubmit();
+      setisHighscore(true);
+    } else {
+      handleUserScoreSubmit();
+      setisHighscore(true);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -143,7 +155,6 @@ const GameOverStats = ({ gameState }) => {
       <Grid item xs={6} align="center">
         <Grid container spacing={1}>
           {leaderboardData.map(({ score, date }) => {
-            console.log(leaderboardData);
             return leaderboardData ? (
               <>
                 <Grid item xs={12} key={score}>
