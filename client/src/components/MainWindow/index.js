@@ -19,6 +19,7 @@ import { checkScreenScale } from '../../util/checkScreenScale';
 import asteroidGeneration from '../../util/asteroidGeneration';
 import generateBullet from '../../util/generateBullet';
 import updateUfo from '../../util/updateUfo'
+import { FormControlLabel } from "@mui/material";
 
 const MainWindow = ({ gameState, setGameState }) => {
 //------------------------------States---------------------------//
@@ -104,7 +105,7 @@ const MainWindow = ({ gameState, setGameState }) => {
     playSound("start_snd");
     // Start Game Timer
     timer.current = setInterval(() => {
-      if (!isUfo.current && Math.random() < .05) {
+      if (!isUfo.current && Math.random() < .02) {
         playSoundCancel('ufo_snd');
         isUfo.current = 1;
       };

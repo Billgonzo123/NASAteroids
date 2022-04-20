@@ -6,7 +6,9 @@ import { GET_ME } from '../../util/queries';
 const Profile = ({gameState, setGameState}) => {
   const { loading, data } = useQuery(GET_ME);
   const user = data?.me || {};
-  const highscores = data?.me.highscores || [];
+  let highscores = data?.me.highscores || [];
+
+  highscores = highscores.slice(0,5);
 
   if (loading) {
     return <div>Loading...</div>
