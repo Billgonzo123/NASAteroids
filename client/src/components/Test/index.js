@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {Typography, Grid, Container } from "@mui/material";
 import { GET_ME } from "../../util/queries";
-import { useQuery } from "@apollo/client";
-
+import { ADD_LEADERBOARD_HIGHSCORE, ADD_USER_HIGHSCORE } from "../../util/mutations";
+import Auth from '../../util/auth';
+import { useQuery, useMutation } from "@apollo/client";
 
 const Test = () => {
   const currentScore = 8000987;
@@ -19,12 +20,33 @@ const Test = () => {
   ];
 
   const { data, error } = useQuery(GET_ME);
+  const [addScore] = useMutation(ADD_USER_HIGHSCORE);
 
-  let userDataScores = data.me.highscores;
+  useEffect(() => {
+    
+    let userDataScores = data?.me.highscores || [];
+    const scores = userDataScores.map((user) => user.score);
+    const lowestScore = Math.min(...scores);
+    console.log(lowestScore);
 
-  for (let i = 0; i < userDataScores.length; i++) {
+    if (currentScore > lowestScore) {  
+      try {
+        addScore({
+          variables: { score: currentScore } 
+        });
+      } catch (e) {
+        throw e
+      }
 
-  }
+    };
+
+  }, [])
+
+
+
+    
+
+
 
 
 
