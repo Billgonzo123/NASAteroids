@@ -11,12 +11,12 @@ const Player = ({ globalPlayer, currentKeys }) => {
         src={require(`../../assets/img/player_sprt.png`)}
         style={motion(globalPlayer.x, globalPlayer.y, globalPlayer.dir)}
       />
-      {globalPlayer.invnsTimer && <img
+      {(globalPlayer.invnsTimer) ? (<img
         id='player-object'
         className={globalPlayer.pressW ? 'fire' : ''}
         alt='player-sprite'
         src={require('../../assets/img/player_sprt_invs.gif')}
-        style={motion(globalPlayer.xB, globalPlayer.y, globalPlayer.dir)} />
+        style={motion(globalPlayer.xB, globalPlayer.y, globalPlayer.dir)} />) : ("")
         }
       {globalPlayer.xB !== globalPlayer.x && <img
         id='player-object'

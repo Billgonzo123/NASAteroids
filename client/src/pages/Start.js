@@ -34,7 +34,7 @@ const Start = ({ gameState, setGameState }) => {
         minHeight: '100vh',
       }}
     >
-      <Container component="main" sx={{ mb: 2 }} maxWidth="lg">
+      <Container component="main" sx={{mb: 2 }} maxWidth="xxl">
         <div className="logo">
           <h1>ASTEROIDS</h1>
         </div>
@@ -50,9 +50,9 @@ const Start = ({ gameState, setGameState }) => {
         <Container maxWidth="xs">
           <CardActions
             sx={{
-              justifyContent: 'space-between',
-              backgroundColor: 'transparent',
-              mt: 10,
+              justifyContent: "space-between",
+              backgroundColor: "transparent",
+              mt: 5,
             }}
           >
             <button

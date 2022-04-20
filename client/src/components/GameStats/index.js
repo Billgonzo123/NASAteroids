@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableRow,
-} from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import { GET_ME, GET_LEADERBOARD } from '../../util/queries';
 import {
   ADD_USER_HIGHSCORE,
@@ -20,6 +14,9 @@ const GameOverStats = ({ gameState }) => {
   //highscore notification state
   const [isHighscore, setisHighscore] = useState(null);
 
+  //current score
+  const currentScore = gameState.score;
+
   //logged in user data
   const { data: userData } = useQuery(GET_ME);
   const userHighscores = userData.me.highscores.map(
@@ -29,18 +26,13 @@ const GameOverStats = ({ gameState }) => {
     userData.me.highscores
   );
 
-  //current score
-  const currentScore = gameState.score;
-
-  //* LEADERBOARD SCORE
+  // //* LEADERBOARD SCORE
   const [addLeaderboardHighscore] = useMutation(ADD_LEADERBOARD_HIGHSCORE);
   const [deleteLeaderboardScore] = useMutation(DELETE_LEADERBOARD_SCORE);
 
-  //leaderboard data
-  const { data: leaderboardData } = useQuery(GET_LEADERBOARD);
-  const leaderboardHighscores = leaderboardData.leaderboard.highscores.map(
-    (highscore) => highscore.score
-  );
+  //leaderboard user data
+  const { data } = useQuery(GET_LEADERBOARD);
+  const leaderboardData = data?.leaderboard.highscores || [];
 
   //handle delete lowest leaderboard score
   async function handleDeleteLeaderBoardScore() {
@@ -62,7 +54,7 @@ const GameOverStats = ({ gameState }) => {
         variables: { score: currentScore },
       });
       // do we have more than 10 leaderboard highscores?
-      if (leaderboardHighscores.length >= 10) {
+      if (leaderboardData.length >= 10) {
         handleDeleteLeaderBoardScore();
       }
     } catch (err) {
@@ -87,7 +79,7 @@ const GameOverStats = ({ gameState }) => {
     }
   }
 
-  //handle user score submit
+  // handle user score submit
   async function handleUserScoreSubmit() {
     //add userhighscore
     try {
@@ -106,14 +98,15 @@ const GameOverStats = ({ gameState }) => {
 
   //is user's current score higher than previous and 0?
   useEffect(() => {
-    const leaderboardCheck = leaderboardHighscores.find(
+    const leaderboardCheck = leaderboardData.find(
       (score) => score >= currentScore
     );
-
+    console.log(leaderboardCheck);
     const userScoreCheck = userHighscores.find(
       (score) => score >= currentScore
     );
 
+    console.log(userScoreCheck);
     if (userScoreCheck || currentScore === 0) {
       setisHighscore(false);
     } else if (leaderboardCheck) {
@@ -127,43 +120,55 @@ const GameOverStats = ({ gameState }) => {
   }, []);
 
   return (
-    <TableContainer>
-      <Table sx={{ textTransform: 'uppercase' }} aria-label="simple table">
-        <TableBody>
-          <TableRow align="center">
-            {isHighscore ? (
-              <span>Congratulations, new highscore!</span>
+    <>
+      <Typography variant="h5" align="center">
+        {isHighscore ? (
+          <span>Congratulations, new highscore!</span>
+        ) : (
+          <span>Better luck next time!</span>
+        )}
+      </Typography>
+
+      <Grid container spacing={4} sx={{ padding: 6, width: '100%' }}>
+        <Grid item xs={8}>
+          <span> Final Score: {currentScore}</span>
+        </Grid>
+        <Grid item xs={4}>
+          <span>Your Highscores:</span>
+        </Grid>
+        <Grid container spacing={1}>
+          {Object.keys(userScoreDisplay).map((index) => {
+            const score = userScoreDisplay[index];
+            return userScoreDisplay ? (
+              <>
+                <Grid item xs={8} key={index}>
+                  {score.date}........{score.score}
+                </Grid>
+              </>
             ) : (
-              <span>Better luck next time!</span>
-            )}
-          </TableRow>
-          <TableRow key="GameStats">
-            <TableCell scope="right" align="left" sx={{ p: 0.25 }}>
-              Final Score:
-            </TableCell>
-            <TableCell align="left" sx={{ p: 0.25 }}>
-              {currentScore} points
-            </TableCell>
-            <TableRow>
-              <TableCell>Your Highscores:</TableCell>
-            </TableRow>
-            <TableCell align="center" sx={{ p: 0.25 }}>
-              {Object.keys(userScoreDisplay).map((index) => {
-                const score = userScoreDisplay[index];
-                return userScoreDisplay ? (
-                  <TableRow>
-                    <TableCell>{score.date}</TableCell>
-                    <TableCell>{score.score}</TableCell>
-                  </TableRow>
-                ) : (
-                  ''
-                );
-              })}
-            </TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
-    </TableContainer>
+              ''
+            );
+          })}
+        </Grid>
+        <Grid item xs={4}>
+          <span>Leaderboard:</span>
+        </Grid>
+        <Grid container spacing={1}>
+          {leaderboardData.map(({ score, date }) => {
+            console.log(leaderboardData);
+            return leaderboardData ? (
+              <>
+                <Grid item xs={8} key={score}>
+                  {date} {score}
+                </Grid>
+              </>
+            ) : (
+              ''
+            );
+          })}
+        </Grid>
+      </Grid>
+    </>
   );
 };
 
