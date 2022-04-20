@@ -94,12 +94,27 @@ const resolvers = {
       }
       //else update existing board
       else if (context.user) {
+        //add new score
         const updatedLeaderboard = await Leaderboard.findOneAndUpdate(
           { _id: all._id },
           { $push: { highscores: highscore } }
         );
-        return updatedLeaderboard;
-      }
+
+        //how many entries in updatedLeaderboard?
+        const shortLeaderboard = () => {
+          if (updatedLeaderboard.length > 10) {
+            //remove last entry
+            updatedLeaderboard.pop();
+          }
+        };
+
+        //sort descending
+        const leaderboardSort = shortLeaderboard.highscores.sort(
+          (a, b) => parseFloat(b.score) - parseFloat(a.score)
+        );
+
+        return leaderboardSort;
+      } else console.log('Something went wrong!');
     },
     deleteLeaderboardHighscore: async (parent, args, context) => {
       //query all leaderboards

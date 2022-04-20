@@ -98,24 +98,10 @@ const GameOverStats = ({ gameState }) => {
 
   //is user's current score higher than previous and 0?
   useEffect(() => {
-    const leaderboardCheck = leaderboardData.find(
-      (score) => score >= currentScore
-    );
-    console.log(leaderboardCheck);
-    const userScoreCheck = userHighscores.find(
-      (score) => score >= currentScore
-    );
+    console.log('leaderboardData', leaderboardData);
+    console.log('userHighscores', userHighscores);
 
-    console.log(userScoreCheck);
-    if (userScoreCheck || currentScore === 0) {
-      setisHighscore(false);
-    } else if (leaderboardCheck) {
-      handleLeaderBoardSubmit();
-      setisHighscore(true);
-    } else {
-      handleUserScoreSubmit();
-      setisHighscore(true);
-    }
+   
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -155,7 +141,6 @@ const GameOverStats = ({ gameState }) => {
         </Grid>
         <Grid container spacing={1}>
           {leaderboardData.map(({ score, date }) => {
-            console.log(leaderboardData);
             return leaderboardData ? (
               <>
                 <Grid item xs={8} key={score}>
