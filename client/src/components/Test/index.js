@@ -11,18 +11,7 @@ import Auth from "../../util/auth";
 import { useQuery, useMutation } from "@apollo/client";
 
 const Test = () => {
-  const currentScore = 119999999;
-  const userScoreDisplay = [
-    { score: 50, date: "04/20/22" },
-    { score: 100, date: "04/20/22" },
-    { score: 200, date: "04/20/22" },
-  ];
-
-  const leaderboardData = [
-    { score: 50, date: "04/20/22" },
-    { score: 100, date: "04/20/22" },
-    { score: 200, date: "04/20/22" },
-  ];
+  const currentScore = 219999999;
 
   const { loading: loadingUser, data } = useQuery(GET_ME);
   const [addScore] = useMutation(ADD_USER_HIGHSCORE);
@@ -50,6 +39,33 @@ const Test = () => {
       }
     }
   }, [loadingUser]);
+
+  const { loading: loadingLeaderboard, data: leaderboardData } = useQuery(GET_ME);
+  const [AddLeaderboardHighscore] = useMutation(ADD_LEADERBOARD_HIGHSCORE);
+
+  useEffect(() => {
+    console.log(loadingLeaderboard);
+    if (!loadingLeaderboard) {
+      let leaderboardDataScores = data?.me.highscores || [];
+      const scores = leaderboardDataScores.map((user) => user.score);
+
+      const lowestScore = scores[0] ? Math.min(...scores) : 0;
+      console.log(leaderboardDataScores);
+      console.log("LeaderboardScore: ", scores.sort());
+      console.log("Leaderboard Lowest Score: ", lowestScore);
+
+      if (currentScore > lowestScore) {
+        console.log("Adding...");
+        try {
+          AddLeaderboardHighscore({
+            variables: { highscores: currentScore },
+          });
+        } catch (e) {
+          throw e;
+        }
+      }
+    }
+  }, [loadingLeaderboard]);
 
   return (
     <Container maxWidth="md">
