@@ -10,7 +10,7 @@
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=flat&logo=node.js&logoColor=white)
 ![Apollo-GraphQL](https://img.shields.io/badge/-ApolloGraphQL-311C87?style=flat&logo=apollo-graphql)
 
-NASAteroids (NASA + Aesteroids), is a recreation of the 1979 Atari game built in React.  This application utilizes MUI components and an NES-style CSS frame work for UI, MongoDB and GraphQL for database models and API queries.
+NASAteroids (NASA + Asteroids), is a recreation of the 1979 Atari game built in React.  This application utilizes MUI components and an NES-style CSS frame work for UI, MongoDB and GraphQL for database models and API queries.
 
 ## Table of Contents
 - [Deployment](#deployment)
