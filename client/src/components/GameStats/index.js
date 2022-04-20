@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
-import { Typography } from '@mui/material';
+import { Typography, Grid } from '@mui/material';
 import { GET_ME, GET_LEADERBOARD } from '../../util/queries';
 import {
   ADD_USER_HIGHSCORE,
@@ -30,15 +30,9 @@ const GameOverStats = ({ gameState }) => {
   const [addLeaderboardHighscore] = useMutation(ADD_LEADERBOARD_HIGHSCORE);
   const [deleteLeaderboardScore] = useMutation(DELETE_LEADERBOARD_SCORE);
 
-  //leaderboard data
-  const { data: leaderboardData, error: error } = useQuery(GET_LEADERBOARD);
-  const leaderboardHighscores = leaderboardData.leaderboard.highscores.map(
-    (highscore) => highscore.score
-  );
-  //leaderboard display
-  const [leaderboardDisplay, setLeaderboardDisplay] = useState(
-    leaderboardHighscores
-  );
+  //leaderboard user data
+  const { data } = useQuery(GET_LEADERBOARD);
+  const leaderboardData = data?.leaderboard.highscores || [];
 
   //handle delete lowest leaderboard score
   async function handleDeleteLeaderBoardScore() {
@@ -60,7 +54,7 @@ const GameOverStats = ({ gameState }) => {
         variables: { score: currentScore },
       });
       // do we have more than 10 leaderboard highscores?
-      if (leaderboardHighscores.length >= 10) {
+      if (leaderboardData.length >= 10) {
         handleDeleteLeaderBoardScore();
       }
     } catch (err) {
@@ -104,14 +98,15 @@ const GameOverStats = ({ gameState }) => {
 
   //is user's current score higher than previous and 0?
   useEffect(() => {
-    const leaderboardCheck = leaderboardHighscores.find(
+    const leaderboardCheck = leaderboardData.find(
       (score) => score >= currentScore
     );
-
+      console.log(leaderboardCheck);
     const userScoreCheck = userHighscores.find(
       (score) => score >= currentScore
     );
 
+    console.log(userScoreCheck);
     if (userScoreCheck || currentScore === 0) {
       setisHighscore(false);
     } else if (leaderboardCheck) {
@@ -133,6 +128,7 @@ const GameOverStats = ({ gameState }) => {
           <span>Better luck next time!</span>
         )}
       </Typography>
+      
       <table id="gameover-stats">
         <thead>
           <tr>
@@ -156,12 +152,12 @@ const GameOverStats = ({ gameState }) => {
           <tr>
             <th>Leaderboard:</th>
           </tr>
-          {Object.keys(leaderboardDisplay).map((index) => {
-            const score = leaderboardDisplay[index];
-            return leaderboardDisplay ? (
+          {leaderboardData.map(({score, date}) => {
+            console.log(leaderboardData);
+            return leaderboardData ? (
               <tr>
-                <td>{score.date}</td>
-                <td>{score.score}</td>
+                <td key={score}>{score}</td>
+                <td key={date}>{date}</td>
               </tr>
             ) : (
               ''
