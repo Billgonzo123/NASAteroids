@@ -2,6 +2,8 @@ import React from 'react';
 import MainWindow from '../components/MainWindow';
 import Auth from "../util/auth";
 import { Redirect } from 'react-router-dom';
+import { Responsive } from '../components/Responsive';
+import MobileMainWindow from '../components/MobileMainWindow';
 
 const Main = ({
   gameState,
@@ -15,12 +17,20 @@ const Main = ({
   }
 
   return (
-    <MainWindow
-      menuSoundstate={menuSoundstate}
-      setMenuSoundState={setMenuSoundState}
-      setGameState={setGameState}
-      gameState={gameState}
-    />
+    <>
+    <Responsive displayIn={["Laptop"]}>
+      <MainWindow
+        menuSoundstate={menuSoundstate}
+        setMenuSoundState={setMenuSoundState}
+        setGameState={setGameState}
+        gameState={gameState}
+      />
+    </Responsive>
+    <Responsive>
+      <MobileMainWindow />
+    </Responsive>
+    </>
+    
   );
 };
 
