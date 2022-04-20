@@ -6,6 +6,7 @@ import Leaderboard from "../Leaderboard";
 import {
   ADD_LEADERBOARD_HIGHSCORE,
   ADD_USER_HIGHSCORE,
+  DELETE_USER_SCORE,
 } from "../../util/mutations";
 import Auth from "../../util/auth";
 import { useQuery, useMutation } from "@apollo/client";
@@ -15,6 +16,7 @@ const Test = () => {
 
   const { loading: loadingUser, data } = useQuery(GET_ME);
   const [addScore] = useMutation(ADD_USER_HIGHSCORE);
+  const [deleteUserScore] = useMutation(DELETE_USER_SCORE);
 
   useEffect(() => {
     console.log(loadingUser);
@@ -23,16 +25,24 @@ const Test = () => {
       const scores = userDataScores.map((user) => user.score);
 
       const lowestScore = scores[0] ? Math.min(...scores) : 0;
-      console.log(userDataScores);
+      console.log('user Data:', userDataScores);
       console.log("Score: ", scores.sort());
       console.log("Lowest Score: ", lowestScore);
 
-      if (currentScore > lowestScore) {
-        console.log("Adding...");
+      //if lowest score is beat or there are less than 5 scores...
+      if (currentScore > lowestScore || scores.length<5 ) {
         try {
+          //if there are 5 or more scores, remove the lowest score
+          if (scores.length>=5) {
+            console.log('Removing lowest score...')
+              deleteUserScore();
+            }
+            console.log("Adding...");
+            //then add the new score
           addScore({
             variables: { score: currentScore },
           });
+       
         } catch (e) {
           throw e;
         }
