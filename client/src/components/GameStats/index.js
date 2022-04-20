@@ -1,159 +1,124 @@
-import React, { useState, useEffect } from 'react';
-import { useQuery, useMutation } from '@apollo/client';
-import { Container, Grid, Typography } from '@mui/material';
-import { GET_ME, GET_LEADERBOARD } from '../../util/queries';
+import React, { useState, useEffect } from "react";
+import { useQuery, useMutation } from "@apollo/client";
+import { Container, Grid, Typography } from "@mui/material";
+import { GET_ME, GET_LEADERBOARD } from "../../util/queries";
+import Profile from "../Profile";
+import Leaderboard from "../Leaderboard";
 import {
   ADD_USER_HIGHSCORE,
   ADD_LEADERBOARD_HIGHSCORE,
   DELETE_USER_SCORE,
   DELETE_LEADERBOARD_SCORE,
-} from '../../util/mutations';
-import Auth from '../../util/auth';
+} from "../../util/mutations";
 
 const GameOverStats = ({ gameState }) => {
-  //highscore notification state
-  const [isHighscore, setisHighscore] = useState(null);
-
-  //current score
   const currentScore = gameState.score;
-
-  //logged in user data
-  const { data: userData } = useQuery(GET_ME);
-  let userHighscores = userData.me.highscores.map(
-    (highscore) => highscore.score
-  );
-  
-  userHighscores = userHighscores.slice(0, 5);
-
-  const [userScoreDisplay, setUserScoreDisplay] = useState(
-    userData.me.highscores
-  );
-
-  // //* LEADERBOARD SCORE
-  const [addLeaderboardHighscore] = useMutation(ADD_LEADERBOARD_HIGHSCORE);
-  const [deleteLeaderboardScore] = useMutation(DELETE_LEADERBOARD_SCORE);
-
-  //leaderboard user data
-  const { data } = useQuery(GET_LEADERBOARD);
-  let leaderboardData = data?.leaderboard.highscores || [];
-  leaderboardData = leaderboardData.slice(0, 10);
-
-  //handle delete lowest leaderboard score
-  async function handleDeleteLeaderBoardScore() {
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
-    if (!token) {
-      return false;
-    }
-    try {
-      deleteLeaderboardScore();
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-  //add score to leaderboard
-  async function handleLeaderBoardSubmit() {
-    try {
-      await addLeaderboardHighscore({
-        variables: { score: currentScore },
-      });
-      // do we have more than 10 leaderboard highscores?
-      if (leaderboardData.length >= 10) {
-        handleDeleteLeaderBoardScore();
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  }
-
-  //* USER SCORE
-  const [addUserHighscore] = useMutation(ADD_USER_HIGHSCORE);
+  const { loading: loadingUser, data, refetch } = useQuery(GET_ME);
+  const [addScore] = useMutation(ADD_USER_HIGHSCORE, {
+    variables: { currentScore },
+    refetchQueries: refetch,
+  });
   const [deleteUserScore] = useMutation(DELETE_USER_SCORE);
 
-  //handle delete user's lowest score
-  async function handleDeleteUserScore() {
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
-    if (!token) {
-      return false;
-    }
-    try {
-      deleteUserScore();
-    } catch (err) {
-      console.log(err);
-    }
-  }
+  const [isHighScore, setIsHighScore] = useState({
+    user: false,
+    leaderboard: false,
+  });
 
-  // handle user score submit
-  async function handleUserScoreSubmit() {
-    //add userhighscore
-    try {
-      await addUserHighscore({
-        variables: { score: currentScore },
-      });
-      // do we have more than 5 user highscores?
-      if (userHighscores.length >= 4) {
-        handleDeleteUserScore();
+  useEffect(() => {
+    console.log(loadingUser);
+    if (!loadingUser) {
+      let userDataScores = data?.me.highscores || [];
+      const scores = userDataScores.map((user) => user.score);
+
+      const lowestScore = scores[0] ? Math.min(...scores) : 0;
+      console.log("user Data:", userDataScores);
+      console.log("Score: ", scores.sort());
+      console.log("Lowest Score: ", lowestScore);
+
+      //if lowest score is beat or there are less than 5 scores...
+      if (currentScore > lowestScore || scores.length < 5) {
+        
+
+        try {
+          //if there are 5 or more scores, remove the lowest score
+          if (scores.length >= 5) {
+            console.log("Removing lowest score...");
+            deleteUserScore();
+          }
+          setIsHighScore((old) => ({ ...old, user: true }));
+          console.log("Adding...");
+          //then add the new score
+          addScore({
+            variables: { score: currentScore },
+          });
+        } catch (e) {
+          throw e;
+        }
       }
-      setUserScoreDisplay(userData.me.highscores);
-    } catch (err) {
-      console.error(err);
     }
-  }
+  }, [loadingUser]);
 
+  const {
+    loading: loadingLeaderboard,
+    data: leaderboardData,
+    refetch: leaderboardRefetch,
+  } = useQuery(GET_LEADERBOARD);
+  const [AddLeaderboardHighscore] = useMutation(ADD_LEADERBOARD_HIGHSCORE, {
+    variables: { currentScore },
+    refetchQueries: leaderboardRefetch,
+  });
 
+  useEffect(() => {
+    console.log(loadingLeaderboard);
+    if (!loadingLeaderboard) {
+      console.log(leaderboardData);
+      let leaderboardDataScores = leaderboardData?.leaderboard.highscores || [];
+      console.log(leaderboardDataScores);
+      const scores = leaderboardDataScores.map((user) => user.score);
+
+      const lowestScore = scores[0] ? Math.min(...scores) : 0;
+      console.log(leaderboardDataScores);
+      console.log("LeaderboardScore: ", scores);
+      console.log("Leaderboard Lowest Score: ", lowestScore);
+
+      if (currentScore > lowestScore) {
+        setIsHighScore((old) => ({ ...old, leaderboard: true }));
+        console.log("Adding...");
+        try {
+          AddLeaderboardHighscore({
+            variables: { score: currentScore },
+          });
+        } catch (e) {
+          throw e;
+        }
+      }
+    }
+  }, [loadingLeaderboard]);
 
   return (
-  <Container maxWidth="md">
-    <Typography variant="h5" align="center" sx={{mt: 10}}>
-      {isHighscore ? (
-        <span>Congratulations, new highscore!</span>
-      ) : (
-        <span>Better luck next time!</span>
-      )}
-    </Typography>
-    <Typography variant="subtitle1" align="center" sx={{mt: 2}}>
-      Final Score: {currentScore}
-    </Typography>
-    <Grid container spacing={4} sx={{ padding: 6, }}>
-      <Grid item xs={6} align="center"> 
-        Your Highscores:
-      </Grid>
-      <Grid item xs={6} align="center">
-        Leaderboard:
-      </Grid>
-      <Grid item xs={6} align="center">
-        <Grid container spacing={1}>
-          {Object.keys(userScoreDisplay).map((index) => {
-            const score = userScoreDisplay[index];
-            return userScoreDisplay ? (
-              <>
-                <Grid item xs={12} key={index}>
-                  {score.date}....{score.score}
-                </Grid>
-              </>
-            ) : (
-              ''
-            );
-          })}
+    <Container maxWidth="md">
+      <Typography variant="h5" align="center" sx={{ mt: 10, p: 2 }}>
+        {isHighScore.user ? (
+          <span>Personal highscore!</span>
+        ) : '' }
+        <br />
+          {isHighScore.leaderboard ? (
+          <span> You Made the Leaderboard!</span>
+        ) : '' }
+      </Typography>
+      <Typography variant="subtitle1" align="center">
+        Final Score: {currentScore}
+      </Typography>
+      <Grid container spacing={4} sx={{ padding: 6 }}>
+        <Grid item xs={6} align="center">
+          <Profile />
+        </Grid>
+        <Grid item xs={6} align="center">
+          <Leaderboard />
         </Grid>
       </Grid>
-      <Grid item xs={6} align="center">
-        <Grid container spacing={1}>
-          {leaderboardData.map(({ score, date }) => {
-            return leaderboardData ? (
-              <>
-                <Grid item xs={12} key={score}>
-                  {date}....{score}
-                </Grid>
-              </>
-            ) : (
-              ''
-            );
-          })}
-        </Grid>
-      </Grid>
-    </Grid>
-  </Container>
+    </Container>
   );
 };
 
