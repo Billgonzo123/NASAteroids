@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Typography, Grid, Container } from "@mui/material";
-import { GET_ME } from "../../util/queries";
+import { GET_LEADERBOARD, GET_ME } from "../../util/queries";
 import Profile from "../Profile";
 import Leaderboard from "../Leaderboard";
 import {
@@ -12,7 +12,7 @@ import Auth from "../../util/auth";
 import { useQuery, useMutation } from "@apollo/client";
 
 const Test = () => {
-  const currentScore = 219999999;
+  const currentScore = 519999999;
 
   const { loading: loadingUser, data } = useQuery(GET_ME);
   const [addScore] = useMutation(ADD_USER_HIGHSCORE);
@@ -49,19 +49,20 @@ const Test = () => {
     }
   }, [loadingUser]);
 
-  const { loading: loadingLeaderboard, data: leaderboardData } =
-    useQuery(GET_ME);
+  const { loading: loadingLeaderboard, data: leaderboardData } = useQuery(GET_LEADERBOARD);
   const [AddLeaderboardHighscore] = useMutation(ADD_LEADERBOARD_HIGHSCORE);
 
   useEffect(() => {
     console.log(loadingLeaderboard);
-    if (!loadingLeaderboard) {
-      let leaderboardDataScores = data?.me.highscores || [];
+    if (leaderboardData) {
+      console.log(leaderboardData);
+      let leaderboardDataScores = leaderboardData?.leaderboard.highscores || [];
+      console.log(leaderboardDataScores);
       const scores = leaderboardDataScores.map((user) => user.score);
 
       const lowestScore = scores[0] ? Math.min(...scores) : 0;
       console.log(leaderboardDataScores);
-      console.log("LeaderboardScore: ", scores.sort());
+      console.log("LeaderboardScore: ", scores);
       console.log("Leaderboard Lowest Score: ", lowestScore);
 
       if (currentScore > lowestScore) {
