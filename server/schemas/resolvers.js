@@ -100,21 +100,13 @@ const resolvers = {
           { $push: { highscores: highscore } }
         );
 
-        //how many entries in updatedLeaderboard?
-        const shortLeaderboard = () => {
-          if (updatedLeaderboard.length > 10) {
-            //remove last entry
-            updatedLeaderboard.pop();
-          }
-        };
-
         //sort descending
-        const leaderboardSort = shortLeaderboard.highscores.sort(
+        const sortedBoard = updatedLeaderboard.highscores.sort(
           (a, b) => parseFloat(b.score) - parseFloat(a.score)
         );
 
-        return leaderboardSort;
-      } else console.log('Something went wrong!');
+        return sortedBoard;
+      }
     },
     deleteLeaderboardHighscore: async (parent, args, context) => {
       //query all leaderboards
