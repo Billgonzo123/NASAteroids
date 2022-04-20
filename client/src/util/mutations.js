@@ -26,28 +26,20 @@ export const ADD_USER = gql`
           user
           date
         }
-        avatar
-        level
-        XP
       }
     }
   }
 `;
 
 export const ADD_USER_HIGHSCORE = gql`
-  mutation AddUserHighscore($score: Int!) {
+  mutation addUserHighscore($score: Int!) {
     addUserHighscore(score: $score) {
       _id
-      username
-      email
       highscores {
         score
         user
         date
       }
-      avatar
-      level
-      XP
     }
   }
 `;
@@ -64,20 +56,6 @@ export const ADD_LEADERBOARD_HIGHSCORE = gql`
   }
 `;
 
-export const ADD_USER_XP = gql`
-  mutation addXP($xp: Int!) {
-    addUserXP(XP: $xp) {
-      _id
-      username
-      email
-      highscores
-      avatar
-      level
-      XP
-    }
-  }
-`;
-
 export const DELETE_USER_SCORE = gql`
   mutation deleteUserScore($score: Int) {
     deleteUserScore(score: $score) {
@@ -89,9 +67,6 @@ export const DELETE_USER_SCORE = gql`
         user
         date
       }
-      avatar
-      level
-      XP
     }
   }
 `;

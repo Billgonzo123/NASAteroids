@@ -102,13 +102,8 @@ const GameOverStats = ({ gameState }) => {
 
   //is user's current score higher than previous and 0?
   useEffect(() => {
-    const leaderboardCheck = leaderboardData.find(
-      (score) => score >= currentScore
-    );
-    console.log(leaderboardCheck);
-    const userScoreCheck = userHighscores.find(
-      (score) => score >= currentScore
-    );
+    console.log('leaderboardData', leaderboardData);
+    console.log('userHighscores', userHighscores);
 
     if (userScoreCheck || currentScore === 0) {
       setisHighscore(false);
