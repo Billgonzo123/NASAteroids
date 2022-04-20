@@ -70,7 +70,7 @@ body {
   font-size: 100px;
   text-align: center;
   top: 206px;
-  left: 55vw;
+  left: 653px;
   color: #ffff;
   transform: scale(1) perspective(200px) rotateX(45deg);
   animation: zoomIn 0.6s;
@@ -108,17 +108,6 @@ body {
   background-repeat: no-repeat;
   background-position: top;
   background-size: cover;
-}
-
-#gameover-stats thead{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 15px;
-}
-
-#gameover-stats {
-  padding-bottom: 20px;
 }
 
 #bullet-object {

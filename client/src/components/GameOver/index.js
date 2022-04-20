@@ -11,7 +11,7 @@ export default function GameOver({ gameState, setGameState }) {
             variant="h1"
             align="center"
             gutterBottom
-            sx={{ fontFamily: 'Russo One', mt: 15, textTransform: 'uppercase', py:2 }}
+            sx={{ fontFamily: 'Press Start 2P', mt: 15, textTransform: 'uppercase', py:2 }}
           >
             <div id="game-over">GAME OVER</div>
           </Typography>
