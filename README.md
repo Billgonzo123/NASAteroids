@@ -19,10 +19,8 @@ NASAteroids (NASA + Asteroids), is a recreation of the 1979 Atari game built in 
 - [Contributors](#contributors)
 - [License](#license)
 
-## Deployment
-
 ## Demo-Screenshot
-To demo the game visit [here]()
+To demo the game visit [here](https://nasteroids.herokuapp.com/)
 
 ### Home:
 ![home-screen](/client/public/assets/img/Asteroids_Home.png)
@@ -38,8 +36,6 @@ To demo the game visit [here]()
 
 ### Gameplay:
 ![gameplay-screen](/client/public/assets/img/Asteroids_GamePlay.png)
-
-## Installation
 
 ## Usage:
 
