@@ -75,6 +75,12 @@ body {
   transform: scale(1) perspective(200px) rotateX(45deg);
   animation: zoomIn 0.6s;
 }
+#ufo-object {
+  z-index: -1;
+  position: absolute;
+  top: 50px;
+  left: 1920px;
+}
 #player-object {
   z-index: -1;
   position: absolute;

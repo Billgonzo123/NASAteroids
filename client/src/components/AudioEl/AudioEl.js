@@ -8,6 +8,7 @@ const AudioEl = () => {
         <audio id="player_die" preload="auto" src={require(`../../assets/snd/player_snd/player_die.wav`)} type="audio/wav" />
         <audio id="start_snd" preload="auto" src={require(`../../assets/snd/player_snd/start_snd.wav`)} type="audio/wav" />
         <audio id="gameover" preload="auto" src={require(`../../assets/snd/player_snd/gameover.wav`)} type="audio/wav" />
+        <audio id="ufo_snd" preload="auto" src={require(`../../assets/snd/ufo_snd/ufo_snd.wav`)} type="audio/wav" />
     </>)
 }
 
