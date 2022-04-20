@@ -129,23 +129,20 @@ const GameOverStats = ({ gameState }) => {
         )}
       </Typography>
 
-      <Grid container spacing={2}>
-        <Grid item xs={2}>
+      <Grid container spacing={4} sx={{ padding: 6, width: '100%' }}>
+        <Grid item xs={8}>
           <span> Final Score: {currentScore}</span>
         </Grid>
-        <Grid item xs={2}>
+        <Grid item xs={4}>
           <span>Your Highscores:</span>
         </Grid>
-        <Grid item xs={2}>
+        <Grid container spacing={1}>
           {Object.keys(userScoreDisplay).map((index) => {
             const score = userScoreDisplay[index];
             return userScoreDisplay ? (
               <>
-                <Grid item xs={1}>
-                  {score.date}
-                </Grid>
-                <Grid item xs={1}>
-                  {score.score}
+                <Grid item xs={8} key={index}>
+                  {score.date}........{score.score}
                 </Grid>
               </>
             ) : (
@@ -153,19 +150,16 @@ const GameOverStats = ({ gameState }) => {
             );
           })}
         </Grid>
-        <Grid item xs={2}>
+        <Grid item xs={4}>
           <span>Leaderboard:</span>
         </Grid>
-        <Grid container spacing={2}>
+        <Grid container spacing={1}>
           {leaderboardData.map(({ score, date }) => {
             console.log(leaderboardData);
             return leaderboardData ? (
               <>
-                <Grid item xs={2} key={score}>
-                  {score}
-                </Grid>
-                <Grid item xs={2} key={date}>
-                  {date}
+                <Grid item xs={8} key={score}>
+                  {date} {score}
                 </Grid>
               </>
             ) : (
