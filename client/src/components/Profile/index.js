@@ -22,20 +22,6 @@ const Profile = ({gameState, setGameState}) => {
       <TableContainer>
         <Table sx={{ textTransform: 'uppercase' }} aria-label="simple table">
           <TableBody>
-            {/* avatar input */}
-            <TableRow sx={{ '& td': { border: 0 } }}>
-              <TableCell scope="row" align="left" sx={{ p: 0.25 }}>
-                Avatar:
-              </TableCell>
-              <TableCell>
-                <input
-                  type="text"
-                  id="dark_field"
-                  className="nes-input is-dark"
-                  placeholder="Image url for avatar"
-                />
-              </TableCell>
-            </TableRow>
             {/* user scores */}
             <TableRow sx={{ '& td': { border: 0 } }}>
               <TableCell TableCell scope="row" align="left" sx={{ p: 0.25 }}>
