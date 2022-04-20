@@ -6,7 +6,7 @@ import Auth from '../../util/auth';
 import { useQuery, useMutation } from "@apollo/client";
 
 const Test = () => {
-  const currentScore = 8000987;
+  const currentScore = 119999999;
   const userScoreDisplay = [
     {score: 50, date: '04/20/22'},
     {score: 100, date: '04/20/22'},
@@ -19,15 +19,19 @@ const Test = () => {
     {score: 200, date: '04/20/22'},
   ];
 
-  const { data, error } = useQuery(GET_ME);
+  const { loading: loadingUser, data } = useQuery(GET_ME);
   const [addScore] = useMutation(ADD_USER_HIGHSCORE);
 
   useEffect(() => {
-    
+    console.log(loadingUser);
+if (!loadingUser) {
     let userDataScores = data?.me.highscores || [];
     const scores = userDataScores.map((user) => user.score);
-    const lowestScore = Math.min(...scores);
-    console.log(lowestScore);
+ 
+    const lowestScore = (scores[0]) ? Math.min(...scores) : 0;
+    console.log(userDataScores)
+    console.log('Score: ',scores.sort())
+    console.log('Lowest Score: ',lowestScore)
 
     if (currentScore > lowestScore) {  
       try {
@@ -37,10 +41,10 @@ const Test = () => {
       } catch (e) {
         throw e
       }
-
     };
+  }
 
-  }, [])
+  }, [loadingUser])
 
 
 
