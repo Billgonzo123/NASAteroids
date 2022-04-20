@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Typography, Grid, Container } from "@mui/material";
 import { GET_LEADERBOARD, GET_ME } from "../../util/queries";
 import Profile from "../Profile";
@@ -12,10 +12,13 @@ import Auth from "../../util/auth";
 import { useQuery, useMutation } from "@apollo/client";
 
 const Test = () => {
-  const currentScore = 519999999;
+  const currentScore = 1719999999;
 
-  const { loading: loadingUser, data } = useQuery(GET_ME);
-  const [addScore] = useMutation(ADD_USER_HIGHSCORE);
+  const { loading: loadingUser, data, refetch } = useQuery(GET_ME);
+  const [addScore] = useMutation(ADD_USER_HIGHSCORE, {
+    variables: { currentScore },
+    refetchQueries: refetch,
+  });
   const [deleteUserScore] = useMutation(DELETE_USER_SCORE);
 
   useEffect(() => {
@@ -49,12 +52,19 @@ const Test = () => {
     }
   }, [loadingUser]);
 
-  const { loading: loadingLeaderboard, data: leaderboardData } = useQuery(GET_LEADERBOARD);
-  const [AddLeaderboardHighscore] = useMutation(ADD_LEADERBOARD_HIGHSCORE);
+  const {
+    loading: loadingLeaderboard,
+    data: leaderboardData,
+    refetch: leaderboardRefetch,
+  } = useQuery(GET_LEADERBOARD);
+  const [AddLeaderboardHighscore] = useMutation(ADD_LEADERBOARD_HIGHSCORE, {
+    variables: { currentScore },
+    refetchQueries: leaderboardRefetch,
+  });
 
   useEffect(() => {
     console.log(loadingLeaderboard);
-    if (leaderboardData) {
+    if (!loadingLeaderboard) {
       console.log(leaderboardData);
       let leaderboardDataScores = leaderboardData?.leaderboard.highscores || [];
       console.log(leaderboardDataScores);
@@ -69,7 +79,7 @@ const Test = () => {
         console.log("Adding...");
         try {
           AddLeaderboardHighscore({
-            variables: { highscores: currentScore },
+            variables: { score: currentScore },
           });
         } catch (e) {
           throw e;
