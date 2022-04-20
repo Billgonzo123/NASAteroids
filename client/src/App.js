@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Start from "./pages/Start";
 import Main from "./pages/Main";
 import Nomatch from "./components/Nomatch";
+import TestPage from "./pages/TestPage";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./theme";
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink,} from "@apollo/client";
@@ -63,6 +64,12 @@ function App() {
             </Route>
             <Route exact path="/main">
               <Main
+                setGameState={setGameState}
+                gameState={gameState}
+              />
+            </Route>
+            <Route exact path="/test">
+              <TestPage
                 setGameState={setGameState}
                 gameState={gameState}
               />
