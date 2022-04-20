@@ -25,24 +25,23 @@ const Test = () => {
       const scores = userDataScores.map((user) => user.score);
 
       const lowestScore = scores[0] ? Math.min(...scores) : 0;
-      console.log('user Data:', userDataScores);
+      console.log("user Data:", userDataScores);
       console.log("Score: ", scores.sort());
       console.log("Lowest Score: ", lowestScore);
 
       //if lowest score is beat or there are less than 5 scores...
-      if (currentScore > lowestScore || scores.length<5 ) {
+      if (currentScore > lowestScore || scores.length < 5) {
         try {
           //if there are 5 or more scores, remove the lowest score
-          if (scores.length>=5) {
-            console.log('Removing lowest score...')
-              deleteUserScore();
-            }
-            console.log("Adding...");
-            //then add the new score
+          if (scores.length >= 5) {
+            console.log("Removing lowest score...");
+            deleteUserScore();
+          }
+          console.log("Adding...");
+          //then add the new score
           addScore({
             variables: { score: currentScore },
           });
-       
         } catch (e) {
           throw e;
         }
@@ -50,7 +49,8 @@ const Test = () => {
     }
   }, [loadingUser]);
 
-  const { loading: loadingLeaderboard, data: leaderboardData } = useQuery(GET_ME);
+  const { loading: loadingLeaderboard, data: leaderboardData } =
+    useQuery(GET_ME);
   const [AddLeaderboardHighscore] = useMutation(ADD_LEADERBOARD_HIGHSCORE);
 
   useEffect(() => {

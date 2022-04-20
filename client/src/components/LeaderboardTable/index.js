@@ -20,10 +20,10 @@ export default function LeaderboardTable() {
 
   if (data) {
     let highscores = data?.leaderboard.highscores || [];
-    console.log(highscores);
-    highscores = highscores.sort((a, b) => (a.score > b.score ? 1 : -1));
-    console.log(highscores);
-    highscores = highscores.slice(0, 10);
+    let scores = [...highscores];
+    
+    scores.sort((a, b) => (a.score > b.score ? -1 : 1));
+    highscores = scores.slice(0, 10);
 
     highscores.forEach((score) => {
       rows.push(createData(score.user, score.score));
