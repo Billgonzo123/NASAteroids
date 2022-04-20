@@ -10,7 +10,7 @@ const highscoreSchema = new Schema({
     uppercase: true,
   },
   date: {
-    type: String
+    type: String,
   },
 });
 
