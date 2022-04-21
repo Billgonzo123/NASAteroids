@@ -19,9 +19,11 @@ export default function LeaderboardTable() {
   let rows = [];
 
   if (data) {
-    let highscores = data.leaderboard.highscores;
-
-    highscores = highscores.slice(0, 10);
+    let highscores = data?.leaderboard.highscores || [];
+    let scores = [...highscores];
+    
+    scores.sort((a, b) => (a.score > b.score ? -1 : 1));
+    highscores = scores.slice(0, 10);
 
     highscores.forEach((score) => {
       rows.push(createData(score.user, score.score));
