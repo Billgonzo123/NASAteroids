@@ -123,7 +123,7 @@ const MainWindow = ({ gameState, setGameState }) => {
       clearInterval(timer.current);
     };
   }, [globalPlayer.alive]);
-
+  document.body.style.overflow = 'hidden'
   //-----------------------JSX-------------------------//
   return (
     <>
