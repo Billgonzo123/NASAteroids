@@ -16,10 +16,7 @@ import {
 import { setContext } from '@apollo/client/link/context';
 
 const httpLink = createHttpLink({
-  uri:
-    process.env.REACT_APP_NODE_ENV === 'production'
-      ? '/graphql'
-      : 'http://localhost:3001/graphql',
+  uri: '/graphql',
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -36,7 +33,6 @@ const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
-
 
 function App() {
   const [gameState, setGameState] = useState({
