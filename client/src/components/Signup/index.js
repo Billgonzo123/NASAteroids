@@ -1,22 +1,29 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
-import {  TextField, Card, CardActions, Box, Grid, Typography,} from "@mui/material";
-import Auth from "../../util/auth";
-import { useMutation } from "@apollo/client";
-import { ADD_USER } from "../../util/mutations";
-import {playMenuSound} from "../../util/playSound"
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import {
+  TextField,
+  Card,
+  CardActions,
+  Box,
+  Grid,
+  Typography,
+} from '@mui/material';
+import Auth from '../../util/auth';
+import { useMutation } from '@apollo/client';
+import { ADD_USER } from '../../util/mutations';
+import { playMenuSound } from '../../util/playSound';
 const Signup = ({ show, setShow }) => {
   const navigate = useHistory();
   const [formState, setFormState] = useState({
-    email: "",
-    password: "",
-    username: "",
+    email: '',
+    password: '',
+    username: '',
   });
   const [addUser, { error }] = useMutation(ADD_USER);
- 
+
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-  
+
     const mutationResponse = await addUser({
       variables: {
         email: formState.email,
@@ -24,12 +31,13 @@ const Signup = ({ show, setShow }) => {
         username: formState.username,
       },
     });
-    playMenuSound("menu_yay");
+    playMenuSound('menu_yay');
     const token = mutationResponse.data.addUser.token;
     Auth.login(token);
-    
   };
-  if (error) { playMenuSound('menu_error')};
+  if (error) {
+    playMenuSound('menu_error');
+  }
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormState({
@@ -47,7 +55,7 @@ const Signup = ({ show, setShow }) => {
     >
       <Typography
         sx={{
-          textAlign: "center",
+          textAlign: 'center',
         }}
       >
         Sign Up
@@ -76,7 +84,7 @@ const Signup = ({ show, setShow }) => {
             variant="standard"
             onChange={handleChange}
             sx={{
-              bottomBorder: "1px #fff",
+              bottomBorder: '1px #fff',
               mb: 5,
             }}
           />
@@ -96,7 +104,7 @@ const Signup = ({ show, setShow }) => {
             variant="standard"
             onChange={handleChange}
             sx={{
-              bottomBorder: "1px #fff",
+              bottomBorder: '1px #fff',
               mb: 5,
             }}
           />
@@ -123,26 +131,22 @@ const Signup = ({ show, setShow }) => {
           />
         </Grid>
         <Box
-        sx={{
-          textAlign: "center"
-        }}
+          sx={{
+            textAlign: 'center',
+          }}
         >
-        {error ? (
-          <div>
-            <p className="error-text">`User already exists!`</p>
-          </div>
-        ) : null}
+          {error ? <div>{error.message}</div> : null}
         </Box>
         <Card
           sx={{
-            justifyContent: "space-between",
-            backgroundColor: "transparent",
+            justifyContent: 'space-between',
+            backgroundColor: 'transparent',
           }}
         >
           <CardActions
             sx={{
-              justifyContent: "space-between",
-              backgroundColor: "transparent",
+              justifyContent: 'space-between',
+              backgroundColor: 'transparent',
             }}
           >
             <button type="submit" className="nes-btn upperCase">
@@ -151,10 +155,10 @@ const Signup = ({ show, setShow }) => {
             <button
               type="button"
               onClick={() => {
-                playMenuSound('menu_close')
-                setShow("Welcome");
+                playMenuSound('menu_close');
+                setShow('Welcome');
               }}
-              className={`${show === "Welcome"} nes-btn upperCase`}
+              className={`${show === 'Welcome'} nes-btn upperCase`}
             >
               Cancel
             </button>
