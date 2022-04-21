@@ -37,6 +37,7 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+
 function App() {
   const [gameState, setGameState] = useState({
     username: ' ',
