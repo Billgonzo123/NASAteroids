@@ -17,10 +17,14 @@ function createData(userName, score) {
 export default function LeaderboardTable() {
   const { loading, data, error } = useQuery(GET_LEADERBOARD);
   let rows = [];
-  
+
   if (data) {
-    const highscores = data.leaderboard.highscores;
+    let highscores = data?.leaderboard.highscores || [];
+    let scores = [...highscores];
     
+    scores.sort((a, b) => (a.score > b.score ? -1 : 1));
+    highscores = scores.slice(0, 10);
+
     highscores.forEach((score) => {
       rows.push(createData(score.user, score.score));
       return rows;

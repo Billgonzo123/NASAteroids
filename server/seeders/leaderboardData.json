@@ -1,40 +1,41 @@
 [
-    {
+  {
     "highscores": [
-        {
-            "score": 12500,
-            "user": "L33TGAMR",
-            "date": "04/15/2022"
-        },
-        {
-            "score": 10000,
-            "user": "PAPRSHRDR",
-            "date": "04/15/2022"
-        },
-        {
-            "score": 10000,
-            "user": "EMDOK",
-            "date": "04/15/2022"
-        },
-        {
-            "score": 15000,
-            "user": "KT",
-            "date": "04/12/2022"
-        },
-        {
-            "score": 10000,
-            "user": "KURZ890",
-            "date": "04/15/2022"
-        },
-        {
-            "score": 11500,
-            "user": "BEEKILLR",
-            "date": "04/15/2022"
-        },
-        {
-            "score": 12500,
-            "user": "FFYOGURT",
-            "date": "04/05/2022"
-        }
-    ]}
+      {
+        "score": 12500,
+        "user": "L33TGAMR",
+        "date": "4/15/2022"
+      },
+      {
+        "score": 10000,
+        "user": "PAPRSHRDR",
+        "date": "4/15/2022"
+      },
+      {
+        "score": 10000,
+        "user": "EMDOK",
+        "date": "4/15/2022"
+      },
+      {
+        "score": 15000,
+        "user": "KT",
+        "date": "4/12/2022"
+      },
+      {
+        "score": 10000,
+        "user": "KURZ890",
+        "date": "4/15/2022"
+      },
+      {
+        "score": 11500,
+        "user": "BEEKILLR",
+        "date": "4/15/2022"
+      },
+      {
+        "score": 12500,
+        "user": "FFYOGURT",
+        "date": "4/05/2022"
+      }
+    ]
+  }
 ]

@@ -10,9 +10,6 @@ export const GET_ME = gql`
         score
         date
       }
-      avatar
-      level
-      XP
     }
   }
 `;

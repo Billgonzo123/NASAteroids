@@ -6,6 +6,8 @@ import Footer from '../components/Footer';
 import { Box, Container, Grid, CardActions } from '@mui/material';
 import Auth from '../util/auth';
 import { playMenuSound } from '../util/playSound';
+import Logo from '../assets/img/logo.svg';
+
 const Start = ({ gameState, setGameState }) => {
   useEffect(() => {
     playMenuSound('menu_select');
@@ -34,10 +36,11 @@ const Start = ({ gameState, setGameState }) => {
         minHeight: '100vh',
       }}
     >
-      <Container component="main" sx={{mb: 2 }} maxWidth="xxl">
+      <Container component="main" sx={{ mb: 2 }} maxWidth="xxl">
         <div className="logo">
-          <h1>ASTEROIDS</h1>
+          <img src={Logo} alt="logo" />
         </div>
+
         <Grid
           container
           columnSpacing={{ md: 1 }}
@@ -50,8 +53,8 @@ const Start = ({ gameState, setGameState }) => {
         <Container maxWidth="xs">
           <CardActions
             sx={{
-              justifyContent: "space-between",
-              backgroundColor: "transparent",
+              justifyContent: 'space-between',
+              backgroundColor: 'transparent',
               mt: 5,
             }}
           >
