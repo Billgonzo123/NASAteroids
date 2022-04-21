@@ -26,7 +26,7 @@ const Main = ({
         gameState={gameState}
       />
     </Responsive>
-    <Responsive>
+    <Responsive displayIn={["Mobile"]}>
       <MobileMainWindow />
     </Responsive>
     </>
