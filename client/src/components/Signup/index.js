@@ -8,10 +8,10 @@ import {
   Grid,
   Typography,
 } from '@mui/material';
-import Auth from '../../util/auth';
+import Auth from '../../utils/auth';
 import { useMutation } from '@apollo/client';
-import { ADD_USER } from '../../util/mutations';
-import { playMenuSound } from '../../util/playSound';
+import { ADD_USER } from '../../utils/mutations';
+import { playMenuSound } from '../../utils/playSound';
 const Signup = ({ show, setShow }) => {
   const navigate = useHistory();
   const [formState, setFormState] = useState({

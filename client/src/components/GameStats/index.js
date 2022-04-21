@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { Container, Grid, Typography } from "@mui/material";
-import { GET_ME, GET_LEADERBOARD } from "../../util/queries";
+import { GET_ME, GET_LEADERBOARD } from "../../utils/queries";
 import Profile from "../Profile";
 import Leaderboard from "../Leaderboard";
 import {
@@ -9,7 +9,7 @@ import {
   ADD_LEADERBOARD_HIGHSCORE,
   DELETE_USER_SCORE,
   DELETE_LEADERBOARD_SCORE,
-} from "../../util/mutations";
+} from "../../utils/mutations";
 
 const GameOverStats = ({ gameState }) => {
   const currentScore = gameState.score;

@@ -8,20 +8,19 @@ import AudioEl from "../AudioEl/AudioEl";
 import GameOver from "../GameOver";
 
 //utilities
-import motion from '../../util/motion';
-import updateAsteroids from '../../util/updateAsteroids';
-import updatePlayer from '../../util/updatePlayer';
-import updateBullet from '../../util/updateBullet';
-import checkShipCollision from '../../util/checkShipCollision';
-import checkBulletCollision from '../../util/checkBulletCollision';
-import { playSound, playSoundCancel} from '../../util/playSound';
-import { checkScreenScale } from '../../util/checkScreenScale';
-import asteroidGeneration from '../../util/asteroidGeneration';
-import generateBullet from '../../util/generateBullet';
-import updateUfo from '../../util/updateUfo'
-import { FormControlLabel } from "@mui/material";
+import motion from '../../utils/gameUtils/motion';
+import updateAsteroids from '../../utils/updateObjects/updateAsteroids';
+import updatePlayer from '../../utils/updateObjects/updatePlayer';
+import updateBullet from '../../utils/updateObjects/updateBullet';
+import updateUfo from '../../utils/updateObjects/updateUfo'
+import checkShipCollision from '../../utils/collisions/checkShipCollision';
+import checkBulletCollision from '../../utils/collisions/checkBulletCollision';
+import asteroidGeneration from '../../utils/createObjects/asteroidGeneration';
+import generateBullet from '../../utils/createObjects/generateBullet';
+import { playSound, playSoundCancel} from '../../utils/playSound';
+import { checkScreenScale } from '../../utils/gameUtils/checkScreenScale';
 
-const MainWindow = ({ gameState, setGameState }) => {
+const GameWindow = ({ gameState, setGameState }) => {
 //------------------------------States---------------------------//
   const gameSpeed = 16.667;//16.667ms per frame = ~ 60fps
   const [ufo, setUfo] = useState({ x: -200, y: 50, bullet: {x: -1000, y: -1000} });
@@ -164,4 +163,4 @@ const MainWindow = ({ gameState, setGameState }) => {
     </>
   );
 };
-export default MainWindow;
+export default GameWindow;

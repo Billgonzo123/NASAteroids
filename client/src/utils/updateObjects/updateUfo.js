@@ -1,5 +1,5 @@
-import getDistatce from "./getDistance";
-import { playSoundCancel, stopSound } from '../util/playSound';
+import getDistatce from "../gameUtils/getDistance";
+import { playSoundCancel, stopSound } from '../playSound';
 function updateUfo(ufo, player) {
     let newBullet = {};
     const bullet = ufo.bullet;

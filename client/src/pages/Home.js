@@ -6,7 +6,7 @@ import Welcome from "../components/Welcome";
 import Footer from "../components/Footer";
 import { Box, Container} from "@mui/material";
 import Logo from '../assets/img/logo.svg';
-import Auth from "../util/auth";
+import Auth from "../utils/auth";
 
 const Home = () => {
   const [show, setShow] = useState("Welcome");

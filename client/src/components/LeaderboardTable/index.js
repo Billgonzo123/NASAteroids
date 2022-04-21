@@ -8,7 +8,7 @@ import {
   TableContainer,
   TableRow,
 } from "@mui/material";
-import { GET_LEADERBOARD } from "../../util/queries";
+import { GET_LEADERBOARD } from "../../utils/queries";
 
 function createData(userName, score) {
   return { userName, score };
