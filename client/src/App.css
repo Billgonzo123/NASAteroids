@@ -20,6 +20,7 @@ html {
 }
 
 body {
+overflow: scroll;
   background-color: rgba(0, 0, 0, 0);
   color: white;
 }
