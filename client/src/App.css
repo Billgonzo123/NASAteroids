@@ -20,14 +20,14 @@ html {
 }
 
 body {
-  overflow: hidden;
+  overflow: scroll;
   background-color: rgba(0, 0, 0, 0);
   color: white;
 }
 
 .logo {
   font-size: 10vw;
-  margin-top: 135px;
+  margin-top: 25px;
   text-align: center;
 }
 
@@ -150,5 +150,11 @@ body {
   }
   .logo h1 {
     margin-top: 75px;
+  }
+}
+
+@media (max-width: 830px) {
+  .logo img {
+    width: 100%;
   }
 }
