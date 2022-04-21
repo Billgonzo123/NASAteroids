@@ -1,5 +1,5 @@
-import getDistance from '../util/getDistance'
-import { playSound } from '../util/playSound'
+import getDistance from '../gameUtils/getDistance'
+import { playSound } from '../playSound'
 
 function checkShipCollision(globalPlayer, setGlobalPlayer, setGameState, asteroids, ufo) {
     const { x, y, xB, yB, spriteDim, alive, invnsTimer } = globalPlayer;

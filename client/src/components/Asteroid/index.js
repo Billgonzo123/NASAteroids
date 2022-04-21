@@ -1,5 +1,5 @@
 import React from 'react';
-import motion from '../../util/motion';
+import motion from '../../util/gameUtils/motion';
 
 //generates a new asteroid element 
 //pos contains all of the information saved in each asteroid object

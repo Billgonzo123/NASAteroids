@@ -1,5 +1,5 @@
 import React from 'react';
-import MainWindow from '../components/MainWindow';
+import GameWindow from '../components/GameWindow';
 import Auth from "../util/auth";
 import { Redirect } from 'react-router-dom';
 import { Responsive } from '../components/Responsive';
@@ -19,7 +19,7 @@ const Main = ({
   return (
     <>
     <Responsive displayIn={["Laptop"]}>
-      <MainWindow
+      <GameWindow
         menuSoundstate={menuSoundstate}
         setMenuSoundState={setMenuSoundState}
         setGameState={setGameState}

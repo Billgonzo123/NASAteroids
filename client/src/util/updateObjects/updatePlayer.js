@@ -1,4 +1,4 @@
-import { playSound, stopSound } from "./playSound";
+import { playSound, stopSound } from "../playSound";
 
 function updatePlayer(globalPlayer, keysPressed) {
     let { x, y, xB, yB, dir, thrust, vx, vy, turnSpeed, spriteDim, alive, invnsTimer, pressW } = globalPlayer;
