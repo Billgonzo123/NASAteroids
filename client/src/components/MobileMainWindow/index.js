@@ -10,7 +10,7 @@ export default function MobileMainWindow() {
       gutterBottom
       sx={{ textTransform: 'uppercase', py:2, mt: 10, fontSize: '30px' }}
     >
-      Houston, This game is not compatible on mobile device!
+      Houston, we've got an error! This game is not compatible on mobile device!
     </Typography>
   </Container>
 );
