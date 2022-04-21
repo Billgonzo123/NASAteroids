@@ -152,3 +152,9 @@ body {
     margin-top: 75px;
   }
 }
+
+@media (max-width: 830px) {
+  .logo img {
+    width: 100%;
+  }
+}
