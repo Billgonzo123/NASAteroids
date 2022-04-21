@@ -1,6 +1,6 @@
-import getDistance from '../util/getDistance'
-import destoryAsteroid from './destoryAsteroid';
-import {stopSound} from '../util/playSound';
+import getDistance from '../gameUtils/getDistance'
+import destoryAsteroid from '../createObjects/destoryAsteroid';
+import {stopSound} from '../playSound';
 
 
 function checkBulletCollision(bullets, setBullets, setAsteroids, asteroids, globalPlayer, setGameState, ufo, setUfo) {

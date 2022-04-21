@@ -1,4 +1,4 @@
-import rndAstPos from "./rndAstPos";
+import rndAstPos from "../gameUtils/rndAstPos";
 
 /*We need the setAsteroid setter, 
 A number 0-2(small, medium, large) for the size of the asteroid, 

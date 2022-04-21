@@ -1,5 +1,5 @@
 import asteroidGeneration from "./asteroidGeneration";
-import { playSoundCancel} from "./playSound";
+import { playSoundCancel} from "../playSound";
 
 
 const destoryAsteroid =  (id, globalPlayer, asteroids, setAsteroids) => {

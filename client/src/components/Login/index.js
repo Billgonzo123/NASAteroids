@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { TextField, Box, Grid, Typography, Card, CardActions } from "@mui/material";
-import Auth from "../../util/auth";
+import Auth from "../../utils/auth";
 import { useMutation } from "@apollo/client";
-import { LOGIN_USER } from "../../util/mutations";
-import {playMenuSound} from "../../util/playSound"
+import { LOGIN_USER } from "../../utils/mutations";
+import {playMenuSound} from "../../utils/playSound"
 const Login = ({ show, setShow}) => {
   const navigate = useHistory();
   const [formState, setFormState] = useState({ email: "", password: "" });

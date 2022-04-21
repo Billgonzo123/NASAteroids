@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Box, Grid, Typography,  } from "@mui/material";
-import Auth from "../../util/auth";
+import Auth from "../../utils/auth";
 import { useHistory } from 'react-router-dom';
 
 export default function HudFooter() {

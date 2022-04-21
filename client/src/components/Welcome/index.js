@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Leaderboard from "../Leaderboard";
 import { CardActions } from "@mui/material";
-import { playMenuSound } from "../../util/playSound";
+import { playMenuSound } from "../../utils/playSound";
 
 const Welcome = ({ show, setShow }) => {
  
