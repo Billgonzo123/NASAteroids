@@ -1,5 +1,5 @@
 import React from 'react';
-import motion from '../../util/gameUtils/motion';
+import motion from '../../utils/gameUtils/motion';
 
 const Player = ({ globalPlayer, currentKeys }) => {
   return (

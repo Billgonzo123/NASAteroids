@@ -1,7 +1,7 @@
 import React from 'react';
 import {  Card, CardContent, Typography, Table, TableBody, TableCell, TableContainer, TableRow,} from '@mui/material';
 import { useQuery } from '@apollo/client';
-import { GET_ME } from '../../util/queries';
+import { GET_ME } from '../../utils/queries';
 
 const Profile = ({gameState, setGameState}) => {
   const { loading, data } = useQuery(GET_ME);

@@ -1,4 +1,4 @@
-import asteroidGeneration from "../createObjects/asteroidGeneration";
+import asteroidGeneration from "./asteroidGeneration";
 import { playSoundCancel} from "../playSound";
 
 

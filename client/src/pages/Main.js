@@ -1,6 +1,6 @@
 import React from 'react';
 import GameWindow from '../components/GameWindow';
-import Auth from "../util/auth";
+import Auth from "../utils/auth";
 import { Redirect } from 'react-router-dom';
 import { Responsive } from '../components/Responsive';
 import MobileMainWindow from '../components/MobileMainWindow';

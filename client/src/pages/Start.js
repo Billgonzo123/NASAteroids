@@ -4,8 +4,8 @@ import Profile from '../components/Profile';
 import Leaderboard from '../components/Leaderboard';
 import Footer from '../components/Footer';
 import { Box, Container, Grid, CardActions } from '@mui/material';
-import Auth from '../util/auth';
-import { playMenuSound } from '../util/playSound';
+import Auth from '../utils/auth';
+import { playMenuSound } from '../utils/playSound';
 import Logo from '../assets/img/logo.svg';
 
 const Start = ({ gameState, setGameState }) => {

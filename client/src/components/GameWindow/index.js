@@ -8,17 +8,17 @@ import AudioEl from "../AudioEl/AudioEl";
 import GameOver from "../GameOver";
 
 //utilities
-import motion from '../../util/gameUtils/motion';
-import updateAsteroids from '../../util/updateObjects/updateAsteroids';
-import updatePlayer from '../../util/updateObjects/updatePlayer';
-import updateBullet from '../../util/updateObjects/updateBullet';
-import updateUfo from '../../util/updateObjects/updateUfo'
-import checkShipCollision from '../../util/collisions/checkShipCollision';
-import checkBulletCollision from '../../util/collisions/checkBulletCollision';
-import asteroidGeneration from '../../util/createObjects/asteroidGeneration';
-import generateBullet from '../../util/createObjects/generateBullet';
-import { playSound, playSoundCancel} from '../../util/playSound';
-import { checkScreenScale } from '../../util/gameUtils/checkScreenScale';
+import motion from '../../utils/gameUtils/motion';
+import updateAsteroids from '../../utils/updateObjects/updateAsteroids';
+import updatePlayer from '../../utils/updateObjects/updatePlayer';
+import updateBullet from '../../utils/updateObjects/updateBullet';
+import updateUfo from '../../utils/updateObjects/updateUfo'
+import checkShipCollision from '../../utils/collisions/checkShipCollision';
+import checkBulletCollision from '../../utils/collisions/checkBulletCollision';
+import asteroidGeneration from '../../utils/createObjects/asteroidGeneration';
+import generateBullet from '../../utils/createObjects/generateBullet';
+import { playSound, playSoundCancel} from '../../utils/playSound';
+import { checkScreenScale } from '../../utils/gameUtils/checkScreenScale';
 
 const GameWindow = ({ gameState, setGameState }) => {
 //------------------------------States---------------------------//
