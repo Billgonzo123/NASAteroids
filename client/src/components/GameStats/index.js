@@ -19,6 +19,7 @@ const GameOverStats = ({ gameState }) => {
     refetchQueries: refetch,
   });
   const [deleteUserScore] = useMutation(DELETE_USER_SCORE);
+  const [deleteLeaderScore] = useMutation(DELETE_LEADERBOARD_SCORE);
 
   const [isHighScore, setIsHighScore] = useState({
     user: false,
@@ -83,6 +84,10 @@ const GameOverStats = ({ gameState }) => {
       console.log("Leaderboard Lowest Score: ", lowestScore);
 
       if (currentScore > lowestScore) {
+        if (scores.length >= 10) {
+          console.log("Removing lowest score...");
+          deleteLeaderScore();
+        }
         setIsHighScore((old) => ({ ...old, leaderboard: true }));
         console.log("Adding...");
         try {
