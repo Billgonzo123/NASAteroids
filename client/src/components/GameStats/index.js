@@ -27,28 +27,20 @@ const GameOverStats = ({ gameState }) => {
   });
 
   useEffect(() => {
-    console.log(loadingUser);
     if (!loadingUser) {
       let userDataScores = data?.me.highscores || [];
       const scores = userDataScores.map((user) => user.score);
 
       const lowestScore = scores[0] ? Math.min(...scores) : 0;
-      console.log("user Data:", userDataScores);
-      console.log("Score: ", scores.sort());
-      console.log("Lowest Score: ", lowestScore);
 
       //if lowest score is beat or there are less than 5 scores...
       if (currentScore > lowestScore || scores.length < 5) {
-        
-
         try {
           //if there are 5 or more scores, remove the lowest score
           if (scores.length >= 5) {
-            console.log("Removing lowest score...");
             deleteUserScore();
           }
           setIsHighScore((old) => ({ ...old, user: true }));
-          console.log("Adding...");
           //then add the new score
           addScore({
             variables: { score: currentScore },
@@ -71,25 +63,17 @@ const GameOverStats = ({ gameState }) => {
   });
 
   useEffect(() => {
-    console.log(loadingLeaderboard);
     if (!loadingLeaderboard) {
-      console.log(leaderboardData);
       let leaderboardDataScores = leaderboardData?.leaderboard.highscores || [];
-      console.log(leaderboardDataScores);
       const scores = leaderboardDataScores.map((user) => user.score);
 
       const lowestScore = scores[0] ? Math.min(...scores) : 0;
-      console.log(leaderboardDataScores);
-      console.log("LeaderboardScore: ", scores);
-      console.log("Leaderboard Lowest Score: ", lowestScore);
 
       if (currentScore > lowestScore) {
         if (scores.length >= 10) {
-          console.log("Removing lowest score...");
           deleteLeaderScore();
         }
         setIsHighScore((old) => ({ ...old, leaderboard: true }));
-        console.log("Adding...");
         try {
           AddLeaderboardHighscore({
             variables: { score: currentScore },
@@ -104,13 +88,9 @@ const GameOverStats = ({ gameState }) => {
   return (
     <Container maxWidth="md">
       <Typography variant="h5" align="center" sx={{ mt: 10, p: 2 }}>
-        {isHighScore.user ? (
-          <span>Personal highscore!</span>
-        ) : '' }
+        {isHighScore.user ? <span>Personal highscore!</span> : ""}
         <br />
-          {isHighScore.leaderboard ? (
-          <span> You Made the Leaderboard!</span>
-        ) : '' }
+        {isHighScore.leaderboard ? <span> You Made the Leaderboard!</span> : ""}
       </Typography>
       <Typography variant="subtitle1" align="center">
         Final Score: {currentScore}
