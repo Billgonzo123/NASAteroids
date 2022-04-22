@@ -3,7 +3,7 @@ import { playSound } from '../playSound'
 
 function checkShipCollision(globalPlayer, setGlobalPlayer, setGameState, asteroids, ufo) {
     const { x, y, xB, yB, spriteDim, alive, invnsTimer } = globalPlayer;
-    const bullet = ufo.bullet;
+    const bullet = ufo.bullet; 
     const d = spriteDim; //d = {w: int, h: int}
     //if player is alive and is not invincible, check for collision
     if (alive && invnsTimer <= 0) {
