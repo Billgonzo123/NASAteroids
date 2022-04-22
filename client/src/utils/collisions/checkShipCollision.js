@@ -51,7 +51,7 @@ function checkShipCollision(globalPlayer, setGlobalPlayer, setGameState, asteroi
 
         const lineE = (bullet) ? getDistance(bullet.x , x + (d.w / 2), bullet.y,  y + (d.h / 2)) : 200;
 
-        //check collision with UFO
+        //check collision with UFO --This is my dirty VERY last min fix...not very DRY
         if ( lineE < 31) {
             //update state -1 live or gameover = 1
             setGameState(old => {
