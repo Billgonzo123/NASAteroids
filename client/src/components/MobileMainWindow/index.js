@@ -18,7 +18,7 @@ export default function MobileMainWindow() {
         device!
       </Typography>
       <button type="button" className="nes-btn upperCase" onClick={handleBack}>
-        Quit
+        Back
       </button>
     </Container>
   );
