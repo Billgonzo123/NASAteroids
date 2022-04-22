@@ -10,14 +10,14 @@ export default function MobileMainWindow() {
     <Container component="main" sx={{ mb: 2 }} maxWidth="lg">
       <Typography
         variant="h3"
-        align="center"
+        align="left"
         gutterBottom
         sx={{ textTransform: "uppercase", py: 2, mt: 10, fontSize: "30px" }}
       >
         Houston, we've got an error! This game is not compatible on mobile
         device!
       </Typography>
-      <button align="center" type="button" className="nes-btn upperCase" onClick={handleBack}>
+      <button type="button" className="nes-btn upperCase" onClick={handleBack}>
         Back
       </button>
     </Container>

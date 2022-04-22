@@ -2,7 +2,6 @@ import React from 'react';
 import GameWindow from '../components/GameWindow';
 import Auth from "../utils/auth";
 import { Redirect } from 'react-router-dom';
-// import { Responsive } from '../components/Responsive';
 import { BrowserView, MobileView } from 'react-device-detect';
 import MobileMainWindow from '../components/MobileMainWindow';
 
