@@ -12,6 +12,8 @@
 
 NASAteroids (NASA + Asteroids), is a recreation of the 1979 Atari game built in React.  This application utilizes MUI components and an NES-style CSS frame work for UI, MongoDB and GraphQL for database models and API queries.
 
+## Try it out [here](https://nasteroids.herokuapp.com/)
+
 ## Table of Contents
 - [Deployment](#deployment)
 - [Demo-Screenshot](#demo-screenshot)
@@ -20,7 +22,7 @@ NASAteroids (NASA + Asteroids), is a recreation of the 1979 Atari game built in 
 - [License](#license)
 
 ## Demo-Screenshot
-To demo the game visit [here](https://nasteroids.herokuapp.com/)
+
 
 ### Home:
 ![home-screen](/client/public/assets/img/Asteroids_Home.png)
