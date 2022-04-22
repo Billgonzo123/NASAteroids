@@ -17,7 +17,7 @@ export default function MobileMainWindow() {
         Houston, we've got an error! This game is not compatible on mobile
         device!
       </Typography>
-      <button type="button" className="nes-btn upperCase" onClick={handleBack}>
+      <button align="center" type="button" className="nes-btn upperCase" onClick={handleBack}>
         Back
       </button>
     </Container>
