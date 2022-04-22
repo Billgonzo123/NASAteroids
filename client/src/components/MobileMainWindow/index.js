@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Typography, Container } from '@mui/material';
 
 export default function MobileMainWindow() {
+  window.location.reload();
   return (
   <Container component="main" sx={{mb: 2 }} maxWidth="lg">
     <Typography
