@@ -23,7 +23,7 @@ function checkShipCollision(globalPlayer, setGlobalPlayer, setGameState, asteroi
                 const lineE = (bullet) ? getDistance(bullet.x , x + (d.w / 2), bullet.y,  y + (d.h / 2)) : 200;
 
                 //if length of any line is smaller than (player radius + asteroid radius) we have a collision
-                if (lineA < dist || lineB < dist || lineC < dist || lineD < dist || lineE < dist) {
+                if (lineA < dist || lineB < dist || lineC < dist || lineD < dist || lineE < 31) {
                     //update state -1 live or gameover = 1
                     setGameState(old => {
                         //check if gameover
