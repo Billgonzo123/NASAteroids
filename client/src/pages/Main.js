@@ -18,17 +18,17 @@ const Main = ({
 
   return (
     <>
-    <Responsive displayIn={["Laptop"]}>
+    {/* <Responsive displayIn={["Laptop"]}> */}
       <GameWindow
         menuSoundstate={menuSoundstate}
         setMenuSoundState={setMenuSoundState}
         setGameState={setGameState}
         gameState={gameState}
       />
-    </Responsive>
+    {/* </Responsive>
     <Responsive displayIn={["Mobile"]}>
       <MobileMainWindow />
-    </Responsive>
+    </Responsive> */}
     </>
     
   );
