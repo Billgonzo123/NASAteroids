@@ -1,7 +1,10 @@
-import * as React from 'react';
+import  React from 'react';
 import { Typography, Container } from '@mui/material';
 
-export default function MobileMainWindow() {
+export default function MobileMainWindow({gameState}) {
+  //prevent infinte points bug by refreshing/clearing all states
+  if (gameState.curLevel > 0) window.location.reload();
+
   return (
   <Container component="main" sx={{mb: 2 }} maxWidth="lg">
     <Typography

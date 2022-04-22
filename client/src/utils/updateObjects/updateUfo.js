@@ -12,10 +12,7 @@ function updateUfo(ufo, player) {
             let { x, y, dir, vx, vy } = bullet;
             x -= vx;
             y -= vy;
-            if (y > 980) y = 0;
-            if (y < 0) y = 980;
-            if (x > 1920) x = 0;
-            if (x < 0) x = 1920;
+
             newBullet = {
                 x: x,
                 y: y,
