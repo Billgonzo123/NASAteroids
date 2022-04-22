@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "dotenv": "^16.0.0",
+    "react-device-detect": "^2.2.2",
     "uniqid": "^5.4.0"
   }
 }
