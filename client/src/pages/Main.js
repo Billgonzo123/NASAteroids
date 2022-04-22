@@ -2,7 +2,7 @@ import React from 'react';
 import GameWindow from '../components/GameWindow';
 import Auth from "../utils/auth";
 import { Redirect } from 'react-router-dom';
-import { Responsive } from '../components/Responsive';
+import { BrowserView, MobileView } from 'react-device-detect';
 import MobileMainWindow from '../components/MobileMainWindow';
 
 const Main = ({
@@ -18,17 +18,17 @@ const Main = ({
 
   return (
     <>
-    <Responsive displayIn={["Laptop"]}>
+    <BrowserView>
       <GameWindow
         menuSoundstate={menuSoundstate}
         setMenuSoundState={setMenuSoundState}
         setGameState={setGameState}
         gameState={gameState}
       />
-    </Responsive>
-    <Responsive displayIn={["Mobile"]}>
-      <MobileMainWindow gameState={gameState} />
-    </Responsive>
+    </BrowserView>
+    <MobileView>
+      <MobileMainWindow />
+    </MobileView>
     </>
     
   );
