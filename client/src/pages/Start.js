@@ -1,27 +1,40 @@
-import React, { useEffect } from 'react';
-import { useHistory, Redirect } from 'react-router-dom';
-import Profile from '../components/Profile';
-import Leaderboard from '../components/Leaderboard';
-import Footer from '../components/Footer';
-import { Box, Container, Grid, CardActions } from '@mui/material';
-import Auth from '../utils/auth';
-import { playMenuSound } from '../utils/playSound';
-import Logo from '../assets/img/logo.svg';
+import React, { useEffect } from "react";
+import { useHistory, Redirect } from "react-router-dom";
+import Profile from "../components/Profile";
+import Leaderboard from "../components/Leaderboard";
+import Footer from "../components/Footer";
+import { Box, Container, Grid, CardActions } from "@mui/material";
+import Auth from "../utils/auth";
+import { playMenuSound } from "../utils/playSound";
+import Logo from "../assets/img/logo.svg";
 
 const Start = ({ gameState, setGameState }) => {
   useEffect(() => {
-    playMenuSound('menu_select');
+    setGameState((old) => ({
+      ...old,
+      curLevel: 0,
+      score: 0,
+      exp: 0,
+      lives: 3,
+      playerLevel: 0,
+      numberOfAsteroids: 0,
+      timer: 0,
+      paused: 0,
+      gameOver: 0,
+    }));
+
+    playMenuSound("menu_select");
   }, []);
 
   const navigate = useHistory();
 
   const handleStart = () => {
-    navigate.push('/main');
+    navigate.push("/main");
   };
   const handleLogout = () => {
     Auth.logout();
-    navigate.push('/');
-    playMenuSound('menu_close');
+    navigate.push("/");
+    playMenuSound("menu_close");
   };
 
   if (!Auth.loggedIn()) {
@@ -31,9 +44,9 @@ const Start = ({ gameState, setGameState }) => {
   return (
     <Box
       sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        minHeight: '100vh',
+        display: "flex",
+        flexDirection: "column",
+        minHeight: "100vh",
       }}
     >
       <Container component="main" sx={{ mb: 2 }} maxWidth="xxl">
@@ -53,8 +66,8 @@ const Start = ({ gameState, setGameState }) => {
         <Container maxWidth="xs">
           <CardActions
             sx={{
-              justifyContent: 'space-between',
-              backgroundColor: 'transparent',
+              justifyContent: "space-between",
+              backgroundColor: "transparent",
               mt: 5,
             }}
           >
