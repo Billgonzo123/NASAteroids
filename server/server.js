@@ -6,6 +6,11 @@ const { typeDefs, resolvers } = require('./schemas');
 const { authMiddleware } = require('./utils/auth');
 const db = require('./config/connection');
 
+const { User, Leaderboard } = require('../models');
+
+const userData = require('./userData.json');
+const leaderboard = require('./leaderboardData.json');
+
 const PORT = process.env.PORT || 3001;
 const app = express();
 
@@ -30,6 +35,23 @@ const startServer = async () => {
   console.log(
     `🛰️ Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`
   );
+
+
+
+db.once('open', async () => {
+  // clean database
+  await User.deleteMany({});
+  await Leaderboard.deleteMany({});
+  // await Leaderboard.deleteMany({});
+
+  // bulk create each model
+  await User.create(userData);
+  await Leaderboard.create(leaderboard);
+
+  console.log('all done!');
+  process.exit(0);
+});
+
 };
 
 // Initialize the Apollo server
