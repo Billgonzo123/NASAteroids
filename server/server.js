@@ -6,10 +6,6 @@ const { typeDefs, resolvers } = require('./schemas');
 const { authMiddleware } = require('./utils/auth');
 const db = require('./config/connection');
 
-const { User, Leaderboard } = require('./models');
-
-const userData = require('./seeders/userData.json');
-const leaderboard = require('./seeders/leaderboardData.json');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -58,18 +54,5 @@ db.once('open', () => {
   app.listen(PORT, () => {
     console.log(`👽 Now listening on localhost:${PORT}`);
   });
-  //seed the database - - comment out if database is already init
-  db.once('open', async () => {
-    // clean database
-    await User.deleteMany({});
-    await Leaderboard.deleteMany({});
-    // await Leaderboard.deleteMany({});
-  
-    // bulk create each model
-    await User.create(userData);
-    await Leaderboard.create(leaderboard);
-  
-    console.log('-------------all done!');
-    process.exit(0);
-  });
+
 });

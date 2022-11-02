@@ -19,7 +19,7 @@ export default function LeaderboardTable() {
   let rows = [];
 
   if (data) {
-    let highscores = data?.leaderboard.highscores || [];
+    let highscores = data.leaderboard.highscores || [];
     let scores = [...highscores];
     
     scores.sort((a, b) => (a.score > b.score ? -1 : 1));
