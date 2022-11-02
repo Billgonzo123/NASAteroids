@@ -9,7 +9,7 @@
     "install": "cd server && npm i && cd ../client && npm i",
     "build": "cd client && npm run build",
     "seed": "cd server && npm run seed",
-    "deploy-on-render": "cd server && npm i && cd ../client && npm i && npm run build"
+    "deploy-on-render": "npm i && cd server && npm i && cd ../client && npm i --legacy-peer-deps && npm run build"
   },
   "keywords": [],
   "author": "",
