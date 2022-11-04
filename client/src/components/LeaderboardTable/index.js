@@ -38,6 +38,7 @@ export default function LeaderboardTable() {
 
   if (error) {
     console.log(error);
+    return <p>No high scores yet!</p>
   }
 
   return (
