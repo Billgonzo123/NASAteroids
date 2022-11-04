@@ -22,8 +22,7 @@ const GameOverStats = ({ gameState }) => {
   const [deleteUserScore] = useMutation(DELETE_USER_SCORE);
   const [deleteLeaderScore] = useMutation(DELETE_LEADERBOARD_SCORE);
   const [replaceLeaderScore] = useMutation(REPLACE_LEADERBOARD_SCORE, {
-    variables: { currentScore },
-    refetchQueries: refetch,
+    variables: { currentScore }
   });
 
   const [isHighScore, setIsHighScore] = useState({
