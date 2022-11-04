@@ -131,22 +131,28 @@ const resolvers = {
         return updatedLeaderboard;
       }
     },
+
     replaceLeaderboardHighscore: async (parent, { score }, context) => {
+      console.log('newScore:', context.user.username, ' ; ', score)
       if (context.user) {
         const all = await Leaderboard.findOne();
+        console.log('leaderboard Data:', all)
+        const leaderNameArray = all.highscores.map(leader => leader.user);
+        const userNameIndex = leaderNameArray.indexOf(context.user.username);
 
-        console.log('leaderboard data: ', all)
-        // const highscore = {
-        //   score: score,
-        //   user: context.user.username,
-        //   date: new Date().toLocaleDateString('en-US'),
-        // };
-
-        // const updatedLeaderboard = await Leaderboard.findOneAndReplace(
-        //   { user: context.user.username },
-        //   { highscore }
-        // );
-        return all;
+        const updatedLeaderboard = await Leaderboard.findOneAndUpdate(
+          { _id: all._id },
+          { $set: {"highscores.$[i].score": score } },
+          { 
+            arrayFilters: [
+              {
+                "i.user": context.user.username
+              }
+            ]
+          }
+        );
+        console.log('updated::::',updatedLeaderboard)
+        return updatedLeaderboard;
       }
     },
   },
