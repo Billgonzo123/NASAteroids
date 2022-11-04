@@ -93,12 +93,17 @@ const GameOverStats = ({ gameState }) => {
         if (currentScore > scores[userLeaderBoardIndex]) {
           setIsHighScore((old) => ({ ...old, leaderboard: true }));
           //replace users old leaderboard
-         const updatedWithReplaced =  replaceLeaderScore({
-            variables: { score: currentScore },
-          });
-          console.log('Replaced score: ', updatedWithReplaced)
+          try{
+            replaceLeaderScore({
+              variables: { score: currentScore },
+            })
+          } catch (e) {
+            throw e;
+          }
+        
 
-        } 
+
+        }
       }
     }
   }, [loadingLeaderboard, loadingUser]);

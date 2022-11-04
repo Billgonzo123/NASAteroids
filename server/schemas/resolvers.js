@@ -136,9 +136,6 @@ const resolvers = {
       console.log('newScore:', context.user.username, ' ; ', score)
       if (context.user) {
         const all = await Leaderboard.findOne();
-        console.log('leaderboard Data:', all)
-        const leaderNameArray = all.highscores.map(leader => leader.user);
-        const userNameIndex = leaderNameArray.indexOf(context.user.username);
 
         const updatedLeaderboard = await Leaderboard.findOneAndUpdate(
           { _id: all._id },
@@ -151,7 +148,6 @@ const resolvers = {
             ]
           }
         );
-        console.log('updated::::',updatedLeaderboard)
         return updatedLeaderboard;
       }
     },
