@@ -9,6 +9,7 @@ import {
   ADD_LEADERBOARD_HIGHSCORE,
   DELETE_USER_SCORE,
   DELETE_LEADERBOARD_SCORE,
+  REPLACE_LEADERBOARD_SCORE,
 } from "../../utils/mutations";
 
 const GameOverStats = ({ gameState }) => {
@@ -20,6 +21,10 @@ const GameOverStats = ({ gameState }) => {
   });
   const [deleteUserScore] = useMutation(DELETE_USER_SCORE);
   const [deleteLeaderScore] = useMutation(DELETE_LEADERBOARD_SCORE);
+  const [replaceLeaderScore] = useMutation(REPLACE_LEADERBOARD_SCORE, {
+    variables: { currentScore },
+    refetchQueries: refetch,
+  });
 
   const [isHighScore, setIsHighScore] = useState({
     user: false,
@@ -63,13 +68,16 @@ const GameOverStats = ({ gameState }) => {
   });
 
   useEffect(() => {
-    if (!loadingLeaderboard) {
+    if (!loadingLeaderboard && !loadingUser) {
       let leaderboardDataScores = leaderboardData?.leaderboard.highscores || [];
-      const scores = leaderboardDataScores.map((user) => user.score);
+      const scores = leaderboardDataScores.map((user) => user.score); //get array of all leader scores in order
+      const leaders = leaderboardDataScores.map(leader => leader.user); //get array of all leaders usernames in order
 
+      const userLeaderBoardIndex = leaders.indexOf(data.me.username); //returns index of where current user is on leaderboard. If not on leaderboard returns -1
+      console.log('Username: ', data.me.username, 'User index: ', userLeaderBoardIndex)
       const lowestScore = scores[0] ? Math.min(...scores) : 0;
 
-      if (currentScore > lowestScore) {
+      if (currentScore > lowestScore && userLeaderBoardIndex === -1) { //if user made the leaderboard and is not already on the leaderboard...
         if (scores.length >= 10) {
           deleteLeaderScore();
         }
@@ -81,9 +89,19 @@ const GameOverStats = ({ gameState }) => {
         } catch (e) {
           throw e;
         }
+      } else {
+        if (currentScore > scores[userLeaderBoardIndex]) {
+          setIsHighScore((old) => ({ ...old, leaderboard: true }));
+          //replace users old leaderboard
+         const updatedWithReplaced =  replaceLeaderScore({
+            variables: { score: currentScore },
+          });
+          console.log('Replaced score: ', updatedWithReplaced)
+
+        } 
       }
     }
-  }, [loadingLeaderboard]);
+  }, [loadingLeaderboard, loadingUser]);
 
   return (
     <Container maxWidth="md">

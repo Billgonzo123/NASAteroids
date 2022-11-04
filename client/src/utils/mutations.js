@@ -82,3 +82,15 @@ export const DELETE_LEADERBOARD_SCORE = gql`
     }
   }
 `;
+
+export const REPLACE_LEADERBOARD_SCORE = gql`
+  mutation replaceLeaderboardHighscore($score: Int) {
+    replaceLeaderboardHighscore(score: $score) {
+      highscores {
+        score
+        user
+        date
+      }
+    }
+  }
+`;

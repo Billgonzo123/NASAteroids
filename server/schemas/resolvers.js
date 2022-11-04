@@ -131,6 +131,24 @@ const resolvers = {
         return updatedLeaderboard;
       }
     },
+    replaceLeaderboardHighscore: async (parent, { score }, context) => {
+      if (context.user) {
+        const all = await Leaderboard.findOne();
+
+        console.log('leaderboard data: ', all)
+        // const highscore = {
+        //   score: score,
+        //   user: context.user.username,
+        //   date: new Date().toLocaleDateString('en-US'),
+        // };
+
+        // const updatedLeaderboard = await Leaderboard.findOneAndReplace(
+        //   { user: context.user.username },
+        //   { highscore }
+        // );
+        return all;
+      }
+    },
   },
 };
 
