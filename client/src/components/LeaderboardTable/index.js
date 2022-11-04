@@ -15,8 +15,15 @@ function createData(userName, score) {
 }
 
 export default function LeaderboardTable() {
-  const { loading, data, error } = useQuery(GET_LEADERBOARD);
+  const { loading, data, error, refetch } = useQuery(GET_LEADERBOARD);
   let rows = [];
+
+  useEffect(()=>{
+    if (!loading) {
+      console.log('refecthing leader data...')
+      refetch();
+    }
+  }, [loading]); //makes sure data is up to date
 
   if (data) {
     let highscores = data.leaderboard.highscores || [];

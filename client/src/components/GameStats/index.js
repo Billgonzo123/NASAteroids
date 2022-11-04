@@ -30,6 +30,8 @@ const GameOverStats = ({ gameState }) => {
     leaderboard: false,
   });
 
+  const [doneUpdatingLeaders, setDoneUpdating] = useState(false)
+
   useEffect(() => {
     if (!loadingUser) {
       let userDataScores = data?.me.highscores || [];
@@ -88,9 +90,10 @@ const GameOverStats = ({ gameState }) => {
         } catch (e) {
           throw e;
         }
+       
       } else {
         if (currentScore > scores[userLeaderBoardIndex]) {
-        
+          setIsHighScore((old) => ({ ...old, leaderboard: true }));
           //replace users old leaderboard
           try{
             replaceLeaderScore({
@@ -99,9 +102,7 @@ const GameOverStats = ({ gameState }) => {
           } catch (e) {
             throw e;
           }
-          setIsHighScore((old) => ({ ...old, leaderboard: true }));
-
-
+          
         }
       }
     }
@@ -122,7 +123,7 @@ const GameOverStats = ({ gameState }) => {
           <Profile />
         </Grid>
         <Grid item xs={6} align="center">
-            <Leaderboard />
+        <Leaderboard />
         </Grid>
       </Grid>
     </Container>
