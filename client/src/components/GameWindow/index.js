@@ -6,6 +6,7 @@ import Player from '../Player';
 import Asteroid from '../Asteroid';
 import AudioEl from "../AudioEl/AudioEl";
 import GameOver from "../GameOver";
+import Touch  from "../Touch";
 
 //utilities
 import motion from '../../utils/gameUtils/motion';
@@ -33,6 +34,7 @@ const GameWindow = ({ gameState, setGameState }) => {
   const [bullets, setBullets] = useState([]);
 //----------------------------Variables-------------------------//
   const keysPressed = useRef([]);
+  const tpCache = useRef([]);
   let screenWidth = window.innerWidth;
   const level = useRef(1);
   const numOfAst = useRef();
@@ -131,6 +133,8 @@ const GameWindow = ({ gameState, setGameState }) => {
         id="game-window"
         className="App"
         style={{ "transform": `scale(${screenScale})` }}>
+
+      {(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) ? <Touch tpCache={tpCache}/> : ("")}
         {(gameState.lives === 3 && globalPlayer.invnsTimer) ? (<div id='start-display'>{(gameState.curLevel === 1) ? "!START!" : ''}</div>) : ('')}
         {(globalPlayer.invnsTimer && gameState.curLevel !== 1 && bonus.current) ? (<div id='bonus-element'>Bonus:{bonus.current}</div>) : ('')}
         {(globalPlayer.invnsTimer && gameState.curLevel !== 1 && bonus.current !== 10000 && bonus.current) ? (<div id='no-bonus-element'>No Time Bonus</div>) : ('')}
