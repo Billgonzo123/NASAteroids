@@ -6,7 +6,7 @@ import Player from '../Player';
 import Asteroid from '../Asteroid';
 import AudioEl from "../AudioEl/AudioEl";
 import GameOver from "../GameOver";
-import Touch  from "../Touch";
+import Touch from "../Touch";
 
 //utilities
 import motion from '../../utils/gameUtils/motion';
@@ -18,13 +18,13 @@ import checkShipCollision from '../../utils/collisions/checkShipCollision';
 import checkBulletCollision from '../../utils/collisions/checkBulletCollision';
 import asteroidGeneration from '../../utils/createObjects/asteroidGeneration';
 import generateBullet from '../../utils/createObjects/generateBullet';
-import { playSound, playSoundCancel} from '../../utils/playSound';
+import { playSound, playSoundCancel } from '../../utils/playSound';
 import { checkScreenScale } from '../../utils/gameUtils/checkScreenScale';
 
 const GameWindow = ({ gameState, setGameState }) => {
-//------------------------------States---------------------------//
+  //------------------------------States---------------------------//
   const gameSpeed = 16.667;//16.667ms per frame = ~ 60fps
-  const [ufo, setUfo] = useState({ x: -200, y: 50, bullet: {x: -1000, y: -1000} });
+  const [ufo, setUfo] = useState({ x: -200, y: 50, bullet: { x: -1000, y: -1000 } });
   const [screenScale, setScreenScale] = useState(window.innerWidth / 1920);
   const [globalPlayer, setGlobalPlayer] = useState({
     x: 906, y: 478, xB: 906, yB: 478, dir: 90, thrust: 0.2, vx: 0, vy: 0,
@@ -32,7 +32,7 @@ const GameWindow = ({ gameState, setGameState }) => {
   });
   const [asteroids, setAsteroids] = useState({});
   const [bullets, setBullets] = useState([]);
-//----------------------------Variables-------------------------//
+  //----------------------------Variables-------------------------//
   const keysPressed = useRef([]);
   const tpCache = useRef([]);
   let screenWidth = window.innerWidth;
@@ -57,34 +57,35 @@ const GameWindow = ({ gameState, setGameState }) => {
 
   // -----------------WHERE GAME LOGIC GOES----------------//
   useEffect(() => {
-      level.current = gameState.curLevel;
-      numOfAst.current = document.querySelectorAll('#asteroid-object').length;
+    level.current = gameState.curLevel;
+    numOfAst.current = document.querySelectorAll('#asteroid-object').length;
     //update object states--
-      setAsteroids((oldPositions) => updateAsteroids(oldPositions, level.current));
-      if (bullets) setBullets((oldPositions) => (updateBullet(oldPositions)));
-      if (isUfo.current) setUfo(old => (updateUfo(old, globalPlayer)));
+    setAsteroids((oldPositions) => updateAsteroids(oldPositions, level.current));
+    if (bullets) setBullets((oldPositions) => (updateBullet(oldPositions)));
+    if (isUfo.current) setUfo(old => (updateUfo(old, globalPlayer)));
     //   //UFO Checks--
-   
-      if (ufo.x > 1920) isUfo.current = 0;
-      //Make bullets--
-      if (globalPlayer.alive && spaceDown.current === 1 && bullets.length <= 5) {
-        spaceDown.current = 2;
-        playSoundCancel('bullet_snd');
-        setBullets((old) => ([...old, generateBullet(globalPlayer)]));
-        setTimeout(() => (spaceDown.current === 2) ? spaceDown.current = 1 : false, 200)
-      }
-      //New Level--
-      if (numOfAst.current <= 0) {
-        (gameState.timer <= 30) ? bonus.current = 10000 : bonus.current = 1000;
-        if (gameState.curLevel === 0) bonus.current = 0;
-        setGlobalPlayer(old => ({ ...old, invnsTimer: 120 }));
-        setGameState(old => ({ ...old, curLevel: old.curLevel + 1, timer: 0, score: (old.score + bonus.current) }))
-        setAsteroids(asteroidGeneration(asteroids, globalPlayer, 2, gameState.curLevel + 1, 0, 0, 1));
-        setTimeout(() => bonus.current = 0, 3000);
-      }
-      //collision checks--
-      checkBulletCollision(bullets, setBullets, setAsteroids, asteroids, globalPlayer, setGameState, ufo, setUfo);
-      checkShipCollision(globalPlayer, setGlobalPlayer, setGameState, asteroids, ufo);
+
+    if (ufo.x > 1920) isUfo.current = 0;
+    //Make bullets--
+    if (globalPlayer.alive && spaceDown.current === 1 && bullets.length <= 5) {
+      spaceDown.current = 2;
+      playSoundCancel('bullet_snd');
+      setBullets((old) => ([...old, generateBullet(globalPlayer)]));
+      setTimeout(() => (spaceDown.current === 2) ? spaceDown.current = 1 : false, 200)
+    }
+  
+    //New Level--
+    if (numOfAst.current <= 0) {
+      (gameState.timer <= 30) ? bonus.current = 10000 : bonus.current = 1000;
+      if (gameState.curLevel === 0) bonus.current = 0;
+      setGlobalPlayer(old => ({ ...old, invnsTimer: 120 }));
+      setGameState(old => ({ ...old, curLevel: old.curLevel + 1, timer: 0, score: (old.score + bonus.current) }))
+      setAsteroids(asteroidGeneration(asteroids, globalPlayer, 2, gameState.curLevel + 1, 0, 0, 1));
+      setTimeout(() => bonus.current = 0, 3000);
+    }
+    //collision checks--
+    checkBulletCollision(bullets, setBullets, setAsteroids, asteroids, globalPlayer, setGameState, ufo, setUfo);
+    checkShipCollision(globalPlayer, setGlobalPlayer, setGameState, asteroids, ufo);
     //DONT PUT ANYMORE INTO DEPENDENCY!! globalPlayer constantly updates!
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [globalPlayer]);
@@ -124,7 +125,7 @@ const GameWindow = ({ gameState, setGameState }) => {
       clearInterval(timer.current);
     };
   }, [globalPlayer.alive]);
-  window.scrollTo(0,0);
+  window.scrollTo(0, 0);
   document.body.style.overflow = 'hidden';
   //-----------------------JSX-------------------------//
   return (
@@ -134,7 +135,7 @@ const GameWindow = ({ gameState, setGameState }) => {
         className="App"
         style={{ "transform": `scale(${screenScale})` }}>
 
-      {(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) ? <Touch tpCache={tpCache}/> : ("")}
+        {(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) ? <Touch tpCache={tpCache} spaceDown={spaceDown} /> : ("")}
         {(gameState.lives === 3 && globalPlayer.invnsTimer) ? (<div id='start-display'>{(gameState.curLevel === 1) ? "!START!" : ''}</div>) : ('')}
         {(globalPlayer.invnsTimer && gameState.curLevel !== 1 && bonus.current) ? (<div id='bonus-element'>Bonus:{bonus.current}</div>) : ('')}
         {(globalPlayer.invnsTimer && gameState.curLevel !== 1 && bonus.current !== 10000 && bonus.current) ? (<div id='no-bonus-element'>No Time Bonus</div>) : ('')}
@@ -144,7 +145,7 @@ const GameWindow = ({ gameState, setGameState }) => {
         <Hud gameState={gameState} setGameState={setGameState} />
         {/* UFO */}
         <img id="ufo-object" alt="ufo" style={{ 'left': ufo.x }} src={require(`../../assets/img/${ufoSprite}.png`)}></img>
-        <img id='bullet-object' alt="bullet" src={require("../../assets/img/bullet.png")} style={motion(ufo.bullet.x, ufo.bullet.y, ufo.bullet.dir)}/>
+        <img id='bullet-object' alt="bullet" src={require("../../assets/img/bullet.png")} style={motion(ufo.bullet.x, ufo.bullet.y, ufo.bullet.dir)} />
         {/*--------- RENDER PLAYER / GAME OVER ---------*/}
         {globalPlayer.alive ? (
           <Player globalPlayer={globalPlayer} />
@@ -154,7 +155,7 @@ const GameWindow = ({ gameState, setGameState }) => {
         {/*--------- RENDER BULLETS ---------*/}
         {bullets.map((pos) => {
           return pos ? (
-            <img id='bullet-object' alt="bullet-sprite" src={require("../../assets/img/bullet.png")} style={motion(pos.x, pos.y, pos.dir)}/>
+            <img id='bullet-object' alt="bullet-sprite" src={require("../../assets/img/bullet.png")} style={motion(pos.x, pos.y, pos.dir)} />
           ) : ("");
         })}
         {/*--------- RENDER ASTEROIDS ---------*/}

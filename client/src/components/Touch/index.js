@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-const Touch = ({ tpCache }) => {
+const Touch = ({ tpCache, spaceDown }) => {
    
 
     function toggleFullscreen() {
@@ -18,10 +18,12 @@ const Touch = ({ tpCache }) => {
         const e = event.touches;
         tpCache.current = [];
         for (let i = 0; i < event.touches.length; i++) {
-            console.log('touched button id: ', e[i].target.id)
             tpCache.current.push(e[i].target.id)
-            console.log('Current pressed touches: ', tpCache.current)
         }
+
+        //simulate space press
+        if (tpCache.current.includes("shootBtn") && spaceDown.current !== 2) spaceDown.current = 1;
+        if (!tpCache.current.includes("shootBtn")) spaceDown.current = 0;
     }
 
     useEffect(() => {
