@@ -164,8 +164,8 @@ const GameWindow = ({ gameState, setGameState }) => {
         })}
       </div>
       <div id="black-bar" style={{ top: `${screenScale * 980}px` }} />
-      
-      {(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) ? 
+      {/*-------TOUCH CONTROLS------*/}
+      {(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) && globalPlayer.alive) ? 
       
       <Touch tpCache={tpCache} spaceDown={spaceDown} /> 
       

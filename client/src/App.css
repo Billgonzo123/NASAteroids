@@ -75,9 +75,10 @@ body {
   #actionButtons{
     position: relative;
    width: 40vw;
-   height: 50vh;
+   height: 40vh;
    bottom: 20vh;
    left: 55vw;
+   margin: 0px;
   }
   #thrustBtn{
     position: relative;
@@ -92,7 +93,14 @@ body {
       top: 5%;
       left: 8%;
   }
+#quitLogoutMobile{
+  scale: 2;
+  position: fixed;
+  top: 30px;
+  left: 75vw;
+align-self: center;
 
+}
 
 #game-window {
   background-image: url("./assets/space.gif");
