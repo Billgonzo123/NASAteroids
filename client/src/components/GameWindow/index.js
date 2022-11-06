@@ -49,7 +49,7 @@ const GameWindow = ({ gameState, setGameState }) => {
       //This setState stays here to trigger the useState below
       //By grouping all the state changes in the useEffect we get better performance
       //but we need to change a state to loop the useEffect
-      setGlobalPlayer((oldPlayer) => updatePlayer(oldPlayer, keysPressed.current));
+      setGlobalPlayer((oldPlayer) => updatePlayer(oldPlayer, keysPressed.current, tpCache));
       checkScreenScale(screenWidth, setScreenScale);
       loop();
     }, gameSpeed);

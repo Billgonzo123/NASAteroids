@@ -1,12 +1,12 @@
 import { playSound, stopSound } from "../playSound";
 
-function updatePlayer(globalPlayer, keysPressed) {
+function updatePlayer(globalPlayer, keysPressed, tpCache) {
     let { x, y, xB, yB, dir, thrust, vx, vy, turnSpeed, spriteDim, alive, invnsTimer, pressW } = globalPlayer;
     if (invnsTimer > 0) invnsTimer--;
 
     //if 'w' key opressed, add velocity in direction
 
-    if (keysPressed.includes('w')) {
+    if (keysPressed.includes('w') || tpCache.current.includes('thrustBtn')) {
         pressW = true;
         if (globalPlayer.alive) playSound('engine_snd')
         vx -= thrust * Math.cos((dir) * Math.PI / 180);
@@ -16,10 +16,10 @@ function updatePlayer(globalPlayer, keysPressed) {
         pressW = false;
     }
     //Rotate ship whe A or D pressed
-    if (keysPressed.includes('d')) {
+    if (keysPressed.includes('d') || tpCache.current.includes('rightBtn')) {
         (dir < 360) ? dir += turnSpeed : dir = 0;
     }
-    if (keysPressed.includes('a')) {
+    if (keysPressed.includes('a') || tpCache.current.includes('leftBtn')) {
         (dir <= 0) ? dir = 360 : dir -= turnSpeed;
     }
     //constatley update momentum
