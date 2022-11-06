@@ -135,7 +135,6 @@ const GameWindow = ({ gameState, setGameState }) => {
         className="App"
         style={{ "transform": `scale(${screenScale})` }}>
 
-        {(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) ? <Touch tpCache={tpCache} spaceDown={spaceDown} /> : ("")}
         {(gameState.lives === 3 && globalPlayer.invnsTimer) ? (<div id='start-display'>{(gameState.curLevel === 1) ? "!START!" : ''}</div>) : ('')}
         {(globalPlayer.invnsTimer && gameState.curLevel !== 1 && bonus.current) ? (<div id='bonus-element'>Bonus:{bonus.current}</div>) : ('')}
         {(globalPlayer.invnsTimer && gameState.curLevel !== 1 && bonus.current !== 10000 && bonus.current) ? (<div id='no-bonus-element'>No Time Bonus</div>) : ('')}
@@ -165,6 +164,12 @@ const GameWindow = ({ gameState, setGameState }) => {
         })}
       </div>
       <div id="black-bar" style={{ top: `${screenScale * 980}px` }} />
+      
+      {(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) ? 
+      
+      <Touch tpCache={tpCache} spaceDown={spaceDown} /> 
+      
+      : ("")}
     </>
   );
 };

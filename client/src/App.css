@@ -31,6 +31,69 @@ body {
   text-align: center;
 }
 
+
+
+#touch-component{
+  width: 100vw;
+  position:fixed;
+  z-index: 101;
+  top:70%;
+}
+.touchButton{
+  border: none;
+  outline: none;
+  background-color: transparent;
+  position:fixed;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+  border-radius: 150px;
+  opacity: .5;
+  font-size: xx-large;
+  width: 15vw;
+  height: 30vh;
+  margin: 2vw;
+  min-height: 60px;
+}
+
+/* .touchButton:active {
+  opacity: 1;
+} */
+
+#leftBtn{
+  background-image: url(./img/left-button.png);
+  top: 60%;
+  
+  
+  }
+  #rightBtn{
+      background-image: url(./img/right-button.png);
+      top: 60%;
+      left: 20%;
+  }
+
+  #actionButtons{
+    position: relative;
+   width: 40vw;
+   height: 50vh;
+   bottom: 20vh;
+   left: 55vw;
+  }
+  #thrustBtn{
+    position: relative;
+      background-image: url(./img/a-button.png);
+      top: 0%;
+      left: 0%;
+      
+  }
+  #shootBtn{
+    position: relative;
+      background-image: url(./img/b-button.png);
+      top: 5%;
+      left: 8%;
+  }
+
+
 #game-window {
   background-image: url("./assets/space.gif");
   background-repeat: repeat;

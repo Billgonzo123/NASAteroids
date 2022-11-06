@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 
 const Touch = ({ tpCache, spaceDown }) => {
-   
+
 
     function toggleFullscreen() {
         const elem = document.querySelector("body");
@@ -44,17 +44,23 @@ const Touch = ({ tpCache, spaceDown }) => {
                 getTouch(event)
             }
         }, false);
-
-
-
     }, [])
 
-    return (<>
-    <button id='leftBtn'>leftBtn</button>
-    <button id='rightBtn'>rightBtn</button>
-    <button id='thrustBtn'>thrustBtn</button>
-    <button id='shootBtn'>shootBtn</button>
-    </>)
+    return (
+        <div id="touch-component">
+
+            <button id='leftBtn' className='touchButton' />
+            <button id='rightBtn' className='touchButton' />
+
+            <div id='actionButtons'>
+                <button id='thrustBtn' className='touchButton' />
+                <button id='shootBtn' className='touchButton' />
+            </div>
+
+
+
+        </div>
+    )
 }
 
 export default Touch;
