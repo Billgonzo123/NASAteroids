@@ -30,14 +30,14 @@ export default function HudFooter() {
                             <div id="quitLogoutMobile">
                                 <button
                                     type="button"
-                                    className="nes-btn upperCase"
+                                    className="nes-btn upperCase mobile-button"
                                     onClick={handleQuit}>
                                     Quit
                                 </button>
-                                <button style={{"opacity": "0", "width": "8vw"}}></button> {/*Space between buttons, lol */}
+                                <button style={{"opacity": "0", "width": "150px"}}></button> {/*Space between buttons, lol */}
                                 <button
                                     type="button"
-                                    className="nes-btn upperCase"
+                                    className="nes-btn upperCase mobile-button"
                                     onClick={handleLogout}>
                                     Logout
                                 </button>

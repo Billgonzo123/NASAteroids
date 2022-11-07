@@ -94,12 +94,18 @@ body {
       left: 8%;
   }
 #quitLogoutMobile{
-  scale: 2;
+  scale: 1;
+  width: 100%;
   position: fixed;
-  top: 30px;
-  left: 75vw;
-align-self: center;
-
+  top: 5px;
+  left: 47%;
+}
+.mobile-button{
+  font-size: 30px;
+  opacity: .5;
+  border-radius: 50px;;
+  height: 75px;
+  width: 300px;
 }
 
 #game-window {
