@@ -2,15 +2,18 @@ import * as React from "react";
 import { Box, Grid, Typography, } from "@mui/material";
 import Auth from "../../utils/auth";
 import { useHistory } from 'react-router-dom';
+import { toggleFullscreen } from "../../utils/gameUtils/toggleFullscreen";
 
 export default function HudFooter() {
     const navigate = useHistory();
 
     const handleQuit = () => {
+        document.exitFullscreen();
         window.location = "/start";
     }
 
     const handleLogout = () => {
+        document.exitFullscreen();
         Auth.logout();
         window.location = "/";
     }
@@ -34,7 +37,7 @@ export default function HudFooter() {
                                     onClick={handleQuit}>
                                     Quit
                                 </button>
-                                <button style={{"opacity": "0", "width": "150px"}}></button> {/*Space between buttons, lol */}
+                                <button style={{ "opacity": "0", "width": "150px" }}></button> {/*Space between buttons, lol */}
                                 <button
                                     type="button"
                                     className="nes-btn upperCase mobile-button"

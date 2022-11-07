@@ -7,6 +7,7 @@ import { Box, Container, Grid, CardActions } from "@mui/material";
 import Auth from "../utils/auth";
 import { playMenuSound } from "../utils/playSound";
 import Logo from "../assets/img/logo.svg";
+import { toggleFullscreen } from "../utils/gameUtils/toggleFullscreen.js";
 
 const Start = ({ gameState, setGameState }) => {
   useEffect(() => {
@@ -29,6 +30,7 @@ const Start = ({ gameState, setGameState }) => {
   const navigate = useHistory();
 
   const handleStart = () => {
+    toggleFullscreen();
     navigate.push("/main");
   };
   const handleLogout = () => {
