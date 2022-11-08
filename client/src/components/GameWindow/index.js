@@ -42,6 +42,7 @@ const GameWindow = ({ gameState, setGameState }) => {
   const spaceDown = useRef(0);
   const bonus = useRef();
   const isUfo = useRef(0);
+
   const ufoSprite = (Math.random < .1) ? 'ufo - rick' : 'ufo';
   //-------------------------GAME LOOP-------------------------//
   const loop = () => {
@@ -73,7 +74,7 @@ const GameWindow = ({ gameState, setGameState }) => {
       setBullets((old) => ([...old, generateBullet(globalPlayer)]));
       setTimeout(() => (spaceDown.current === 2) ? spaceDown.current = 1 : false, 200)
     }
-  
+
     //New Level--
     if (numOfAst.current <= 0) {
       (gameState.timer <= 30) ? bonus.current = 10000 : bonus.current = 1000;
@@ -129,11 +130,13 @@ const GameWindow = ({ gameState, setGameState }) => {
   document.body.style.overflow = 'hidden';
   //-----------------------JSX-------------------------//
   return (
-    <>
+    <div id="game-container">
+      <div className="side-border" style={{ width: `${(window.innerWidth - (screenScale * 1920)) / 2}px` }} />
+      <div className="side-border" style={{ width: `${(window.innerWidth - (screenScale * 1920)) / 2}px`, left: `${(window.innerWidth - (screenScale * 1920)) / 2+((screenScale * 1920))}px` }} /> {/**left black bar*/}
       <div
         id="game-window"
         className="App"
-        style={{ "transform": `scale(${screenScale})` }}>
+        style={{ transform: `scale(${screenScale})`, left: `${(window.innerWidth - (screenScale * 1920)) / 2}px` }}> {/*"left" keeps the window centered based on the screen scale */}
 
         {(gameState.lives === 3 && globalPlayer.invnsTimer) ? (<div id='start-display'>{(gameState.curLevel === 1) ? "!START!" : ''}</div>) : ('')}
         {(globalPlayer.invnsTimer && gameState.curLevel !== 1 && bonus.current) ? (<div id='bonus-element'>Bonus:{bonus.current}</div>) : ('')}
@@ -163,14 +166,15 @@ const GameWindow = ({ gameState, setGameState }) => {
           return pos.alive ? <Asteroid pos={pos} posId={posId} /> : '';
         })}
       </div>
+
       <div id="black-bar" style={{ top: `${screenScale * 980}px` }} />
       {/*-------TOUCH CONTROLS------*/}
-      {(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) && globalPlayer.alive) ? 
-      
-      <Touch tpCache={tpCache} spaceDown={spaceDown} /> 
-      
-      : ("")}
-    </>
+      {(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) && globalPlayer.alive) ?
+
+        <Touch tpCache={tpCache} spaceDown={spaceDown} />
+
+        : ("")}
+    </div>
   );
 };
 export default GameWindow;

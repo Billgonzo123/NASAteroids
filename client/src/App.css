@@ -108,12 +108,23 @@ body {
   width: 300px;
 }
 
+#game-container {
+display: flex;
+align-content:center;
+}
+.side-border{
+  position: absolute;
+  height: 100vh;
+  background-color: rgb(0, 0, 0);
+  z-index: 100;
+}
 #game-window {
   background-image: url("./assets/space.gif");
   background-repeat: repeat;
   position: absolute;
   top: 0px;
   left: 0px;
+  
   transform-origin: top left;
   /* the width and height must be fixed! Use transform: scale() on the body to change size of all elements */
   width: 1920px;
