@@ -4,7 +4,7 @@ import Auth from "../../utils/auth";
 import { useHistory } from 'react-router-dom';
 import { toggleFullscreen } from "../../utils/gameUtils/toggleFullscreen";
 
-export default function HudFooter() {
+export default function HudFooter({setGameState}) {
     const navigate = useHistory();
 
     const handleQuit = () => {
@@ -12,10 +12,22 @@ export default function HudFooter() {
         window.location = "/start";
     }
 
-    const handleLogout = () => {
-        document.exitFullscreen();
-        Auth.logout();
-        window.location = "/";
+    const handleRetry = () => {
+        //retry
+        setGameState((old) => ({
+            ...old,
+            curLevel: 0,
+            score: 0,
+            exp: 0,
+            lives: 3,
+            playerLevel: 0,
+            numberOfAsteroids: 0,
+            timer: 0,
+            paused: 0,
+            gameOver: 0,
+            loggedIn: 0
+          }));
+          window.location = "/main";
     }
 
     return (
@@ -34,15 +46,16 @@ export default function HudFooter() {
                                 <button
                                     type="button"
                                     className="nes-btn upperCase mobile-button"
-                                    onClick={handleQuit}>
-                                    Quit
+                                    onClick={handleRetry}>
+                                    Retry
                                 </button>
+
                                 <button style={{ "opacity": "0", "width": "150px" }}></button> {/*Space between buttons, lol */}
                                 <button
                                     type="button"
                                     className="nes-btn upperCase mobile-button"
-                                    onClick={handleLogout}>
-                                    Logout
+                                    onClick={handleQuit}>
+                                    Quit
                                 </button>
                             </div>
                         </>)
@@ -59,14 +72,14 @@ export default function HudFooter() {
                                         <button
                                             type="button"
                                             className="nes-btn upperCase"
-                                            onClick={handleQuit}>
-                                            Quit
+                                            onClick={handleRetry}>
+                                            Retry
                                         </button>
                                         <button
                                             type="button"
                                             className="nes-btn upperCase"
-                                            onClick={handleLogout}>
-                                            Logout
+                                            onClick={handleQuit}>
+                                            Quit
                                         </button>
                                     </Box>
                                 </Grid>

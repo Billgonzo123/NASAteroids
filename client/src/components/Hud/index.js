@@ -13,7 +13,7 @@ export default function Hud({gameState, setGameState}) {
         left: '0px'
       }}>
         <HudHeader gameState={gameState} setGameState={setGameState} />
-        <HudFooter />
+        <HudFooter setGameState={setGameState}/>
     </Box>
   );
 }

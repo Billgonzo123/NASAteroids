@@ -4,12 +4,16 @@ import { GET_ME } from "../../utils/queries";
 import { useQuery } from "@apollo/client";
 
 export default function HudHeader({gameState, setGameState}) {
+
     const { loading, error, data } = useQuery(GET_ME);
 
     const user = data?.me || {};
 
     useEffect(() => {
-        setGameState((old) => ({ ...old, username: user.username}));
+        if (gameState.loggedIn) {
+            setGameState((old) => ({ ...old, username: user.username}));
+        }
+      
     }, [user]);
 
   return (
