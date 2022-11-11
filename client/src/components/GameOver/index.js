@@ -2,8 +2,7 @@ import * as React from 'react';
 import { Typography, Container } from '@mui/material';
 import GameOverStats from '../GameStats';
 
-
-export default function ({gameState}) {
+export default function GameOver({ gameState }) {
   return (
   <Container component="main" sx={{mb: 2 }} maxWidth="lg">
     <Typography
