@@ -131,6 +131,26 @@ const resolvers = {
         return updatedLeaderboard;
       }
     },
+
+    replaceLeaderboardHighscore: async (parent, { score }, context) => {
+      console.log('newScore:', context.user.username, ' ; ', score)
+      if (context.user) {
+        const all = await Leaderboard.findOne();
+
+        const updatedLeaderboard = await Leaderboard.findOneAndUpdate(
+          { _id: all._id },
+          { $set: {"highscores.$[i].score": score } },
+          { 
+            arrayFilters: [
+              {
+                "i.user": context.user.username
+              }
+            ]
+          }
+        );
+        return updatedLeaderboard;
+      }
+    },
   },
 };
 

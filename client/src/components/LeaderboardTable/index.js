@@ -15,11 +15,18 @@ function createData(userName, score) {
 }
 
 export default function LeaderboardTable() {
-  const { loading, data, error } = useQuery(GET_LEADERBOARD);
+  const { loading, data, error, refetch } = useQuery(GET_LEADERBOARD);
   let rows = [];
 
+  useEffect(()=>{
+    if (!loading) {
+      console.log('refecthing leader data...')
+      refetch();
+    }
+  }, [loading]); //makes sure data is up to date
+
   if (data) {
-    let highscores = data?.leaderboard.highscores || [];
+    let highscores = data.leaderboard.highscores || [];
     let scores = [...highscores];
     
     scores.sort((a, b) => (a.score > b.score ? -1 : 1));
@@ -38,6 +45,7 @@ export default function LeaderboardTable() {
 
   if (error) {
     console.log(error);
+    return <p>No high scores yet!</p>
   }
 
   return (

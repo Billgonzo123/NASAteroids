@@ -10,17 +10,20 @@
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=flat&logo=node.js&logoColor=white)
 ![Apollo-GraphQL](https://img.shields.io/badge/-ApolloGraphQL-311C87?style=flat&logo=apollo-graphql)
 
-NASAteroids (NASA + Asteroids), is a recreation of the 1979 Atari game built in React.  This application utilizes MUI components and an NES-style CSS frame work for UI, MongoDB and GraphQL for database models and API queries.
+NASAteroids (NASA + Asteroids), is a recreation of the 1979 Atari game built in React.  This application utilizes MUI components and an NES-style CSS frame work for UI, MongoDB and GraphQL for database models and API queries. 
+
+## Try it out [here](https://nasteroids.herokuapp.com/)
+(firefox users may come across performance issues)
 
 ## Table of Contents
-- [Deployment](#deployment)
+- [Deployment](#deployment) 
 - [Demo-Screenshot](#demo-screenshot)
 - [Usage](#usage)
 - [Contributors](#contributors)
 - [License](#license)
 
 ## Demo-Screenshot
-To demo the game visit [here](https://nasteroids.herokuapp.com/)
+
 
 ### Home:
 ![home-screen](/client/public/assets/img/Asteroids_Home.png)

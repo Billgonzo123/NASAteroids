@@ -1,6 +1,6 @@
 export function checkScreenScale(screenWidth,setScreenScale) {
-    if (screenWidth !== window.innerWidth) {
-        screenWidth = window.innerWidth;
-        setScreenScale((window.innerWidth) / (1920));
-      }
+  const h = window.innerHeight;
+  const w = window.innerWidth;
+  (w/h) > 1.8 ? setScreenScale((h) / (1080)) : setScreenScale((w) / (1920));
+  
 }

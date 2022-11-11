@@ -2,11 +2,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
 @import url("https://unpkg.com/nes.css@latest/css/nes.min.css");
 
+
+
 #hud-footer {
   opacity: 40%;
   position: relative;
   top:800px;
-  left: 0px;
+  left: 0px
+  ;
 }
 #hud-footer:hover {
   opacity: 100%;
@@ -31,12 +34,100 @@ body {
   text-align: center;
 }
 
+
+
+#touch-component{
+  width: 100vw;
+  position:fixed;
+  z-index: 101;
+  top:70%;
+}
+.touchButton{
+  border: none;
+  outline: none;
+  background-color: transparent;
+  position:fixed;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+  border-radius: 150px;
+  opacity: .5;
+  font-size: xx-large;
+  width: 15vw;
+  height: 30vh;
+  margin: 2vw;
+  min-height: 60px;
+}
+
+/* .touchButton:active {
+  opacity: 1;
+} */
+
+#leftBtn{
+  background-image: url(./img/left-button.png);
+  top: 60%;
+  
+  
+  }
+  #rightBtn{
+      background-image: url(./img/right-button.png);
+      top: 60%;
+      left: 20%;
+  }
+
+  #actionButtons{
+    position: relative;
+   width: 40vw;
+   height: 40vh;
+   bottom: 20vh;
+   left: 55vw;
+   margin: 0px;
+  }
+  #thrustBtn{
+    position: relative;
+      background-image: url(./img/a-button.png);
+      top: 0%;
+      left: 0%;
+      
+  }
+  #shootBtn{
+    position: relative;
+      background-image: url(./img/b-button.png);
+      top: 5%;
+      left: 8%;
+  }
+#quitLogoutMobile{
+  scale: 1;
+  width: 100%;
+  position: fixed;
+  top: 5px;
+  left: 47%;
+}
+.mobile-button{
+  font-size: 30px;
+  opacity: .5;
+  border-radius: 50px;;
+  height: 75px;
+  width: 300px;
+}
+
+#game-container {
+display: flex;
+align-content:center;
+}
+.side-border{
+  position: absolute;
+  height: 100vh;
+  background-color: rgb(0, 0, 0);
+  z-index: 100;
+}
 #game-window {
   background-image: url("./assets/space.gif");
   background-repeat: repeat;
   position: absolute;
   top: 0px;
   left: 0px;
+  
   transform-origin: top left;
   /* the width and height must be fixed! Use transform: scale() on the body to change size of all elements */
   width: 1920px;

@@ -2,9 +2,6 @@ import React from 'react';
 import GameWindow from '../components/GameWindow';
 import Auth from "../utils/auth";
 import { Redirect } from 'react-router-dom';
-// import { Responsive } from '../components/Responsive';
-import { BrowserView, MobileView } from 'react-device-detect';
-import MobileMainWindow from '../components/MobileMainWindow';
 
 const Main = ({
   gameState,
@@ -13,19 +10,18 @@ const Main = ({
   menuSoundstate,
 }) => {
 
-  if (!Auth.loggedIn()) {
-    return <Redirect to="/" />
-  }
+  // if (!Auth.loggedIn()) {
+  //   return <Redirect to="/" />
+  // }
 
   return (
-    <>
-    <BrowserView>
       <GameWindow
         menuSoundstate={menuSoundstate}
         setMenuSoundState={setMenuSoundState}
         setGameState={setGameState}
         gameState={gameState}
       />
+<<<<<<< HEAD
 <<<<<<< HEAD
     </Responsive>
     <Responsive displayIn={["Mobile"]}>
@@ -39,6 +35,8 @@ const Main = ({
 >>>>>>> 21d3c86159338249a21cc96b931c12a6dec31eae
     </>
     
+=======
+>>>>>>> feature/free-play
   );
 };
 

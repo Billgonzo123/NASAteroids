@@ -6,6 +6,7 @@ import Player from '../Player';
 import Asteroid from '../Asteroid';
 import AudioEl from "../AudioEl/AudioEl";
 import GameOver from "../GameOver";
+import Touch from "../Touch";
 
 //utilities
 import motion from '../../utils/gameUtils/motion';
@@ -17,13 +18,13 @@ import checkShipCollision from '../../utils/collisions/checkShipCollision';
 import checkBulletCollision from '../../utils/collisions/checkBulletCollision';
 import asteroidGeneration from '../../utils/createObjects/asteroidGeneration';
 import generateBullet from '../../utils/createObjects/generateBullet';
-import { playSound, playSoundCancel} from '../../utils/playSound';
+import { playSound, playSoundCancel } from '../../utils/playSound';
 import { checkScreenScale } from '../../utils/gameUtils/checkScreenScale';
 
 const GameWindow = ({ gameState, setGameState }) => {
-//------------------------------States---------------------------//
+  //------------------------------States---------------------------//
   const gameSpeed = 16.667;//16.667ms per frame = ~ 60fps
-  const [ufo, setUfo] = useState({ x: -200, y: 50, bullet: {x: -1000, y: -1000} });
+  const [ufo, setUfo] = useState({ x: -200, y: 50, bullet: { x: -1000, y: -1000 } });
   const [screenScale, setScreenScale] = useState(window.innerWidth / 1920);
   const [globalPlayer, setGlobalPlayer] = useState({
     x: 906, y: 478, xB: 906, yB: 478, dir: 90, thrust: 0.2, vx: 0, vy: 0,
@@ -31,8 +32,9 @@ const GameWindow = ({ gameState, setGameState }) => {
   });
   const [asteroids, setAsteroids] = useState({});
   const [bullets, setBullets] = useState([]);
-//----------------------------Variables-------------------------//
+  //----------------------------Variables-------------------------//
   const keysPressed = useRef([]);
+  const tpCache = useRef([]);
   let screenWidth = window.innerWidth;
   const level = useRef(1);
   const numOfAst = useRef();
@@ -40,6 +42,7 @@ const GameWindow = ({ gameState, setGameState }) => {
   const spaceDown = useRef(0);
   const bonus = useRef();
   const isUfo = useRef(0);
+
   const ufoSprite = (Math.random < .1) ? 'ufo - rick' : 'ufo';
   //-------------------------GAME LOOP-------------------------//
   const loop = () => {
@@ -47,7 +50,7 @@ const GameWindow = ({ gameState, setGameState }) => {
       //This setState stays here to trigger the useState below
       //By grouping all the state changes in the useEffect we get better performance
       //but we need to change a state to loop the useEffect
-      setGlobalPlayer((oldPlayer) => updatePlayer(oldPlayer, keysPressed.current));
+      setGlobalPlayer((oldPlayer) => updatePlayer(oldPlayer, keysPressed.current, tpCache));
       checkScreenScale(screenWidth, setScreenScale);
       loop();
     }, gameSpeed);
@@ -57,12 +60,12 @@ const GameWindow = ({ gameState, setGameState }) => {
   useEffect(() => {
       level.current = gameState.curLevel;
       numOfAst.current = document.querySelectorAll('#asteroid-object').length;
-    //update object states--
+      //update object states--
       setAsteroids((oldPositions) => updateAsteroids(oldPositions, level.current));
       if (bullets) setBullets((oldPositions) => (updateBullet(oldPositions)));
       if (isUfo.current) setUfo(old => (updateUfo(old, globalPlayer)));
-    //   //UFO Checks--
-   
+      //   //UFO Checks--
+
       if (ufo.x > 1920) isUfo.current = 0;
       //Make bullets--
       if (globalPlayer.alive && spaceDown.current === 1 && bullets.length <= 5) {
@@ -71,6 +74,7 @@ const GameWindow = ({ gameState, setGameState }) => {
         setBullets((old) => ([...old, generateBullet(globalPlayer)]));
         setTimeout(() => (spaceDown.current === 2) ? spaceDown.current = 1 : false, 200)
       }
+
       //New Level--
       if (numOfAst.current <= 0) {
         (gameState.timer <= 30) ? bonus.current = 10000 : bonus.current = 1000;
@@ -83,8 +87,8 @@ const GameWindow = ({ gameState, setGameState }) => {
       //collision checks--
       checkBulletCollision(bullets, setBullets, setAsteroids, asteroids, globalPlayer, setGameState, ufo, setUfo);
       checkShipCollision(globalPlayer, setGlobalPlayer, setGameState, asteroids, ufo);
-    //DONT PUT ANYMORE INTO DEPENDENCY!! globalPlayer constantly updates!
-    //eslint-disable-next-line react-hooks/exhaustive-deps
+      //DONT PUT ANYMORE INTO DEPENDENCY!! globalPlayer constantly updates!
+      //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [globalPlayer]);
 
   //-------------------------Key Input----------------------//
@@ -122,15 +126,20 @@ const GameWindow = ({ gameState, setGameState }) => {
       clearInterval(timer.current);
     };
   }, [globalPlayer.alive]);
-  window.scrollTo(0,0);
+
+  window.scrollTo(0, 0);
   document.body.style.overflow = 'hidden';
+  let borderWidth = (window.innerWidth - (screenScale * 1920)) / 2; //calcualtes the width of the left and right black bars
   //-----------------------JSX-------------------------//
   return (
-    <>
+    <div id="game-container">
+      <div className="side-border" style={{ width: `${borderWidth}px` }} />
+      <div className="side-border" style={{ width: `${borderWidth}px`, left: `${borderWidth + ((screenScale * 1920))}px` }} /> {/**left black bar*/}
       <div
         id="game-window"
         className="App"
-        style={{ "transform": `scale(${screenScale})` }}>
+        style={{ transform: `scale(${screenScale})`, left: `${borderWidth}px` }}> {/*"left" keeps the window centered based on the screen scale */}
+
         {(gameState.lives === 3 && globalPlayer.invnsTimer) ? (<div id='start-display'>{(gameState.curLevel === 1) ? "!START!" : ''}</div>) : ('')}
         {(globalPlayer.invnsTimer && gameState.curLevel !== 1 && bonus.current) ? (<div id='bonus-element'>Bonus:{bonus.current}</div>) : ('')}
         {(globalPlayer.invnsTimer && gameState.curLevel !== 1 && bonus.current !== 10000 && bonus.current) ? (<div id='no-bonus-element'>No Time Bonus</div>) : ('')}
@@ -140,27 +149,34 @@ const GameWindow = ({ gameState, setGameState }) => {
         <Hud gameState={gameState} setGameState={setGameState} />
         {/* UFO */}
         <img id="ufo-object" alt="ufo" style={{ 'left': ufo.x }} src={require(`../../assets/img/${ufoSprite}.png`)}></img>
-        <img id='bullet-object' alt="bullet" src={require("../../assets/img/bullet.png")} style={motion(ufo.bullet.x, ufo.bullet.y, ufo.bullet.dir)}/>
+        <img id='bullet-object' alt="bullet" src={require("../../assets/img/bullet.png")} style={motion(ufo.bullet.x, ufo.bullet.y, ufo.bullet.dir)} />
         {/*--------- RENDER PLAYER / GAME OVER ---------*/}
         {globalPlayer.alive ? (
           <Player globalPlayer={globalPlayer} />
         ) : (
-          <GameOver gameState={gameState} setGameState={setGameState} />
+          <GameOver gameState={gameState} />
         )}
         {/*--------- RENDER BULLETS ---------*/}
-        {bullets.map((pos) => {
+        {bullets.map((pos, i) => {
           return pos ? (
-            <img id='bullet-object' alt="bullet-sprite" src={require("../../assets/img/bullet.png")} style={motion(pos.x, pos.y, pos.dir)}/>
+            <img key={`bullet-${i}`} id='bullet-object' alt="bullet-sprite" src={require("../../assets/img/bullet.png")} style={motion(pos.x, pos.y, pos.dir)} />
           ) : ("");
         })}
         {/*--------- RENDER ASTEROIDS ---------*/}
         {Object.keys(asteroids).map((posId) => {
           const pos = asteroids[posId];
-          return pos.alive ? <Asteroid pos={pos} posId={posId} /> : '';
+          return pos.alive ? <Asteroid key={`asteroid-id-${posId}`} pos={pos} posId={posId} /> : '';
         })}
       </div>
+
       <div id="black-bar" style={{ top: `${screenScale * 980}px` }} />
-    </>
+      {/*-------TOUCH CONTROLS------*/}
+      {(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) && globalPlayer.alive) ?
+
+        <Touch tpCache={tpCache} spaceDown={spaceDown} />
+
+        : ("")}
+    </div>
   );
 };
 export default GameWindow;
