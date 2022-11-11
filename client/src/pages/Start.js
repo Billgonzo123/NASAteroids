@@ -22,6 +22,7 @@ const Start = ({ gameState, setGameState }) => {
       timer: 0,
       paused: 0,
       gameOver: 0,
+      loggedIn: 1
     }));
 
     playMenuSound("menu_select");

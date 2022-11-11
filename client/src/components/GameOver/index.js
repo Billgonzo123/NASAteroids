@@ -2,7 +2,8 @@ import * as React from 'react';
 import { Typography, Container } from '@mui/material';
 import GameOverStats from '../GameStats';
 
-export default function GameOver({ gameState, setGameState }) {
+
+export default function ({gameState}) {
   return (
   <Container component="main" sx={{mb: 2 }} maxWidth="lg">
     <Typography
@@ -13,7 +14,7 @@ export default function GameOver({ gameState, setGameState }) {
     >
       <div id="game-over">GAME OVER</div>
     </Typography>
-      <GameOverStats gameState={gameState}/>
+      {(gameState.loggedIn) ? <GameOverStats gameState={gameState}/> : <div style={{fontSize: "small", textAlign: "center", opacity: .4, marginTop: '5vh'}}>Log In To Join the Leaderboard</div> }
   </Container>
 );
 }

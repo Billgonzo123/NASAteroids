@@ -47,6 +47,7 @@ function App() {
     timer: 0,
     paused: 0,
     gameOver: 0,
+    loggedIn: 0
   });
 
   return (
@@ -61,7 +62,7 @@ function App() {
         <Router>
           <Switch>
             <Route exact path="/">
-              <Home />
+              <Home setGameState={setGameState} gameState={gameState}/>
             </Route>
             <Route exact path="/start">
               <Start setGameState={setGameState} gameState={gameState} />
