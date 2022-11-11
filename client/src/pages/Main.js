@@ -10,9 +10,9 @@ const Main = ({
   menuSoundstate,
 }) => {
 
-  if (!Auth.loggedIn()) {
-    return <Redirect to="/" />
-  }
+  // if (!Auth.loggedIn()) {
+  //   return <Redirect to="/" />
+  // }
 
   return (
       <GameWindow
