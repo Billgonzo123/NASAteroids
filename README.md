@@ -42,7 +42,7 @@ NASAteroids (NASA + Asteroids), is a recreation of the 1979 Atari game built in 
 
 ## Usage:
 
-- On the home screen you will see a leaderboard with the 10 highest player's score and button to login or signup.  If you are first visiting the app, be sure to signup in order to play the game.  If you are a returning user and have an account, just login.
+- On the home screen you will see a leaderboard with the 10 highest player's scores and button to login, signup or start a new game.  If you are first visiting the app, be sure to signup in order to compete on the leader board.  If you are a returning user and have an account, just login.
 - Once you are login in, you are taken to your user profile page where you again see the leaderboard along with your personal top 5 scores and buttons to start the game or logout.
 - Once you start the game you are taken to the gameplay screen.  Good luck and may the odds be ever in your favor.
 
