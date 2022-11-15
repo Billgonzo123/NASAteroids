@@ -15,6 +15,7 @@ const Touch = ({ tpCache, spaceDown }) => {
     }
 
     function getTouch(event) {
+        event.preventDefault();
         const e = event.touches;
         tpCache.current = [];
         for (let i = 0; i < event.touches.length; i++) {
@@ -37,7 +38,7 @@ const Touch = ({ tpCache, spaceDown }) => {
         }, false);
 
         window.addEventListener('touchend', function (event) {
-
+            event.preventDefault();
             if (event.target.id === 'FullScreen') {
                 toggleFullscreen()
             } else {
