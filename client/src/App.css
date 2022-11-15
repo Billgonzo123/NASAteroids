@@ -3,7 +3,6 @@
 @import url("https://unpkg.com/nes.css@latest/css/nes.min.css");
 
 
-
 #hud-footer {
   opacity: 40%;
   position: relative;
@@ -37,6 +36,7 @@ body {
 
 
 #touch-component{
+  -webkit-touch-callout: none;
   width: 100vw;
   position:fixed;
   z-index: 101;
