@@ -66,7 +66,7 @@ export default function HudFooter({setGameState}) {
                                 <Grid item xs={9}  >
                                     {/* Controls */}
                                     <Typography variant="h6" align="left">
-                                        Press W: Up | A:Left | D:Right
+                                        Move with Arrow keys or WSAD | Space to shoot 
                                     </Typography>
                                 </Grid>
                                 <Grid id="quitLogButtons" item xs={3} align="center">

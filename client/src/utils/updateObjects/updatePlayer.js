@@ -5,8 +5,8 @@ function updatePlayer(globalPlayer, keysPressed, tpCache) {
     if (invnsTimer > 0) invnsTimer--;
 
     //if 'w' key opressed, add velocity in direction
-
-    if (keysPressed.includes('w') || tpCache.current.includes('thrustBtn')) {
+console.log(keysPressed)
+    if (keysPressed.includes('w') || keysPressed.includes('arrowup')  || tpCache.current.includes('thrustBtn')) {
         pressW = true;
         if (globalPlayer.alive) playSound('engine_snd')
         vx -= thrust * Math.cos((dir) * Math.PI / 180);
@@ -16,10 +16,10 @@ function updatePlayer(globalPlayer, keysPressed, tpCache) {
         pressW = false;
     }
     //Rotate ship whe A or D pressed
-    if (keysPressed.includes('d') || tpCache.current.includes('rightBtn')) {
+    if (keysPressed.includes('d') || keysPressed.includes('arrowright')  || tpCache.current.includes('rightBtn')) {
         (dir < 360) ? dir += turnSpeed : dir = 0;
     }
-    if (keysPressed.includes('a') || tpCache.current.includes('leftBtn')) {
+    if (keysPressed.includes('a') || keysPressed.includes('arrowleft')  || tpCache.current.includes('leftBtn')) {
         (dir <= 0) ? dir = 360 : dir -= turnSpeed;
     }
     //constatley update momentum
