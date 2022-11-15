@@ -27,7 +27,9 @@ export default function HudFooter({setGameState}) {
             gameOver: 0,
             loggedIn: 0
           }));
-          window.location = "/main";
+         window.location = "/main";
+  
+
     }
 
     return (
