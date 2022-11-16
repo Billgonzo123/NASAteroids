@@ -13,6 +13,7 @@ export default function HudFooter({setGameState}) {
     }
 
     const handleRetry = () => {
+        const isLoggedIn = (Auth.loggedIn()) ? 1 : 0;
         //retry
         setGameState((old) => ({
             ...old,
@@ -25,9 +26,10 @@ export default function HudFooter({setGameState}) {
             timer: 0,
             paused: 0,
             gameOver: 0,
+            loggedIn: isLoggedIn
           }));
-         window.location = "/main";
-  
+         
+          window.location = "/main";
 
     }
 

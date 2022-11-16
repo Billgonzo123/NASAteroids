@@ -9,6 +9,7 @@ import GameOver from "../GameOver";
 import Touch from "../Touch";
 
 //utilities
+import Auth from "../../utils/auth";
 import motion from '../../utils/gameUtils/motion';
 import updateAsteroids from '../../utils/updateObjects/updateAsteroids';
 import updatePlayer from '../../utils/updateObjects/updatePlayer';
@@ -52,6 +53,7 @@ const GameWindow = ({ gameState, setGameState }) => {
       //but we need to change a state to loop the useEffect
       setGlobalPlayer((oldPlayer) => updatePlayer(oldPlayer, keysPressed.current, tpCache));
       checkScreenScale(screenWidth, setScreenScale);
+      console.log(gameState.loggedIn)
       loop();
     }, gameSpeed);
   };
@@ -88,6 +90,7 @@ const GameWindow = ({ gameState, setGameState }) => {
       checkBulletCollision(bullets, setBullets, setAsteroids, asteroids, globalPlayer, setGameState, ufo, setUfo);
       checkShipCollision(globalPlayer, setGlobalPlayer, setGameState, asteroids, ufo);
       //DONT PUT ANYMORE INTO DEPENDENCY!! globalPlayer constantly updates!
+    
       //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [globalPlayer]);
 
@@ -105,6 +108,7 @@ const GameWindow = ({ gameState, setGameState }) => {
 
   //------------------USE EFFECT ON MOUNT------------------//
   useEffect(() => {
+
     playSound("start_snd");
     // Start Game Timer
     timer.current = setInterval(() => {
@@ -116,6 +120,7 @@ const GameWindow = ({ gameState, setGameState }) => {
     }, 1000);
     document.addEventListener("keyup", logKeyUp);
     document.addEventListener("keydown", logKeyDown);
+    
     loop();//Start game loop
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

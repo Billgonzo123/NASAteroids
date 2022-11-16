@@ -12,7 +12,7 @@ import { useHistory } from "react-router-dom";
 
 const Home = ({gameState, setGameState}) => {
   const [show, setShow] = useState("Welcome");
-  const loggedIn = Auth.loggedIn();
+  const isLoggedIn = (Auth.loggedIn()) ? 1 : 0;
   const navigate = useHistory();
 
   function handleStartNoLogin() {
@@ -27,13 +27,13 @@ const Home = ({gameState, setGameState}) => {
       timer: 0,
       paused: 0,
       gameOver: 0,
-      loggedIn: 0
+      loggedIn: isLoggedIn
     }));
     toggleFullscreen();
     navigate.push("/main");
   }
 
-  if (loggedIn) {
+  if (isLoggedIn) {
     return <Redirect to="/start" />;
   }
 

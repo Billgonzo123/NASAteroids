@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
+import Auth from './utils/auth';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from './pages/Home';
 import Start from './pages/Start';
@@ -36,6 +37,7 @@ const client = new ApolloClient({
 });
 
 function App() {
+  const isLoggedIn = (Auth.loggedIn()) ? 1 : 0;
   const [gameState, setGameState] = useState({
     username: ' ',
     curLevel: 0,
@@ -47,7 +49,7 @@ function App() {
     timer: 0,
     paused: 0,
     gameOver: 0,
-    loggedIn: 0
+    loggedIn: isLoggedIn
   });
 
   return (

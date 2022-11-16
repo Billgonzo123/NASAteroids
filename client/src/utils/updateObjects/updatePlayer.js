@@ -5,7 +5,7 @@ function updatePlayer(globalPlayer, keysPressed, tpCache) {
     if (invnsTimer > 0) invnsTimer--;
 
     //if 'w' key opressed, add velocity in direction
-console.log(keysPressed)
+
     if (keysPressed.includes('w') || keysPressed.includes('arrowup')  || tpCache.current.includes('thrustBtn')) {
         pressW = true;
         if (globalPlayer.alive) playSound('engine_snd')

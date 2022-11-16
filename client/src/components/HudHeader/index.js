@@ -9,6 +9,7 @@ export default function HudHeader({gameState, setGameState}) {
 
     const user = data?.me || {};
 
+
     useEffect(() => {
         if (gameState.loggedIn) {
             setGameState((old) => ({ ...old, username: user.username}));
