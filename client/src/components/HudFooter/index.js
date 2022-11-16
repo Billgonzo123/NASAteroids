@@ -25,7 +25,6 @@ export default function HudFooter({setGameState}) {
             timer: 0,
             paused: 0,
             gameOver: 0,
-            loggedIn: 0
           }));
          window.location = "/main";
   
