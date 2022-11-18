@@ -9,7 +9,7 @@ import Logo from '../assets/img/logo.svg';
 import Auth from "../utils/auth";
 import {toggleFullscreen} from "../utils/gameUtils/toggleFullscreen"
 import { useHistory } from "react-router-dom";
-
+import GameRules from "../components/GameRules";
 const Home = ({gameState, setGameState}) => {
   const [show, setShow] = useState("Welcome");
   const isLoggedIn = (Auth.loggedIn()) ? 1 : 0;
@@ -51,7 +51,7 @@ const Home = ({gameState, setGameState}) => {
         </div>
         <Container maxWidth="sm">
           {show === "Welcome" && <Welcome show={show} setShow={setShow} />}
-       
+         
             {show === "Login" && (
               <Login
                 show={show}
@@ -64,6 +64,7 @@ const Home = ({gameState, setGameState}) => {
                 setShow={setShow}
               />
             )}
+              
        
         </Container> 
         <div maxWidth="sm" style={{display: "flex", justifyContent: "center", flexDirection:'row',alignItems:'center'}}>
@@ -72,12 +73,13 @@ const Home = ({gameState, setGameState}) => {
               className="nes-btn upperCase"
             
               onClick={handleStartNoLogin}
-              
             >
               Start
             </button>
+            <GameRules/>
           </div>
       </Container>
+     
       <Footer />
     </Box>
 )};

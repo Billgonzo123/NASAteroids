@@ -5,6 +5,16 @@
 body{
   -webkit-touch-callout: none;
 }
+#gameRulesContainer{
+  z-index: 100;
+  position: relative;
+  width: 100%;
+  top: 0px;
+  left: 0px;
+  background-color: black;
+  border: white solid 3px;
+  text-align: center;
+}
 #hud-footer {
   opacity: 40%;
   position: relative;

@@ -144,7 +144,8 @@ const GameWindow = ({ gameState, setGameState }) => {
         id="game-window"
         className="App"
         style={{ transform: `scale(${screenScale})`, left: `${borderWidth}px` }}> {/*"left" keeps the window centered based on the screen scale */}
-
+        {/* --------GameWindowBegins------- */}
+      
         {(gameState.lives === 3 && globalPlayer.invnsTimer) ? (<div id='start-display'>{(gameState.curLevel === 1) ? "!START!" : ''}</div>) : ('')}
         {(globalPlayer.invnsTimer && gameState.curLevel !== 1 && bonus.current) ? (<div id='bonus-element'>Bonus:{bonus.current}</div>) : ('')}
         {(globalPlayer.invnsTimer && gameState.curLevel !== 1 && bonus.current !== 10000 && bonus.current) ? (<div id='no-bonus-element'>No Time Bonus</div>) : ('')}

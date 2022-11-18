@@ -8,6 +8,7 @@ import Auth from "../utils/auth";
 import { playMenuSound } from "../utils/playSound";
 import Logo from "../assets/img/logo.svg";
 import { toggleFullscreen } from "../utils/gameUtils/toggleFullscreen.js";
+import GameRules from "../components/GameRules";
 
 const Start = ({ gameState, setGameState }) => {
   useEffect(() => {
@@ -31,7 +32,7 @@ const Start = ({ gameState, setGameState }) => {
   const navigate = useHistory();
 
   const handleStart = () => {
-    toggleFullscreen();
+    // toggleFullscreen();
     navigate.push("/main");
   };
   const handleLogout = () => {
@@ -81,6 +82,7 @@ const Start = ({ gameState, setGameState }) => {
             >
               Start
             </button>
+            <GameRules/>
             <button
               type="button"
               className="nes-btn upperCase"

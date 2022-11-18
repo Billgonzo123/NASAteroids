@@ -16,6 +16,8 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
+
+
 const graphqlUrl =  process.env.NODE_ENV === 'production' 
               ? '/graphql' 
               : 'http://localhost:3001/graphql'
