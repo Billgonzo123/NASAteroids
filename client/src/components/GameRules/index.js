@@ -2,12 +2,14 @@ import { useState } from "react"
 
 export default function GameRules() {
     const [rulesOpen, setRulesOpen] = useState(false);
-
+    const h = window.innerHeight;
+    const w = window.innerWidth;
+   
     const handleButton = () => {
         setRulesOpen(old => (!old));
     }
     return (rulesOpen) ? (
-        <div id="gameRulesContainer" onClick={() => handleButton()} style={{ position: 'fixed' }}>
+        <div id="gameRulesContainer" onClick={() => handleButton()} style={{ position: 'fixed', width: `${ ((w/h) > 1.8 ) ? '1920px': '200%'}` , transform: `scale(${ ((w/h) > 1.8) ?   window.innerWidth/1920 :  .5 })`}}>
             <img src={require(`../../assets/img/asteroid_large_sprt.png`)} alt='Large Asteroid' /> - 20pts
             <br />
             <br />

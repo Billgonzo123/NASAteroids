@@ -7,8 +7,10 @@ body{
 }
 #gameRulesContainer{
   z-index: 100;
-  position: relative;
-  width: 100%;
+  position: fixed;
+  transform-origin: top left;
+  width: 1920px;
+  height: 1000px;
   top: 0px;
   left: 0px;
   background-color: black;

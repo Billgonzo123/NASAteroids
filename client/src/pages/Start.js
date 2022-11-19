@@ -70,7 +70,7 @@ const Start = ({ gameState, setGameState }) => {
         <Container maxWidth="xs">
           <CardActions
             sx={{
-              justifyContent: "space-between",
+              justifyContent: "center",
               backgroundColor: "transparent",
               mt: 5,
             }}
@@ -82,7 +82,9 @@ const Start = ({ gameState, setGameState }) => {
             >
               Start
             </button>
+
             <GameRules/>
+
             <button
               type="button"
               className="nes-btn upperCase"

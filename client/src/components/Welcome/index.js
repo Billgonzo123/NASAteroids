@@ -4,13 +4,15 @@ import { CardActions } from "@mui/material";
 import { playMenuSound } from "../../utils/playSound";
 
 const Welcome = ({ show, setShow }) => {
- 
+
+  const w = window.innerWidth;
+
   return (
     <>
       <Leaderboard />
       <CardActions
         sx={{
-          justifyContent: "space-between",
+          justifyContent: `${(w<400)? "center" : "space-between"}`,
           backgroundColor: "transparent",
           mt: 5,
         }}

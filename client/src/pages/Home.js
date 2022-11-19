@@ -4,7 +4,7 @@ import Signup from "../components/Signup";
 import Login from "../components/Login";
 import Welcome from "../components/Welcome";
 import Footer from "../components/Footer";
-import { Box, Container} from "@mui/material";
+import { Box, Container, CardActions} from "@mui/material";
 import Logo from '../assets/img/logo.svg';
 import Auth from "../utils/auth";
 import {toggleFullscreen} from "../utils/gameUtils/toggleFullscreen"
@@ -67,7 +67,13 @@ const Home = ({gameState, setGameState}) => {
               
        
         </Container> 
-        <div maxWidth="sm" style={{display: "flex", justifyContent: "center", flexDirection:'row',alignItems:'center'}}>
+        <CardActions
+            sx={{
+              justifyContent: "center",
+              backgroundColor: "transparent",
+              mt: 5,
+            }}
+          >
         <button
               type="button"
               className="nes-btn upperCase"
@@ -77,7 +83,8 @@ const Home = ({gameState, setGameState}) => {
               Start
             </button>
             <GameRules/>
-          </div>
+            
+          </CardActions>
       </Container>
      
       <Footer />
