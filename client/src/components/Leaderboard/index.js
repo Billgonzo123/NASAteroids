@@ -7,7 +7,7 @@ export default function Leaderboard() {
 
 
   return (
-    <Card sx={{fontSize: '1vw',  minWidth: 350, backgroundColor: "transparent" }}>
+    <Card sx={{  margin: -1, minWidth: 250, backgroundColor: "transparent" }}>
       <CardContent >
         <Typography align="center" sx={{ mb: 2}} gutterBottom>
           Leaderboard

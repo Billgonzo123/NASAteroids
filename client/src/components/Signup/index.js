@@ -139,13 +139,13 @@ const Signup = ({ show, setShow }) => {
         </Box>
         <Card
           sx={{
-            justifyContent: 'space-between',
+            justifyContent: 'center',
             backgroundColor: 'transparent',
           }}
         >
           <CardActions
             sx={{
-              justifyContent: 'space-between',
+              justifyContent: 'center',
               backgroundColor: 'transparent',
             }}
           >

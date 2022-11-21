@@ -128,7 +128,7 @@ const Login = ({ show, setShow}) => {
         >
           <CardActions
             sx={{
-              justifyContent: "space-between",
+              justifyContent: "center",
               backgroundColor: "transparent",
             }}
           >
