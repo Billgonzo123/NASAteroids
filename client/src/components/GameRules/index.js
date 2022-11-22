@@ -1,13 +1,24 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 export default function GameRules() {
     const [rulesOpen, setRulesOpen] = useState(false);
-    const h = window.innerHeight;
-    const w = window.innerWidth;
 
-    const handleButton = () => {
+
+    const [h, hset] = useState(window.innerHeight);
+    const [w, wset] = useState(window.innerWidth);
+
+    function handleResize() {
+        hset(window.innerHeight);
+        wset(window.innerWidth);
+    };
+    function handleButton() {
         setRulesOpen(old => (!old));
-    }
+    };
+    useEffect(()=> {
+    window.addEventListener('resize', handleResize)
+    }, [ ])
+
+ 
     return (rulesOpen) ? (
 
             <div id="gameRulesContainer" onClick={() => handleButton()} style={{ position: 'fixed', width: `${((w / h) > 1.8) ? '1920px' : '200%'}`, transform: `scale(${((w / h) > 1.8) ? h / 1000 : .5})`, left: `${((w / h) > 1.8) ? (w-(h / 1000)*1920)/2 : 0}px`  }}>
