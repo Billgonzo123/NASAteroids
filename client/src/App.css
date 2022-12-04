@@ -33,7 +33,7 @@ body{
 }
 
 html {
-  background: url(./assets/space.gif) repeat center center fixed;
+background-color: black;
 }
 
 body {
@@ -137,6 +137,7 @@ align-content:center;
   z-index: 100;
 }
 #game-window {
+  clip-path: inset(0px 0px 0px 0px);
   background-image: url("./assets/space.gif");
   background-repeat: repeat;
   position: absolute;

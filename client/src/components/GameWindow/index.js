@@ -137,18 +137,15 @@ const GameWindow = ({ gameState, setGameState }) => {
 
   window.scrollTo(0, 0);
   document.body.style.overflow = 'hidden';
-  let borderWidth = (window.innerWidth - (screenScale * 1920)) / 2; //calcualtes the width of the left and right black bars
+  let borderWidth = (window.innerWidth - (screenScale * 1920)) / 2; //calcualtes the pixel width the game window should move left based on the users screen aspect ratio
   //-----------------------JSX-------------------------//
   return (
     <div id="game-container">
-      <div className="side-border" style={{ width: `${borderWidth}px` }} />
-      <div className="side-border" style={{ width: `${borderWidth}px`, left: `${borderWidth + ((screenScale * 1920))}px` }} /> {/**left black bar*/}
       <div
         id="game-window"
         className="App"
         style={{ transform: `scale(${screenScale})`, left: `${borderWidth}px` }}> {/*"left" keeps the window centered based on the screen scale */}
         {/* --------GameWindowBegins------- */}
-
         {(gameState.lives === 3 && globalPlayer.invnsTimer) ? (<div id='start-display'>{(gameState.curLevel === 1) ? "!START!" : ''}</div>) : ('')}
         {(globalPlayer.invnsTimer && gameState.curLevel !== 1 && bonus.current) ? (<div id='bonus-element'>Bonus:{bonus.current}</div>) : ('')}
         {(globalPlayer.invnsTimer && gameState.curLevel !== 1 && bonus.current !== 10000 && bonus.current) ? (<div id='no-bonus-element'>No Time Bonus</div>) : ('')}
@@ -177,8 +174,6 @@ const GameWindow = ({ gameState, setGameState }) => {
           return pos.alive ? <Asteroid key={`asteroid-id-${posId}`} pos={pos} posId={posId} /> : '';
         })}
       </div>
-
-      <div id="black-bar" style={{ top: `${screenScale * 980}px` }} />
       {/*-------TOUCH CONTROLS------*/}
       {(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) && globalPlayer.alive) ?
 
