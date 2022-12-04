@@ -47,51 +47,54 @@ const GameWindow = ({ gameState, setGameState }) => {
   const ufoSprite = (Math.random < .1) ? 'ufo - rick' : 'ufo';
   //-------------------------GAME LOOP-------------------------//
   const loop = () => {
-    setTimeout(() => {
-      //This setState stays here to trigger the useState below
-      //By grouping all the state changes in the useEffect we get better performance
-      //but we need to change a state to loop the useEffect
-      setGlobalPlayer((oldPlayer) => updatePlayer(oldPlayer, keysPressed.current, tpCache));
-      checkScreenScale(screenWidth, setScreenScale);
-      console.log(gameState.loggedIn)
-      loop();
-    }, gameSpeed);
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        //This setState stays here to trigger the useState below
+        //By grouping all the state changes in the useEffect we get better performance
+        //but we need to change a state to loop the useEffect
+
+        setGlobalPlayer((oldPlayer) => updatePlayer(oldPlayer, keysPressed.current, tpCache));
+        checkScreenScale(screenWidth, setScreenScale);
+        console.log(gameState.loggedIn)
+        loop();
+      }, gameSpeed);
+    });
   };
 
   // -----------------WHERE GAME LOGIC GOES----------------//
   useEffect(() => {
-      level.current = gameState.curLevel;
-      numOfAst.current = document.querySelectorAll('#asteroid-object').length;
-      //update object states--
-      setAsteroids((oldPositions) => updateAsteroids(oldPositions, level.current));
-      if (bullets) setBullets((oldPositions) => (updateBullet(oldPositions)));
-      if (isUfo.current) setUfo(old => (updateUfo(old, globalPlayer)));
-      //   //UFO Checks--
+    level.current = gameState.curLevel;
+    numOfAst.current = document.querySelectorAll('#asteroid-object').length;
+    //update object states--
+    setAsteroids((oldPositions) => updateAsteroids(oldPositions, level.current));
+    if (bullets) setBullets((oldPositions) => (updateBullet(oldPositions)));
+    if (isUfo.current) setUfo(old => (updateUfo(old, globalPlayer)));
+    //   //UFO Checks--
 
-      if (ufo.x > 1920) isUfo.current = 0;
-      //Make bullets--
-      if (globalPlayer.alive && spaceDown.current === 1 && bullets.length <= 5) {
-        spaceDown.current = 2;
-        playSoundCancel('bullet_snd');
-        setBullets((old) => ([...old, generateBullet(globalPlayer)]));
-        setTimeout(() => (spaceDown.current === 2) ? spaceDown.current = 1 : false, 200)
-      }
+    if (ufo.x > 1920) isUfo.current = 0;
+    //Make bullets--
+    if (globalPlayer.alive && spaceDown.current === 1 && bullets.length <= 5) {
+      spaceDown.current = 2;
+      playSoundCancel('bullet_snd');
+      setBullets((old) => ([...old, generateBullet(globalPlayer)]));
+      setTimeout(() => (spaceDown.current === 2) ? spaceDown.current = 1 : false, 200)
+    }
 
-      //New Level--
-      if (numOfAst.current <= 0) {
-        (gameState.timer <= 30) ? bonus.current = 10000 : bonus.current = 1000;
-        if (gameState.curLevel === 0) bonus.current = 0;
-        setGlobalPlayer(old => ({ ...old, invnsTimer: 120 }));
-        setGameState(old => ({ ...old, curLevel: old.curLevel + 1, timer: 0, score: (old.score + bonus.current) }))
-        setAsteroids(asteroidGeneration(asteroids, globalPlayer, 2, gameState.curLevel + 1, 0, 0, 1));
-        setTimeout(() => bonus.current = 0, 3000);
-      }
-      //collision checks--
-      checkBulletCollision(bullets, setBullets, setAsteroids, asteroids, globalPlayer, setGameState, ufo, setUfo);
-      checkShipCollision(globalPlayer, setGlobalPlayer, setGameState, asteroids, ufo);
-      //DONT PUT ANYMORE INTO DEPENDENCY!! globalPlayer constantly updates!
-    
-      //eslint-disable-next-line react-hooks/exhaustive-deps
+    //New Level--
+    if (numOfAst.current <= 0) {
+      (gameState.timer <= 30) ? bonus.current = 10000 : bonus.current = 1000;
+      if (gameState.curLevel === 0) bonus.current = 0;
+      setGlobalPlayer(old => ({ ...old, invnsTimer: 120 }));
+      setGameState(old => ({ ...old, curLevel: old.curLevel + 1, timer: 0, score: (old.score + bonus.current) }))
+      setAsteroids(asteroidGeneration(asteroids, globalPlayer, 2, gameState.curLevel + 1, 0, 0, 1));
+      setTimeout(() => bonus.current = 0, 3000);
+    }
+    //collision checks--
+    checkBulletCollision(bullets, setBullets, setAsteroids, asteroids, globalPlayer, setGameState, ufo, setUfo);
+    checkShipCollision(globalPlayer, setGlobalPlayer, setGameState, asteroids, ufo);
+    //DONT PUT ANYMORE INTO DEPENDENCY!! globalPlayer constantly updates!
+
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [globalPlayer]);
 
   //-------------------------Key Input----------------------//
@@ -120,7 +123,7 @@ const GameWindow = ({ gameState, setGameState }) => {
     }, 1000);
     document.addEventListener("keyup", logKeyUp);
     document.addEventListener("keydown", logKeyDown);
-    
+
     loop();//Start game loop
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -145,7 +148,7 @@ const GameWindow = ({ gameState, setGameState }) => {
         className="App"
         style={{ transform: `scale(${screenScale})`, left: `${borderWidth}px` }}> {/*"left" keeps the window centered based on the screen scale */}
         {/* --------GameWindowBegins------- */}
-      
+
         {(gameState.lives === 3 && globalPlayer.invnsTimer) ? (<div id='start-display'>{(gameState.curLevel === 1) ? "!START!" : ''}</div>) : ('')}
         {(globalPlayer.invnsTimer && gameState.curLevel !== 1 && bonus.current) ? (<div id='bonus-element'>Bonus:{bonus.current}</div>) : ('')}
         {(globalPlayer.invnsTimer && gameState.curLevel !== 1 && bonus.current !== 10000 && bonus.current) ? (<div id='no-bonus-element'>No Time Bonus</div>) : ('')}
