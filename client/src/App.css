@@ -110,7 +110,7 @@ body {
     position: relative;
       background-image: url(./img/b-button.png);
       top: 5%;
-      left: 8%;
+      left: 1vw;
   }
 #quitLogoutMobile{
   scale: 1;
