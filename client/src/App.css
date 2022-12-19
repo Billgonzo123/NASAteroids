@@ -92,6 +92,7 @@ body {
 
   #actionButtons{
     position: relative;
+    min-width: 50px;
    width: 40vw;
    height: 40vh;
    bottom: 20vh;
